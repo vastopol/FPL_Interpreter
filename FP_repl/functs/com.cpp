@@ -120,7 +120,7 @@ void def(std::string s) // definition function
         
         val = val.substr(1, (val.size() - 1)); // gone {
         val = val.substr(0, (val.size() - 1)); // gone }
-        if(val.empty()){std::cout << "ERROR6: Def of Empty seq.\nPush null list later" << std::endl; return;}
+        if(val.empty()){std::cout << "ERROR6: Def of Empty seq.\nfigure out: Push null list later" << std::endl; return;}
         
         std::list<std::string> ls;
         char* copy = (char*)(val.c_str());        // copy to give strtok for parse
@@ -138,6 +138,8 @@ void def(std::string s) // definition function
             }
         } 
         
+        // hash here #1
+        
         // parse check, print list
         for(std::list<std::string>::iterator it = ls.begin(); it != ls.end(); it++)
         {
@@ -152,6 +154,7 @@ void def(std::string s) // definition function
         std::cout << var << std::endl;        
         std::cout << val << std::endl;
         
+        // hash here #2
     }
     //******************************************************************************
     
@@ -167,11 +170,12 @@ void rem(std::string s) // access hashes and remove var if found
     }
     
     std::cout << s << std::endl;
+    std::cout << "FIXME: rem" << std::endl;
 }
 //------------------------------------------------------------------------------------------
 
 void print() // print element hash, print list hash
 {
-    std::cout << "print function" << std::endl;
+    std::cout << "FIXME: print function" << std::endl;
 }
 //------------------------------------------------------------------------------------------

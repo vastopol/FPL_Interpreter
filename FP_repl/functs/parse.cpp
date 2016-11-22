@@ -6,16 +6,16 @@ bool parse(std::string str) // evaluation engine
     //PRELIMINARY CHECKS
     if(str.empty()) 
     {
-      cout << "ERROR: empty string" << endl; 
+      std::cout << "ERROR: empty std::string" << std::endl; 
       return false;
     }
     else if(!isBalanced(str))
     {
-      cout << "ERROR: incorrect grammar : \"(), [], {}\"" << endl; 
+      std::cout << "ERROR: incorrect grammar : \"(), [], {}\"" << std::endl; 
       return false;
     }
     
-    std::string s = str; // string to modify so original is intact
+    std::string s = str; // std::string to modify so original is intact
     
     while(s.at(s.size()-1) == ' ') // remove any trailing spaces
     {
@@ -23,7 +23,7 @@ bool parse(std::string str) // evaluation engine
     }
     
 
-    cout << "Parse is unfinished" << endl;
+    std::cout << "Parse is unfinished" << std::endl;
     // parse on s
     
     
@@ -33,11 +33,11 @@ return false;
 //-------------------------------------------------------------------------------------------
 
 
-bool isBalanced(string s) // check for ballanced number of separators (, {, [
+bool isBalanced(std::string s) // check for ballanced number of separators (, {, [
 {
-    stack<char> ppp;
+    std::stack<char> ppp;
     
-    for(string::iterator it = s.begin(); it != s.end(); it++)
+    for(std::string::iterator it = s.begin(); it != s.end(); it++)
     {
         if(*it == '(' || *it == '[' || *it == '{')
         {

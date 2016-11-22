@@ -7,14 +7,14 @@
 #include <list>
 #include <vector>
 
-using namespace std;
-
 int main(){
 
 std::string input;           // initial str to convert to int
 std::string::size_type sz;   // alias of size_t
 
 do{
+    
+    
     
     std::cout << ">>> ";
     std::getline(std::cin, input);

@@ -1,16 +1,6 @@
 #ifndef __COM__
 #define __COM__
 
-// #include <algorithm>
-// #include <utility>
-// #include <cmath>
-// #include <ctime>
-// #include <climits>
-// #include <iomanip>
-// #include <fstream>
-// #include <sstream>
-// #include <vector>
-
 #include <cstdlib>
 #include <cstring>
 #include <iostream>

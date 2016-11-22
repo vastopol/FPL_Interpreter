@@ -5,7 +5,6 @@
 #include <string>
 #include <cstring>
 
-using namespace std;
 
 int main()
 {
@@ -18,7 +17,7 @@ do
 {
     // get user input
     std::cout << ">>> ";
-    getline(cin, input);     
+    getline(std::cin, input);     
     if(input.empty()){continue;}
     
     // if starts with "%"  parse && generate expression tree
