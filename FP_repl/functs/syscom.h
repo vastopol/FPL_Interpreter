@@ -1,5 +1,5 @@
-#ifndef __COM__
-#define __COM__
+#ifndef __SYSCOM_H__
+#define __SYSCOM_H__
 
 #include <cstdlib>
 #include <cstring>
@@ -23,4 +23,4 @@ void rem(std::string s); // access hashes and remove var if found
 
 void print(); // print element hash, print list hash
 
-#endif // __COM__
+#endif // __SYSCOM_H__

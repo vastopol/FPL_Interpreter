@@ -1,5 +1,5 @@
-#ifndef __PARSE__
-#define __PARSE__
+#ifndef __INTERPRETER_H__
+#define __INTERPRETER_H__
 
 #include <iostream>
 #include <string>
@@ -12,5 +12,5 @@ bool parse(std::string s);       // parse engine
 bool isBalanced(std::string s); // refers to brackets, braces, parentheses...
 
 
-#endif // __PARSE__
+#endif // __INTERPRETER_H__
 

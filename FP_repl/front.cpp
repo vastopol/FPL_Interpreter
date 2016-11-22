@@ -1,5 +1,5 @@
-#include "functs/parse.h"
-#include "functs/com.h"
+#include "functs/interpreter.h"
+#include "functs/syscom.h"
 
 #include <iostream>
 #include <string>

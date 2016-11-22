@@ -2,7 +2,7 @@
 COMP = g++
 FLAGS = -Wall -Werror -ansi -pedantic
 DEBUG = -g
-FILES = functs/com.cpp functs/parse.cpp
+FILES = functs/syscom.cpp functs/interpreter.cpp
 
 # Targets
 front: 

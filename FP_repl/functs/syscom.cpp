@@ -1,4 +1,4 @@
-#include "com.h"
+#include "syscom.h"
 
 void com(std::string s)
 {
@@ -118,13 +118,15 @@ void def(std::string s) // definition function
     {
         std::cout << "Sequence: " << std::endl;
         
+        std::list<std::string> ls;
+        
         val = val.substr(1, (val.size() - 1)); // gone {
         val = val.substr(0, (val.size() - 1)); // gone }
         if(val.empty()){std::cout << "ERROR6: Def of Empty seq.\nfigure out: Push null list later" << std::endl; return;}
         
-        std::list<std::string> ls;
-        char* copy = (char*)(val.c_str());        // copy to give strtok for parse
-        char* arr = 0;         // temp array
+        
+        char* copy = (char*)(val.c_str());      // copy to give strtok for parse
+        char* arr = 0;                          // temp array
         
         // extract && store the elements of the sequence        
         arr = strtok(copy, ",");
