@@ -68,11 +68,12 @@ syntax: ls
 //---------------------------------------------
 
 at the begining of the program a memory block object is created.
-the memory block will contain 2 hashes one for elements, one for sequences
+the memory block will contain 2 maps one for elements, one for sequences
 memory block has operations
 * add_element(x);
 * add_sequence(x);
-* remove(x);
+* remove_element(x);
+* remove_sequence(x);
 * print_elements()
 * print_sequences()
 
