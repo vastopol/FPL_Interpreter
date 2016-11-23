@@ -1,7 +1,9 @@
-/*
+FP_REPL Interaction Guide
+The "comprehensive" guide to FP_REPL syntax.
 
-SYNTAX
-------
+LANGUAGE SYNTAX
+///*****************************************
+
 ~  = undefined
 
 () = used for separation
@@ -36,10 +38,10 @@ condition
              =  g:x   if   h:x  =  F
              =  ~    otherwise
 
-*/
+///*****************************************
 
 
-SYSTEM CALLS
+SYSTEM CALLS (for memory management)
 ///******************************************
 
 def == the definition function
@@ -55,33 +57,17 @@ OR
 where sequence
    name = {atom,...,atom}   
    s = {1,2,3}
+   
 //----------------------------------------
 
 rm  == delete variable from memory
 
 syntax: rm var
+
 //----------------------------------------
 
 ls == prints contents of memory stored variables
 
 syntax: ls
-//---------------------------------------------
-
-at the begining of the program a memory block object is created.
-the memory block will contain 2 maps one for elements, one for sequences
-memory block has operations
-* add_element(x);
-* add_sequence(x);
-* remove_element(x);
-* remove_sequence(x);
-* print_elements()
-* print_sequences()
-
-system calls will interact with the memory block, through its operations.
-
-when evaluation is to happen,
-    during construction of the FP Statement, a reference to the memory block will be passed with the input string.
-    after/during/while parsing  when there is a tokenized command vector/array
-    substitute unknown words with values from the memory reference
 
 ///*********************************************

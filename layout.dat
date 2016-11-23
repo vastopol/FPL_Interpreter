@@ -1,3 +1,9 @@
+SYSCOM:
+"syscom.h" is a set of functions which are responsible for the basic user interactions with the memory and system.
+The simple routines are handled by the function "com" which, if a string does not match one of the arguments,
+it passes control to another function, "exec" which handles memory management and input errors. "exec" handles adding to, removing from,
+and printing the contents of the Memory object.
+
 Pattern (compositional object) which will contain:
 * std::string (user input)
 * Memory object pointer (variable container)
