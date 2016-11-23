@@ -4,7 +4,7 @@
 COMP = g++
 FLAGS = -Wall -Werror -ansi -pedantic
 DEBUG = -g
-OFILES = source/syscom.o source/interpreter.o source/mem.o
+OFILES = source/syscom.o source/interpreter.o source/memory.o
 
 # Targets
 main: main.cpp $(OFILES) | bin
@@ -13,8 +13,8 @@ main: main.cpp $(OFILES) | bin
 debug:
 	$(COMP) $(FLAGS) $(DEBUG) $(OFILES) main.cpp -o fplr && mv fplr bin/
 
-mem.o: source/mem.cpp header/mem.h
-	$(COMP) $(FLAGS) -c source/mem.cpp
+memory.o: source/memory.cpp header/memory.h
+	$(COMP) $(FLAGS) -c source/memory.cpp
 	
 syscom.o: source/syscom.cpp header/syscom.h
 	$(COMP) $(FLAGS) -c source/syscom.cpp
@@ -27,5 +27,3 @@ bin:
 	
 clean:
 	rm -rf bin && rm source/*.o
-	
-# terrible lazy makefile... for now

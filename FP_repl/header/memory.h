@@ -5,6 +5,7 @@
 #include <string>
 #include <list>
 #include <map>
+#include <iterator>
 
 class Memory
 {
@@ -14,18 +15,15 @@ class Memory
         std::map<std::string, std::list<int> > sequences;
     
     public:        
-        // functions
         Memory(){};
         ~Memory(){};
         
-        // public interface memory operations
-        void add_element(int);
-        void add_sequence(std::list<int>);
-        void print_elements();
-        void print_sequences();
+        void add_element(std::string, int);
+        void add_sequence(std::string, std::list<int>);
         void remove_element(std::string);
         void remove_sequence(std::string);
-            
+        void print_elements();
+        void print_sequences();  
 };
 
 #endif // __MEM_H__

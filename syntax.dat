@@ -58,6 +58,7 @@ where sequence
    name = {atom,...,atom}   
    s = {1,2,3}
    
+   NO SPACES BETWEEN COMMAS
 //----------------------------------------
 
 rm  == delete variable from memory
