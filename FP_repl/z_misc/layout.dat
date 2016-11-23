@@ -4,6 +4,19 @@ The simple routines are handled by the function "com" which, if a string does no
 it passes control to another function, "exec" which handles memory management and input errors. "exec" handles adding to, removing from,
 and printing the contents of the Memory object.
 
+Syscom call:
+def -> add
+rm -> remove
+ls -> print
+
+Memory operations:
+add_element(x);
+add_sequence(x);
+remove_element(x);
+remove_sequence(x);
+print_elements()
+print_sequences()
+
 Pattern (compositional object) which will contain:
 * std::string (user input)
 * Memory object pointer (variable container)

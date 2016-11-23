@@ -1,4 +1,4 @@
-#include "interpreter.h"
+#include "../header/interpreter.h"
 
 
 bool parse(std::string str) // evaluation engine

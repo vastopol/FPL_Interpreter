@@ -1,4 +1,4 @@
-#include "syscom.h"
+#include "../header/syscom.h"
 
 void com(std::string s)
 {

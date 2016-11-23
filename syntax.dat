@@ -71,3 +71,18 @@ ls == prints contents of memory stored variables
 syntax: ls
 
 ///*********************************************
+
+
+EVALUATION
+///*********************************************
+
+Evaluation is invoked with the special symbol '#'
+When the '#' is the first character in the input string,
+evaluation is called on the sequence of characters immediately after.
+eg.
+>>> #F:x
+evaluate("F:x").
+evaluate(apply function f to variable x).
+return result.
+
+///*********************************************

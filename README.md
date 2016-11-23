@@ -1,5 +1,5 @@
 # FP_Interpreter
-
+Programming for an Integer based sequence manipulation language.
 ### For more information see:
 * https://en.wikipedia.org/wiki/FP_(programming_language)
 * http://www.math.bas.bg/bantchev/place/fp.html
@@ -19,7 +19,7 @@ recursive programming techinques, interpretation and compilation of code, etc...
 ### Syntax (primer)
 FP language based:
 Some of the syntax has been changed, other features have been modified also for ease of use. 
-For comprehensive docomentation of the syntax see syntax.dat.
+For comprehensive docomentation of the syntax see "syntax.dat".
 This will show some of the more important basics of FP_REPL interaction. 
 such as...
 (insert list here later)
