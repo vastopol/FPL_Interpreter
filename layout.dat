@@ -1,0 +1,9 @@
+Pattern (compositional object) which will contain:
+* std::string (user input)
+* Memory object pointer (variable container)
+* Node object pointer (root of abstract syntax tree)
+* Interpreter object pointer (parsing)
+* Action object pointer (executing)
+
+On construction Pattern is initialized with an input string and a reference to the Memory object.
+The Node pointer will initially be NULL. 
