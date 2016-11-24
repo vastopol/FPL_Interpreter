@@ -7,6 +7,7 @@
     std::map<std::string, std::list<int> > sequences;
 */
 
+//----------------------------------------------------------
 
 // MEMORY MANAGEMENT OPERATIONS
 
@@ -30,11 +31,21 @@ void Memory::add_sequence(std::string s, std::list<int> l)
 
 void Memory::remove_element(std::string s)
 {
+    std::map<std::string, int>::iterator it = elements.find(s);
+    if (it != elements.end())
+    {
+        elements.erase(it);
+    }
 }
 //---------------------------------------------------------
 
 void Memory::remove_sequence(std::string s)
 {
+    std::map<std::string, std::list<int> >::iterator it = sequences.find(s);
+    if (it != sequences.end())
+    {
+        sequences.erase(it);
+    }
 }
 //---------------------------------------------------------
 
@@ -54,9 +65,12 @@ void Memory::print_sequences()
     for(std::map<std::string, std::list<int> >::iterator it = this->sequences.begin(); it != this->sequences.end(); it++)
     {
         std::list<int>::iterator jt = it->second.begin();
+        
+        if(jt == it->second.end()) // empty list
+        {std::cout << it->first << " = {}\n"; continue;}
+        
         std::cout << it->first << " = {";
-        // print list elements up to last
-        for(; jt != --it->second.end(); jt++ ) 
+        for(; jt != --it->second.end(); jt++ ) // print list elements before last
         {
             std::cout << *jt << ",";
         }

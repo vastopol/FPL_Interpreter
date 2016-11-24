@@ -87,3 +87,13 @@ evaluate(apply function f to variable x).
 return result.
 
 ///*********************************************
+
+
+STYLE GUIDELINES
+///*******************************
+- Functions are written in Uppercase 
+
+- Variable names should only contain Lowercase letters
+- Each variable should be given a unique name
+- Try to avoid having multiple variables defined as same value
+
