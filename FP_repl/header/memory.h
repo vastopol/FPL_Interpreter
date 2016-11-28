@@ -19,14 +19,22 @@ class Memory
         Memory(){};
         ~Memory();
         
+        // ADD
         void add_element(std::string, int);
         void add_sequence(std::string, std::list<int>);
         void add_macro(std::string, std::string);
         
+        // REMOVE
         void remove_element(std::string);
         void remove_sequence(std::string);
         void remove_macro(std::string);
         
+        // ACCESS
+        std::map<std::string, int> get_elements();
+        std::map<std::string, std::list<int> > get_sequences();
+        std::map<std::string, std::string> get_macros();
+        
+        // PRINT
         void print_elements();
         void print_sequences(); 
         void print_macros();

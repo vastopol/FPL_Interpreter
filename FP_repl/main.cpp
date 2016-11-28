@@ -12,7 +12,7 @@ std::cout << "FP Engine" << std::endl;
 std::cout << "Enter a command OR an expression/equation to evaluate" << std::endl;
 
 std::string input;
-Memory* variables = new Memory(); // pointer to memory block for variable storage
+Memory* variables = new Memory();   // pointer to memory block for variable storage
 Interpreter* I = new Interpreter(); // absorb I into Pattern object
 
 do

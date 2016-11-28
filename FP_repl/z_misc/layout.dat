@@ -10,7 +10,7 @@ mac -> add macro
 rm -> remove
 ls -> print
 
-Memory operations:
+Memory operations used by syscoms:
 add_element(x);
 add_sequence(x);
 add_macro(x);
@@ -21,12 +21,53 @@ print_elements()
 print_sequences()
 print_macros();
 
-Pattern (compositional object) which will contain:
-* std::string (user input)
-* Memory object pointer (variable container)
-* Node object pointer (root of abstract syntax tree)
-* Interpreter object pointer (parsing)
-* Action object pointer (executing)
+//-----------------------------------------------------------------
+
+CLASSES
+- Pattern == compositional object
+- Memory == data structure -> hold user defined variables/macros
+- Node == data structure -> form of the syntax tree
+- Interpreter == strategy pattern -> parsing
+- Action == strategy pattern -> execution
 
 On construction Pattern is initialized with an input string and a reference to the Memory object.
 The Node pointer will initially be NULL. 
+
+Pattern
+{
+    string input;   // user input
+    Memory* mem;    // variable container
+    Node* root;     // root of abstract syntax tree
+    Interpreter* I; // for parsing
+    Action* A;      // for executing
+    
+    // constructor, set, get, etc...
+}
+
+Memory
+{
+    map<string, int> elements;
+    map<string, list<int> > sequences;
+    map<string, string> macros;
+    
+    // constructor, set, get, print, etc...
+}
+
+Node
+{
+    Node *parent, *left, *right;
+    
+    // constructor, set, get, etc...
+}
+
+
+Interpreter
+{
+    Node* parse(std::string);
+}
+
+
+Action
+{
+    eval(Node*); // 
+}
