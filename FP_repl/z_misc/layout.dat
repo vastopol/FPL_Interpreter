@@ -64,10 +64,14 @@ Node
 Interpreter
 {
     Node* parse(std::string);
+    
+    // helper functions
 }
 
 
 Action
 {
-    eval(Node*); // 
+    eval(Node*);
+
+    // helper functions
 }
