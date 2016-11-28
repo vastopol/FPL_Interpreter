@@ -5,12 +5,20 @@ Programming for an Integer based sequence manipulation language.
 * http://www.math.bas.bg/bantchev/place/fp.html
 
 ### Installation
-(insert instructions here later)
+```
+$ git clone https://github.com/vastopol/FP_Interpreter.git
+
+$ cd FP_repl
+
+$ make
+
+$ bin/fplr
+```
 
 ### Development Goals:
-* Simple REPL
-* Interpreter 
-* Compiler
+* Simple REPL `->` `fplr`
+* Interpreter `->` `fpli` 
+* Compiler `->` `fplc`
 
 These goals explore:
 the deveolpment and design of software, the abstract syntax and paridigms of programming langauges, manipulation of data structures, 
