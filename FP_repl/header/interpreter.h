@@ -9,7 +9,7 @@
 
 #include "memory.h"
 
-bool parse(std::string s, Memory& m);       // parse engine
+bool parse(std::string s, Memory* m);       // parse engine
 
 bool isBalanced(std::string s); // refers to brackets, braces, parentheses...
 

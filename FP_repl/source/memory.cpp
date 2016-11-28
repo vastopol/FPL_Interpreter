@@ -9,6 +9,13 @@
 
 //----------------------------------------------------------
 
+Memory::~Memory()
+{
+    std::cout << "MEMORY DESTRUCTOR" << std::endl;
+}
+//---------------------------------------------------------
+
+
 // MEMORY MANAGEMENT OPERATIONS
 
 void Memory::add_element(std::string s, int i)

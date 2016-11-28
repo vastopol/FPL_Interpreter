@@ -1,7 +1,7 @@
 #include "../header/interpreter.h"
 
 
-bool parse(std::string str, Memory& m) // evaluation engine
+bool parse(std::string str, Memory* m) // evaluation engine
 {
     //PRELIMINARY CHECKS
     if(str.empty()) 

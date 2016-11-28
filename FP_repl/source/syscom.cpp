@@ -1,7 +1,7 @@
 #include "../header/syscom.h"
 #include "../header/memory.h"
 
-void com(std::string str, Memory& m)
+void com(std::string str, Memory* m)
 {
     if(str == "exit")
     {
@@ -62,7 +62,7 @@ void com(std::string str, Memory& m)
 //-------------------------------------------------------------------------------------------
 
 
-void def(std::string s, Memory& m) // definition function
+void def(std::string s, Memory* m) // definition function
 {
     // string s comes in as "name = value" format
     // split out " = ", the equals and padding spaces
@@ -94,7 +94,7 @@ void def(std::string s, Memory& m) // definition function
         val = val.substr(0, (val.size() - 1)); // gone }
         
         // empty list push
-        if(val.empty()){m.add_sequence(var, lst); return;}
+        if(val.empty()){m -> add_sequence(var, lst); return;}
         
         char* copy = (char*)(val.c_str());      // copy to give strtok for parse
         char* arr = 0;                          // temp array
@@ -111,36 +111,36 @@ void def(std::string s, Memory& m) // definition function
             }
         } 
         
-        m.add_sequence( var, lst ); 
+        m -> add_sequence( var, lst ); 
     }
     else // element
     {
-        m.add_element( var, atoi(val.c_str()) );        
+        m -> add_element( var, atoi(val.c_str()) );        
     }
     //******************************************************************************
     
 }
 //-----------------------------------------------------------------------------------------
 
-void rem(std::string s, Memory& m) // access hashes and remove var if found
+void rem(std::string s, Memory* m) // access hashes and remove var if found
 {
     if(s.empty())
     {
         std::cout << "ERROR: empty var name" << std::endl;
         return;
     }
-    m.remove_element(s);
-    m.remove_sequence(s);
+    m -> remove_element(s);
+    m -> remove_sequence(s);
 }
 //------------------------------------------------------------------------------------------
 
-void print(Memory& m) // print element hash, print list hash
+void print(Memory* m) // print element hash, print list hash
 {
     std::cout << "Currently Defined Variables" << std::endl;
     std::cout << "Elements:" << std::endl;
-    m.print_elements();
+    m -> print_elements();
     std::cout << "Sequences:" << std::endl;    
-    m.print_sequences();
+    m -> print_sequences();
 }
 //------------------------------------------------------------------------------------------
 

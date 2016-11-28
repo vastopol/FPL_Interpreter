@@ -16,7 +16,7 @@ class Memory
     
     public:        
         Memory(){};
-        ~Memory(){};
+        ~Memory();
         
         void add_element(std::string, int);
         void add_sequence(std::string, std::list<int>);
