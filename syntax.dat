@@ -44,7 +44,7 @@ condition
 SYSTEM CALLS (for memory management)
 ///******************************************
 
-def == the definition function
+* def == the definition function
 
 syntax: def name = value
 
@@ -61,13 +61,21 @@ where sequence
    NO SPACES BETWEEN COMMAS
 //----------------------------------------
 
-rm  == delete variable from memory
+* mac == macro creation function
+
+syntax: mac name = value
+
+on interpretation macros are substituted in
+
+//----------------------------------------
+
+* rm  == delete variable from memory
 
 syntax: rm var
 
 //----------------------------------------
 
-ls == prints contents of memory stored variables
+* ls == prints contents of memory stored variables
 
 syntax: ls
 
@@ -92,8 +100,21 @@ return result.
 STYLE GUIDELINES
 ///*******************************
 - Functions are written in Uppercase 
+- Macros are written in Uppercase
 
 - Variable names should only contain Lowercase letters
 - Each variable should be given a unique name
 - Try to avoid having multiple variables defined as same value
 
+
+because function definition is not implemented, use macros LIKE how composition works
+
+ex.  
+>>> mac G = ROTL.CAT
+>>> def x = {1,2,3}
+>>> def y = {5,6,7}
+
+then use:
+>>> #G:(x,y)
+
+<<< {2,3,5,6,7,1}
