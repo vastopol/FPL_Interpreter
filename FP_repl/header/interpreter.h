@@ -9,10 +9,18 @@
 
 #include "memory.h"
 
-bool parse(std::string s, Memory* m);       // parse engine
+class Interpreter
+{
+    private:
+        // Helper functions
+        bool isBalanced(std::string s); // refers to brackets, braces, parentheses...
 
-bool isBalanced(std::string s); // refers to brackets, braces, parentheses...
-
+    public:
+        Interpreter(){};
+        ~Interpreter();
+        
+        bool parse(std::string s, Memory* m);       // parse engine    
+};
 
 #endif // __INTERPRETER_H__
 

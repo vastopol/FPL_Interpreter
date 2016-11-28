@@ -5,17 +5,21 @@ it passes control to another function, "exec" which handles memory management an
 and printing the contents of the Memory object.
 
 Syscom call:
-def -> add
+def -> add variable (element/sequence)
+mac -> add macro
 rm -> remove
 ls -> print
 
 Memory operations:
 add_element(x);
 add_sequence(x);
+add_macro(x);
 remove_element(x);
 remove_sequence(x);
+remove_macro(x);
 print_elements()
 print_sequences()
+print_macros();
 
 Pattern (compositional object) which will contain:
 * std::string (user input)

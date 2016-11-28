@@ -1,7 +1,11 @@
 #include "../header/interpreter.h"
 
 
-bool parse(std::string str, Memory* m) // evaluation engine
+Interpreter::~Interpreter()
+{}
+//------------------------------------------------
+
+bool Interpreter::parse(std::string str, Memory* m) // evaluation engine
 {
     //PRELIMINARY CHECKS
     if(str.empty()) 
@@ -33,7 +37,7 @@ return false;
 //-------------------------------------------------------------------------------------------
 
 
-bool isBalanced(std::string s) // check for ballanced number of separators (, {, [
+bool Interpreter::isBalanced(std::string s) // check for ballanced number of separators (, {, [
 {
     std::stack<char> ppp;
     
