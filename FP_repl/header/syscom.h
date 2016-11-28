@@ -14,11 +14,11 @@
 
     void com(std::string str, Memory* m); // simple builtins handler
     
-    void def(std::string s, Memory* m); // definition, hashing name to value
+    void def(std::string s, Memory* m); // variable definition, hashing name to value
     
-    void mac(std::string s, Memory* m); // macro, hashing name to value
+    void mac(std::string s, Memory* m); // create macro, hashing name to value
     
-    void rem(std::string s, Memory* m); // access hashes and remove var if found
+    void rem(std::string s, Memory* m); // remove var if found
     
     void print(Memory* m); // print element hash, print list hash
     

@@ -22,7 +22,7 @@ do
     getline(std::cin, input);     
     if(input.empty()){continue;}
     
-    // if starts with "#"  parse && generate expression tree
+    // if starts with "#" parse && generate expression tree
     // then call to evaluate on root of tree
     if(input.substr(0, 1) == "#") 
     {
@@ -33,7 +33,7 @@ do
     }   
     else 
     {
-        com(input, variables); // call COM() for syscommands / memory interaction
+        com(input, variables); // call COM() for syscommands && memory interaction
     }
 }
 while(1);
