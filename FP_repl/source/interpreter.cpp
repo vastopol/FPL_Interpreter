@@ -5,34 +5,35 @@ Interpreter::~Interpreter()
 {}
 //------------------------------------------------
 
-bool Interpreter::parse(std::string str, Memory* m) // evaluation engine
+Node* Interpreter::parse(std::string str, Memory* m) // evaluation engine
 {
     //PRELIMINARY CHECKS
     if(str.empty()) 
     {
       std::cout << "ERROR: empty std::string" << std::endl; 
-      return false;
+      return 0;
     }
     else if(!isBalanced(str))
     {
       std::cout << "ERROR: incorrect grammar : \"(), [], {}\"" << std::endl; 
-      return false;
+      return 0;
     }
     
     std::string s = str; // std::string to modify so original is intact
     
-    while(s.at(s.size()-1) == ' ') // remove any trailing spaces
-    {
-        s = s.substr(0, (s.size()-1));
-    }
+    // while(s.at(s.size()-1) == ' ') // remove any trailing spaces
+    // {
+    //     s = s.substr(0, (s.size()-1));
+    // }
     
 
     std::cout << "Parse is unfinished" << std::endl;
     // parse on s
+    std::cout << s << std::endl;
     
     // substitute variables from M
-    
-return false;  
+
+return 0;  
 }
 //-------------------------------------------------------------------------------------------
 

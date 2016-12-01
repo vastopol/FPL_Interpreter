@@ -1,10 +1,11 @@
-#include "header/interpreter.h"
+#include "header/pattern.h"
 #include "header/syscom.h"
 #include "header/memory.h"
 
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <stdexcept>
 
 int main()
 {
@@ -13,7 +14,6 @@ std::cout << "Enter a command OR an expression/equation to evaluate" << std::end
 
 std::string input;
 Memory* variables = new Memory();   // pointer to memory block for variable storage
-Interpreter* I = new Interpreter(); // absorb I into Pattern object
 
 do
 {
@@ -24,12 +24,31 @@ do
     
     // if starts with "#" parse && generate expression tree
     // then call to evaluate on root of tree
-    if(input.substr(0, 1) == "#") 
+    if(input.at(0) == '#') 
     {
-        size_t pos = 1;             // real input is past signal
-        input = input.substr(pos);  // input now cut out "%"
-        I -> parse(input, variables);    // call parse()
-        // eval...?
+        Pattern* P = new Pattern( input.substr(1, input.size()-1) );  // construct pattern with, input now cut out "#"
+        
+        // PARSE
+        try
+        {
+            P -> setRoot( P -> getI() -> parse(input, variables) );
+        }
+        catch(std::exception &e)
+        {
+            std::cout << "ERROR: Parse" << std::endl;
+            std::cout << e.what() << std::endl;
+        }
+        
+        // EXECUTE
+        try
+        {
+            P -> getA() -> exec( P -> getRoot() );
+        }
+        catch(std::exception &e)
+        {
+            std::cout << "ERROR: Execute" << std::endl;
+            std::cout << e.what() << std::endl;
+        }
     }   
     else 
     {

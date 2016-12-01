@@ -1,0 +1,31 @@
+to read / load a file
+//--------------------------------------
+
+have file structrued in procedural order.
+each statement should end with a terminating symbol. probably ';'
+
+1
+read in each line, construct a string and put to list.
+
+std::list<std::string> argv;
+while(!EOF)
+{
+    std::string temp;
+    // fill with chars up to ';' and then discard semicolon
+    argv.push_back(temp);
+}
+
+2
+have a list of strings representing commands to execute in sequential order, "argv"
+
+then,
+
+std::stack<std::string> stk; // stack commands in history order
+while(!argv.empty())
+{
+    stk.push(argv.front()); // save command
+    argv.pop_front();       // pop off command form the front
+
+    // do
+    
+}

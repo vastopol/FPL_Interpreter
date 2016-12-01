@@ -8,6 +8,7 @@
 #include <iterator>
 
 #include "memory.h"
+#include "node.h"
 
 class Interpreter
 {
@@ -19,7 +20,7 @@ class Interpreter
         Interpreter(){};
         ~Interpreter();
         
-        bool parse(std::string s, Memory* m);       // parse engine    
+        Node* parse(std::string s, Memory* m);       // parse engine    
 };
 
 #endif // __INTERPRETER_H__

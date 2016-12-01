@@ -55,6 +55,7 @@ Memory
 
 Node
 {
+    std::string key;
     Node *parent, *left, *right;
     
     // constructor, set, get, etc...
@@ -71,7 +72,7 @@ Interpreter
 
 Action
 {
-    eval(Node*);
+    exec(Node*);
 
     // helper functions
 }
