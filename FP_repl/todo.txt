@@ -1,0 +1,9 @@
+TODO - Unfinished works
+-------------------------
+memory.cpp - > destructor
+node.cpp -> destructor
+action.h/cpp
+interpreter.h/cpp
+sequence.h/cpp -> ?? objects?
+
+makefile -> fix to update, include sequence, ...

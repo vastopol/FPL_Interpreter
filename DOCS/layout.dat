@@ -24,7 +24,7 @@ print_macros();
 //-----------------------------------------------------------------
 
 CLASSES
-- Pattern == compositional object
+- Pattern == compositional object / mediator
 - Memory == data structure -> hold user defined variables/macros
 - Node == data structure -> form of the syntax tree
 - Interpreter == strategy pattern -> parsing
@@ -76,3 +76,16 @@ Action
 
     // helper functions
 }
+
+
+-----------------------------------
+object
+{
+    -sequence
+    -connector 
+        subclasses{ ':' | '.' }
+    -function
+        inheritance, strategy pattern?
+}
+
+nodes hold object pointer?

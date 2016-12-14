@@ -14,6 +14,14 @@ class Node
     public:
         Node(std::string);
         ~Node();
+        
+        std::string getkey();
+        Node* getParent();
+        Node* getLeft();
+        Node* getRight();
+        void setParent(Node*);
+        void setLeft(Node*);
+        void setRight(Node*);
 };
 
 #endif // __NODE_H__

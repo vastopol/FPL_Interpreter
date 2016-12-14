@@ -23,9 +23,10 @@ then,
 std::stack<std::string> stk; // stack commands in history order
 while(!argv.empty())
 {
+    
+    // do current task
+    
     stk.push(argv.front()); // save command
     argv.pop_front();       // pop off command form the front
-
-    // do
     
 }

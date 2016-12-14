@@ -4,8 +4,6 @@ The "comprehensive" guide to FP_REPL syntax.
 LANGUAGE SYNTAX
 ///*****************************************
 
-~  = undefined
-
 () = used for separation
 
 application
@@ -36,93 +34,17 @@ condition
     where   (h -> f,g):x   
              =  f:x   if   h:x  =  T
              =  g:x   if   h:x  =  F
-             =  ~    otherwise
+             =  undefined  otherwise
 
 ///*****************************************
 
 
-SYSTEM CALLS (for memory management)
-///******************************************
-
-* def == the definition function
-
-syntax: def name = value
-
-where element
-   name = atom   
-   x = 3
-   
-OR
-
-where sequence
-   name = {atom,...,atom}   
-   s = {1,2,3}
-   
-   NO SPACES BETWEEN COMMAS
-//----------------------------------------
-
-* mac == macro creation function
-
-syntax: mac name = value
-
-on interpretation macros are substituted in
-
-//----------------------------------------
-
-* rm  == delete variable from memory
-
-syntax: rm var
-
-//----------------------------------------
-
-* ls == prints contents of memory stored variables
-
-syntax: ls
-
-///*********************************************
-
-
-EVALUATION
-///*********************************************
-
-Evaluation is invoked with the special symbol '#'
-When the '#' is the first character in the input string,
-evaluation is called on the sequence of characters immediately after.
-eg.
->>> #F:x
-evaluate("F:x").
-evaluate(apply function f to variable x).
-return result.
-
-///*********************************************
-
-
-STYLE GUIDELINES
-///*******************************
-- Functions are written in Uppercase 
-- Macros are written in Uppercase
-
-- Variable names should only contain Lowercase letters
-- Each variable should be given a unique name
-- Try to avoid having multiple variables defined as same value
-
-
-function definition is not implemented yet,
-
-the best option is:
-use macros LIKE how composition works
-macros can be used to lable a composition
-the macros will be substituted in during interpretation
-
-ex:
->>> mac G = ROTL.CAT
->>> def x = {1,2,3}
->>> def y = {5,6,7}
-
-then use like:
->>> #G:(x,y)
-    G:(x,y) 
-    ROTL.CAT:({1,2,3}, {5,6,7})
-    ROTL:(CAT:({1,2,3}, {5,6,7}))
-    ROTL:{1,2,3,5,6,7}
-<<< {2,3,5,6,7,1}
+SEQUENCE OPERATIONS
+///*****************************************
+- HEAD == get first of sequence
+- TAIL == get second to end of sequence
+- REV  == reverse sequence elements order
+- ROTR == rotate sequence elements to the right
+- ROTL == rotate sequence elements to the left 
+- MAX  == get maximum value in sequence
+- MIN  == get minimum value in sequence 

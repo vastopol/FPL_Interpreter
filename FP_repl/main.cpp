@@ -22,11 +22,11 @@ do
     getline(std::cin, input);     
     if(input.empty()){continue;}
     
-    // if starts with "#" parse && generate expression tree
-    // then call to evaluate on root of tree
+    // if starts with "#" parse, generate expression tree, execute on root of tree
     if(input.at(0) == '#') 
     {
-        Pattern* P = new Pattern( input.substr(1, input.size()-1) );  // construct pattern with, input now cut out "#"
+        input = input.substr(1, input.size()-1); // input now cut out "#"
+        Pattern* P = new Pattern(input);         // construct pattern with
         
         // PARSE
         try

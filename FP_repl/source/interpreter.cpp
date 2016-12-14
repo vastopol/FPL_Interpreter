@@ -7,6 +7,9 @@ Interpreter::~Interpreter()
 
 Node* Interpreter::parse(std::string str, Memory* m) // evaluation engine
 {
+    std::string s = str;        // temp string
+    std::list<std::string> lst; // temp list
+    
     //PRELIMINARY CHECKS
     if(str.empty()) 
     {
@@ -19,17 +22,44 @@ Node* Interpreter::parse(std::string str, Memory* m) // evaluation engine
       return 0;
     }
     
-    std::string s = str; // std::string to modify so original is intact
-    
-    // while(s.at(s.size()-1) == ' ') // remove any trailing spaces
-    // {
-    //     s = s.substr(0, (s.size()-1));
-    // }
-    
+    // REMOVE PADDING SPACES    
+    while(s.at(s.size()-1) == ' ') // remove any trailing spaces
+    {
+        s = s.substr(0, (s.size()-1));
+    }
+    while(s.at(0) == ' ') // remove any forward spaces
+    {
+        s = s.substr(1, (s.size()-1));
+    }
 
-    std::cout << "Parse is unfinished" << std::endl;
-    // parse on s
-    std::cout << s << std::endl;
+    //START
+    std::cout << "s: " << s << std::endl;
+        
+    // PARSE ':'
+    ///*******************************************************
+    while( !s.empty() )
+    {
+        std::size_t pos = s.find(":"); // position of first :
+        
+        if (pos != std::string::npos && pos < s.size() )
+        {
+            lst.push_back(s.substr(0, pos)); // left half
+            lst.push_back(":");
+            s = s.substr(pos+1);
+        }
+        else
+        {
+            lst.push_back(s);
+            break;
+        }
+    }
+    ///*******************************************************
+    
+    for(std::list<std::string>::iterator it = lst.begin(); it != lst.end(); it++)
+    {
+        std::cout << *it << ", ";
+    }
+    std::cout << '\n';
     
     // substitute variables from M
 
