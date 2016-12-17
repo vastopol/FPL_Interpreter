@@ -13,7 +13,7 @@ int main()
     std::cout << "Enter a command OR an expression/equation to evaluate" << std::endl;
     
     std::string input;
-    Memory* variables = new Memory();   // pointer to memory block for variable storage
+    Memory* storage = new Memory();   // pointer to memory block for variable storage
     
     do
     {
@@ -30,7 +30,7 @@ int main()
                 system("bash"); // will fail on non *nix systems
             }
             
-            process(input, variables);
+            process(input, storage);
         }
     }
     while(1);

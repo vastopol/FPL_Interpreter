@@ -7,6 +7,3 @@ TODO - Unfinished works
 * sequence.h/cpp -> ?? objects?
 
 * makefile -> fix to update, include sequence, ...
-
-* finish syscoms
-    - load file.fps

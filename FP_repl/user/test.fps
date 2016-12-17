@@ -1,6 +1,6 @@
 # test FP_REPL script file
 
-# dump any old memory
+# dump any existing old memory
 dump
 
 # function definition

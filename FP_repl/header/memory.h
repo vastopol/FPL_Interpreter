@@ -43,7 +43,8 @@ class Memory
         void print_elements();
         void print_sequences(); 
         void print_macros();
-        void print_buf_status(); // print full/empty buffer
+        void print_buf_status(); // print if full/empty buffer
+        void print_buf();        // print buffer content
 };
 
 #endif // __MEM_H__

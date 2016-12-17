@@ -26,7 +26,11 @@
     
     void dump(Memory* m);  // clear all memory content
     
+    void bufdump(Memory* m); // clear all buffer content
+    
     void print(Memory* m); // print element hash, print list hash
+    
+    void bufprint(Memory* m);
     
     void load(std::string s, Memory* m); // load content of script file to memory buffer
     

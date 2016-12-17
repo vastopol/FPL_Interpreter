@@ -125,6 +125,14 @@ void com(std::string str, Memory* m)
         {
             print(m); // print all memory content
         }
+        else if(str.substr(0, 7) == "bufdump")
+        {
+            bufdump(m); // clear all buffer content
+        }
+        else if(str.substr(0, 5) == "bufls")
+        {
+            bufprint(m); // print all buffer content
+        }
         else if(str.substr(0, 4) == "load") // load script content from file
         {        
             // syntax: load "file.fps"
@@ -166,7 +174,9 @@ void help()
     std::cout << "def" << " == " << "define function macro" << std::endl;
     std::cout << "rm" << " == " << "remove from memory" << std::endl;
     std::cout << "dump" << " == " << "empty all memory" << std::endl;
+    std::cout << "bufdump" << " == " << "empty all buffer content" << std::endl;
     std::cout << "ls" << " == " << "list all memory" << std::endl;
+    std::cout << "bufls" << " == " << "list all buffer content" << std::endl;
     std::cout << "load" << " == " << "load script to memory buffer" << std::endl;
     std::cout << "run" << " == " << "execute content of memory buffer" << std::endl;
     std::cout << std::endl;
@@ -275,7 +285,7 @@ void dump(Memory* m)
 
 void print(Memory* m) // print element hash, print list hash
 {
-    std::cout << "Current Memory State" << std::endl;
+    std::cout << std::endl;
     std::cout << "Buffer: "; 
     m -> print_buf_status();
     std::cout << "Elements:" << std::endl;
@@ -284,6 +294,23 @@ void print(Memory* m) // print element hash, print list hash
     m -> print_sequences();
     std::cout << "Functions:" << std::endl;    
     m -> print_macros();
+    std::cout << std::endl;
+}
+//------------------------------------------------------------------------------------------
+
+void bufdump(Memory* m)
+{
+    m -> empty_buf();
+}
+//-------------------------------------------------------------------------------------------
+
+void bufprint(Memory* m) // print element hash, print list hash
+{
+    std::cout << std::endl;
+    std::cout << "START BUFFER { " << std::endl;
+    m -> print_buf();
+    std::cout << "} END BUFFER" << std::endl;
+    std::cout << std::endl;
 }
 //------------------------------------------------------------------------------------------
 

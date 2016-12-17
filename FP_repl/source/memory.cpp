@@ -5,6 +5,7 @@ Memory::~Memory()
 {
     std::cout << "MEMORY DESTRUCTOR" << std::endl;
     clear();
+    empty_buf();
 }
 //---------------------------------------------------------
 
@@ -92,7 +93,6 @@ void Memory::clear()
     this->elements.clear();
     this->sequences.clear();
     this->macros.clear();
-    empty_buf();
 }
 ///*****************************************************************************
 
@@ -175,4 +175,22 @@ void Memory::print_buf_status()
     }
     std::cout << "LOADED" << std::endl;
 }
+//----------------------------------------------------------
+
+void Memory::print_buf()
+{
+    if(buffer.empty())
+    {
+        std::cout << "EMPTY" << std::endl;
+        return;
+    }
+    
+    // print content (begin to end)
+    for(std::list<std::string>::iterator it = this->buffer.begin(); it != this->buffer.end(); it++)
+    {
+        std::cout << *it << std::endl;
+    }
+}
 ///*****************************************************************************
+
+

@@ -1,11 +1,11 @@
-
+Technical stuff on memory management && system
 
 SYSTEM CALLS (for memory management)
 ///******************************************
 
 * let == set variables
 
-syntax: let name = value
+syntax: "let name = value"
 
 where element
    name = atom   
@@ -22,21 +22,44 @@ where sequence
 
 * def == compositional function
 
-syntax: def name = function
+syntax: "def name = function"
 
 the functions are macros substituted in on interpretation
-
 //----------------------------------------
 
 * rm  == delete variable from memory
 
-syntax: rm var
+syntax: "rm var"
+//----------------------------------------
 
+* dump == clear all contents of memory stored variables
+
+syntax: "dump"
+//----------------------------------------
+
+* bufdump == clear all contents of buffer
+
+syntax: "bufdump"
 //----------------------------------------
 
 * ls == prints contents of memory stored variables
 
-syntax: ls
+syntax: "ls"
+//----------------------------------------
+
+* bufls == prints contents of buffer
+
+syntax: "bufls"
+//----------------------------------------
+
+* load  == load content of script file to buffer
+
+syntax: "load file.fps"
+//----------------------------------------
+
+* run  == execute content of buffer
+
+syntax: "run"
 
 ///*********************************************
 
@@ -48,40 +71,9 @@ Evaluation is invoked with the special symbol '#'
 When the '#' is the first character in the input string,
 evaluation is called on the sequence of characters immediately after.
 eg.
->>> #F:x
+>>> %F:x
 evaluate("F:x").
 evaluate(apply function f to variable x).
 return result.
 
 ///*********************************************
-
-
-GUIDELINES
-///*******************************
-- Functions are written in Uppercase 
-- Macros are written in Uppercase
-
-- Variable names should only contain Lowercase letters
-- Each variable should be given a unique name
-- Try to avoid having multiple variables defined as same value
-
-
-the best option is:
-use def LIKE how composition works
-the macros can be used to lable a composition
-the macros will be substituted in during interpretation
-
-ex:
->>> def G = ROTL.CAT
->>> let x = <1,2,3>
->>> let y = <5,6,7>
-
-then use like:
->>> #G:(x,y)
-    G:(x,y) 
-    ROTL.CAT:(<1,2,3>, <5,6,7>)
-    ROTL:(CAT:(<1,2,3>, <5,6,7>))
-    ROTL:<1,2,3,5,6,7>
-<<< <2,3,5,6,7,1>
-
-///**************************************************
