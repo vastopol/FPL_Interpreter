@@ -1,14 +1,13 @@
 TODO - Unfinished works
 -------------------------
-* memory.cpp - > destructor
-* node.cpp -> destructor
+* node.cpp
 * action.h/cpp
 * interpreter.h/cpp
+
 * sequence.h/cpp -> ?? objects?
 
 * makefile -> fix to update, include sequence, ...
 
-* add syscoms
-    - dump
+* finish syscoms
     - load file.fps
     - run

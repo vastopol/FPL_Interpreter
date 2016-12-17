@@ -17,10 +17,22 @@ Memory* variables = new Memory();   // pointer to memory block for variable stor
 
 do
 {
-    // get user input
+    // GET USER INPUT
     std::cout << "$ ";
     getline(std::cin, input);     
     if(input.empty()){continue;}
+    else
+    {
+        // REMOVE PADDING SPACES  
+        while(input.at(0) == ' ') // remove any forward spaces
+        {
+            input = input.substr(1, (input.size()-1));
+        }
+        while(input.at(input.size()-1) == ' ') // remove any trailing spaces
+        {
+            input = input.substr(0, (input.size()-1));
+        }
+    }
     
     // if starts with "#" parse, generate expression tree, execute on root of tree
     if(input.at(0) == '#') 

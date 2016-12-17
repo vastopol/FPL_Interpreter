@@ -7,6 +7,7 @@ Node::Node(std::string s)
 
 Node::~Node()
 {
+    std::cout << "NODE DESTRUCTOR" << std::endl;
     // not done
 }
 //--------------------------------------------------

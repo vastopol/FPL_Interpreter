@@ -2,6 +2,7 @@
 #define __PATTERN_H__
 
 #include <string>
+#include <iostream>
 
 #include "action.h"
 #include "interpreter.h"

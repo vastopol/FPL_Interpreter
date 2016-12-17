@@ -37,7 +37,7 @@ void com(std::string str, Memory* m)
         }
         else if(str.substr(0, 2) == "rm")
         {
-            // syntax: "rm name"
+            // syntax: rm name
             if(str.find(" ") != 2) // location of first space
             { std::cout << "ERROR1: Syntax\n"; return; }   
             
@@ -52,6 +52,19 @@ void com(std::string str, Memory* m)
         {
             print(m); // print all memory content
         }
+        else if(str.substr(0, 4) == "load") // load script content from file
+        {        
+            // syntax: load "file.fps"
+            if(str.find(" ") != 4) // location of first space
+            { std::cout << "ERROR1: Syntax\n"; return; }
+    
+            // cut out load, now "file.fsp"
+            load( str.substr(4, (str.size()-1)), m );
+        }
+        else if(str.substr(0, 3) == "run")
+        {
+            run(m); // print all memory content
+        }
         else
         {
             std::cout << "ERROR: Unknown Command" << std::endl;
@@ -62,6 +75,30 @@ void com(std::string str, Memory* m)
 }
 //-------------------------------------------------------------------------------------------
 
+void help()
+{
+    std::cout << std::endl;
+    std::cout << "GENERAL:" << std::endl;
+    std::cout << "Enter System commands OR use \"#\" operator to evaluate expressions AND equations." << std::endl;
+    std::cout << "Have matching parenthesis and correct syntax and grammar." << std::endl;   //// A = B, A != B, A < B, etc... use only 1 binary evaluator
+    std::cout << "Separete distinct sub-pieces with parenthesis." << std::endl;
+    std::cout << "For more detailed information see: DOCS/syntax.dat || DOCS/technical.dat" << std::endl;
+    std::cout << std::endl;
+    
+    std::cout << "SYSTEM COMMANDS:" << std::endl;
+    std::cout << "help" << " == " << "display help prompt" << std::endl;
+    std::cout << "clear" << " == " << "clear the screen contents" << std::endl;
+    std::cout << "exit" << " == " << "quit program" << std::endl;
+    std::cout << "let" << " == " << "create variable" << std::endl;
+    std::cout << "def" << " == " << "define function macro" << std::endl;
+    std::cout << "rm" << " == " << "remove from memory" << std::endl;
+    std::cout << "dump" << " == " << "empty all memory" << std::endl;
+    std::cout << "ls" << " == " << "list all memory" << std::endl;
+    std::cout << "load" << " == " << "load script to memory buffer" << std::endl;
+    std::cout << "run" << " == " << "execute content of memory buffer" << std::endl;
+    std::cout << std::endl;
+}
+//-------------------------------------------------------------------------------------------
 
 void let(std::string s, Memory* m) // variable creation
 {
@@ -165,7 +202,9 @@ void dump(Memory* m)
 
 void print(Memory* m) // print element hash, print list hash
 {
-    std::cout << "Currently Defined Variables" << std::endl;
+    std::cout << "Current Memory State" << std::endl;
+    std::cout << "Buffer: "; 
+    m -> print_buf_status();
     std::cout << "Elements:" << std::endl;
     m -> print_elements();
     std::cout << "Sequences:" << std::endl;    
@@ -175,25 +214,37 @@ void print(Memory* m) // print element hash, print list hash
 }
 //------------------------------------------------------------------------------------------
 
-void help()
+void load(std::string str, Memory* m)
 {
-    std::cout << std::endl;
-    std::cout << "GENERAL:" << std::endl;
-    std::cout << "Enter System commands OR use \"#\" operator to evaluate expressions AND equations." << std::endl;
-    std::cout << "Have matching parenthesis and correct syntax and grammar." << std::endl;   //// A = B, A != B, A < B, etc... use only 1 binary evaluator
-    std::cout << "Separete distinct sub-pieces with parenthesis." << std::endl;
-    std::cout << "For more detailed information see: DOCS/syntax.dat || DOCS/technical.dat" << std::endl;
-    std::cout << std::endl;
+    std::cout << "BEGIN LOAD" << std::endl;
     
-    std::cout << "SYSTEM COMMANDS:" << std::endl;
-    std::cout << "help" << " == " << "display help prompt" << std::endl;
-    std::cout << "clear" << " == " << "clear the screen contents" << std::endl;
-    std::cout << "exit" << " == " << "quit program" << std::endl;
-    std::cout << "let" << " == " << "create variable" << std::endl;
-    std::cout << "def" << " == " << "define function macro" << std::endl;
-    std::cout << "rm" << " == " << "remove from memory" << std::endl;
-    std::cout << "dump" << " == " << "empty all memory" << std::endl;
-    std::cout << "ls" << " == " << "list all memory" << std::endl;
-    std::cout << std::endl;
+    for(int i = 0; i < 10; i++)
+    {
+        m -> add_str_buf( std::string("aaaaaaaaa") ); // TEST LOAD
+    }
+    
+    std::cout << "SUCCESSFUL LOAD" << std::endl;
 }
-//-------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------
+
+void run(Memory* m)
+{
+    std::list<std::string> lst = m -> get_buffer(); // ptr to buffer in memory
+    if( lst.empty() )
+    {
+        std::cout << "ERROR: EMPTY BUFFER" << std::endl;
+        return;
+    }
+    
+    std::cout << "BEGIN RUN" << std::endl;
+    
+    std::list<std::string>::iterator it = lst.begin();
+    for(; it != lst.end(); it = lst.begin() ) // it reset to begin each time
+    {
+        std::cout << *it << std::endl; // TEST PRINT BUFFER CONTENT
+        lst.pop_front();
+    }
+    
+    std::cout << "END RUN" << std::endl;
+}
+//------------------------------------------------------------------------------------------

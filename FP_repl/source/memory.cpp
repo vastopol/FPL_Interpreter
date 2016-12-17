@@ -38,6 +38,15 @@ void Memory::add_macro(std::string a, std::string b)
         macros[a] = b;
     }
 }
+//----------------------------------------------------------
+
+void Memory::add_str_buf(std::string s) // queue 1 string to buffer
+{
+    if(!s.empty())
+    {
+        buffer.push_back(s);
+    }
+}
 ///*****************************************************************************
 
 // REMOVE
@@ -72,32 +81,45 @@ void Memory::remove_macro(std::string s)
 }
 //----------------------------------------------------------
 
+void Memory::empty_buf()
+{
+    buffer.clear();
+}
+//----------------------------------------------------------
+
 void Memory::clear()
 {
     this->elements.clear();
     this->sequences.clear();
     this->macros.clear();
+    empty_buf();
 }
 ///*****************************************************************************
 
 
 // ACCESS
 ///*****************************************************************************
-std::map<std::string, int> Memory::get_elements()
+std::map<std::string, int>& Memory::get_elements()
 {
     return elements;
 }
 //--------------------------------------------------------------
 
-std::map<std::string, std::list<int> > Memory::get_sequences()
+std::map<std::string, std::list<int> >& Memory::get_sequences()
 {
     return sequences;
 }
 //--------------------------------------------------------------
 
-std::map<std::string, std::string> Memory::get_macros()
+std::map<std::string, std::string>& Memory::get_macros()
 {
     return macros;
+}
+//--------------------------------------------------------------
+
+std::list<std::string>& Memory::get_buffer()
+{
+    return buffer;
 }
 ///*****************************************************************************
 
@@ -142,5 +164,15 @@ void Memory::print_macros()
         std::cout << it->first << " = " << it->second << std::endl;
     }
 }
-///*****************************************************************************
+//----------------------------------------------------------
 
+void Memory::print_buf_status()
+{
+    if(buffer.empty())
+    {
+        std::cout << "EMPTY" << std::endl;
+        return;
+    }
+    std::cout << "LOADED" << std::endl;
+}
+///*****************************************************************************

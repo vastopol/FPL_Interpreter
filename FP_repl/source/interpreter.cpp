@@ -10,31 +10,24 @@ Node* Interpreter::parse(std::string str, Memory* m) // evaluation engine
     std::string s = str;        // temp string
     std::list<std::string> lst; // temp list
     
-    //PRELIMINARY CHECKS
-    if(str.empty()) 
+    //START
+    std::cout << "str: \"" << s << "\"" << std::endl;
+    
+    // PRELIMINARY CHECKS
+    ///*******************************************************
+    if(s.empty()) 
     {
       std::cout << "ERROR: empty std::string" << std::endl; 
       return 0;
     }
-    else if(!isBalanced(str))
+    else if(!isBalanced(s))
     {
       std::cout << "ERROR: incorrect syntax : \"(), {}, [], <>\"" << std::endl; 
       return 0;
     }
+    ///*******************************************************
     
-    // REMOVE PADDING SPACES    
-    while(s.at(s.size()-1) == ' ') // remove any trailing spaces
-    {
-        s = s.substr(0, (s.size()-1));
-    }
-    while(s.at(0) == ' ') // remove any forward spaces
-    {
-        s = s.substr(1, (s.size()-1));
-    }
-
-    //START
-    std::cout << "s: " << s << std::endl;
-        
+            
     // PARSE ':'
     ///*******************************************************
     while( !s.empty() )
