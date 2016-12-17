@@ -1,20 +1,20 @@
 # test FP_REPL script file
 
 # dump any old memory
-dump;
+dump
 
 # function definition
-def F = ROTL.ROTR;
+def F = ROTL.ROTR
 
 # variable creation (element && sequence)
-let x = 5;
-let y = <1,2,3>;
+let x = 5
+let y = <1,2,3>
 
 # system commands
-ls;
+ls
 
 # expression evaluation
-% F:y ;
+% F:y
 
 # end script by dumping memory again
-dump;
+dump
