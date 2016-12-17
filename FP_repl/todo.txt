@@ -10,4 +10,3 @@ TODO - Unfinished works
 
 * finish syscoms
     - load file.fps
-    - run

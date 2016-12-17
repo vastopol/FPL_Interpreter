@@ -1,0 +1,32 @@
+load a file && execute
+//--------------------------------------
+
+FP_REPL supports scripting of system commands and evaluations.
+repl scripts need to end with file extention ".fps"
+
+scripts are lists of statements to be performed in sequence
+files are structrued in procedural order.
+each statement should end with a terminating symbol ';'
+reads in each line, constructs a string, queues string in buffer
+
+
+OPERATIONS:
+//==========================================================================
+
+load file.fps == loads the contents of file.fps into the system buffer
+
+run == execute content of the system buffer. if buffer is empty will not work.
+    system buffer is a queue of commands to be executed in order. each command is executed, 
+    and removed from the queue. continues until queue is empty.
+
+//==========================================================================
+
+FP_REPL script file format
+
+each statement must end with an ';'
+proper structure: define functions, let variables, then have operations
+
+def FUNCTIONS
+let ELEMENTS/SEQUENCES
+any system commands
+evaluation '#'

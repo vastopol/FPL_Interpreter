@@ -269,6 +269,8 @@ void load(std::string str, Memory* m)
 {
     std::cout << "BEGIN LOAD" << std::endl;
     
+    std::cout << "File: " << str << std::endl;
+    
     for(int i = 0; i < 10; i++)
     {
         m -> add_str_buf( std::string("aaaaaaaaa") ); // TEST LOAD
