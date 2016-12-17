@@ -66,11 +66,9 @@ STYLE GUIDELINES
 - Try to avoid having multiple variables defined as same value
 
 
-function definition is not implemented yet,
-
 the best option is:
-use macros LIKE how composition works
-macros can be used to lable a composition
+use def LIKE how composition works
+the macros can be used to lable a composition
 the macros will be substituted in during interpretation
 
 ex:

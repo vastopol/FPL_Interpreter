@@ -1,5 +1,56 @@
 #include "../header/syscom.h"
 #include "../header/memory.h"
+#include "../header/pattern.h" // for process function
+
+
+void process(std::string s, Memory* m) // decide if SYSCOM || FP_EXPRESSION -> interpreter
+{
+    // REMOVE PADDING SPACES
+    ///******************************************************************
+    while(s.at(0) == ' ') // remove any forward spaces
+    {
+        s = s.substr(1, (s.size()-1));
+    }
+    while(s.at(s.size()-1) == ' ') // remove any trailing spaces
+    {
+        s = s.substr(0, (s.size()-1));
+    }
+    ///******************************************************************
+
+    // if starts with "#" parse, generate expression tree, execute on root of tree
+    if(s.at(0) == '#') 
+    {
+        s = s.substr(1, s.size()-1); // s now cut out "#"
+        Pattern* P = new Pattern(s);         // construct pattern with
+        
+        // PARSE
+        try
+        {
+            P -> setRoot( P -> getI() -> parse(s, m) );
+        }
+        catch(std::exception &e)
+        {
+            std::cout << "ERROR: Parse" << std::endl;
+            std::cout << e.what() << std::endl;
+        }
+        
+        // EXECUTE
+        try
+        {
+            P -> getA() -> exec( P -> getRoot() );
+        }
+        catch(std::exception &e)
+        {
+            std::cout << "ERROR: Execute" << std::endl;
+            std::cout << e.what() << std::endl;
+        }
+    }   
+    else 
+    {
+        com(s, m); // call COM() for syscommands && memory interaction
+    } 
+}
+//---------------------------------------------------------------------------------
 
 void com(std::string str, Memory* m)
 {
@@ -242,6 +293,7 @@ void run(Memory* m)
     for(; it != lst.end(); it = lst.begin() ) // it reset to begin each time
     {
         std::cout << *it << std::endl; // TEST PRINT BUFFER CONTENT
+        process(*it, m);
         lst.pop_front();
     }
     

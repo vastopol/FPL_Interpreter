@@ -42,17 +42,14 @@ while(!argv.empty())
 }
 ----------------------------------------------------------------
 
+OPERATIONS:
 //==========================================================================
-
-new operations:
 
 load file.fps == loads the contents of file.fps into the system buffer
 
 run == execute content of the system buffer. if buffer is empty will not work.
     system buffer is a queue of commands to be executed in order. each command is executed, 
     and removed from the queue. continues until queue is empty.
-
-dump == clear all memory contents, delete all elements, sequences, macros, etc...
 
 //==========================================================================
 

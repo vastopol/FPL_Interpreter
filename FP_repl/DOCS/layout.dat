@@ -1,25 +1,5 @@
 SYSCOM:
 "syscom.h" is a set of functions which are responsible for the basic user interactions with the memory and system.
-The simple routines are handled by the function "com" which, if a string does not match one of the arguments,
-it passes control to another function, "exec" which handles memory management and input errors. "exec" handles adding to, removing from,
-and printing the contents of the Memory object.
-
-Syscom call:
-def -> add variable (element/sequence)
-mac -> add macro
-rm -> remove
-ls -> print
-
-Memory operations used by syscoms:
-add_element(x);
-add_sequence(x);
-add_macro(x);
-remove_element(x);
-remove_sequence(x);
-remove_macro(x);
-print_elements()
-print_sequences()
-print_macros();
 
 //-----------------------------------------------------------------
 
@@ -79,6 +59,9 @@ Action
 
 
 -----------------------------------
+
+????????????
+
 object
 {
     -sequence

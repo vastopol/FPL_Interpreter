@@ -12,17 +12,19 @@
 
 #include "memory.h"
 
-    void com(std::string str, Memory* m); // simple builtins handler
+    void process(std::string s, Memory* m); // decide if SYSCOM || FP_EXPRESSION -> interpreter
+
+    void com(std::string s, Memory* m);  // simple builtins handler for: {help(), exit, clear}
     
-    void help();    // help prompt
+    void help(); // help prompt
     
-    void let(std::string s, Memory* m); // variable creaton, mapping name to value
+    void let(std::string s, Memory* m);  // variable creaton, mapping name to value
     
-    void def(std::string s, Memory* m); // create function macro, mapping name to value
+    void def(std::string s, Memory* m);  // create function macro, mapping name to value
     
-    void rem(std::string s, Memory* m); // remove var if found
+    void rem(std::string s, Memory* m);  // remove var if found
     
-    void dump(Memory* m);   // clear all memory content
+    void dump(Memory* m);  // clear all memory content
     
     void print(Memory* m); // print element hash, print list hash
     
