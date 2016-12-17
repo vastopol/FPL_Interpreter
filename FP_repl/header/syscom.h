@@ -20,6 +20,8 @@
     
     void rem(std::string s, Memory* m); // remove var if found
     
+    void dump(Memory* m);   // clear all memory content
+    
     void print(Memory* m); // print element hash, print list hash
     
     void help();    // help prompt

@@ -13,7 +13,7 @@ class Memory
         // maps for holding variables
         std::map<std::string, int> elements;
         std::map<std::string, std::list<int> > sequences;
-        std::map<std::string, std::string> macros;
+        std::map<std::string, std::string> macros;  // macros represent functions
     
     public:        
         Memory(){};
@@ -28,6 +28,7 @@ class Memory
         void remove_element(std::string);
         void remove_sequence(std::string);
         void remove_macro(std::string);
+        void clear();
         
         // ACCESS
         std::map<std::string, int> get_elements();

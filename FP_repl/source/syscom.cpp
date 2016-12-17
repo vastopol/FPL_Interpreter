@@ -3,15 +3,15 @@
 
 void com(std::string str, Memory* m)
 {
-    if(str == "exit")
+    if(str.substr(0, 4) == "exit")
     {
         exit(0);
     }
-    else if(str == "clear")
+    else if(str.substr(0, 5) == "clear")
     {
         std::cout << "\033c";
     }
-    else if(str == "help")
+    else if(str.substr(0, 4) == "help")
     {
         help();
     } 
@@ -43,6 +43,10 @@ void com(std::string str, Memory* m)
             
             // remove the variable
             rem( str.substr(3, (str.size()-1)), m ); // pass name
+        }
+        else if(str.substr(0, 4) == "dump")
+        {
+            dump(m); // clear all memory content
         }
         else if(str.substr(0, 2) == "ls")
         {
@@ -153,6 +157,12 @@ void rem(std::string s, Memory* m) // access hashes and remove var if found
 }
 //------------------------------------------------------------------------------------------
 
+void dump(Memory* m)
+{
+    m -> clear();
+}
+//-------------------------------------------------------------------------------------------
+
 void print(Memory* m) // print element hash, print list hash
 {
     std::cout << "Currently Defined Variables" << std::endl;
@@ -167,19 +177,22 @@ void print(Memory* m) // print element hash, print list hash
 
 void help()
 {
+    std::cout << std::endl;
     std::cout << "GENERAL:" << std::endl;
     std::cout << "Enter System commands OR use \"#\" operator to evaluate expressions AND equations." << std::endl;
     std::cout << "Have matching parenthesis and correct syntax and grammar." << std::endl;   //// A = B, A != B, A < B, etc... use only 1 binary evaluator
     std::cout << "Separete distinct sub-pieces with parenthesis." << std::endl;
+    std::cout << "For more detailed information see: DOCS/syntax.dat || DOCS/technical.dat" << std::endl;
     std::cout << std::endl;
     
-    std::cout << "COMMANDS:" << std::endl;
+    std::cout << "SYSTEM COMMANDS:" << std::endl;
     std::cout << "help" << " == " << "display help prompt" << std::endl;
     std::cout << "clear" << " == " << "clear the screen contents" << std::endl;
     std::cout << "exit" << " == " << "quit program" << std::endl;
     std::cout << "let" << " == " << "create variable" << std::endl;
     std::cout << "def" << " == " << "define function macro" << std::endl;
     std::cout << "rm" << " == " << "remove from memory" << std::endl;
+    std::cout << "dump" << " == " << "empty all memory" << std::endl;
     std::cout << "ls" << " == " << "list all memory" << std::endl;
     std::cout << std::endl;
 }

@@ -1,17 +1,10 @@
 #include "../header/memory.h"
 
-/*
-    private:
-    // maps for holding variables
-    std::map<std::string, int> elements;
-    std::map<std::string, std::list<int> > sequences;
-*/
-
-//----------------------------------------------------------
 
 Memory::~Memory()
 {
     std::cout << "MEMORY DESTRUCTOR" << std::endl;
+    clear();
 }
 //---------------------------------------------------------
 
@@ -76,6 +69,14 @@ void Memory::remove_macro(std::string s)
     {
         macros.erase(it);
     }
+}
+//----------------------------------------------------------
+
+void Memory::clear()
+{
+    this->elements.clear();
+    this->sequences.clear();
+    this->macros.clear();
 }
 ///*****************************************************************************
 
