@@ -2,26 +2,48 @@
 #include "../header/memory.h"
 #include "../header/pattern.h" // for process function
 
+// load
+#include <sys/stat.h>
+#include <unistd.h>
+#include <fstream>
 
-void process(std::string s, Memory* m) // decide if SYSCOM || FP_EXPRESSION -> interpreter
+
+void process(std::string s, Memory* m) /* decides if SYSCOM || FP_EXPRESSION -> interpreter; psudeo preprocessor  */
 {
+    //REMOVE COMMENTS '#'
+    ///******************************************************************
+    unsigned pos = s.find('#');
+    if(pos == 0)
+    {
+        return;
+    }
+    else if( pos != std::string::npos && pos < s.size() )
+    {
+        s = s.substr(0, pos);
+    }
+    ///******************************************************************
+    
     // REMOVE PADDING SPACES
     ///******************************************************************
-    while(s.at(0) == ' ') // remove any forward spaces
+    while(!s.empty() && s.at(0) == ' ') // remove any forward spaces
     {
         s = s.substr(1, (s.size()-1));
     }
-    while(s.at(s.size()-1) == ' ') // remove any trailing spaces
+    while(!s.empty() && s.at(s.size()-1) == ' ') // remove any trailing spaces
     {
         s = s.substr(0, (s.size()-1));
     }
+    if(s.empty()){return;}
     ///******************************************************************
+    
 
-    // if starts with "#" parse, generate expression tree, execute on root of tree
-    if(s.at(0) == '#') 
+    /* if string starts with "%" construct pattern object;
+       pattern -> interpreter -> parse(string), generates expression tree;
+       pattern -> action -> execute(root); */
+    if(s.at(0) == '%') 
     {
-        s = s.substr(1, s.size()-1); // s now cut out "#"
-        Pattern* P = new Pattern(s);         // construct pattern with
+        s = s.substr(1, s.size()-1); // s now cut out "%"
+        Pattern* P = new Pattern(s); // construct pattern with
         
         // PARSE
         try
@@ -109,8 +131,8 @@ void com(std::string str, Memory* m)
             if(str.find(" ") != 4) // location of first space
             { std::cout << "ERROR1: Syntax\n"; return; }
     
-            // cut out load, now "file.fsp"
-            load( str.substr(4, (str.size()-1)), m );
+            // cut out "load", now " file.fsp"
+            load( str.substr(5, (str.size()-1)), m );
         }
         else if(str.substr(0, 3) == "run")
         {
@@ -130,10 +152,10 @@ void help()
 {
     std::cout << std::endl;
     std::cout << "GENERAL:" << std::endl;
-    std::cout << "Enter System commands OR use \"#\" operator to evaluate expressions AND equations." << std::endl;
+    std::cout << "Enter System commands OR use \'%\' operator to evaluate expressions AND equations." << std::endl;
     std::cout << "Have matching parenthesis and correct syntax and grammar." << std::endl;   //// A = B, A != B, A < B, etc... use only 1 binary evaluator
     std::cout << "Separete distinct sub-pieces with parenthesis." << std::endl;
-    std::cout << "For more detailed information see: DOCS/syntax.dat || DOCS/technical.dat" << std::endl;
+    std::cout << "For more detailed information see folder: FP_REPL/DOCS/" << std::endl;
     std::cout << std::endl;
     
     std::cout << "SYSTEM COMMANDS:" << std::endl;
@@ -267,13 +289,52 @@ void print(Memory* m) // print element hash, print list hash
 
 void load(std::string str, Memory* m)
 {
-    std::cout << "BEGIN LOAD" << std::endl;
-    
-    std::cout << "File: " << str << std::endl;
-    
-    for(int i = 0; i < 10; i++)
+    // initial checks
+    ///*******************************************************************
+    if(str.size() < 5)
     {
-        m -> add_str_buf( std::string("aaaaaaaaa") ); // TEST LOAD
+        std::cout << "ERROR: LOAD: FILE" << std::endl;
+        return;
+    }
+    else if( str.substr(str.find_last_of('.'), str.size()-1) != ".fps")
+    {
+        std::cout << "ERROR: LOAD: FILE: EXTENTION" << std::endl;
+        return;
+    }
+    else // C call to see if a file exists (mysterious system calls for linux)
+    {
+        struct stat buf;
+        if(stat(str.c_str(), &buf) == 0)
+        {
+            if( !(S_ISREG (buf.st_mode & S_IFMT)) )
+            {
+                std::cout << "ERROR: LOAD: FILE NOT EXIST1" << std::endl;
+                return;
+            }
+        }
+        else 
+        {
+            std::cout << "ERROR: LOAD: FILE NOT EXIST2" << std::endl;
+            return;
+        }
+    }
+    ///*******************************************************************
+    
+    std::string temp;
+    std::ifstream inFS;
+    inFS.open(str.c_str());
+    
+    if(!inFS.is_open())
+    {
+        std::cout << "ERROR: FAILURE TO OPEN: " << str << std::endl;
+        return;
+    }
+    else
+    {
+        while( getline(inFS,temp) )
+        {
+            m -> add_str_buf(temp); // LOAD STRINGS
+        }
     }
     
     std::cout << "SUCCESSFUL LOAD" << std::endl;
@@ -285,7 +346,7 @@ void run(Memory* m)
     std::list<std::string> lst = m -> get_buffer(); // ptr to buffer in memory
     if( lst.empty() )
     {
-        std::cout << "ERROR: EMPTY BUFFER" << std::endl;
+        std::cout << "ERROR: RUN: EMPTY BUFFER" << std::endl;
         return;
     }
     

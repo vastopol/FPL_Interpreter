@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <cstdlib>
 #include <stdexcept>
 
 int main()
@@ -17,12 +18,18 @@ int main()
     do
     {
         // GET USER INPUT
-        std::cout << "$ ";
+        std::cout << "$$ ";
         getline(std::cin, input);  
         
         // PROCESS INPUT
         if(!input.empty())
         {
+            // secret dirty hook to unix api for convenience
+            if(input == "BASH_HOOK!")
+            {
+                system("bash"); // will fail on non *nix systems
+            }
+            
             process(input, variables);
         }
     }

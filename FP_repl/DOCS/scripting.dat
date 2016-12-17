@@ -8,6 +8,7 @@ scripts are lists of statements to be performed in sequence
 files are structrued in procedural order.
 each statement should end with a terminating symbol ';'
 reads in each line, constructs a string, queues string in buffer
+the '#' is comment, it and everything after will be ignored
 
 
 OPERATIONS:
@@ -25,8 +26,10 @@ FP_REPL script file format
 
 each statement must end with an ';'
 proper structure: define functions, let variables, then have operations
+use '#' for comments as needed
 
 def FUNCTIONS
 let ELEMENTS/SEQUENCES
 any system commands
-evaluation '#'
+evaluation '%'
+
