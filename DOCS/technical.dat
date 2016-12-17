@@ -3,9 +3,9 @@
 SYSTEM CALLS (for memory management)
 ///******************************************
 
-* def == the definition function
+* let == set variables
 
-syntax: def name = value
+syntax: let name = value
 
 where element
    name = atom   
@@ -20,11 +20,11 @@ where sequence
    NO SPACES BETWEEN COMMAS
 //----------------------------------------
 
-* mac == macro creation function
+* def == compositional function
 
-syntax: mac name = value
+syntax: def name = function
 
-on interpretation macros are substituted in
+the functions are macros substituted in on interpretation
 
 //----------------------------------------
 
@@ -74,9 +74,9 @@ macros can be used to lable a composition
 the macros will be substituted in during interpretation
 
 ex:
->>> mac G = ROTL.CAT
->>> def x = {1,2,3}
->>> def y = {5,6,7}
+>>> def G = ROTL.CAT
+>>> let x = {1,2,3}
+>>> let y = {5,6,7}
 
 then use like:
 >>> #G:(x,y)

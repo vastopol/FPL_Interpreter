@@ -26,7 +26,46 @@ while(!argv.empty())
     
     // do current task
     
-    stk.push(argv.front()); // save command
-    argv.pop_front();       // pop off command form the front
+    //same sequence in main
+    
+    if(str.at(0) == '#')
+    {
+        pattern
+        PARSE
+        EXEC
+    }
+    else
+    {
+        com()
+    }
     
 }
+----------------------------------------------------------------
+
+//==========================================================================
+
+new operations:
+
+load file.fps == loads the contents of file.fps into the system buffer
+
+run == execute content of the system buffer. if buffer is empty will not work.
+    system buffer is a queue of commands to be executed in order. each command is executed, 
+    and removed from the queue. continues until queue is empty.
+
+dump == clear all memory contents, delete all elements, sequences, macros, etc...
+
+//==========================================================================
+
+FP_REPL scripting
+
+FP_REPL supports scripting of system commands and evaluations.
+repl scripts need to end with file extention ".fps"
+
+scripts are lists of statements to be performed in sequential order
+each statement must end with an ';'
+proper structure: define variables, then have operations
+
+def ELEMENTS/SEQUENCES
+mac MACROS
+system commands
+evaluation '#'

@@ -121,14 +121,14 @@ void Memory::print_sequences()
         std::list<int>::iterator jt = it->second.begin();
         
         if(jt == it->second.end()) // empty list
-        {std::cout << it->first << " = {}\n"; continue;}
+        {std::cout << it->first << " = <>\n"; continue;}
         
-        std::cout << it->first << " = {";
+        std::cout << it->first << " = <";
         for(; jt != --it->second.end(); jt++ ) // print list elements before last
         {
             std::cout << *jt << ",";
         }
-        std::cout << *jt << "}" << std::endl; // print last
+        std::cout << *jt << ">" << std::endl; // print last
     }
 }
 //--------------------------------------------------------

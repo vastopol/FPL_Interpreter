@@ -18,7 +18,7 @@ Memory* variables = new Memory();   // pointer to memory block for variable stor
 do
 {
     // get user input
-    std::cout << ">>> ";
+    std::cout << "$ ";
     getline(std::cin, input);     
     if(input.empty()){continue;}
     

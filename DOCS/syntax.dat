@@ -4,36 +4,41 @@ The "comprehensive" guide to FP_REPL syntax.
 LANGUAGE SYNTAX
 ///*****************************************
 
+elements: x
+sequences: <x1,...,xn>
+sequences are collections of elements
+
 () = used for separation
 
-application
-    f:a
-    where   function f applied to value a
+
+PRIMITVE OPERATIONS
+------------------------------------------------
+application  "F:a"
     
-composition  
-    f.g
-    where   (f.g):x = f:(g:x)
+    where   function F applied to value a
+------------------------------------------------
+
+composition   "F.G"
+
+    where   (F.G):x = F:(G:x)
+------------------------------------------------
+
+construction combining form
+    "[F1,F2,...,Fn]"
     
-construction (ON THE FLY...)
-    where   [1,2,3]  =  {1,2,3}
+    where   [F1,F2,...,Fn]:x  =  <F1:x,...,Fn:x>
+------------------------------------------------
     
-setting
-    where  a = 4
-        set element a to value 4
-    where  c = [4,5,6]
-        name and construct new sequence c
-    where x = y
-        set one unit to the other (if same type)
+apply-to-all  "@"  
     
-apply-to-all  @f       
-    where   @f:{x1,...,xn}  =  {f:x1,...,f:xn}
+    where   @F:<x1,...,xn>  =  <F:x1,...,F:xn>
+------------------------------------------------
+        
+condition  "(H -> F,G)" 
     
-    
-condition 
-    (h -> f,g)    
-    where   (h -> f,g):x   
-             =  f:x   if   h:x  =  T
-             =  g:x   if   h:x  =  F
+    where   (H -> F,G):x   
+             =  F:x   if   H:x  =  True
+             =  G:x   if   H:x  =  False
              =  undefined  otherwise
 
 ///*****************************************
@@ -48,3 +53,4 @@ SEQUENCE OPERATIONS
 - ROTL == rotate sequence elements to the left 
 - MAX  == get maximum value in sequence
 - MIN  == get minimum value in sequence 
+///*****************************************

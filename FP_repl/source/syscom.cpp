@@ -17,23 +17,23 @@ void com(std::string str, Memory* m)
     } 
     else // handle sys coms for memory management
     {
-        if(str.substr(0, 3) == "def") // Variable Definition
+        if(str.substr(0, 3) == "let") // Variable creation
         {        
-            // syntax: "def name = var"
+            // syntax: "let name = var"
             if(str.find(" ") != 3) // location of first space
             { std::cout << "ERROR1: Syntax\n"; return; }
     
-            // cut out "def ", now "name = var"
-            def( str.substr(4, (str.size()-4)), m );
+            // cut out "let ", now "name = var"
+            let( str.substr(4, (str.size()-4)), m );
         }
-        else if(str.substr(0, 3) == "mac") // create macro
+        else if(str.substr(0, 3) == "def") // Function Creation
         {        
-            // syntax: "def name = var"
+            // syntax: "def name = fun"
             if(str.find(" ") != 3) // location of first space
             { std::cout << "ERROR1: Syntax\n"; return; }
     
-            // cut out "mac ", now "name = var"
-            mac( str.substr(4, (str.size()-4)), m );
+            // cut out "def ", now "name = fun"
+            def( str.substr(4, (str.size()-4)), m );
         }
         else if(str.substr(0, 2) == "rm")
         {
@@ -59,7 +59,7 @@ void com(std::string str, Memory* m)
 //-------------------------------------------------------------------------------------------
 
 
-void def(std::string s, Memory* m) // definition function
+void let(std::string s, Memory* m) // variable creation
 {
     // string s comes in as "name = value" format
     // split out " = ", the equals and padding spaces
@@ -82,7 +82,7 @@ void def(std::string s, Memory* m) // definition function
     
     // hash here
     //**************************************************************
-    if(val.at(0) == '{' && val.at(val.size() - 1) == '}' ) // sequence
+    if(val.at(0) == '<' && val.at(val.size() - 1) == '>' ) // sequence
     {    
         std::list<int> lst;
         
@@ -118,7 +118,7 @@ void def(std::string s, Memory* m) // definition function
 }
 //-----------------------------------------------------------------------------------------
 
-void mac(std::string s, Memory* m) // macro function
+void def(std::string s, Memory* m) //  function macro definition
 {
     // string s comes in as "name = value" format
     // split out " = ", the equals and padding spaces
@@ -160,7 +160,7 @@ void print(Memory* m) // print element hash, print list hash
     m -> print_elements();
     std::cout << "Sequences:" << std::endl;    
     m -> print_sequences();
-    std::cout << "Macros:" << std::endl;    
+    std::cout << "Functions:" << std::endl;    
     m -> print_macros();
 }
 //------------------------------------------------------------------------------------------
@@ -177,10 +177,10 @@ void help()
     std::cout << "help" << " == " << "display help prompt" << std::endl;
     std::cout << "clear" << " == " << "clear the screen contents" << std::endl;
     std::cout << "exit" << " == " << "quit program" << std::endl;
-    std::cout << "def" << " == " << "define variable" << std::endl;
-    std::cout << "mac" << " == " << "create macro" << std::endl;
-    std::cout << "rm" << " == " << "remove variable" << std::endl;
-    std::cout << "ls" << " == " << "list all variables" << std::endl;
+    std::cout << "let" << " == " << "create variable" << std::endl;
+    std::cout << "def" << " == " << "define function macro" << std::endl;
+    std::cout << "rm" << " == " << "remove from memory" << std::endl;
+    std::cout << "ls" << " == " << "list all memory" << std::endl;
     std::cout << std::endl;
 }
 //-------------------------------------------------------------------------------------------

@@ -14,9 +14,9 @@
 
     void com(std::string str, Memory* m); // simple builtins handler
     
-    void def(std::string s, Memory* m); // variable definition, hashing name to value
+    void let(std::string s, Memory* m); // variable creaton, mapping name to value
     
-    void mac(std::string s, Memory* m); // create macro, hashing name to value
+    void def(std::string s, Memory* m); // create function macro, mapping name to value
     
     void rem(std::string s, Memory* m); // remove var if found
     

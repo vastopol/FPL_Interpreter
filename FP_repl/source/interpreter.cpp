@@ -18,7 +18,7 @@ Node* Interpreter::parse(std::string str, Memory* m) // evaluation engine
     }
     else if(!isBalanced(str))
     {
-      std::cout << "ERROR: incorrect grammar : \"(), [], {}\"" << std::endl; 
+      std::cout << "ERROR: incorrect syntax : \"(), {}, [], <>\"" << std::endl; 
       return 0;
     }
     
@@ -68,33 +68,37 @@ return 0;
 //-------------------------------------------------------------------------------------------
 
 
-bool Interpreter::isBalanced(std::string s) // check for ballanced number of separators (, {, [
+bool Interpreter::isBalanced(std::string s) // check for ballanced number of separators (), {}, [], <>
 {
     std::stack<char> ppp;
     
     for(std::string::iterator it = s.begin(); it != s.end(); it++)
     {
-        if(*it == '(' || *it == '[' || *it == '{')
+        if( *it == '(' || *it == '[' || *it == '{' || *it == '<')
         {
             ppp.push(*it);
         }
-        else if(*it == ')' || *it == ']' || *it == '}')
+        else if( *it == ')' || *it == ']' || *it == '}' || *it == '>')
         {
-            if(ppp.empty())
+            if( ppp.empty() )
             {
                 return false;
             }
             else
             {
-                if(*it == ')' && ppp.top() != '(' )
+                if( *it == ')' && ppp.top() != '(' )
                 {
                     return false;
                 }
-                else if(*it == ']' && ppp.top() != '[' )
+                else if( *it == ']' && ppp.top() != '[' )
                 {
                     return false;
                 }
-                else if(*it == '}' && ppp.top() != '{' )
+                else if( *it == '}' && ppp.top() != '{' )
+                {
+                    return false;
+                }
+                else if( *it == '>' && ppp.top() != '<' )
                 {
                     return false;
                 }
