@@ -1,5 +1,7 @@
 # FP_Interpreter
-Programming for an Integer based sequence manipulation language.
+A functional programming language based REPL for integer sequence manipulation.
+The REPL is the interface to the memory management system and the interpreter. 
+The REPL has primitive capabilities for automation of tasks through writing scripts.
 
 ### For more information see:
 * https://en.wikipedia.org/wiki/FP_(programming_language)
@@ -20,10 +22,10 @@ $ bin/fplr
 
 ### Development Goals:
 * Simple REPL: `fplr`
-* Interpreter: (not started)
+* Full Interpreter: (not started)
 
 These goals explore:
-the deveolpment and design of software, the abstract syntax and paridigms of programming langauges, manipulation of data structures, 
+Deveolpment and design of software, abstract syntax and paridigms of programming langauges, manipulation of data structures, 
 recursive programming techinques, interpretation of code, etc...
 
 ### Syntax (primer)
