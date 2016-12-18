@@ -1,20 +1,29 @@
 # test FP_REPL script file
 
-# dump any existing old memory
+# begin script by dumping any existing memory
 dump
 
-# function definition
+# function definitions
 def F = ROTL.ROTR
+def G = [+,*]
 
-# variable creation (element && sequence)
-let x = 5
-let y = <1,2,3>
+# create variables
+let a = -1
+let b = 0
+let c = 1
+let d = 5
+
+let x = <1,2,3,4,5>
+let y = <-2,-1,0,1,2>
+let z = <1,2,2,3,3,3,4,4,4,4>
 
 # system commands
 ls
 
 # expression evaluation
 % F:y
+
+% G:<c,d>
 
 # end script by dumping memory again
 dump
