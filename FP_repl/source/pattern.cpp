@@ -14,7 +14,7 @@ Pattern::Pattern(std::string s)
 
 Pattern::~Pattern()
 {
-    std::cout << "PATTERN DESTRUCTOR" << std::endl;
+    // std::cout << "PATTERN DESTRUCTOR" << std::endl;
     
     delete root;
     root = 0;

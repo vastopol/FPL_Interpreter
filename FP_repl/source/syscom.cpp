@@ -66,6 +66,8 @@ void process(std::string s, Memory* m) /* decides if SYSCOM || FP_EXPRESSION -> 
             std::cout << "ERROR: Execute" << std::endl;
             std::cout << e.what() << std::endl;
         }
+        
+        delete P; // free the memory on heap ??
     }   
     else 
     {
@@ -78,6 +80,7 @@ void com(std::string str, Memory* m)
 {
     if(str.substr(0, 4) == "exit")
     {
+        delete m; // delete memory object??
         exit(0);
     }
     else if(str.substr(0, 5) == "clear")
@@ -133,7 +136,7 @@ void com(std::string str, Memory* m)
         {
             bufprint(m); // print all buffer content
         }
-        else if(str.substr(0, 4) == "load") // load script content from file
+        else if(str.substr(0, 4) == "load") // load script content from file to buffer
         {        
             // syntax: load "file.fps"
             if(str.find(" ") != 4) // location of first space
@@ -144,7 +147,7 @@ void com(std::string str, Memory* m)
         }
         else if(str.substr(0, 3) == "run")
         {
-            run(m); // print all memory content
+            run(m); // execute buffer content
         }
         else
         {
@@ -210,9 +213,9 @@ void let(std::string s, Memory* m) // variable creation
     {    
         std::list<int> lst;
         
-        // remove {}
-        val = val.substr(1, (val.size() - 1)); // gone {
-        val = val.substr(0, (val.size() - 1)); // gone }
+        // remove <>
+        val = val.substr(1, (val.size() - 1)); // gone <
+        val = val.substr(0, (val.size() - 1)); // gone >
         
         // add empty list HERE
         if(val.empty()){m -> add_sequence(var, lst); return;}
@@ -283,6 +286,12 @@ void dump(Memory* m)
 }
 //-------------------------------------------------------------------------------------------
 
+void bufdump(Memory* m)
+{
+    m -> empty_buf();
+}
+//-------------------------------------------------------------------------------------------
+
 void print(Memory* m) // print element hash, print list hash
 {
     std::cout << std::endl;
@@ -297,12 +306,6 @@ void print(Memory* m) // print element hash, print list hash
     std::cout << std::endl;
 }
 //------------------------------------------------------------------------------------------
-
-void bufdump(Memory* m)
-{
-    m -> empty_buf();
-}
-//-------------------------------------------------------------------------------------------
 
 void bufprint(Memory* m) // print element hash, print list hash
 {
@@ -377,16 +380,16 @@ void run(Memory* m)
         return;
     }
     
-    std::cout << "BEGIN RUN" << std::endl;
+    std::cout << std::endl << "BEGIN RUN{";
     
     std::list<std::string>::iterator it = lst.begin();
     for(; it != lst.end(); it = lst.begin() ) // it reset to begin each time
     {
-        std::cout << *it << std::endl; // TEST PRINT BUFFER CONTENT
+        // std::cout << *it << std::endl; // TEST PRINT BUFFER CONTENT
         process(*it, m);
         lst.pop_front();
     }
     
-    std::cout << "END RUN" << std::endl;
+    std::cout << "}END RUN" << std::endl << std::endl;
 }
 //------------------------------------------------------------------------------------------

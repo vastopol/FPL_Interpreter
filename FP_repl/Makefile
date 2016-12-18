@@ -10,7 +10,7 @@ OFILES = source/syscom.o source/memory.o source/pattern.o source/interpreter.o s
 main: main.cpp $(OFILES) | bin
 	$(COMP) $(FLAGS) $(OFILES) main.cpp -o fplr && mv fplr bin/
 	
-debug:
+debug: main.cpp $(OFILES) | bin
 	$(COMP) $(FLAGS) $(DEBUG) $(OFILES) main.cpp -o fplr && mv fplr bin/
 
 syscom.o: source/syscom.cpp header/syscom.h

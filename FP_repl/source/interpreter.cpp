@@ -2,7 +2,9 @@
 
 
 Interpreter::~Interpreter()
-{}
+{
+    //  std::cout << "INTERPRETER DESTRUCTOR" << std::endl;
+}
 //------------------------------------------------
 
 Node* Interpreter::parse(std::string str, Memory* m) // evaluation engine

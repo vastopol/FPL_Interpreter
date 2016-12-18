@@ -3,7 +3,7 @@
 
 Memory::~Memory()
 {
-    std::cout << "MEMORY DESTRUCTOR" << std::endl;
+    // std::cout << "MEMORY DESTRUCTOR" << std::endl;
     clear();
     empty_buf();
 }
