@@ -1,4 +1,4 @@
-# test FP_REPL script file
+# simple test script 
 
 # begin script by dumping any existing memory
 dump

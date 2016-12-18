@@ -1,0 +1,39 @@
+# load/run test script file
+# 1. simulates running a program, 
+# 2. dumps memory && buffer,
+# 3. loads and runs another program before ending
+
+# part 1
+#-------------------------------------
+dump # clear old mem
+
+# do arbitrary lets
+let a = 1
+let b = 2
+let c = 3
+let d = 4
+let x = <1,2,3,4,5>
+
+# assume that other computations would happen here
+#-------------------------------------
+
+# part 2
+#------------------------------------
+ls   # display mem
+dump # delete current mem
+ls   # display mem
+
+bufls   # display buf
+bufdump # delete current buf
+bufls   # display buf
+#--------------------------------------
+
+# part 3
+#--------------------------------------
+# try to load another script inside of this one
+load user/test1.fps
+bufls   # display buffer
+
+# try to run new loaded buffer
+run
+#--------------------------------------
