@@ -12,7 +12,7 @@ let a = 1
 let b = 2
 let c = 3
 let d = 4
-let x = <1,2,3,4,5>
+let l = <2,3,4,5,6>
 
 # assume that other computations would happen here
 #-------------------------------------
@@ -30,7 +30,7 @@ bufls   # display buf
 
 # part 3
 #--------------------------------------
-# try to load another script inside of this one
+# load another script inside of this one
 load user/test1.fps
 bufls   # display buffer
 

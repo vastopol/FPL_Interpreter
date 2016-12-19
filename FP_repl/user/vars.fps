@@ -1,0 +1,8 @@
+# test file only for holding def && let statements
+# for example could contain useful/common variables/functions
+
+# DEFINITIONS
+
+# SEQUENCE FUNCTIONS
+def LENGTH_LIST = +.(@:~1) # returns a number
+def SECOND = HEAD.TAIL     # returns a number
