@@ -8,7 +8,7 @@
 #include <fstream>
 
 
-void process(std::string s, Memory* m) /* decides if SYSCOM || FP_EXPRESSION -> interpreter; psudeo preprocessor  */
+void process(std::string s, Memory* m) /* MASTER CONTROL FUNCTION; decides if SYSCOM || FP_EXPRESSION -> interpreter; psudeo preprocessor  */
 {
     //REMOVE COMMENTS '#'
     ///******************************************************************

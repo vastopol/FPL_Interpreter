@@ -25,15 +25,8 @@ Node* Interpreter::parse(std::string str, Memory* m) // evaluation engine
       return 0;
     }
     
-    // REMOVE PADDING SPACES
-    while(s.at(0) == ' ') // remove any forward spaces
-    {
-        s = s.substr(1, (s.size()-1));
-    }
-    while(s.at(s.size()-1) == ' ') // remove any trailing spaces
-    {
-        s = s.substr(0, (s.size()-1));
-    }
+    // REMOVE LEAD/TAIL WHITESPACE
+    s = trimSpace(s); 
     ///*******************************************************
     
     //START
@@ -47,12 +40,15 @@ Node* Interpreter::parse(std::string str, Memory* m) // evaluation engine
         
         if (pos != std::string::npos && pos < s.size() )
         {
-            lst.push_back(s.substr(0, pos)); // left half
+            std::string left = s.substr(0, pos); // left half
+            left = trimSpace(left); // REMOVE LEAD/TAIL WHITESPACE
+            lst.push_back(left);  
             lst.push_back(":");
             s = s.substr(pos+1);
         }
         else
         {
+            s = trimSpace(s); // REMOVE LEAD/TAIL WHITESPACE
             lst.push_back(s);
             break;
         }
@@ -61,7 +57,7 @@ Node* Interpreter::parse(std::string str, Memory* m) // evaluation engine
     
     for(std::list<std::string>::iterator it = lst.begin(); it != lst.end(); it++)
     {
-        std::cout << *it << ", ";
+        std::cout << "\'" << *it << "\'"  << ", ";
     }
     std::cout << '\n';
     
@@ -118,4 +114,19 @@ bool Interpreter::isBalanced(std::string s) // check for ballanced number of sep
 }
 //-------------------------------------------------------------------------------------------
 
+
+std::string Interpreter::trimSpace(std::string s) // removes any (leading || trailing) whitespace characters
+{
+    while(s.at(0) == ' ') // remove any forward spaces
+    {
+        s = s.substr(1, (s.size()-1));
+    }
+    while(s.at(s.size()-1) == ' ') // remove any trailing spaces
+    {
+        s = s.substr(0, (s.size()-1));
+    }
+    std::cout << "ATE: " << "\'" << s << "\'" << std::endl;
+    return s;
+}
+//----------------------------------------------------------------------------------------------
 

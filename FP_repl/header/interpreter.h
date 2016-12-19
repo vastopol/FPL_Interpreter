@@ -15,6 +15,7 @@ class Interpreter
     private:
         // Helper functions
         bool isBalanced(std::string s); // refers to brackets, braces, parentheses...
+        std::string trimSpace(std::string s); // removes any (leading || trailing) whitespace characters
 
     public:
         Interpreter(){};
