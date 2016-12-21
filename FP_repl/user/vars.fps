@@ -4,5 +4,5 @@
 # DEFINITIONS
 
 # SEQUENCE FUNCTIONS
-def LENGTH_LIST = +.(@:~1) # returns a number
-def SECOND = HEAD.TAIL     # returns a number
+def SECOND = HEAD.TAIL # returns second element, (sequence must be size >= 2)
+def LAST = HEAD.REV    # returns last element

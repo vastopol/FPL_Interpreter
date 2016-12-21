@@ -1,7 +1,7 @@
 FP_REPL Interaction Guide
 The "comprehensive" guide to FP_REPL syntax.
 
-LANGUAGE SYNTAX
+LANGUAGE COMPONENTS
 ///*****************************************
 
 elements: x
@@ -15,9 +15,11 @@ sequences are collections of elements
 
 () = used for separation
 
+///******************************************
 
 PRIMITVE OPERATIONS
-------------------------------------------------
+///******************************************
+
 application  "F:a"
     
     where   function F applied to value a
@@ -48,21 +50,36 @@ condition  "(H -> F,G)"
 
 ///*****************************************
 
+ELEMENT OPERATIONS (add & multiply are symbols all else are LABELS)
+///*****************************************
+- addition (+) == add two numbers
+- multiply (*) == multiply two numbers
+- NEG == negate, take opposite of number
+- ABS == take absolute value of number
+
+///*****************************************
 
 SEQUENCE OPERATIONS
 ///*****************************************
-- HEAD == get first of sequence
-- TAIL == get second to end of sequence
+  
+RETURN TYPE (ELEMENT)  
+- MAX  == maximum value in sequence
+- MIN  == minimum value in sequence
+- SIZE == number of elements in list
+- HEAD == first element of sequence
+    
+RETURN TYPE (SEQUENCE)
+- TAIL == sequence from second to end
 - REV  == reverse sequence elements order
 - ROTR == rotate sequence elements to the right
 - ROTL == rotate sequence elements to the left 
-- MAX  == get maximum value in sequence
-- MIN  == get minimum value in sequence 
+
 ///*****************************************
 
 
 GUIDELINES ON PROGRAMMING
 ///*******************************
+
 - Functions are written in Uppercase 
 - Macros are written in Uppercase
 
@@ -82,7 +99,7 @@ ex:
 >>> let y = <5,6,7>
 
 then use like:
->>> #G:(x,y)
+>>> %G:(x,y)
     G:(x,y) 
     ROTL.CAT:(<1,2,3>, <5,6,7>)
     ROTL:(CAT:(<1,2,3>, <5,6,7>))
@@ -103,9 +120,3 @@ let list = <0,1,2,3,4,5,6,7,8,9>
   HEAD:<1,2,3,4,5,6,7,8,9>
   1
   
-% LENGTH:list
-  +.(@:~1):<0,1,2,3,4,5,6,7,8,9>
-  +:((@:~1):<0,1,2,3,4,5,6,7,8,9>)
-  +:(<(~1:0),(~1:1),(~1:2),(~1:3),(~1:4),(~1:5),(~1:6),(~1:7),(~1:8),(~1:9)>)
-  +:<1,1,1,1,1,1,1,1,1,1>
-  10

@@ -5,7 +5,6 @@ dump
 
 # function definitions
 def NO_ROTO = ROTL.ROTR # does nothing 
-def SUM_PROD = [/+,/*]  # cons:<(sum of sequence),(product of sequence)>
 
 # create variables
 let a = -1
@@ -21,9 +20,9 @@ let z = <1,2,2,3,3,3,4,4,4,4>
 ls
 
 # expression evaluation
-% ADD:<c,d>  # 6
+% +:<c,d>     # 6
+% SIZE:x      # 5
 % NO_ROTO:y   # <-2,-1,0,1,2>
-% SUM_PROD:x  # <15,120>
 
 # end script by dumping memory again
 dump
