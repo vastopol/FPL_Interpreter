@@ -25,14 +25,7 @@ void process(std::string s, Memory* m) /* MASTER CONTROL FUNCTION; decides if SY
     
     // REMOVE PADDING SPACES
     ///******************************************************************
-    while(!s.empty() && s.at(0) == ' ') // remove any forward spaces
-    {
-        s = s.substr(1, (s.size()-1));
-    }
-    while(!s.empty() && s.at(s.size()-1) == ' ') // remove any trailing spaces
-    {
-        s = s.substr(0, (s.size()-1));
-    }
+    s = trimSpace(s);
     if(s.empty()){return;}
     ///******************************************************************
     
@@ -197,6 +190,7 @@ void let(std::string s, Memory* m) // variable creation
     { std::cout << "ERROR2: Syntax\n"; return; }
             
     std::string var = s.substr(0, (pos)); // variable name, left half; sz = (0 to pos)
+    var = trimSpace(var);
     if(var.empty()){ std::cout << "ERROR3: Syntax -> var\n"; return; }
     
     pos = s.find_last_of(" "); // location of last " "
@@ -204,6 +198,7 @@ void let(std::string s, Memory* m) // variable creation
     { std::cout << "ERROR4: Syntax\n"; return; }
     
     std::string val = s.substr((pos + 1), (s.size() - pos)); // variable value, right half
+    val = trimSpace(val);
     if(val.empty()){ std::cout << "ERROR5: Syntax -> val\n"; return; }
     //*****************************************************
     
@@ -225,13 +220,13 @@ void let(std::string s, Memory* m) // variable creation
         
         // extract && store the elements of the sequence        
         arr = strtok(copy, ",");
-        lst.push_back( atoi(arr) );
+        lst.push_back( atoi( arr ) );
         for(unsigned i = 1; arr != 0; i++)
         {
             arr = strtok(NULL, ",");
             if(arr)
             {
-                lst.push_back( atoi(arr) );
+                lst.push_back( atoi( arr ) );
             }
         } 
         
@@ -256,6 +251,7 @@ void def(std::string s, Memory* m) //  function macro definition
     {std::cout << "ERROR2: Syntax\n"; return;}
             
     std::string var = s.substr(0, (pos)); // variable name, left half; sz = (0 to pos)
+    var = trimSpace(var);
     if(var.empty()){std::cout << "ERROR3: Syntax -> var\n"; return;}
     
     pos = s.find_last_of(" "); // location of last " "
@@ -263,6 +259,7 @@ void def(std::string s, Memory* m) //  function macro definition
     { std::cout << "ERROR4: Syntax" << std::endl; return; }
     
     std::string val = s.substr((pos + 1), (s.size() - pos)); // variable value, right half
+    val = trimSpace(val);
     if(val.empty()){ std::cout << "ERROR5: Syntax -> val\n"; return; }
     
     m -> add_macro(var, val);
@@ -393,3 +390,18 @@ void run(Memory* m)
     std::cout << "}END RUN" << std::endl << std::endl;
 }
 //------------------------------------------------------------------------------------------
+
+std::string trimSpace(std::string s) // removes any (leading || trailing) whitespace characters
+{
+    while(s.at(0) == ' ') // remove any forward spaces
+    {
+        s = s.substr(1, (s.size()-1));
+    }
+    while(s.at(s.size()-1) == ' ') // remove any trailing spaces
+    {
+        s = s.substr(0, (s.size()-1));
+    }
+    return s;
+}
+//----------------------------------------------------------------------------------------------
+

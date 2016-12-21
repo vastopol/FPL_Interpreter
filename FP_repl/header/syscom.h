@@ -36,4 +36,6 @@
     
     void run(Memory* m); // execute contents of memory buffer in sequential order
 
+    std::string trimSpace(std::string s); // removes any (leading || trailing) whitespace characters (copy form interpreter, eg not user function)
+
 #endif // __SYSCOM_H__

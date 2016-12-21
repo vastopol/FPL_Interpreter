@@ -38,7 +38,7 @@ Node* Interpreter::parse(std::string str, Memory* m) // evaluation engine
     {
         std::size_t pos = s.find(":"); // position of first :
         
-        if (pos != std::string::npos && pos < s.size() )
+        if( pos != std::string::npos && pos < s.size() )
         {
             std::string left = s.substr(0, pos); // left half
             left = trimSpace(left); // REMOVE LEAD/TAIL WHITESPACE
@@ -125,7 +125,6 @@ std::string Interpreter::trimSpace(std::string s) // removes any (leading || tra
     {
         s = s.substr(0, (s.size()-1));
     }
-    std::cout << "ATE: " << "\'" << s << "\'" << std::endl;
     return s;
 }
 //----------------------------------------------------------------------------------------------
