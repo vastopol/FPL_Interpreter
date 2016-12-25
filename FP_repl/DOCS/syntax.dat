@@ -1,5 +1,5 @@
-FP_REPL Interaction Guide
-The "comprehensive" guide to FP_REPL syntax.
+FP_REPL Interaction Primer
+The "comprehensive" guide to syntax.
 
 LANGUAGE COMPONENTS
 ///*****************************************
@@ -81,11 +81,10 @@ GUIDELINES ON PROGRAMMING
 ///*******************************
 
 - Functions are written in Uppercase 
-- Macros are written in Uppercase
 
 - Variable names should only contain Lowercase letters
 - Each variable should be given a unique name
-- Try to avoid having multiple variables defined as same value
+- Avoid having multiple variables defined as same value
 
 
 the best option is:

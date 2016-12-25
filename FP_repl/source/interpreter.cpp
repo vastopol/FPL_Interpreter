@@ -61,7 +61,8 @@ Node* Interpreter::parse(std::string str, Memory* m) // evaluation engine
     }
     std::cout << '\n';
     
-    // substitute variables from M
+    // construct a vector/list of token objects
+    // substitute variables from Memeory
 
 return 0;  
 }
@@ -117,12 +118,15 @@ bool Interpreter::isBalanced(std::string s) // check for ballanced number of sep
 
 std::string Interpreter::trimSpace(std::string s) // removes any (leading || trailing) whitespace characters
 {
+    if(s.empty()){return s;}
     while(s.at(0) == ' ') // remove any forward spaces
     {
+        if(s.size() == 1 && s.at(0) == ' '){return "";}
         s = s.substr(1, (s.size()-1));
     }
     while(s.at(s.size()-1) == ' ') // remove any trailing spaces
     {
+        if(s.size() == 1 && s.at(0) == ' '){return "";}
         s = s.substr(0, (s.size()-1));
     }
     return s;

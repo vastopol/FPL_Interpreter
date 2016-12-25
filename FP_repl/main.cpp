@@ -10,7 +10,7 @@
 int main()
 {
     std::cout << "FP Engine" << std::endl;
-    std::cout << "Enter a command OR an expression/equation to evaluate" << std::endl;
+    std::cout << "Enter a command OR an expression to evaluate" << std::endl;
     
     std::string input;
     Memory* storage = new Memory();   // pointer to memory block for variable storage
@@ -25,7 +25,7 @@ int main()
         if(!input.empty())
         {
             // secret dirty hook to unix api for convenience
-            if(input == "BASH_HOOK!")
+            if(input == "BASH_HOOK")
             {
                 system("bash"); // will fail on non *nix systems
             }

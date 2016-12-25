@@ -16,8 +16,6 @@ OR
 where sequence
    name = <atom,...,atom>   
    s = <1,2,3>
-   
-   NO SPACES BETWEEN COMMAS
 //----------------------------------------
 
 * def == compositional function
@@ -67,8 +65,8 @@ syntax: "run"
 EVALUATION
 ///*********************************************
 
-Evaluation is invoked with the special symbol '#'
-When the '#' is the first character in the input string,
+Evaluation is invoked with the special symbol '%'
+When the '%' is the first character in the input string,
 evaluation is called on the sequence of characters immediately after.
 eg.
 >>> %F:x

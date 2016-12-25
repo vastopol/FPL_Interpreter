@@ -53,7 +53,8 @@ void process(std::string s, Memory* m) /* MASTER CONTROL FUNCTION; decides if SY
             std::cout << e.what() << std::endl;
         }
         
-        delete P; // free the current pattern on heap
+        delete P; // delete the current pattern on heap
+        P = 0;
     }   
     else 
     {
@@ -67,6 +68,7 @@ void com(std::string s, Memory* m) // ( {let, def, rm, load}  ALL have string ar
     if(s == "exit")
     {
         delete m; // delete memory object??
+        m = 0; 
         exit(0);
     }
     else if(s == "clear")
@@ -178,7 +180,7 @@ void let(std::string s, Memory* m) // variable creation
     // split out " = ", the equals and padding spaces
     // string var = name; string val = value
     //**************************************************
-    unsigned pos = s.find(" = "); // location of =
+    size_t pos = s.find(" = "); // location of =
     if(pos >= s.size() || pos == std::string::npos)
     { std::cout << "ERROR2: Syntax\n"; return; }
             
@@ -186,7 +188,8 @@ void let(std::string s, Memory* m) // variable creation
     var = trimSpace(var);
     if(var.empty()){ std::cout << "ERROR3: Syntax -> var\n"; return; }
     
-    pos = s.find_last_of(" "); // location of last " "
+    pos = s.find(" "); // location of first " "
+    pos = s.find(" ", pos+1); // location of " " right after the "="
     if(pos >= s.size() || pos == std::string::npos)
     { std::cout << "ERROR4: Syntax\n"; return; }
     
@@ -205,6 +208,8 @@ void let(std::string s, Memory* m) // variable creation
         val = val.substr(1, (val.size() - 1)); // gone <
         val = val.substr(0, (val.size() - 1)); // gone >
         
+        val = trimSpace(val);
+        
         // add empty list HERE
         if(val.empty()){m -> add_sequence(var, lst); return;}
         
@@ -212,24 +217,28 @@ void let(std::string s, Memory* m) // variable creation
         char* arr = 0;                          // temp array
         
         // extract && store the elements of the sequence        
-        arr = strtok(copy, ",");
+        arr = strtok(copy, ",");            
         lst.push_back( atoi( arr ) );
         for(unsigned i = 1; arr != 0; i++)
         {
             arr = strtok(NULL, ",");
             if(arr)
-            {
+            {                
                 lst.push_back( atoi( arr ) );
             }
         } 
         
-        m -> add_sequence( var, lst ); 
+        m -> add_sequence( var, lst );
+        
+        // if(copy){delete copy; copy = 0;} // ?
+        // if(arr) {delete arr; arr = 0;} // ?
     }
     else // element
     {
         m -> add_element( var, atoi(val.c_str()) );        
     }
     //****************************************************************************** 
+
 }
 //-----------------------------------------------------------------------------------------
 
@@ -239,7 +248,7 @@ void def(std::string s, Memory* m) //  function macro definition
     // split out " = ", the equals and padding spaces
     // string var = name; string val = value
     //**************************************************
-    unsigned pos = s.find(" = "); // location of =
+    size_t pos = s.find(" = "); // location of =
     if(pos >= s.size() || pos == std::string::npos)
     {std::cout << "ERROR2: Syntax\n"; return;}
             
@@ -247,7 +256,8 @@ void def(std::string s, Memory* m) //  function macro definition
     var = trimSpace(var);
     if(var.empty()){std::cout << "ERROR3: Syntax -> var\n"; return;}
     
-    pos = s.find_last_of(" "); // location of last " "
+    pos = s.find(" "); // location of first " "
+    pos = s.find(" ", pos+1); // location of " " right after the "="
     if(pos >= s.size() || pos == std::string::npos)
     { std::cout << "ERROR4: Syntax" << std::endl; return; }
     
@@ -263,6 +273,9 @@ void rem(std::string s, Memory* m) // access hashes and remove var if found
 {
     if(s.empty())
     { std::cout << "ERROR: empty var name\n"; return; }
+    
+    s = trimSpace(s);
+    if(s.empty()){return;}
     
     m -> remove_element(s);
     m -> remove_sequence(s);
@@ -307,16 +320,17 @@ void bufprint(Memory* m) // print element hash, print list hash
 }
 //------------------------------------------------------------------------------------------
 
-void load(std::string str, Memory* m)
+void load(std::string s, Memory* m) // removes comments && trims spaces
 {
     // initial checks
     ///*******************************************************************
-    if(str.size() < 5)
+    s = trimSpace(s);
+    if(s.size() < 5)
     {
         std::cout << "ERROR: LOAD: FILE" << std::endl;
         return;
     }
-    else if( str.substr(str.find_last_of('.'), str.size()-1) != ".fps")
+    else if( s.substr(s.find_last_of('.'), s.size()-1) != ".fps")
     {
         std::cout << "ERROR: LOAD: FILE: EXTENTION" << std::endl;
         return;
@@ -324,7 +338,7 @@ void load(std::string str, Memory* m)
     else // C call to see if a file exists (mysterious system calls for linux)
     {
         struct stat buf;
-        if(stat(str.c_str(), &buf) == 0)
+        if(stat(s.c_str(), &buf) == 0)
         {
             if( !(S_ISREG (buf.st_mode & S_IFMT)) )
             {
@@ -342,11 +356,11 @@ void load(std::string str, Memory* m)
     
     std::string temp;
     std::ifstream inFS;
-    inFS.open(str.c_str());
+    inFS.open(s.c_str());
     
     if(!inFS.is_open())
     {
-        std::cout << "ERROR: FAILURE TO OPEN: " << str << std::endl;
+        std::cout << "ERROR: FAILURE TO OPEN: " << s << std::endl;
         return;
     }
     else
@@ -365,7 +379,7 @@ void load(std::string str, Memory* m)
 
 void run(Memory* m)
 {
-    std::list<std::string> lst = m -> get_buffer(); // ptr to buffer in memory
+    std::list<std::string> lst = m -> get_buffer(); // copy buffer from memory
     if( lst.empty() )
     {
         std::cout << "ERROR: RUN: EMPTY BUFFER" << std::endl;
@@ -377,7 +391,6 @@ void run(Memory* m)
     std::list<std::string>::iterator it = lst.begin();
     for(; it != lst.end(); it = lst.begin() ) // it reset to begin each time
     {
-        // std::cout << *it << std::endl; // TEST PRINT
         process(*it, m);
         lst.pop_front();
     }
@@ -388,12 +401,15 @@ void run(Memory* m)
 
 std::string trimSpace(std::string s) // removes any (leading || trailing) whitespace characters
 {
+    if(s.empty()){return s;}
     while(s.at(0) == ' ') // remove any forward spaces
     {
+        if(s.size() == 1 && s.at(0) == ' '){return "";}
         s = s.substr(1, (s.size()-1));
     }
     while(s.at(s.size()-1) == ' ') // remove any trailing spaces
     {
+        if(s.size() == 1 && s.at(0) == ' '){return "";}
         s = s.substr(0, (s.size()-1));
     }
     return s;
