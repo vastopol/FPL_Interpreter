@@ -1,6 +1,8 @@
 #ifndef __SYSCOM_H__
 #define __SYSCOM_H__
 
+// this should be merged into the interpreter class at some point
+
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
@@ -36,6 +38,8 @@
     
     void run(Memory* m); // execute contents of memory buffer in sequential order
 
-    std::string trimSpace(std::string s); // removes any (leading || trailing) whitespace characters (copy form interpreter, eg not user function)
+    std::string trimSpace(std::string s); // removes any (leading || trailing) whitespace characters (INTERPRETER)
+    
+    std::string trimSharp(std::string s); // remove comments (INTERPRETER)
 
 #endif // __SYSCOM_H__
