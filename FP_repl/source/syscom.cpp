@@ -400,7 +400,7 @@ void run(Memory* m)
     
     std::cout << "}END RUN" << std::endl << std::endl; 
     
-    bufdump(m); // clear buffer content for next load
+    // bufdump(m); // clear buffer content for next load
 }
 //------------------------------------------------------------------------------------------
 

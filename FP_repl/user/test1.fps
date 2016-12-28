@@ -24,5 +24,6 @@ ls
 % SIZE:x      # 5
 % NO_ROTO:y   # <-2,-1,0,1,2>
 
-# end script by dumping memory again
+# end script by dumping memory && buffer
 dump
+bufdump

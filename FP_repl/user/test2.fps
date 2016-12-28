@@ -46,3 +46,7 @@ bufls   # display new buffer content
 run
 
 #--------------------------------------
+
+# end script by dumping memory && buffer
+dump
+bufdump
