@@ -8,7 +8,7 @@ scripts are lists of statements to be performed in sequence
 files are structrued in procedural order.
 reads until newline, constructs a string, queues string in buffer
 
-the '#' is comment, it and everything after will be ignored
+the '#' is comment, it and everything after will be ignored until newline
 
 
 OPERATIONS:
@@ -17,8 +17,10 @@ OPERATIONS:
 load file.fps == loads the contents of file.fps into the system buffer
 
 run == execute content of the system buffer. if buffer is empty will not work.
-    system buffer is a queue of commands to be executed in order. each command is executed, 
-    and removed from the queue. continues until queue is empty.
+    system buffer is a queue of commands to be executed in Sequential order. 
+    each command is executed, and removed from the queue. continues until queue is empty.
+    
+    note: after run, system buffer will be empty
 
 //==========================================================================
 

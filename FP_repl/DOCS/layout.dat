@@ -1,7 +1,7 @@
 SYSCOM:
 "syscom.h" is a set of functions which are responsible for the basic user interactions with the memory and system.
 
-variables and buffer have different dumps SO the variables can be dumped by a script.
+variables and command buffer have different dumps SO the variables can be dumped by a script.
 
 //-----------------------------------------------------------------
 

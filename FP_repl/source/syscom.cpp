@@ -379,7 +379,7 @@ void load(std::string s, Memory* m) // removes comments && trims spaces
 
 void run(Memory* m)
 {
-    std::list<std::string> lst = m -> get_buffer(); // copy buffer from memory
+    std::list<std::string> lst = m -> get_buffer(); // copy buffer from memory // &lst
     if( lst.empty() )
     {
         std::cout << "ERROR: RUN: EMPTY BUFFER" << std::endl;
@@ -392,10 +392,15 @@ void run(Memory* m)
     for(; it != lst.end(); it = lst.begin() ) // it reset to begin each time
     {
         process(*it, m);
-        lst.pop_front();
+        if(!lst.empty())
+        {
+            lst.pop_front();
+        }
     }
     
-    std::cout << "}END RUN" << std::endl << std::endl;
+    std::cout << "}END RUN" << std::endl << std::endl; 
+    
+    bufdump(m); // clear buffer content for next load
 }
 //------------------------------------------------------------------------------------------
 
