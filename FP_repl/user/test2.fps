@@ -3,7 +3,8 @@
 # 2. dumps memory && buffer,
 # 3. loads and runs another program before ending (user/test1.fps)
 
-# part 1
+
+# PART 1
 #-------------------------------------
 
 dump # clear old mem
@@ -16,16 +17,17 @@ let d = 4
 let l = <2,3,4,5,6>
 
 # assume that other computations would happen here
+# ...
 
 #-------------------------------------
 
 
-# part 2
+# PART 2
 #------------------------------------
 
-ls   # display mem before
-dump # delete current mem
-ls   # display mem after
+ls      # display mem before
+dump    # delete current mem
+ls      # display mem after
 
 bufls   # display buf before
 bufdump # delete current buffer content
@@ -34,7 +36,7 @@ bufls   # display buf after
 #--------------------------------------
 
 
-# part 3
+# PART 3
 #--------------------------------------
 
 # load another script file to the system buffer
@@ -42,8 +44,7 @@ load user/test1.fps
 
 bufls   # display new buffer content
 
-# run new loaded buffer
-run
+run     # run new loaded buffer
 
 #--------------------------------------
 

@@ -5,11 +5,7 @@ LANGUAGE COMPONENTS
 ///*****************************************
 
 elements: x
-constant: ~x
 sequences: <x1,...,xn>
-
-constants are special elements that cannot change value (used more like a function...)
-application of a constant to something returns the constant
 
 sequences are collections of elements
 
@@ -52,10 +48,13 @@ condition  "(H -> F,G)"
 
 ELEMENT OPERATIONS (add & multiply are symbols all else are LABELS)
 ///*****************************************
+
 - addition (+) == add two numbers
 - multiply (*) == multiply two numbers
 - NEG == negate, take opposite of number
 - ABS == take absolute value of number
+- INC == increment (plus 1)
+- DEC == decrement (minus 1)
 
 ///*****************************************
 
@@ -73,6 +72,7 @@ RETURN TYPE (SEQUENCE)
 - REV  == reverse sequence elements order
 - ROTR == rotate sequence elements to the right
 - ROTL == rotate sequence elements to the left 
+- CAT  == concatenate 2 sequences
 
 ///*****************************************
 

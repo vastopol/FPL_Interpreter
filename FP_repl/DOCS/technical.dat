@@ -22,6 +22,8 @@ where sequence
 
 syntax: "def name = function"
 
+ex:   def LAST = HEAD.REV    # returns last element
+
 the functions are macros substituted in on interpretation
 //----------------------------------------
 
