@@ -105,7 +105,7 @@ std::map<std::string, int>& Memory::get_elements()
 }
 //--------------------------------------------------------------
 
-std::map<std::string, std::list<int> >& Memory::get_sequences()
+std::map< std::string, std::list<int> >& Memory::get_sequences()
 {
     return sequences;
 }
@@ -128,8 +128,8 @@ std::list<std::string>& Memory::get_buffer()
 ///*****************************************************************************
 void Memory::print_elements()
 {
-    // print content (begin to end)
-    for(std::map<std::string, int>::iterator it = this->elements.begin(); it != this->elements.end(); it++)
+    std::map<std::string, int>::iterator it = this->elements.begin(); // iterator
+    for(; it != this->elements.end(); it++)
     {
         std::cout << it->first << " = " << it->second << std::endl;
     }
@@ -138,12 +138,13 @@ void Memory::print_elements()
 
 void Memory::print_sequences()
 {
-    // cycle container
-    for(std::map<std::string, std::list<int> >::iterator it = this->sequences.begin(); it != this->sequences.end(); it++)
+    std::map< std::string, std::list<int> >::iterator it = this->sequences.begin(); // external iterator (map)
+    for(; it != this->sequences.end(); it++)
     {
-        std::list<int>::iterator jt = it->second.begin();
+        std::list<int>::iterator jt = it->second.begin(); // internal iterator (list)
         
-        if(jt == it->second.end()) // empty list
+        // empty list
+        if(jt == it->second.end()) 
         {std::cout << it->first << " = <>\n"; continue;}
         
         std::cout << it->first << " = <";
@@ -158,8 +159,8 @@ void Memory::print_sequences()
 
 void Memory::print_macros()
 {
-    // print content (begin to end)
-    for(std::map<std::string, std::string>::iterator it = this->macros.begin(); it != this->macros.end(); it++)
+    std::map<std::string, std::string>::iterator it = this->macros.begin(); // iterator
+    for(; it != this->macros.end(); it++)
     {
         std::cout << it->first << " = " << it->second << std::endl;
     }
@@ -185,8 +186,8 @@ void Memory::print_buf()
         return;
     }
     
-    // print content (begin to end)
-    for(std::list<std::string>::iterator it = this->buffer.begin(); it != this->buffer.end(); it++)
+    std::list<std::string>::iterator it = this->buffer.begin(); // iterator
+    for(; it != this->buffer.end(); it++)
     {
         std::cout << *it << std::endl;
     }

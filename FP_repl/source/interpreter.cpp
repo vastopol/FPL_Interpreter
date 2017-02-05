@@ -9,6 +9,8 @@ Interpreter::~Interpreter()
 
 Node* Interpreter::parse(std::string str, Memory* m) // evaluation engine
 {
+    std::cout << std::endl;
+    
     std::string s = str;        // temp string
     std::list<std::string> lst; // temp list
     
@@ -29,9 +31,11 @@ Node* Interpreter::parse(std::string str, Memory* m) // evaluation engine
     s = trimSpace(s); 
     ///*******************************************************
     
+    
     //START
-    std::cout << "string: \"" << s << "\"" << std::endl;
-            
+    std::cout << "BEGIN\n" << "\"" << s << "\"" << std::endl;
+    
+    std::cout << "PART1" << std::endl;      
     // PARSE ':'
     ///*******************************************************
     while( !s.empty() )
@@ -45,6 +49,15 @@ Node* Interpreter::parse(std::string str, Memory* m) // evaluation engine
             lst.push_back(left);  
             lst.push_back(":");
             s = s.substr(pos+1);
+            
+            // /*
+            // print steps through
+            for(std::list<std::string>::iterator it = lst.begin(); it != lst.end(); it++)
+            {
+                std::cout << "\"" << *it << "\""  << ", ";
+            }
+            std::cout << std::endl;
+            // */
         }
         else
         {
@@ -53,17 +66,27 @@ Node* Interpreter::parse(std::string str, Memory* m) // evaluation engine
             break;
         }
     }
-    ///*******************************************************
     
+    // /*
+    // print last step through
     for(std::list<std::string>::iterator it = lst.begin(); it != lst.end(); it++)
     {
-        std::cout << "\'" << *it << "\'"  << ", ";
+        std::cout << "\"" << *it << "\""  << ", ";
     }
-    std::cout << '\n';
+    std::cout << std::endl;
+    // */
+    ///*******************************************************
     
-    // construct a vector/list of token objects
-    // substitute variables from Memeory
-
+    std::cout << "PART2" << std::endl;
+    
+    // construct a vector/list of token objects && substitute variables from Memeory
+    
+    // reorder tokens infix to postfix
+    
+    // construct the tree
+    
+    std::cout << "not done" << std::endl;
+    
 return 0;  
 }
 //-------------------------------------------------------------------------------------------

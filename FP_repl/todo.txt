@@ -1,8 +1,8 @@
 TODO - Unfinished works
 -------------------------
 * node.cpp
-* action.h/cpp
-* interpreter.h/cpp
+* action.h/cpp -> tree traversal
+* interpreter.h/cpp -> recurse on parse for precedence && nested applications
 
 * sequence.h/cpp -> ?? objects?
 

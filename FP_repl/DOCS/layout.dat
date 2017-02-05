@@ -8,9 +8,9 @@ variables and command buffer have different dumps SO the variables can be dumped
 CLASSES
 - Pattern == compositional object / mediator
 - Memory == data structure -> hold user defined variables/macros
-- Node == data structure -> form of the syntax tree
-- Interpreter == strategy pattern -> parsing
-- Action == strategy pattern -> execution
+- Node == data structure -> form of the abstract syntax tree
+- Interpreter ==  parsing
+- Action ==  execution
 
 On construction Pattern is initialized with an input string and a reference to the Memory object.
 The Node pointer will initially be NULL. 

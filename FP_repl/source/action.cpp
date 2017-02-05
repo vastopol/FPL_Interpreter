@@ -14,6 +14,8 @@ void Action::exec(Node* n)
 {
     std::cout << "EXEC" << std::endl;
     
+    std::cout << "not done" << std::endl;
+
     if(n == 0)
     {
         return;
