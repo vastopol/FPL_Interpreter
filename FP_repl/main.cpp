@@ -21,15 +21,13 @@ int main()
         std::cout << "$$ ";
         getline(std::cin, input);  
         
-        // PROCESS INPUT
-        if(!input.empty())
+        
+        if(input == "BASH_HOOK")
         {
-            // secret dirty hook to unix api for convenience
-            if(input == "BASH_HOOK")
-            {
-                system("bash"); // will fail on non *nix systems
-            }
-            
+            system("bash"); // will fail on non *nix systems
+        }
+        else
+        {
             process(input, storage);
         }
     }

@@ -8,7 +8,7 @@
 #include <fstream>
 
 
-void process(std::string s, Memory* m) /* MASTER CONTROL FUNCTION; decides if SYSCOM || FP_EXPRESSION -> interpreter; psudeo preprocessor  */
+void process(std::string s, Memory* m) /* MASTER CONTROL FUNCTION; decides if SYSCOM || FP_EXPRESSION -> interpreter  */
 {
     //REMOVE COMMENTS '#'
     ///******************************************************************
@@ -63,7 +63,7 @@ void process(std::string s, Memory* m) /* MASTER CONTROL FUNCTION; decides if SY
 }
 //---------------------------------------------------------------------------------
 
-void com(std::string s, Memory* m) // ( {let, def, rm, load}  ALL have string arguments)
+void com(std::string s, Memory* m) // big branch statement to choose syscom; ( {let, def, rm, load}  ALL have string arguments)
 {
     if(s == "exit")
     {
@@ -163,7 +163,7 @@ void help()
     std::cout << "exit" << " == " << "quit program" << std::endl;
     std::cout << "let" << " == " << "create variable" << std::endl;
     std::cout << "def" << " == " << "define function macro" << std::endl;
-    std::cout << "rm" << " == " << "remove from memory" << std::endl;
+    std::cout << "rm" << " == " << "remove an entry from memory" << std::endl;
     std::cout << "dump" << " == " << "empty all memory" << std::endl;
     std::cout << "bufdump" << " == " << "empty all buffer content" << std::endl;
     std::cout << "ls" << " == " << "list all memory" << std::endl;
@@ -208,7 +208,17 @@ void let(std::string s, Memory* m) // variable creation
         val = val.substr(1, (val.size() - 1)); // gone <
         val = val.substr(0, (val.size() - 1)); // gone >
         
-        val = trimSpace(val);
+        val = trimSpace(val);        
+        
+        // add empty list HERE 
+        if(val.empty()){m -> add_sequence(var, lst); return;}
+        
+        // remove bad junk before segfault
+        while( !isalnum(val.at(0)) && val.size() >= 1 )
+        {
+            if(val.size() == 1){val = ""; break;}
+            val = val.substr(1, (val.size() - 1));
+        } 
         
         // add empty list HERE
         if(val.empty()){m -> add_sequence(var, lst); return;}
@@ -228,6 +238,7 @@ void let(std::string s, Memory* m) // variable creation
             }
         } 
         
+        // add list with data HERE
         m -> add_sequence( var, lst );
         
         // if(copy){delete copy; copy = 0;} // ?
@@ -399,8 +410,6 @@ void run(Memory* m)
     }
     
     std::cout << "}END RUN" << std::endl << std::endl; 
-    
-    // bufdump(m); // clear buffer content for next load
 }
 //------------------------------------------------------------------------------------------
 
@@ -409,12 +418,12 @@ std::string trimSpace(std::string s) // removes any (leading || trailing) whites
     if(s.empty()){return s;}
     while(s.at(0) == ' ') // remove any forward spaces
     {
-        if(s.size() == 1 && s.at(0) == ' '){return "";}
+        if(s.size() == 1 /* && s.at(0) == ' '*/){return "";}
         s = s.substr(1, (s.size()-1));
     }
     while(s.at(s.size()-1) == ' ') // remove any trailing spaces
     {
-        if(s.size() == 1 && s.at(0) == ' '){return "";}
+        if(s.size() == 1 /*&& s.at(0) == ' '*/){return "";}
         s = s.substr(0, (s.size()-1));
     }
     return s;
