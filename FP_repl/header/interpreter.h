@@ -14,14 +14,14 @@ class Interpreter
 {
     private:
         // Helper functions
-        bool isBalanced(std::string s); // refers to brackets, braces, parentheses...
-        std::string trimSpace(std::string s); // removes any (leading || trailing) whitespace characters
+        bool isBalanced(std::string s);        // refers to brackets, braces, parentheses...
+        std::string trimSpace(std::string s);  // removes any (leading || trailing) whitespace characters
 
     public:
         Interpreter(){};
         ~Interpreter();
         
-        Node* parse(std::string s, Memory* m);       // parse engine    
+        Node* parse(std::string s, Memory* m); // parse engine    
 };
 
 #endif // __INTERPRETER_H__

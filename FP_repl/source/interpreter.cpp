@@ -7,7 +7,7 @@ Interpreter::~Interpreter()
 }
 //------------------------------------------------
 
-Node* Interpreter::parse(std::string str, Memory* m) // evaluation engine
+Node* Interpreter::parse(std::string str, Memory* m) // parse engine
 {
     std::cout << std::endl;
     

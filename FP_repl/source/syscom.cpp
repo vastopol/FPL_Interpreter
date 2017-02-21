@@ -8,7 +8,7 @@
 #include <fstream>
 
 
-void process(std::string s, Memory* m) /* MASTER CONTROL FUNCTION; decides if SYSCOM || FP_EXPRESSION -> interpreter  */
+void process(std::string s, Memory* m) /* preprocessing function */
 {
     //REMOVE COMMENTS '#'
     ///******************************************************************
@@ -22,44 +22,9 @@ void process(std::string s, Memory* m) /* MASTER CONTROL FUNCTION; decides if SY
     if(s.empty()){return;}
     ///******************************************************************
     
+    
+    com(s,m); // call to syscom or execute user input
 
-    /* if string starts with "%" construct pattern object;
-       pattern -> interpreter -> parse(string), generates expression tree;
-       pattern -> action -> execute(root); */
-    if(s.at(0) == '%') 
-    {
-        s = s.substr(1, s.size()-1); // s now cut out "%"
-        Pattern* P = new Pattern(s); // construct pattern with
-        
-        // PARSE
-        try
-        {
-            P -> setRoot( P -> getI() -> parse(s, m) );
-        }
-        catch(std::exception &e)
-        {
-            std::cout << "ERROR: Parse" << std::endl;
-            std::cout << e.what() << std::endl;
-        }
-        
-        // EXECUTE
-        try
-        {
-            P -> getA() -> exec( P -> getRoot() );
-        }
-        catch(std::exception &e)
-        {
-            std::cout << "ERROR: Execute" << std::endl;
-            std::cout << e.what() << std::endl;
-        }
-        
-        delete P; // delete the current pattern on heap
-        P = 0;
-    }   
-    else 
-    {
-        com(s, m); // call COM() for syscommands && memory interaction
-    } 
 }
 //---------------------------------------------------------------------------------
 
@@ -133,17 +98,52 @@ void com(std::string s, Memory* m) // big branch statement to choose syscom; ( {
             // cut out "load", now " file.fsp"
             load( s.substr(5, (s.size()-1)), m );
         }
-        else if(s == "run")
+        else if(s == "run") // execute buffer content
         {
-            run(m); // execute buffer content
+            run(m); 
         }
-        else
+        else // parse && execute user input
         {
-            std::cout << "ERROR: Unknown Command: " << "\"" << s << "\"" << std::endl;
-        }
-    }
+            if(s.at(0) == '%') 
+            {
+                s = s.substr(1, s.size()-1); // s now cut out "%"
+                Pattern* P = new Pattern(s); // construct pattern with
+                
+                // PARSE
+                try
+                {
+                    P -> setRoot( P -> getI() -> parse(s, m) );
+                }
+                catch(std::exception &e)
+                {
+                    std::cout << "ERROR: Parse" << std::endl;
+                    std::cout << e.what() << std::endl;
+                }
+                
+                // EXECUTE
+                try
+                {
+                    P -> getA() -> exec( P -> getRoot() );
+                }
+                catch(std::exception &e)
+                {
+                    std::cout << "ERROR: Execute" << std::endl;
+                    std::cout << e.what() << std::endl;
+                }
+                
+                delete P; // delete the current pattern on heap
+                P = 0;
+            }   
+            else 
+            {
+                std::cout << "ERROR: Unknown Input: " << "\"" << s << "\"" << std::endl;
+            } 
+        
+        } // end parse && exec branch 
+        
+    } // end general syscom branch 
     
-    return; // catch breakouts
+    return; // catch any breakouts
 }
 //-------------------------------------------------------------------------------------------
 
@@ -154,7 +154,7 @@ void help()
     std::cout << "Enter System commands OR use \'%\' operator to evaluate expressions AND equations." << std::endl;
     std::cout << "Have matching parenthesis and correct syntax and grammar." << std::endl;   //// A = B, A != B, A < B, etc... use only 1 binary evaluator
     std::cout << "Separete distinct sub-pieces with parenthesis." << std::endl;
-    std::cout << "For more detailed information see folder: FP_REPL/DOCS/" << std::endl;
+    std::cout << "For more detailed information see folder: FP_repl/DOCS/" << std::endl;
     std::cout << std::endl;
     
     std::cout << "SYSTEM COMMANDS:" << std::endl;
