@@ -58,10 +58,27 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
     
     std::cout << "PART3" << std::endl << "not done\n" << std::endl;
     
-    // construct a vector/list of token objects && substitute variables from Memeory
+    // construct a list of token objects && substitute variables from Memeory
     
+    // std::list<Object> oblst;
+    
+    for(std::list<std::string>::iterator it = lst.begin(); it != lst.end(); it++)
+    {
+        // if CAPS is function
+        // if lower is variable, if number is element, if <> is sequence
+        // if ':' make colon object
+        
+        // if( (it->at(0) == '(') && (it->at(it->size()-1) == ')') ) // block object
+        // {
+        //     *it = it->substr(1, (it->size() - 1)); // gone )
+        //     *it = it->substr(0, (it->size() - 1)); // gone (
+        // }
+    }
+    
+    // PART 4    
     // reorder tokens infix to postfix
     
+    // PART 5
     // construct the tree
         
     return 0;  
@@ -162,6 +179,7 @@ std::string Interpreter::par_dot(std::string& s)    // rewrite (f.g):x -> f:(g:x
 void Interpreter::par_colon(std::string& s, std::list<std::string>& lst)
 {
     std::cout << "p_col" << std::endl;
+    
     // while( !s.empty() )
     // {
         std::size_t pos = s.find(":"); // position of first :
@@ -175,13 +193,10 @@ void Interpreter::par_colon(std::string& s, std::list<std::string>& lst)
             lst.push_back(":");
             
             s = s.substr(pos+1);
-            if( s.at(0) == '(' && s.at(s.size()-1) == ')' )
-            {
-                s = s.substr(1, (s.size() - 1)); // gone )
-                s = s.substr(0, (s.size() - 1)); // gone (
-                lst.push_back(s);
-                return; // ?
-            }
+            
+            lst.push_back(s);
+            return; // ?
+            
 
             // // print steps through
             // for(std::list<std::string>::iterator it = lst.begin(); it != lst.end(); it++)

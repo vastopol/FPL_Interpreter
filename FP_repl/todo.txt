@@ -1,9 +1,9 @@
 TODO - Unfinished works
 -------------------------
 
-* action.h/cpp -> tree traversal
+* action.h/cpp -> tree traversal on AST nodes
 
-* interpreter.h/cpp -> recurse on parse for precedence && nested applications
+* interpreter.h/cpp -> recurse on parse for precedence && nested applications, build AST of Object*
 
 ;;-----------------------
 
@@ -12,6 +12,7 @@ TODO - Unfinished works
     - sequence
     - element
     - colon   ':' the apply links the other parts  (might not need to be a class)
+    - block    chunk of data to call parse on again
 
 * node.cpp -> nodes need to hold Object pointer
 

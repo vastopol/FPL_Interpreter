@@ -15,6 +15,19 @@ class Object
 };
 //---------------------------------
 
+class Element : public Object
+{
+    private:
+        int val;
+    
+    public:
+        Element();
+        Element(int)
+        ~Element(); 
+        std::string type();
+};
+//---------------------------------
+
 class Sequence : public Object
 {
     private:
@@ -36,19 +49,6 @@ class Sequence : public Object
         std::list<int> max();
         std::list<int> min();
         
-};
-//---------------------------------
-
-class Element : public Object
-{
-    private:
-        int val;
-    
-    public:
-        Element();
-        Element(int)
-        ~Element(); 
-        std::string type();
 };
 //---------------------------------
 
@@ -78,5 +78,17 @@ class Colon : public Object
 };
 //---------------------------------
 
+class Block : public Object  // to reparse again
+{
+    private:
+        std::string block;
+    
+    public:
+        Block();
+        Block(std::string);
+        ~Block();   
+        std::string type();
+};
+//---------------------------------
 
 #endif // __OBJECT_H__

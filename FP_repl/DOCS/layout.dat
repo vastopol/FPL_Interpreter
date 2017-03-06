@@ -25,9 +25,10 @@ SYSCOM BRANCH STRUCTURE
 CLASSES
 - Pattern == compositional object / mediator
 - Memory == data structure -> hold user defined variables/macros
-- Node == data structure -> form of the abstract syntax tree
+- Node == data structure -> form of the abstract syntax tree, hold Object*
 - Interpreter ==  parsing
 - Action ==  execution
+- Object == AST objects
 
 On construction Pattern is initialized with an input string and a reference to the Memory object.
 The Node pointer will initially be NULL. 
@@ -54,7 +55,7 @@ Memory
 
 Node
 {
-    std::string key;
+    Object* key;
     Node *parent, *left, *right;
     
     // constructor, set, get, etc...
@@ -83,11 +84,14 @@ Action
 
 object
 {
-    -sequence
-    -connector 
-        subclasses{ ':' | '.' }
-    -function
-        inheritance, strategy pattern?
+    
+    - connector ':'
+    - block
+    - element
+    - sequence
+    - function
+        function pointers vs. strategy pattern
+    
 }
 
-nodes hold object pointer?
+nodes hold object pointer
