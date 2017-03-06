@@ -5,6 +5,23 @@ variables and command buffer have different dumps SO the variables can be dumped
 
 //-----------------------------------------------------------------
 
+SYSCOM BRANCH STRUCTURE
+- exit
+- clear
+- help
+- let
+- def
+- rm
+- dump
+- ls
+- bufdump
+- bufls
+- load
+- run
+- eval
+
+//-----------------------------------------------------------------
+
 CLASSES
 - Pattern == compositional object / mediator
 - Memory == data structure -> hold user defined variables/macros

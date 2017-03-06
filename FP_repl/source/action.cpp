@@ -12,14 +12,9 @@ Action::~Action()
 
 void Action::exec(Node* n)
 {
-    std::cout << "EXEC" << std::endl;
-    
-    std::cout << "not done" << std::endl;
+    std::cout << "EXEC\n" << "not done\n" << std::endl;
 
-    if(n == 0)
-    {
-        return;
-    }
+    return;
     
     // tree traversal here
 }

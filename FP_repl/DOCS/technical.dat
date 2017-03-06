@@ -67,13 +67,19 @@ syntax: "run"
 EVALUATION
 ///*********************************************
 
-Evaluation is invoked with the special symbol '%'
-When the '%' is the first character in the input string,
-evaluation is called on the sequence of characters immediately after.
+Upon user input, string is checked to see if is a syscom.
+Evaluation is invoked if the input is not a call to syscom.
+evaluation is called on the sequence of characters.
 eg.
->>> %F:x
-evaluate("F:x").
-evaluate(apply function f to variable x).
-return result.
+
+# evaluation
+>>> F:x
+    evaluate("F:x")
+    apply function f to variable x
+    return result.
+
+# syscom
+>>> ls
+    call to syscom, prints memory content
 
 ///*********************************************

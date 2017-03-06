@@ -25,69 +25,46 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
     {
       std::cout << "ERROR: incorrect syntax : \"(), {}, [], <>\"" << std::endl; 
       return 0;
-    }
+    } 
+    ///*******************************************************
     
     // REMOVE LEAD/TAIL WHITESPACE
+    ///*******************************************************
     s = trimSpace(s); 
     ///*******************************************************
-    
-    
+        
     //START
-    std::cout << "BEGIN\n" << "\"" << s << "\"" << std::endl;
+    std::cout << "PARSE\n" << "\"" << s << "\"" << std::endl << std::endl;
     
-    std::cout << "PART1" << std::endl;      
+    std::cout << "PART1\n" << "\"" << s << "\"" << std::endl << std::endl;
+    // PARSE '.'
+    ///*******************************************************
+    s = par_dot(s);
+    ///*******************************************************
+    
+    std::cout << std::endl << "PART2\n" << "\"" << s << "\"" << std::endl << std::endl;      
     // PARSE ':'
     ///*******************************************************
-    while( !s.empty() )
-    {
-        std::size_t pos = s.find(":"); // position of first :
-        
-        if( pos != std::string::npos && pos < s.size() )
-        {
-            std::string left = s.substr(0, pos); // left half
-            left = trimSpace(left); // REMOVE LEAD/TAIL WHITESPACE
-            lst.push_back(left);  
-            lst.push_back(":");
-            s = s.substr(pos+1);
-            
-            // /*
-            // print steps through
-            for(std::list<std::string>::iterator it = lst.begin(); it != lst.end(); it++)
-            {
-                std::cout << "\"" << *it << "\""  << ", ";
-            }
-            std::cout << std::endl;
-            // */
-        }
-        else
-        {
-            s = trimSpace(s); // REMOVE LEAD/TAIL WHITESPACE
-            lst.push_back(s);
-            break;
-        }
-    }
+    par_colon(s,lst);
     
-    // /*
     // print last step through
+    std::cout << "step through" << std::endl;
     for(std::list<std::string>::iterator it = lst.begin(); it != lst.end(); it++)
     {
         std::cout << "\"" << *it << "\""  << ", ";
     }
-    std::cout << std::endl;
-    // */
+    std::cout << std::endl << std::endl;
     ///*******************************************************
     
-    std::cout << "PART2" << std::endl;
+    std::cout << "PART3" << std::endl << "not done\n" << std::endl;
     
     // construct a vector/list of token objects && substitute variables from Memeory
     
     // reorder tokens infix to postfix
     
     // construct the tree
-    
-    std::cout << "not done" << std::endl;
-    
-return 0;  
+        
+    return 0;  
 }
 //-------------------------------------------------------------------------------------------
 
@@ -155,4 +132,75 @@ std::string Interpreter::trimSpace(std::string s) // removes any (leading || tra
     return s;
 }
 //----------------------------------------------------------------------------------------------
+
+
+std::string Interpreter::par_dot(std::string& s)    // rewrite (f.g):x -> f:(g:x)
+{
+    std::cout << "p_dot" << std::endl;
+    std::cout << s << std::endl;
+    
+    std::size_t pos = s.find('.');
+    
+    if(pos != std::string::npos && pos < s.size())
+    {
+        std::string temp = s.substr(0,pos); // all string until '.'
+        temp += ":(";
+        temp += s.substr(pos+1, s.size()-1);
+        temp += ")";
+        s = temp;
+        
+        std::cout << s << std::endl;
+        
+        par_dot(s);
+    }
+    
+    return s;
+}
+//------------------------------------------------------------------
+
+
+void Interpreter::par_colon(std::string& s, std::list<std::string>& lst)
+{
+    std::cout << "p_col" << std::endl;
+    // while( !s.empty() )
+    // {
+        std::size_t pos = s.find(":"); // position of first :
+        
+        if( pos != std::string::npos && pos < s.size() )
+        {
+            std::string left = s.substr(0, pos); // left half
+            left = trimSpace(left); // REMOVE LEAD/TAIL WHITESPACE
+            
+            lst.push_back(left);  
+            lst.push_back(":");
+            
+            s = s.substr(pos+1);
+            if( s.at(0) == '(' && s.at(s.size()-1) == ')' )
+            {
+                s = s.substr(1, (s.size() - 1)); // gone )
+                s = s.substr(0, (s.size() - 1)); // gone (
+                lst.push_back(s);
+                return; // ?
+            }
+
+            // // print steps through
+            // for(std::list<std::string>::iterator it = lst.begin(); it != lst.end(); it++)
+            // {
+            //     std::cout << "\"" << *it << "\""  << ", ";
+            // }
+            // std::cout << std::endl;
+
+            // par_colon(s,lst);
+            // return;
+        }
+        else
+        {
+            s = trimSpace(s); // REMOVE LEAD/TAIL WHITESPACE
+            lst.push_back(s);
+            return;
+        }
+    //}
+}
+//-----------------------------------------------------------------
+
 

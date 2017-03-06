@@ -32,5 +32,5 @@ use '#' for comments as needed
 def FUNCTIONS
 let ELEMENTS/SEQUENCES
 any system commands
-evaluation '%'
+evaluation EXPRESSIONS
 

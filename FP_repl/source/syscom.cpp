@@ -22,17 +22,15 @@ void process(std::string s, Memory* m) /* preprocessing function */
     if(s.empty()){return;}
     ///******************************************************************
     
-    
-    com(s,m); // call to syscom or execute user input
-
+    com(s,m); // call to syscom || user input
 }
 //---------------------------------------------------------------------------------
 
-void com(std::string s, Memory* m) // big branch statement to choose syscom; ( {let, def, rm, load}  ALL have string arguments)
+void com(std::string s, Memory* m) // big branch statement to choose syscom || parse. ( {let, def, rm, load, parse}  ALL have string arguments)
 {
     if(s == "exit")
     {
-        delete m; // delete memory object??
+        delete m; // delete memory object
         m = 0; 
         exit(0);
     }
@@ -44,104 +42,91 @@ void com(std::string s, Memory* m) // big branch statement to choose syscom; ( {
     {
         help();
     } 
-    else // handle sys coms for memory management
+    else if(s.substr(0, 3) == "let") // Variable creation
+    {        
+        // syntax: "let name = var"
+        if(s.find(" ") != 3) // location of first space
+        { std::cout << "ERROR1: Syntax\n"; return; }
+
+        // cut out "let ", now "name = var"
+        let( s.substr(4, (s.size()-4)), m );
+    }
+    else if(s.substr(0, 3) == "def") // Function Creation
+    {        
+        // syntax: "def name = fun"
+        if(s.find(" ") != 3) // location of first space
+        { std::cout << "ERROR1: Syntax\n"; return; }
+
+        // cut out "def ", now "name = fun"
+        def( s.substr(4, (s.size()-4)), m );
+    }
+    else if(s.substr(0, 2) == "rm")
     {
-        if(s.substr(0, 3) == "let") // Variable creation
-        {        
-            // syntax: "let name = var"
-            if(s.find(" ") != 3) // location of first space
-            { std::cout << "ERROR1: Syntax\n"; return; }
-    
-            // cut out "let ", now "name = var"
-            let( s.substr(4, (s.size()-4)), m );
-        }
-        else if(s.substr(0, 3) == "def") // Function Creation
-        {        
-            // syntax: "def name = fun"
-            if(s.find(" ") != 3) // location of first space
-            { std::cout << "ERROR1: Syntax\n"; return; }
-    
-            // cut out "def ", now "name = fun"
-            def( s.substr(4, (s.size()-4)), m );
-        }
-        else if(s.substr(0, 2) == "rm")
-        {
-            // syntax: rm name
-            if(s.find(" ") != 2) // location of first space
-            { std::cout << "ERROR1: Syntax\n"; return; }   
-            
-            // remove the variable
-            rem( s.substr(3, (s.size()-1)), m ); // pass name
-        }
-        else if(s == "dump")
-        {
-            dump(m); // clear all memory content
-        }
-        else if(s == "ls")
-        {
-            print(m); // print all memory content
-        }
-        else if(s == "bufdump")
-        {
-            bufdump(m); // clear all buffer content
-        }
-        else if(s == "bufls")
-        {
-            bufprint(m); // print all buffer content
-        }
-        else if(s.substr(0, 4) == "load") // load script content from file to buffer
-        {        
-            // syntax: load "file.fps"
-            if(s.find(" ") != 4) // location of first space
-            { std::cout << "ERROR1: Syntax\n"; return; }
-    
-            // cut out "load", now " file.fsp"
-            load( s.substr(5, (s.size()-1)), m );
-        }
-        else if(s == "run") // execute buffer content
-        {
-            run(m); 
-        }
-        else // parse && execute user input
-        {
-            if(s.at(0) == '%') 
-            {
-                s = s.substr(1, s.size()-1); // s now cut out "%"
-                Pattern* P = new Pattern(s); // construct pattern with
-                
-                // PARSE
-                try
-                {
-                    P -> setRoot( P -> getI() -> parse(s, m) );
-                }
-                catch(std::exception &e)
-                {
-                    std::cout << "ERROR: Parse" << std::endl;
-                    std::cout << e.what() << std::endl;
-                }
-                
-                // EXECUTE
-                try
-                {
-                    P -> getA() -> exec( P -> getRoot() );
-                }
-                catch(std::exception &e)
-                {
-                    std::cout << "ERROR: Execute" << std::endl;
-                    std::cout << e.what() << std::endl;
-                }
-                
-                delete P; // delete the current pattern on heap
-                P = 0;
-            }   
-            else 
-            {
-                std::cout << "ERROR: Unknown Input: " << "\"" << s << "\"" << std::endl;
-            } 
+        // syntax: rm name
+        if(s.find(" ") != 2) // location of first space
+        { std::cout << "ERROR1: Syntax\n"; return; }   
         
-        } // end parse && exec branch 
+        // remove the variable
+        rem( s.substr(3, (s.size()-1)), m ); // pass name
+    }
+    else if(s == "dump")
+    {
+        dump(m); // clear all memory content
+    }
+    else if(s == "ls")
+    {
+        print(m); // print all memory content
+    }
+    else if(s == "bufdump")
+    {
+        bufdump(m); // clear all buffer content
+    }
+    else if(s == "bufls")
+    {
+        bufprint(m); // print all buffer content
+    }
+    else if(s.substr(0, 4) == "load") // load script content from file to buffer
+    {        
+        // syntax: load "file.fps"
+        if(s.find(" ") != 4) // location of first space
+        { std::cout << "ERROR1: Syntax\n"; return; }
+
+        // cut out "load", now " file.fsp"
+        load( s.substr(5, (s.size()-1)), m );
+    }
+    else if(s == "run") // execute buffer content
+    {
+        run(m); 
+    }
+    else // parse && try execute user input
+    {
+        Pattern* P = new Pattern(s); // construct pattern with
         
-    } // end general syscom branch 
+        // PARSE
+        try
+        {
+            P -> setRoot( P -> getI() -> parse(s, m) );
+        }
+        catch(std::exception &e)
+        {
+            std::cout << "ERROR: Parse" << std::endl;
+            std::cout << e.what() << std::endl;
+        }
+        
+        // EXECUTE
+        try
+        {
+            P -> getA() -> exec( P -> getRoot() );
+        }
+        catch(std::exception &e)
+        {
+            std::cout << "ERROR: Execute" << std::endl;
+            std::cout << e.what() << std::endl;
+        }
+        
+        delete P; // delete the current pattern on heap
+        P = 0;
+    } 
     
     return; // catch any breakouts
 }
@@ -151,7 +136,7 @@ void help()
 {
     std::cout << std::endl;
     std::cout << "GENERAL:" << std::endl;
-    std::cout << "Enter System commands OR use \'%\' operator to evaluate expressions AND equations." << std::endl;
+    std::cout << "Enter System commands OR evaluate expressions AND equations." << std::endl;
     std::cout << "Have matching parenthesis and correct syntax and grammar." << std::endl;   //// A = B, A != B, A < B, etc... use only 1 binary evaluator
     std::cout << "Separete distinct sub-pieces with parenthesis." << std::endl;
     std::cout << "For more detailed information see folder: FP_repl/DOCS/" << std::endl;
