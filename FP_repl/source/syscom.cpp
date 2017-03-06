@@ -369,6 +369,7 @@ void load(std::string s, Memory* m) // removes comments && trims spaces
         }
     }
     
+    inFS.close();
     std::cout << "SUCCESSFUL LOAD" << std::endl;
 }
 //------------------------------------------------------------------------------------------
@@ -385,7 +386,7 @@ void run(Memory* m)
     std::cout << std::endl << "BEGIN RUN{";
     
     std::list<std::string>::iterator it = lst.begin();
-    for(; it != lst.end(); it = lst.begin() ) // it reset to begin each time
+    for( ; it != lst.end(); it = lst.begin() ) // it reset to begin each time
     {
         process(*it, m);
         if(!lst.empty())

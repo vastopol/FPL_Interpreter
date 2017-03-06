@@ -1,9 +1,18 @@
 TODO - Unfinished works
 -------------------------
-* node.cpp
+
 * action.h/cpp -> tree traversal
+
 * interpreter.h/cpp -> recurse on parse for precedence && nested applications
 
-* sequence.h/cpp -> ?? objects?
+;;-----------------------
 
-* makefile -> fix to update, include sequence, ...
+* object.h/cpp -> base class
+    - function
+    - sequence
+    - element
+    - colon   ':' the apply links the other parts  (might not need to be a class)
+
+* node.cpp -> nodes need to hold Object pointer
+
+* makefile -> fix to update, include missing files

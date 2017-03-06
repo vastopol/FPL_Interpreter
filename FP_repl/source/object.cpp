@@ -1,11 +1,11 @@
-#include "../header/sequence.h"
+#include "../header/object.h"
 
 Sequence::Sequence()
 {}
 //---------------------------
 
 Sequence::Sequence(std::list<int> lst)
-    : value(lst)
+    : seq(lst)
 {}
 //---------------------------
 
@@ -17,19 +17,19 @@ Sequence::~Sequence()
 
 std::list<int> Sequence::getList()
 {
-    return value;
+    return seq;
 }
 //---------------------------
 
 std::list<int> Sequence::head()
 {  
-    if(value.size() <= 1)
+    if(seq.size() <= 1)
     { 
-        return value;
+        return seq;
     }
     
     std::list<int> lst;
-    lst.push_back( value.front() );
+    lst.push_back( seq.front() );
     return lst;
     
 }
@@ -37,24 +37,24 @@ std::list<int> Sequence::head()
 
 std::list<int> Sequence::tail()
 {
-    if(value.size() <= 1)
+    if(seq.size() <= 1)
     { 
-        return value;
+        return seq;
     }
     
-    std::list<int> lst(value.begin()++, value.end());
+    std::list<int> lst(seq.begin()++, seq.end());
     return lst;
 }
 //---------------------------
 
-std::list<int> Sequence::reversal()
+std::list<int> Sequence::reverse()
 {
-    if(value.size() <= 1)
+    if(seq.size() <= 1)
     { 
-        return value;
+        return seq;
     }
     
-    std::list<int> lst = value;
+    std::list<int> lst = seq;
     lst.reverse();
     return lst;
 }
@@ -62,13 +62,13 @@ std::list<int> Sequence::reversal()
 
 std::list<int> Sequence::rotr()
 {
-    if(value.size() <= 1)
+    if(seq.size() <= 1)
     { 
-        return value;
+        return seq;
     }
     
-    std::list<int> lst(value.begin()++, value.end());
-    lst.push_back(value.front());
+    std::list<int> lst(seq.begin()++, seq.end());
+    lst.push_back(seq.front());
     return lst;
     
 }
@@ -76,27 +76,27 @@ std::list<int> Sequence::rotr()
 
 std::list<int> Sequence::rotl()
 {
-    if(value.size() <= 1)
+    if(seq.size() <= 1)
     { 
-        return value;
+        return seq;
     }
     
-    std::list<int> lst(value.begin(), value.end()--);
-    lst.push_front(value.back());
+    std::list<int> lst(seq.begin(), seq.end()--);
+    lst.push_front(seq.back());
     return lst;
 }
 //---------------------------
 
 std::list<int> Sequence::max()
 {
-    if(value.size() <= 1)
+    if(seq.size() <= 1)
     { 
-        return value;
+        return seq;
     }
     
     std::list<int> lst;
-    int chk = value.front(); // max
-    for(std::list<int>::iterator jt = value.begin(); jt != value.end(); jt++)
+    int chk = seq.front(); // max
+    for(std::list<int>::iterator jt = seq.begin(); jt != seq.end(); jt++)
     {        
         if(*jt > chk)
         {
@@ -110,14 +110,14 @@ std::list<int> Sequence::max()
 
 std::list<int> Sequence::min()
 {
-    if(value.size() <= 1)
+    if(seq.size() <= 1)
     { 
-        return value;
+        return seq;
     }
     
     std::list<int> lst;
-    int chk = value.front(); // min 
-    for(std::list<int>::iterator it = value.begin(); it != value.end(); it++)
+    int chk = seq.front(); // min 
+    for(std::list<int>::iterator it = seq.begin(); it != seq.end(); it++)
     {
         if(*it < chk)
         {
