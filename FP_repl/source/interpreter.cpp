@@ -156,7 +156,7 @@ std::string Interpreter::par_dot(std::string& s)    // rewrite (f.g):x -> f:(g:x
     std::cout << "p_dot" << std::endl;
     std::cout << s << std::endl;
     
-    std::size_t pos = s.find('.');
+    std::size_t pos = s.find_last_of('.');
     
     if(pos != std::string::npos && pos < s.size())
     {
