@@ -23,7 +23,7 @@ class Element : public Object
         int val;
     
     public:
-        Element();
+        Element() {}
         Element(int i);
         ~Element() {} 
         std::string type() {return "Element";} 
@@ -38,7 +38,7 @@ class Sequence : public Object
         std::list<int> seq;
     
     public:
-        Sequence();
+        Sequence(){}
         Sequence(std::list<int> l);
         ~Sequence() {}
         std::string type() {return "Sequence";}
@@ -46,17 +46,17 @@ class Sequence : public Object
         {
             if(seq.empty())
             {
-                std::cout << "<>" << std::endl;
+                std::cout << "<>";
                 return;
             }
 
             std::list<int>::iterator it = this->seq.begin();
             std::cout << "<";
-            for(; it != this->seq.end()--; it++)
+            for(; it != --seq.end(); it++)
             {
                 std::cout << *it << ",";
             }
-            std::cout << *it << ">" << std::endl;
+            std::cout << *it << ">";
         }
         std::list<int> getList() {return seq;}
 
@@ -70,7 +70,7 @@ class Function : public Object
         std::string func;
     
     public:
-        Function();
+        Function() {}
         Function(std::string s);
         ~Function() {}
         std::string type() {return "Function";}

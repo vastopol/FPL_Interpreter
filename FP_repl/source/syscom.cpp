@@ -61,7 +61,25 @@ void com(std::string s, Memory* m) // big branch statement to choose syscom || p
         // cut out "print " 
         s = s.substr(6, s.size()-6);
 
-        std::cout << s << std::endl;
+        if(s.at(0) == '`') // print item from mem
+        {
+            Object* ob = m->goGet(s.substr(1, s.size()-1));
+            if(ob != NULL)
+            {
+                ob->print();
+                std::cout << std::endl;
+            }
+            else
+            {
+                std::cout << "ERROR: Undefined" << std::endl;
+            }
+
+            // delete ob; ob = 0; // ?? ptr management ??
+        }
+        else // print string
+        {
+            std::cout << s << std::endl;
+        }
     }
     else if(s.substr(0, 3) == "let") // Variable creation
     {        
@@ -238,19 +256,16 @@ void let(std::string s, Memory* m) // variable creation
         lst.push_back( atoi( arr ) );
         for(unsigned i = 1; arr != 0; i++)
         {
-            arr = strtok(NULL, ",");
+            arr = strtok(NULL, ",");          
             if(arr)
-            {                
+            {   
                 lst.push_back( atoi( arr ) );
             }
         } 
-        
+
         // add list with data HERE
         Sequence seq(lst);
         m -> add_sequence( var, seq );
-        
-        // if(copy){delete copy; copy = 0;} // ?
-        // if(arr) {delete arr; arr = 0;} // ?
     }
     else // element
     {

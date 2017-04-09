@@ -9,6 +9,11 @@
 
 #include "object.h"
 
+class Object;
+class Element;
+class Sequence;
+class Function;
+
 class Memory
 {
     private:
@@ -40,6 +45,7 @@ class Memory
         std::map<std::string, Sequence >& get_sequences();
         std::map<std::string, Function >& get_macros();
         std::list<std::string>& get_buffer();
+        Object* goGet(std::string);
         
         // PRINT
         void print_elements();

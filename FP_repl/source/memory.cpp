@@ -121,6 +121,31 @@ std::list<std::string>& Memory::get_buffer()
 {
     return buffer;
 }
+//--------------------------------------------------------------
+
+Object* Memory::goGet(std::string s)
+{
+    std::map<std::string, Element>::iterator et = elements.find(s);
+    std::map<std::string, Sequence>::iterator st = sequences.find(s);
+    std::map<std::string, Function>::iterator ft = macros.find(s);
+    Object* op = 0;
+
+    if(et != elements.end())
+    {
+        op = &et->second;
+    }
+    else if(st != sequences.end())
+    {
+        op = &st->second;
+    }
+    else if(ft != macros.end())
+    {
+        op = &ft->second;
+    }
+
+    return op;
+}
+
 ///*****************************************************************************
 
 
@@ -145,6 +170,7 @@ void Memory::print_sequences()
     {       
         std::cout << it->first << " = ";
         it->second.print();
+        std::cout << std::endl;
     }
 }
 //--------------------------------------------------------
