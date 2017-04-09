@@ -12,6 +12,7 @@ class Object
         Object();
         virtual ~Object();
         virtual std::string type() = 0;
+        virtual void print() = 0;
 };
 //---------------------------------
 
@@ -21,33 +22,43 @@ class Element : public Object
         int val;
     
     public:
-        Element();
-        Element(int)
+        Element() {val = 0;}
+        Element(int i) {val = i;}
         ~Element(); 
-        std::string type();
+        std::string type() {return "Element";} 
+        void print() {std::cout << this->val;}
+        int getElement() {return val;}
 };
 //---------------------------------
 
 class Sequence : public Object
 {
     private:
-        std::list<int> seq
+        std::list<int> seq;
     
     public:
         Sequence();
-        Sequence(std::list<int>);
+        Sequence(std::list<int> l) {seq = l;}
         ~Sequence();
-        std::string type();
+        std::string type() {return "Sequence";}
+        void print()
+        {
+            if(seq.empty())
+            {
+                std::cout << "<>" << std::endl;
+                return;
+            }
 
-        // operate on lists  // maybe these should be part of function class
-        std::list<int> getList();
-        std::list<int> head(); 
-        std::list<int> tail();
-        std::list<int> reverse();
-        std::list<int> rotr();
-        std::list<int> rotl();
-        std::list<int> max();
-        std::list<int> min();
+            std::list<int>::iterator it = this->seq.begin();
+            std::cout << "<";
+            for(; it != this->seq.end()--; it++)
+            {
+                std::cout << *it << ",";
+            }
+            std::cout << *it << ">" << std::endl;
+        }
+        std::list<int> getList() {return seq;}
+
         
 };
 //---------------------------------
@@ -55,13 +66,15 @@ class Sequence : public Object
 class Function : public Object
 {
     private:
-        std::string fun;
+        std::string func;
     
     public:
         Function();
-        Function(std::string);
+        Function(std::string s) {func = s;}
         ~Function(); 
-        std::string type();
+        std::string type() {return "Function";}
+        void print() {std::cout << func;}
+        std::string getFunc() {return func;}
 };
 //---------------------------------
 
@@ -72,9 +85,11 @@ class Colon : public Object
     
     public:
         Colon();
-        Colon(std::string);
+        Colon(std::string s) {col = s;}
         ~Colon();   
-        std::string type();
+        std::string type() {return "Colon";}
+        void print() {std::cout << col;}
+        std::string getColon() {return col;}
 };
 //---------------------------------
 
@@ -85,9 +100,11 @@ class Block : public Object  // to reparse again
     
     public:
         Block();
-        Block(std::string);
+        Block(std::string s) {block = s;}
         ~Block();   
-        std::string type();
+        std::string type() {return "Block";}
+        void print() {std::cout << this->block;}
+        std::string getBlock() {return this->block;}
 };
 //---------------------------------
 

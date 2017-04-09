@@ -7,6 +7,8 @@
 #include <map>
 #include <iterator>
 
+#include "object.h"
+
 class Memory
 {
     private:

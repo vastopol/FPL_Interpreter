@@ -4,19 +4,21 @@
 #include <string>
 #include <iostream>
 
+#include "object.h"
+
 class Node
 {
     private:
-        std::string key;
+        Object* key;
         Node* parent;
         Node* left;
         Node* right;
         
     public:
-        Node(std::string);
+        Node(Object*);
         ~Node();
         
-        std::string getkey();
+        Object* getkey();
         Node* getParent();
         Node* getLeft();
         Node* getRight();

@@ -42,6 +42,22 @@ void com(std::string s, Memory* m) // big branch statement to choose syscom || p
     {
         help();
     } 
+    else if(s.substr(0,5) == "print")
+    {
+        if(s.size() == 5) // echo \n
+        {
+            std::cout << std::endl;
+            return;
+        }
+
+        if(s.find(" ") != 5) // location of first space
+        { std::cout << "ERROR1: Syntax\n"; return; } 
+
+        // cut out "print " 
+        s = s.substr(6, s.size()-6);
+
+        std::cout << s << std::endl;
+    }
     else if(s.substr(0, 3) == "let") // Variable creation
     {        
         // syntax: "let name = var"
@@ -155,6 +171,7 @@ void help()
     std::cout << "bufls" << " == " << "list all buffer content" << std::endl;
     std::cout << "load" << " == " << "load script to memory buffer" << std::endl;
     std::cout << "run" << " == " << "execute content of memory buffer" << std::endl;
+    std::cout << "print" << " == " << "print a string, ends on newline" << std::endl;
     std::cout << std::endl;
 }
 //-------------------------------------------------------------------------------------------

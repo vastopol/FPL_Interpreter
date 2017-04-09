@@ -4,7 +4,7 @@
 COMP = g++
 FLAGS = -Wall -Werror -ansi -pedantic
 DEBUG = -g
-OFILES = source/syscom.o source/memory.o source/pattern.o source/interpreter.o source/action.o source/node.o
+OFILES = source/syscom.o source/memory.o source/pattern.o source/interpreter.o source/action.o source/node.o source/object.o
 
 # Targets
 main: main.cpp $(OFILES) | bin
@@ -31,6 +31,9 @@ action.o: source/action.cpp header/action.h source/node.cpp header/node.h
 node.o: source/node.cpp header/node.h
 	$(COMP) $(FLAGS) -c source/node.cpp
 		
+object.o: source/object.cpp header/object.h
+	$(COMP) $(FLAGS) -c source/object.cpp
+
 bin:
 	mkdir bin
 	
