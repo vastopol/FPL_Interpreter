@@ -13,9 +13,9 @@ class Memory
 {
     private:
         // maps for holding variables
-        std::map<std::string, int> elements;
-        std::map<std::string, std::list<int> > sequences;
-        std::map<std::string, std::string> macros;  // macros represent functions
+        std::map<std::string, Element> elements;
+        std::map<std::string, Sequence > sequences;
+        std::map<std::string, Function> macros;  // macros represent functions
         std::list<std::string> buffer; // list of arguments to repl to be processed in sequence
     
     public:        
@@ -23,9 +23,9 @@ class Memory
         ~Memory();
         
         // ADD
-        void add_element(std::string, int);
-        void add_sequence(std::string, std::list<int>);
-        void add_macro(std::string, std::string);
+        void add_element(std::string, Element);
+        void add_sequence(std::string, Sequence);
+        void add_macro(std::string, Function);
         void add_str_buf(std::string); // queue 1 string to buffer
         
         // REMOVE
@@ -36,9 +36,9 @@ class Memory
         void clear();
         
         // ACCESS
-        std::map<std::string, int>& get_elements();
-        std::map<std::string, std::list<int> >& get_sequences();
-        std::map<std::string, std::string>& get_macros();
+        std::map<std::string, Element>& get_elements();
+        std::map<std::string, Sequence >& get_sequences();
+        std::map<std::string, Function >& get_macros();
         std::list<std::string>& get_buffer();
         
         // PRINT

@@ -14,7 +14,7 @@ Memory::~Memory()
 
 // ADD
 ///*****************************************************************************
-void Memory::add_element(std::string s, int i)
+void Memory::add_element(std::string s, Element i)
 {
     if(!s.empty())
     {
@@ -23,7 +23,7 @@ void Memory::add_element(std::string s, int i)
 }
 //---------------------------------------------------------
 
-void Memory::add_sequence(std::string s, std::list<int> l)
+void Memory::add_sequence(std::string s, Sequence l)
 {
     if(!s.empty())
     {
@@ -32,7 +32,7 @@ void Memory::add_sequence(std::string s, std::list<int> l)
 }
 //---------------------------------------------------------
 
-void Memory::add_macro(std::string a, std::string b)
+void Memory::add_macro(std::string a, Function b)
 {
     if(!a.empty())
     {
@@ -54,7 +54,7 @@ void Memory::add_str_buf(std::string s) // queue 1 string to buffer
 ///*****************************************************************************
 void Memory::remove_element(std::string s)
 {
-    std::map<std::string, int>::iterator it = elements.find(s);
+    std::map<std::string, Element>::iterator it = elements.find(s);
     if (it != elements.end())
     {
         elements.erase(it);
@@ -64,7 +64,7 @@ void Memory::remove_element(std::string s)
 
 void Memory::remove_sequence(std::string s)
 {
-    std::map<std::string, std::list<int> >::iterator it = sequences.find(s);
+    std::map<std::string, Sequence >::iterator it = sequences.find(s);
     if (it != sequences.end())
     {
         sequences.erase(it);
@@ -74,7 +74,7 @@ void Memory::remove_sequence(std::string s)
 
 void Memory::remove_macro(std::string s)
 {
-    std::map<std::string, std::string>::iterator it = macros.find(s);
+    std::map<std::string, Function>::iterator it = macros.find(s);
     if (it != macros.end())
     {
         macros.erase(it);
@@ -99,19 +99,19 @@ void Memory::clear()
 
 // ACCESS
 ///*****************************************************************************
-std::map<std::string, int>& Memory::get_elements()
+std::map<std::string, Element>& Memory::get_elements()
 {
     return elements;
 }
 //--------------------------------------------------------------
 
-std::map< std::string, std::list<int> >& Memory::get_sequences()
+std::map< std::string, Sequence >& Memory::get_sequences()
 {
     return sequences;
 }
 //--------------------------------------------------------------
 
-std::map<std::string, std::string>& Memory::get_macros()
+std::map<std::string, Function >& Memory::get_macros()
 {
     return macros;
 }
@@ -128,41 +128,35 @@ std::list<std::string>& Memory::get_buffer()
 ///*****************************************************************************
 void Memory::print_elements()
 {
-    std::map<std::string, int>::iterator it = this->elements.begin(); // iterator
+    std::map<std::string, Element>::iterator it = this->elements.begin(); // iterator
     for(; it != this->elements.end(); it++)
     {
-        std::cout << it->first << " = " << it->second << std::endl;
+        std::cout << it->first << " = ";
+        it->second.print();
+        std::cout << std::endl;
     }
 }
 //---------------------------------------------------------
 
 void Memory::print_sequences()
 {
-    std::map< std::string, std::list<int> >::iterator it = this->sequences.begin(); // external iterator (map)
+    std::map< std::string, Sequence>::iterator it = this->sequences.begin(); // external iterator (map)
     for(; it != this->sequences.end(); it++)
-    {
-        std::list<int>::iterator jt = it->second.begin(); // internal iterator (list)
-        
-        // empty list
-        if(jt == it->second.end()) 
-        {std::cout << it->first << " = <>\n"; continue;}
-        
-        std::cout << it->first << " = <";
-        for(; jt != --it->second.end(); jt++ ) // print list elements before last
-        {
-            std::cout << *jt << ",";
-        }
-        std::cout << *jt << ">" << std::endl; // print last
+    {       
+        std::cout << it->first << " = ";
+        it->second.print();
     }
 }
 //--------------------------------------------------------
 
 void Memory::print_macros()
 {
-    std::map<std::string, std::string>::iterator it = this->macros.begin(); // iterator
+    std::map<std::string, Function>::iterator it = this->macros.begin(); // iterator
     for(; it != this->macros.end(); it++)
     {
-        std::cout << it->first << " = " << it->second << std::endl;
+        std::cout << it->first << " = ";
+        it->second.print();
+        std::cout << std::endl;
     }
 }
 //----------------------------------------------------------

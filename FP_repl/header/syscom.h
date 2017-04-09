@@ -13,6 +13,12 @@
 #include <list>
 
 #include "memory.h"
+#include "object.h"
+
+class Object;
+class Element;
+class Sequence;
+class Function;
 
     void process(std::string s, Memory* m); /* MASTER CONTROL FUNCTION; decides if SYSCOM || FP_EXPRESSION -> interpreter; psudeo preprocessor  */
 

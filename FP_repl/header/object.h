@@ -5,12 +5,13 @@
 
 #include <list>
 #include <string>
+#include <iostream>
 
 class Object
 {
     public:
-        Object();
-        virtual ~Object();
+        Object() {};
+        virtual ~Object() {};
         virtual std::string type() = 0;
         virtual void print() = 0;
 };
@@ -22,9 +23,9 @@ class Element : public Object
         int val;
     
     public:
-        Element() {val = 0;}
-        Element(int i) {val = i;}
-        ~Element(); 
+        Element();
+        Element(int i);
+        ~Element() {} 
         std::string type() {return "Element";} 
         void print() {std::cout << this->val;}
         int getElement() {return val;}
@@ -38,8 +39,8 @@ class Sequence : public Object
     
     public:
         Sequence();
-        Sequence(std::list<int> l) {seq = l;}
-        ~Sequence();
+        Sequence(std::list<int> l);
+        ~Sequence() {}
         std::string type() {return "Sequence";}
         void print()
         {
@@ -70,8 +71,8 @@ class Function : public Object
     
     public:
         Function();
-        Function(std::string s) {func = s;}
-        ~Function(); 
+        Function(std::string s);
+        ~Function() {}
         std::string type() {return "Function";}
         void print() {std::cout << func;}
         std::string getFunc() {return func;}
@@ -85,7 +86,7 @@ class Colon : public Object
     
     public:
         Colon();
-        Colon(std::string s) {col = s;}
+        Colon(std::string s);
         ~Colon();   
         std::string type() {return "Colon";}
         void print() {std::cout << col;}
@@ -100,7 +101,7 @@ class Block : public Object  // to reparse again
     
     public:
         Block();
-        Block(std::string s) {block = s;}
+        Block(std::string s);
         ~Block();   
         std::string type() {return "Block";}
         void print() {std::cout << this->block;}

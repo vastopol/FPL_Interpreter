@@ -60,7 +60,7 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
     
     // construct a list of token objects && substitute variables from Memeory
     
-    // std::list<Object> oblst;
+    // std::list<Object*> oblst;
     
     for(std::list<std::string>::iterator it = lst.begin(); it != lst.end(); it++)
     {

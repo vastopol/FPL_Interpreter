@@ -14,6 +14,5 @@ TODO - Unfinished works
     - colon   ':' the apply links the other parts  (might not need to be a class)
     - block    chunk of data to call parse on again
 
-* node.cpp -> nodes need to hold Object pointer
 
-* makefile -> fix to update, include missing files
+

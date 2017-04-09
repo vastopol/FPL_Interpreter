@@ -1,12 +1,17 @@
 #include "../header/syscom.h"
 #include "../header/memory.h"
 #include "../header/pattern.h" // for process function
+#include "../header/object.h"
 
 // load
 #include <sys/stat.h>
 #include <unistd.h>
 #include <fstream>
 
+class Object;
+class Element;
+class Sequence;
+class Function;
 
 void process(std::string s, Memory* m) /* preprocessing function */
 {
@@ -241,14 +246,16 @@ void let(std::string s, Memory* m) // variable creation
         } 
         
         // add list with data HERE
-        m -> add_sequence( var, lst );
+        Sequence seq(lst);
+        m -> add_sequence( var, seq );
         
         // if(copy){delete copy; copy = 0;} // ?
         // if(arr) {delete arr; arr = 0;} // ?
     }
     else // element
     {
-        m -> add_element( var, atoi(val.c_str()) );        
+        Element e(atoi(val.c_str()));
+        m -> add_element( var, e );        
     }
     //****************************************************************************** 
 
@@ -278,7 +285,9 @@ void def(std::string s, Memory* m) //  function macro definition
     val = trimSpace(val);
     if(val.empty()){ std::cout << "ERROR5: Syntax -> val\n"; return; }
     
-    m -> add_macro(var, val);
+    Function fun(val);
+
+    m -> add_macro(var, fun);
 }
 //-----------------------------------------------------------------------------------------
 
