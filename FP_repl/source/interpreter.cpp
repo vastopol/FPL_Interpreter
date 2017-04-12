@@ -58,9 +58,10 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
     
     std::cout << "PART3" << std::endl << "not done\n" << std::endl;
     
-    // construct a list of token objects && substitute variables from Memeory
+    // construct a list of token objects && substitute variables from Memory
     
-    // std::list<Object*> oblst;
+    std::list<Object*> oblist;
+    Object* ob = 0;
     
     for(std::list<std::string>::iterator it = lst.begin(); it != lst.end(); it++)
     {
@@ -73,8 +74,27 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
         //     *it = it->substr(1, (it->size() - 1)); // gone )
         //     *it = it->substr(0, (it->size() - 1)); // gone (
         // }
+
+        if(*it == ":")
+        {
+        	ob = new Colon(*it);
+        	oblist.push_back(ob);
+        	ob = 0;
+        	continue;
+        }
+
+    	ob = m->goGet(*it);
+        if(ob != 0)
+        {
+        	oblist.push_back(ob);
+        }
     }
     
+    for(std::list<Object*>::iterator it = oblist.begin(); it != oblist.end(); it++)
+    {
+    	(*it)->print(); std::cout << std::endl;
+    }
+
     // PART 4    
     // reorder tokens infix to postfix
     
@@ -180,41 +200,29 @@ void Interpreter::par_colon(std::string& s, std::list<std::string>& lst)
 {
     std::cout << "p_col" << std::endl;
     
-    // while( !s.empty() )
-    // {
-        std::size_t pos = s.find(":"); // position of first :
+    std::size_t pos = s.find(":"); // position of first :
+    
+    if( pos != std::string::npos && pos < s.size() )
+    {
+        std::string left = s.substr(0, pos); // left half
+        left = trimSpace(left); // REMOVE LEAD/TAIL WHITESPACE
         
-        if( pos != std::string::npos && pos < s.size() )
-        {
-            std::string left = s.substr(0, pos); // left half
-            left = trimSpace(left); // REMOVE LEAD/TAIL WHITESPACE
-            
-            lst.push_back(left);  
-            lst.push_back(":");
-            
-            s = s.substr(pos+1);
-            
-            lst.push_back(s);
-            return; // ?
-            
+        lst.push_back(left);  
+        lst.push_back(":");
+        
+        s = s.substr(pos+1);
+        
+        lst.push_back(s);
+        return; // ?
+        
+    }
+    else
+    {
+        s = trimSpace(s); // REMOVE LEAD/TAIL WHITESPACE
+        lst.push_back(s);
+        return;
+    }
 
-            // // print steps through
-            // for(std::list<std::string>::iterator it = lst.begin(); it != lst.end(); it++)
-            // {
-            //     std::cout << "\"" << *it << "\""  << ", ";
-            // }
-            // std::cout << std::endl;
-
-            // par_colon(s,lst);
-            // return;
-        }
-        else
-        {
-            s = trimSpace(s); // REMOVE LEAD/TAIL WHITESPACE
-            lst.push_back(s);
-            return;
-        }
-    //}
 }
 //-----------------------------------------------------------------
 

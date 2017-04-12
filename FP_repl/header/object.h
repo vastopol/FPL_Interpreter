@@ -85,9 +85,9 @@ class Colon : public Object
         std::string col;
     
     public:
-        Colon();
+        Colon() {}
         Colon(std::string s);
-        ~Colon();   
+        ~Colon() {}  
         std::string type() {return "Colon";}
         void print() {std::cout << col;}
         std::string getColon() {return col;}
@@ -100,9 +100,9 @@ class Block : public Object  // to reparse again
         std::string block;
     
     public:
-        Block();
+        Block() {}
         Block(std::string s);
-        ~Block();   
+        ~Block() {}  
         std::string type() {return "Block";}
         void print() {std::cout << this->block;}
         std::string getBlock() {return this->block;}

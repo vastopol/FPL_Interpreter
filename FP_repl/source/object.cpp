@@ -15,3 +15,11 @@ Sequence::Sequence(std::list<int> l)
 Function::Function(std::string s)
     : Object(),  func(s)
 {}
+
+Colon::Colon(std::string s)
+    : Object(),  col(s)
+{}
+
+Block::Block(std::string s)
+    : Object(),  block(s)
+{}
