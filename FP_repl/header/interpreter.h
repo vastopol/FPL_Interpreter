@@ -7,8 +7,11 @@
 #include <stack> 
 #include <queue>
 #include <iterator>
+#include <cstring> // strtok
+#include <cstdlib> // atoi
 
 #include "memory.h"
+#include "object.h"
 #include "node.h"
 
 class Interpreter
@@ -23,8 +26,13 @@ class Interpreter
         
         void par_colon(std::string& s, std::list<std::string>& lst); // parsing on ':'
 
+        std::list<Object*> postfix(std::list<Object*> lst); // convert from infix to postfix
+
+        Node* buildtree(std::list<Object*> lst); // build the AST
+
     public:
         Interpreter(){};
+
         ~Interpreter();
         
         Node* parse(std::string s, Memory* m); // parse engine    

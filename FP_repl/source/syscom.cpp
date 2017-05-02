@@ -236,7 +236,12 @@ void let(std::string s, Memory* m) // variable creation
         val = trimSpace(val);        
         
         // add empty list HERE 
-        if(val.empty()){m -> add_sequence(var, lst); return;}
+        if(val.empty())
+        {
+            Sequence seq(lst);
+            m -> add_sequence(var, seq); 
+            return;
+        }
         
         // remove bad junk before segfault
         while( !isalnum(val.at(0)) && val.size() >= 1 )
@@ -245,8 +250,13 @@ void let(std::string s, Memory* m) // variable creation
             val = val.substr(1, (val.size() - 1));
         } 
         
-        // add empty list HERE
-        if(val.empty()){m -> add_sequence(var, lst); return;}
+        // add empty list HERE 
+        if(val.empty())
+        {
+            Sequence seq(lst);
+            m -> add_sequence(var, seq); 
+            return;
+        }
         
         char* copy = (char*)(val.c_str());      // copy to give strtok for parse
         char* arr = 0;                          // temp array

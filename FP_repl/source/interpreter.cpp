@@ -9,7 +9,7 @@ Interpreter::~Interpreter()
 
 Node* Interpreter::parse(std::string str, Memory* m) // parse engine
 {
-    std::cout << std::endl;
+    std::cout << std::endl; //??
     
     std::string s = str;        // temp string
     std::list<std::string> lst; // temp list
@@ -35,14 +35,15 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
         
     //START
     std::cout << "PARSE\n" << "\"" << s << "\"" << std::endl << std::endl;
-    
     std::cout << "PART1\n" << "\"" << s << "\"" << std::endl << std::endl;
+    
     // PARSE '.'
     ///*******************************************************
     s = par_dot(s);
     ///*******************************************************
     
     std::cout << std::endl << "PART2\n" << "\"" << s << "\"" << std::endl << std::endl;      
+    
     // PARSE ':'
     ///*******************************************************
     par_colon(s,lst);
@@ -59,49 +60,150 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
     std::cout << "PART3" << std::endl << "not done\n" << std::endl;
     
     // construct a list of token objects && substitute variables from Memory
-    
-    std::list<Object*> oblist;
+    //************************************************************************
     Object* ob = 0;
+    std::list<Object*> oblist;
     
     for(std::list<std::string>::iterator it = lst.begin(); it != lst.end(); it++)
     {
-        // if CAPS is function
-        // if lower is variable, if number is element, if <> is sequence
-        // if ':' make colon object
-        
-        // if( (it->at(0) == '(') && (it->at(it->size()-1) == ')') ) // block object
-        // {
-        //     *it = it->substr(1, (it->size() - 1)); // gone )
-        //     *it = it->substr(0, (it->size() - 1)); // gone (
-        // }
+        if( (*it).empty() || *it == "" ) // error check
+        {
+            std::cout << "ERROR: null string for build object" << std::endl;
+            return 0;
+        }
 
         if(*it == ":")
         {
+            std::cout << "colon part: " << *it << std::endl;
         	ob = new Colon(*it);
         	oblist.push_back(ob);
         	ob = 0;
-        	continue;
+            continue; 
         }
 
-    	ob = m->goGet(*it);
+    	ob = m->goGet(*it); // look for object in memory hashes
         if(ob != 0)
         {
+            std::cout << "mem_variable part: " << *it << std::endl;
         	oblist.push_back(ob);
+            ob = 0;
+            continue;
         }
-    }
+        else // make new object
+        {
+            // code from syscom.cpp modified
+            /////////////////////////////////////////////////////////////////////
+            std::string val = *it;
+            if( val.at(0) == '(' && val.at(val.size()-1) == ')' )
+            {
+                std::cout << "block part: " << val << std::endl;
+                
+                // remove ()
+                val = val.substr(1, (val.size() - 1)); // gone (
+                val = val.substr(0, (val.size() - 1)); // gone )
+                ob  = new Block(val);
+                oblist.push_back(ob);
+                ob = 0;
+                continue;
+            }
+            else if(val.at(0) == '<' && val.at(val.size() - 1) == '>' ) // sequence || element
+            {    
+                std::cout << "variable part: " << val << std::endl;
+                std::list<int> lst;
+                
+                // remove <>
+                val = val.substr(1, (val.size() - 1)); // gone <
+                val = val.substr(0, (val.size() - 1)); // gone >
+                
+                val = trimSpace(val);        
+                
+                // add empty list HERE 
+                if(val.empty())
+                {
+                    ob = new Sequence(lst);
+                    oblist.push_back(ob);
+                    ob = 0;
+                    continue;
+                }
+                
+                // remove bad junk before segfault
+                while( !isalnum(val.at(0)) && val.size() >= 1 )
+                {
+                    if(val.size() == 1){val = ""; break;}
+                    val = val.substr(1, (val.size() - 1));
+                } 
+                
+                // add empty list HERE 
+                if(val.empty())
+                {
+                    ob = new Sequence(lst);
+                    oblist.push_back(ob);
+                    ob = 0;
+                    continue;
+                }
+                
+                char* copy = (char*)(val.c_str());      // copy to give strtok for parse
+                char* arr = 0;                          // temp array
+                
+                // extract && store the elements of the sequence        
+                arr = strtok(copy, ",");            
+                lst.push_back( atoi( arr ) );
+                for(unsigned i = 1; arr != 0; i++)
+                {
+                    arr = strtok(NULL, ",");          
+                    if(arr)
+                    {   
+                        lst.push_back( atoi( arr ) );
+                    }
+                } 
+
+                if(lst.size() == 1)
+                {
+                    ob = new Element(*lst.begin()); // element HERE
+                    oblist.push_back(ob);
+                    ob = 0;
+                }
+                else
+                {
+                    ob = new Sequence(lst);         // list with data HERE
+                    oblist.push_back(ob);
+                    ob = 0;
+                }
+            }
+            else // function
+            {   
+                std::cout << "Function part: " << val << std::endl;
+                ob = new Function(val);
+                oblist.push_back(ob); 
+                ob = 0;       
+            }
+            ///////////////////////////////////////////////////////////////////////
+
+        } // end if
+
+    } // end for
+    //********************************************************************************
     
+    // pointer clean
+    ob = 0;
+    delete ob;
+
+    std::cout << std::endl << "checking:" << std::endl;
     for(std::list<Object*>::iterator it = oblist.begin(); it != oblist.end(); it++)
     {
+        std::cout << (*it)->type() << " ";
     	(*it)->print(); std::cout << std::endl;
     }
 
     // PART 4    
     // reorder tokens infix to postfix
+    oblist = postfix(oblist);
     
     // PART 5
     // construct the tree
+    Node* n = buildtree(oblist);
         
-    return 0;  
+    return n;  
 }
 //-------------------------------------------------------------------------------------------
 
@@ -227,3 +329,17 @@ void Interpreter::par_colon(std::string& s, std::list<std::string>& lst)
 //-----------------------------------------------------------------
 
 
+std::list<Object*> Interpreter::postfix(std::list<Object*> lst) // convert from infix to postfix
+{
+    std::stack<Object*> s;
+    std::list<Object*> pfix;
+
+    return pfix;
+}
+//------------------------------------------------------------------
+
+Node* Interpreter::buildtree(std::list<Object*> lst) // build the AST
+{
+    return 0;
+}
+//------------------------------------------------------------------

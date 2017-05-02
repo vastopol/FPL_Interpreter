@@ -18,9 +18,16 @@ int main()
     do
     {
         std::cout << "$$ ";
-        getline(std::cin, input);  
+        getline(std::cin, input); 
 
-        process(input, storage);
+        if(input == "BASH")
+        {
+            system("bash"); // bad bad
+        }
+        else
+        {
+            process(input, storage);
+        }
     }
     while(1);
 

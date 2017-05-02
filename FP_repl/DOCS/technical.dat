@@ -63,6 +63,16 @@ syntax: "run"
 
 ///*********************************************
 
+* print == print a string or variable, use "`" prepended to variable name 
+	
+eg.
+	>>> print this is a string
+	<<< this is a string
+
+	>>> let x = <1,2,3>
+	>>> print `x
+	<<< <1,2,3>
+ //****************************************
 
 EVALUATION
 ///*********************************************
