@@ -3,7 +3,12 @@ TODO - Unfinished works
 
 * action.h/cpp -> tree traversal on AST nodes
 
-* func.h/cpp ??
+* func.h/cpp ?? -> functs for the vm fn_pointers 
+
+;;-----------------------
+syscom.h/cpp
+
+make a function that uses graphviz to generate a picture of the AST
 
 ;;-----------------------
 
@@ -15,12 +20,12 @@ TODO - Unfinished works
     - block    chunk of data to call parse on again
 
 
+;;-----------------------
+
 * interpreter.h/cpp -> recurse on parse for precedence && nested applications, build AST of Object*
 
  - postfix
  - ast
-
-//////
 
 interperter can only handle stuff like 3 parts, function, colon, variable
 
@@ -29,6 +34,6 @@ can make new object or get a stored object from memory
 f:<1>
 g:<1,2>
 
-/////
-
 not yet for '.'
+
+;;-----------------------

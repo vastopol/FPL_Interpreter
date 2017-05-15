@@ -15,7 +15,7 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
     std::list<std::string> lst; // temp list
     
     // PRELIMINARY CHECKS
-    ///*******************************************************
+    ///=======================================================
     if(s.empty()) 
     {
       std::cout << "ERROR: empty string" << std::endl; 
@@ -26,26 +26,26 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
       std::cout << "ERROR: incorrect syntax : \"(), {}, [], <>\"" << std::endl; 
       return 0;
     } 
-    ///*******************************************************
+    ///=======================================================
     
     // REMOVE LEAD/TAIL WHITESPACE
-    ///*******************************************************
+    ///=======================================================
     s = trimSpace(s); 
-    ///*******************************************************
+    ///=======================================================
         
     //START
     std::cout << "PARSE\n" << "\"" << s << "\"" << std::endl << std::endl;
     std::cout << "PART1\n" << "\"" << s << "\"" << std::endl << std::endl;
     
     // PARSE '.'
-    ///*******************************************************
+    ///=======================================================
     s = par_dot(s);
-    ///*******************************************************
+    ///=======================================================
     
     std::cout << std::endl << "PART2\n" << "\"" << s << "\"" << std::endl << std::endl;      
     
     // PARSE ':'
-    ///*******************************************************
+    ///=======================================================
     par_colon(s,lst);
     
     // print last step through
@@ -55,12 +55,12 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
         std::cout << "\"" << *it << "\""  << ", ";
     }
     std::cout << std::endl << std::endl;
-    ///*******************************************************
+    ///=======================================================
     
-    std::cout << "PART3" << std::endl << "not done\n" << std::endl;
+    std::cout << "PART3" << std::endl;
     
     // construct a list of token objects && substitute variables from Memory
-    //************************************************************************
+    ///======================================================================
     Object* ob = 0;
     std::list<Object*> oblist;
     
@@ -72,7 +72,7 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
             return 0;
         }
 
-        if(*it == ":")
+        if(*it == ":") // make colon object
         {
             std::cout << "colon part: " << *it << std::endl;
         	ob = new Colon(*it);
@@ -81,7 +81,7 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
             continue; 
         }
 
-    	ob = m->goGet(*it); // look for object in memory hashes
+    	ob = m->goGet(*it); // look for variable||function object in memory hashes
         if(ob != 0)
         {
             std::cout << "mem_variable part: " << *it << std::endl;
@@ -140,14 +140,13 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
                     oblist.push_back(ob);
                     ob = 0;
                     continue;
-                }
-                
-                char* copy = (char*)(val.c_str());      // copy to give strtok for parse
-                char* arr = 0;                          // temp array
-                
-                // extract && store the elements of the sequence        
-                arr = strtok(copy, ",");            
-                lst.push_back( atoi( arr ) );
+                }             
+                                
+                // extract && store the elements of the sequence    
+                char* copy = (char*)(val.c_str());  // copy to give strtok for parse    
+                char* arr = strtok(copy, ",");      // temp array      
+                lst.push_back( atoi( arr ) );		// add
+
                 for(unsigned i = 1; arr != 0; i++)
                 {
                     arr = strtok(NULL, ",");          
@@ -178,11 +177,12 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
                 ob = 0;       
             }
             ///////////////////////////////////////////////////////////////////////
+            // end make object
 
         } // end if
 
     } // end for
-    //********************************************************************************
+    ///===========================================================================
     
     // pointer clean
     ob = 0;
@@ -192,16 +192,26 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
     for(std::list<Object*>::iterator it = oblist.begin(); it != oblist.end(); it++)
     {
         std::cout << (*it)->type() << " ";
-    	(*it)->print(); std::cout << std::endl;
+    	(*it)->print(); 
+    	std::cout << std::endl;
     }
 
     // PART 4    
     // reorder tokens infix to postfix
     oblist = postfix(oblist);
+
+    std::cout << std::endl << "postfixed:" << std::endl;
+    for(std::list<Object*>::iterator it = oblist.begin(); it != oblist.end(); it++)
+    {
+        //std::cout << (*it)->type() << " ";
+    	std::cout << "\""; (*it)->print(); std::cout << "\", ";	
+    }
+    std::cout << std::endl;
     
     // PART 5
     // construct the tree
-    Node* n = buildtree(oblist);
+    std::cout << "buildtree: " << std::endl;
+    Node* n = buildtree(oblist, m);
         
     return n;  
 }
@@ -334,12 +344,91 @@ std::list<Object*> Interpreter::postfix(std::list<Object*> lst) // convert from 
     std::stack<Object*> s;
     std::list<Object*> pfix;
 
+    std::list<Object*>::iterator it = lst.begin();
+    while(it != lst.end())
+    {
+        if((*it)->type() == "Function"|| (*it)->type() == "Sequence" || (*it)->type() == "Element" || (*it)->type() == "Block")
+        {
+            pfix.push_back(*it);
+        }
+        else
+        {
+            if(s.empty())
+            {
+                s.push(*it);
+            }
+            else
+            {
+                while(!s.empty())
+                {
+                    pfix.push_back(s.top());
+                    s.pop();
+                }
+                s.push(*it);
+            }
+        }
+        it++;
+    }
+    
+    while(!s.empty())
+    {
+        pfix.push_back(s.top());
+        s.pop();
+    }
+    
     return pfix;
 }
 //------------------------------------------------------------------
 
-Node* Interpreter::buildtree(std::list<Object*> lst) // build the AST
+Node* Interpreter::buildtree(std::list<Object*> lst, Memory* m) // build the AST recursively
 {
-    return 0;
+    std::stack<Node*> s;
+    Node* n; // center
+    Node* r; // right
+    Node* l; // left
+    
+    for(std::list<Object*>::iterator i = lst.begin(); i != lst.end(); i++)
+    {
+		if((*i)->type() == "Block") // recursive parse***
+        {
+        	std::cout << "bt: case1" << std::endl;
+        	std::string xstr = (*i)->get()->stringify();
+            n = parse(xstr, m);
+            s.push(n);
+        }
+        else if( (*i)->type() == "Colon" || (*i)->type() == "Function"|| (*i)->type() == "Sequence" || (*i)->type() == "Element")
+        {
+        	std::cout << "bt: case2" << std::endl;
+            n = new Node((*i)->get());
+            s.push(n);
+        }
+        else
+        {
+        	std::cout << "bt: case3" << std::endl;
+            if(!s.empty()) // empty == do nothing
+            {
+                n = new Node((*i)->get());
+                if(s.size() >= 2)
+                {
+                    r = s.top();
+                    s.pop();
+                    n->setRight(r);
+                    r->setParent(n);
+
+                    l = s.top();
+                    s.pop();
+                    n->setLeft(l);
+                    l->setParent(n);
+                    
+                    s.push(n);
+                }
+            }
+        }
+    }
+    
+    n = s.top();
+    s.pop();
+    
+    return n;
 }
 //------------------------------------------------------------------

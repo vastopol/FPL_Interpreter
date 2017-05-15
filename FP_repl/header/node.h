@@ -18,7 +18,7 @@ class Node
         Node(Object*);
         ~Node();
         
-        Object* getkey();
+        Object* getKey();
         Node* getParent();
         Node* getLeft();
         Node* getRight();

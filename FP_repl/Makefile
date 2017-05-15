@@ -1,7 +1,7 @@
 # Makefile for FP_REPL
 
 # Variables
-COMP = g++
+COMP = g++ 
 FLAGS = -Wall -Werror -ansi -pedantic
 DEBUG = -g
 OFILES = source/syscom.o source/memory.o source/pattern.o source/interpreter.o source/action.o source/node.o source/object.o
@@ -9,9 +9,6 @@ OFILES = source/syscom.o source/memory.o source/pattern.o source/interpreter.o s
 # Targets
 main: main.cpp $(OFILES) | bin
 	$(COMP) $(FLAGS) $(OFILES) main.cpp -o fplr && mv fplr bin/
-
-go: main.cpp $(OFILES) | bin
-	$(COMP) $(OFILES) main.cpp -o fplr && mv fplr bin/
 	
 debug: main.cpp $(OFILES) | bin
 	$(COMP) $(FLAGS) $(DEBUG) $(OFILES) main.cpp -o fplr && mv fplr bin/

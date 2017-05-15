@@ -14,6 +14,10 @@ class Object
         virtual ~Object() {};
         virtual std::string type() = 0;
         virtual void print() = 0;
+
+        // ?? for the parse
+        virtual Object* get() = 0;
+        virtual std::string stringify() = 0;
 };
 //---------------------------------
 
@@ -29,6 +33,9 @@ class Element : public Object
         std::string type() {return "Element";} 
         void print() {std::cout << this->val;}
         int getElement() {return val;}
+
+        Object* get();  
+        std::string stringify();
 };
 //---------------------------------
 
@@ -60,7 +67,8 @@ class Sequence : public Object
         }
         std::list<int> getList() {return seq;}
 
-        
+        Object* get();  
+        std::string stringify();
 };
 //---------------------------------
 
@@ -76,6 +84,9 @@ class Function : public Object
         std::string type() {return "Function";}
         void print() {std::cout << func;}
         std::string getFunc() {return func;}
+
+        Object* get();
+        std::string stringify();
 };
 //---------------------------------
 
@@ -91,6 +102,9 @@ class Colon : public Object
         std::string type() {return "Colon";}
         void print() {std::cout << col;}
         std::string getColon() {return col;}
+        
+        Object* get();
+        std::string stringify();
 };
 //---------------------------------
 
@@ -106,6 +120,9 @@ class Block : public Object  // to reparse again
         std::string type() {return "Block";}
         void print() {std::cout << this->block;}
         std::string getBlock() {return this->block;}
+
+        Object* get();
+        std::string stringify();
 };
 //---------------------------------
 

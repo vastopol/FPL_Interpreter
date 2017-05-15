@@ -11,7 +11,7 @@ Node::~Node()
 }
 //--------------------------------------------------
 
-Object* Node::getkey()
+Object* Node::getKey()
 {
     return key;
 }

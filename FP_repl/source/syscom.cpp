@@ -12,6 +12,8 @@ class Object;
 class Element;
 class Sequence;
 class Function;
+class Block;
+class Colon;
 
 void process(std::string s, Memory* m) /* preprocessing function */
 {

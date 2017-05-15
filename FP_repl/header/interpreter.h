@@ -28,7 +28,7 @@ class Interpreter
 
         std::list<Object*> postfix(std::list<Object*> lst); // convert from infix to postfix
 
-        Node* buildtree(std::list<Object*> lst); // build the AST
+        Node* buildtree(std::list<Object*> lst, Memory* m); // build the AST
 
     public:
         Interpreter(){};

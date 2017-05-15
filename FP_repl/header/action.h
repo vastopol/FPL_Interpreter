@@ -10,7 +10,9 @@ class Action
         Action();
         ~Action();
         
-        void exec(Node*);
+        void exec(Node*); // tree traverse
+
+        void doing(); // function execution
 };
 
 #endif // __ACTION_H__
