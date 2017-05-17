@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
+#include <fstream>
 #include <iterator>
 #include <string>
 #include <stack> 
@@ -14,6 +15,7 @@
 
 #include "memory.h"
 #include "object.h"
+#include "node.h"
 
 class Object;
 class Element;

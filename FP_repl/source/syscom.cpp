@@ -63,7 +63,7 @@ void com(std::string s, Memory* m) // big branch statement to choose syscom || p
         // cut out "print " 
         s = s.substr(6, s.size()-6);
 
-        if(s.at(0) == '`') // print item from mem
+        if(s.at(0) == '$') // print item from mem
         {
             Object* ob = m->goGet(s.substr(1, s.size()-1));
             if(ob != NULL)
@@ -139,6 +139,33 @@ void com(std::string s, Memory* m) // big branch statement to choose syscom || p
     {
         run(m); 
     }
+    else if(s.substr(0,7) == "gentree")
+    {
+        if(s.find(" ") != 7) // location of first space
+        { std::cout << "ERROR1: Syntax\n"; return; }
+
+        s = s.substr(8,s.size()-1);
+        Pattern* P = new Pattern(s); // construct pattern with
+        
+        // PARSE
+        try
+        {
+            P -> setRoot( P -> getI() -> parse(s, m) );
+        }
+        catch(std::exception &e)
+        {
+            std::cout << "ERROR: Parse" << std::endl;
+            std::cout << e.what() << std::endl;
+        }
+
+        // print tree
+        P->preOrder(P->getRoot()); std::cout << std::endl;
+        P->inOrder(P->getRoot()); std::cout << std::endl;
+        P->postOrder(P->getRoot()); std::cout << std::endl;
+
+        // generate tree with graphviz
+        P->visualizeTree("output.dot");
+    }
     else // parse && try execute user input
     {
         Pattern* P = new Pattern(s); // construct pattern with
@@ -196,7 +223,8 @@ void help()
     std::cout << "bufls" << " == " << "list all buffer content" << std::endl;
     std::cout << "load" << " == " << "load script to memory buffer" << std::endl;
     std::cout << "run" << " == " << "execute content of memory buffer" << std::endl;
-    std::cout << "print" << " == " << "print a string, ends on newline" << std::endl;
+    std::cout << "print" << " == " << "print a string, ends on newline, use $ for variables" << std::endl;
+    std::cout << "gentree" << " == " << "parses an expression, generates the AST using graphviz" << std::endl;
     std::cout << std::endl;
 }
 //-------------------------------------------------------------------------------------------
@@ -344,7 +372,7 @@ void bufdump(Memory* m)
 }
 //-------------------------------------------------------------------------------------------
 
-void print(Memory* m) // print element hash, print list hash
+void print(Memory* m) // ls
 {
     std::cout << std::endl;
     std::cout << "Buffer: "; 
@@ -359,7 +387,7 @@ void print(Memory* m) // print element hash, print list hash
 }
 //------------------------------------------------------------------------------------------
 
-void bufprint(Memory* m) // print element hash, print list hash
+void bufprint(Memory* m) // bufls
 {
     std::cout << std::endl;
     std::cout << "START BUFFER { " << std::endl;
@@ -479,3 +507,4 @@ std::string trimSharp(std::string s) // remove comments
     return s;
 }
 //----------------------------------------------------------------------------------------------
+

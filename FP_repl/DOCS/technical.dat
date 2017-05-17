@@ -63,16 +63,24 @@ syntax: "run"
 
 ///*********************************************
 
-* print == print a string or variable, use "`" prepended to variable name 
+* print == print a string or variable, use "$" prepended to variable name 
 	
 eg.
 	>>> print this is a string
 	<<< this is a string
 
 	>>> let x = <1,2,3>
-	>>> print `x
+	>>> print $x
 	<<< <1,2,3>
  //****************************************
+
+ * gentree == parse expr and print the AST
+
+ eg.
+ >>> gentree F.G:<1,2,3>
+ 
+ argument is an expression to parse
+//**************************************** 
 
 EVALUATION
 ///*********************************************

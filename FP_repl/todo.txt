@@ -6,11 +6,6 @@ TODO - Unfinished works
 * func.h/cpp ?? -> functs for the vm fn_pointers 
 
 ;;-----------------------
-syscom.h/cpp
-
-make a function that uses graphviz to generate a picture of the AST
-
-;;-----------------------
 
 * object.h/cpp -> base class
     - function

@@ -7,14 +7,18 @@
 #include <cstdlib>
 #include <stdexcept>
 
-int main()
+void c_line(int argc, char** argv, Memory* storage); // handle comline arg to run a file
+
+//=====================================================
+int main(int argc, char** argv)
 {
-    std::cout << "FP Engine" << std::endl;
-    std::cout << "Enter a command OR an expression to evaluate" << std::endl;
-    
     std::string input;
     Memory* storage = new Memory();   // pointer to memory block for variable storage
-    
+   
+    c_line(argc, argv, storage);
+
+    std::cout << "FP Engine" << std::endl;
+    std::cout << "Enter a command OR an expression to evaluate" << std::endl;
     do
     {
         std::cout << "$$ ";
@@ -34,3 +38,25 @@ int main()
 return 0;
 }
 //=====================================================
+
+void c_line(int argc, char** argv, Memory* storage) // handle comline arg to run a file
+{
+    if(argc >= 3)
+    {
+        std::cout << "comline arg num err" << std::endl;
+        delete storage; // delete memory object
+        storage = 0; 
+        exit(0);
+    }
+    else if(argc == 2)
+    {
+        std::string ifile = std::string(argv[1]);
+
+        load(ifile,storage);
+        run(storage);
+
+        delete storage; // delete memory object
+        storage = 0; 
+        exit(0);
+    }
+}
