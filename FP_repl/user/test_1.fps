@@ -1,10 +1,16 @@
-# simple test script 
+# simple test script for user defined objects
+# tests: let, def, and function application
+
+print TEST1.FPS
 
 # begin script by dumping any existing memory
 dump
 
-# function definitions
-def NO_ROTO = ROTL.ROTR # does nothing 
+# function definitions (none of these functions do anything useful)
+def NO_ROTO1 = ROTL.ROTR 
+def NO_ROTO2 = ROTR.ROTL
+def NO_ADD = DEC.INC
+def NO_SUB = INC.DEC
 
 # create variables
 let a = -1

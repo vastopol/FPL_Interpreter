@@ -1,0 +1,78 @@
+# testing the parser and tree generation 
+# gentree doesn't execute the expression
+# so the tests can use arbitrary function compositions
+
+print GENTREE TEST HARNESS
+
+# define functions
+def F = J.K
+def G = L.M.N
+def H = O.P.Q.R
+
+# create variables
+let a = 1
+let b = 2
+let x = <1,2,3>
+let y = <4,5,6>
+#---------------------------------------------
+
+# PART 1
+# immediate compositions && variables
+
+print PART 1
+
+gentree DEC:1
+
+gentree NEG.INC:0
+
+gentree ROTL:<10,11,12>
+
+gentree INC.MAX:<10,20,30>
+
+gentree ABS.NEG.HEAD.REV:<0,1,2>
+#---------------------------------------------
+
+# PART 2
+# user defined compositions && immediate variables
+
+print PART 2
+
+gentree F:5
+
+gentree F.G:6
+
+gentree F:<111,222,333>
+
+gentree H.G:<56,57,58>
+
+gentree F.G.H:<1,2,3,4,5,6,7,8,9,0>
+#---------------------------------------------
+
+# PART 3
+# immediate compositions && user defined variables
+
+print PART 3
+
+gentree DEC:a
+
+gentree NEG.INC:b
+
+gentree ROTL:x
+
+gentree INC.MAX:x
+
+gentree ABS.NEG.HEAD.REV:y
+
+#---------------------------------------------
+
+# PART 4
+# user defined compositions && variables from memory
+
+print PART 4
+
+gentree F:x
+
+gentree F.G:x
+
+gentree F.G.H:a
+#---------------------------------------------
