@@ -396,15 +396,15 @@ Node* Interpreter::buildtree(std::list<Object*> lst, Memory* m) // build the AST
             n = parse(xstr, m);
             s.push(n);
         }
-        else if( (*i)->type() == "Colon" || (*i)->type() == "Function"|| (*i)->type() == "Sequence" || (*i)->type() == "Element")
+        else if( (*i)->type() == "Function"|| (*i)->type() == "Sequence" || (*i)->type() == "Element" )
         {
-        	std::cout << "bt: case2" << std::endl;
+        	std::cout << "bt: case2 " << (*i)->type() << std::endl;
             n = new Node((*i)->get());
             s.push(n);
         }
-        else
+        else // Colon
         {
-        	std::cout << "bt: case3" << std::endl;
+        	std::cout << "bt: case3 " << (*i)->type() << std::endl;
             if(!s.empty()) // empty == do nothing
             {
                 n = new Node((*i)->get());

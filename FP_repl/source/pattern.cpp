@@ -102,23 +102,29 @@ void Pattern::postOrder(Node* n)
 //--------------------------------------------------
 
 
- void Pattern::generateTree(std::ofstream& out, Node* n) // broken...
+ void Pattern::generateTree(std::ofstream& out, Node* n) // doesn't work completely, generated dot files often need manual correction to work
  {
      if (n == 0)
      {
          return;
      }
+
+     std::string temp_M = n->getKey()->stringify(); // error with generate DOT file and ':' char
+     if(temp_M == ":"){temp_M = "Colon";}
+
      out << '\n';
-     out /*<< n->getKey()->stringify()*/ << " [label=\"" << n->getKey()->stringify();
+     out << temp_M << " [label=\"" << temp_M;
      out << "\"];";
      if (n->getLeft() != 0)
      {
-        out /*<< "\n" << n->getKey()->stringify()*/ << " -> " << (n->getLeft())->getKey()->stringify() << ";";
+        std::string temp_L = (n->getLeft())->getKey()->stringify();
+        out << "\n" << temp_M << " -> " << temp_L << ";";
         generateTree(out, n->getLeft());
      }
      if (n->getRight() != 0)
      {
-        out /*<< "\n" << n->getKey()->stringify()*/ << " -> " << (n->getRight())->getKey()->stringify() << ";";
+        std::string temp_R = (n->getRight())->getKey()->stringify();
+        out << "\n" << temp_M << " -> " << temp_R << ";";
         generateTree(out, n->getRight());
      }
  }

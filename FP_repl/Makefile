@@ -38,4 +38,7 @@ bin:
 	mkdir bin
 	
 clean:
-	rm -rf bin && rm source/*.o
+	rm -rf bin && rm source/*.o && rm *.dot && rm *.jpg
+
+clear:
+	rm *.dot && rm *.jpg

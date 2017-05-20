@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <stdexcept>
 
-void c_line(int argc, char** argv, Memory* storage); // handle comline arg to run a file
+void c_line(int argc, char** argv, Memory* storage); // comline arg to run a file
 
 //=====================================================
 int main(int argc, char** argv)
@@ -15,7 +15,7 @@ int main(int argc, char** argv)
     std::string input;
     Memory* storage = new Memory();   // pointer to memory block for variable storage
    
-    c_line(argc, argv, storage);
+    c_line(argc, argv, storage); // handle any command line arguments to run a file
 
     std::cout << "FP Engine" << std::endl;
     std::cout << "Enter a command OR an expression to evaluate" << std::endl;
