@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "node.h"
+#include "object.h"
 
 class Action
 {
@@ -10,9 +11,9 @@ class Action
         Action();
         ~Action();
         
-        void exec(Node*); // tree traverse
+        Object* exec(Node* n); // tree traverse
 
-        void doing(); // function execution
+        Object* doing(Object* fun, Object* arg); // fun(arg)
 };
 
 #endif // __ACTION_H__

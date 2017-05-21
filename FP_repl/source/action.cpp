@@ -10,35 +10,59 @@ Action::~Action()
 }
 //--------------------------------------------------------------
 
-void Action::exec(Node* n) // tree traverse
+Object* Action::exec(Node* n) // tree traverse
 {
-    std::cout << "\nEXEC\n" << "not done\n" << std::endl;
+    std::cout << "\nEXEC\n" << std::endl;
 
     if(n == 0) // null tree
     {
     	std::cout << "NULL" << std::endl;
-    	return;
+    	return 0;
     }
 
-    if(n != 0 && n->getKey()->type() != "Colon")
+    if(n != 0 && n->getKey()->type() != "Colon") // fetch
     {
-    	std::cout << "KEY:" << std::endl;
-    	n->getKey()->print();
+        return n->getKey();
     }
-    else
+    else // apply
     {
-    	exec(n->getLeft());
+        Object* arg = 0;
+        Object* fun = 0;
+        Object* res = 0;
 
-    	n->getKey()->print();
+    	arg = exec(n->getRight());
+        if(arg != 0) { arg->print(); std::cout << std::endl; }
+        // if(arg == 0) { std::cout << "ERROR: NULL ARG" << std::endl; return 0;}
+    	
+        // n->getKey()->print(); // print ':'
 
-    	exec(n->getRight());
+    	fun = exec(n->getLeft());
+        if(fun != 0) { fun->print(); std::cout << std::endl; }
+        // if(fun == 0) { std::cout << "ERROR: NULL FUNCT" << std::endl; return 0;}
+
+        // evaluate expression here
+        // res = doing(fun, arg);
+
+        return res;
     }
 
-    return;
+    return 0;
 }    
 //--------------------------------------------------------------
 
-void Action::doing() // function execute
+Object* Action::doing(Object* fun, Object* arg) // function execute
 {
-	return;
+    if(fun == 0 || arg == 0) // error checking null pointers
+    { return 0; }
+
+    std::string tag = fun->stringify();
+
+    if(arg->type() == "Element")
+    {
+    }
+    else // sequence
+    {
+    }
+
+	return 0;
 }

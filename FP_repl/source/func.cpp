@@ -1,4 +1,7 @@
-std::list<int> Sequence::head()
+#include "../header/func.h"
+
+
+std::list<int> head()
 {  
     if(seq.size() <= 1)
     { 
@@ -8,11 +11,10 @@ std::list<int> Sequence::head()
     std::list<int> lst;
     lst.push_back( seq.front() );
     return lst;
-    
 }
 //---------------------------
 
-std::list<int> Sequence::tail()
+std::list<int> tail()
 {
     if(seq.size() <= 1)
     { 
@@ -24,20 +26,7 @@ std::list<int> Sequence::tail()
 }
 //---------------------------
 
-std::list<int> Sequence::reverse()
-{
-    if(seq.size() <= 1)
-    { 
-        return seq;
-    }
-    
-    std::list<int> lst = seq;
-    lst.reverse();
-    return lst;
-}
-//---------------------------
-
-std::list<int> Sequence::rotr()
+std::list<int> rotr()
 {
     if(seq.size() <= 1)
     { 
@@ -46,12 +35,11 @@ std::list<int> Sequence::rotr()
     
     std::list<int> lst(seq.begin()++, seq.end());
     lst.push_back(seq.front());
-    return lst;
-    
+    return lst;   
 }
 //---------------------------
 
-std::list<int> Sequence::rotl()
+std::list<int> rotl()
 {
     if(seq.size() <= 1)
     { 
@@ -64,7 +52,20 @@ std::list<int> Sequence::rotl()
 }
 //---------------------------
 
-std::list<int> Sequence::max()
+std::list<int> rev()
+{
+    if(seq.size() <= 1)
+    { 
+        return seq;
+    }
+    
+    std::list<int> lst = seq;
+    lst.reverse();
+    return lst;
+}
+//---------------------------
+
+std::list<int> max()
 {
     if(seq.size() <= 1)
     { 
@@ -85,7 +86,7 @@ std::list<int> Sequence::max()
 }
 //---------------------------
 
-std::list<int> Sequence::min()
+std::list<int> min()
 {
     if(seq.size() <= 1)
     { 
