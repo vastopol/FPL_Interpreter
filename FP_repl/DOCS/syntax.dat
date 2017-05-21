@@ -37,7 +37,7 @@ apply-to-all  "@"
     where   @F:<x1,...,xn>  =  <F:x1,...,F:xn>
 ------------------------------------------------
         
-condition  "(H -> F,G)" 
+conditial branch  "(H -> F,G)" 
     
     where   (H -> F,G):x   
              =  F:x   if   H:x  =  True

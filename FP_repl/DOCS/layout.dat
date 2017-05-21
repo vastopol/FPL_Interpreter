@@ -5,10 +5,11 @@ variables and command buffer have different dumps SO the variables can be dumped
 
 //-----------------------------------------------------------------
 
-SYSCOM BRANCH STRUCTURE
+SYSCOM BRANCH STRUCTURE -> happens in call to com()
 - exit
 - clear
 - help
+- print
 - let
 - def
 - rm
@@ -18,17 +19,19 @@ SYSCOM BRANCH STRUCTURE
 - bufls
 - load
 - run
-- eval
+- gentree
+- evalaluate
 
 //-----------------------------------------------------------------
 
 CLASSES
 - Pattern == compositional object / mediator
-- Memory == data structure -> hold user defined variables/macros
+- Memory == data structure -> hold user defined objects variables/macros
+- Object == AST objects
 - Node == data structure -> form of the abstract syntax tree, hold Object*
 - Interpreter ==  parsing
 - Action ==  execution
-- Object == AST objects
+
 
 On construction Pattern is initialized with an input string and a reference to the Memory object.
 The Node pointer will initially be NULL. 
@@ -78,20 +81,16 @@ Action
 }
 
 
------------------------------------
-
-????????????
-
-object
+Object
 {
     
-    - connector ':'
-    - block
-    - element
-    - sequence
+* object.h/cpp -> base class
     - function
-        function pointers vs. strategy pattern
+    - sequence
+    - element
+    - colon   ':' the apply links the other parts  (might not need to be a class)
+    - block    chunk of data to call parse on again
     
+    // NOTE -> nodes hold object pointer
 }
 
-nodes hold object pointer
