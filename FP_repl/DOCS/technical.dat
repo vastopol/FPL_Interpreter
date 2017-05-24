@@ -54,7 +54,7 @@ syntax: "bufls"
 
 * load  == load content of script file to buffer
 
-syntax: "load file.fps"
+syntax: "load file.fpl"
 //----------------------------------------
 
 * run  == execute content of buffer

@@ -1,38 +1,41 @@
 # Makefile for FP_REPL
 
 # Variables
-COMP = g++ 
+CXX = g++ -std=c++11
 FLAGS = -Wall -Werror -ansi -pedantic
 DEBUG = -g
-OFILES = source/syscom.o source/memory.o source/pattern.o source/interpreter.o source/action.o source/node.o source/object.o
+OFILES = source/syscom.o source/memory.o source/pattern.o source/interpreter.o source/action.o source/node.o source/object.o source/func.o
 
 # Targets
 main: main.cpp $(OFILES) | bin
-	$(COMP) $(FLAGS) $(OFILES) main.cpp -o fplr && mv fplr bin/
+	$(CXX) $(FLAGS) $(OFILES) main.cpp -o fplr && mv fplr bin/
 	
 debug: main.cpp $(OFILES) | bin
-	$(COMP) $(FLAGS) $(DEBUG) $(OFILES) main.cpp -o fplr && mv fplr bin/
+	$(CXX) $(FLAGS) $(DEBUG) $(OFILES) main.cpp -o fplr && mv fplr bin/
 
 syscom.o: source/syscom.cpp header/syscom.h
-	$(COMP) $(FLAGS) -c source/syscom.cpp
+	$(CXX) $(FLAGS) -c source/syscom.cpp
 
-memory.o: source/memory.cpp header/memory.h
-	$(COMP) $(FLAGS) -c source/memory.cpp
+memory.o: source/memory.cpp header/memory.h source/object.cpp header/object.h
+	$(CXX) $(FLAGS) -c source/memory.cpp
 
 pattern.o: source/pattern.cpp header/pattern.h source/interpreter.cpp header/interpreter.h source/action.cpp header/action.h source/node.cpp header/node.h
-	$(COMP) $(FLAGS) -c source/pattern.cpp
+	$(CXX) $(FLAGS) -c source/pattern.cpp
 
-interpreter.o: source/interpreter.cpp header/interpreter.h source/node.cpp header/node.h
-	$(COMP) $(FLAGS) -c source/interpreter.cpp
+interpreter.o: source/interpreter.cpp header/interpreter.h source/memory.cpp header/memory.h source/object.cpp header/object.h source/node.cpp header/node.h
+	$(CXX) $(FLAGS) -c source/interpreter.cpp
 	
-action.o: source/action.cpp header/action.h source/node.cpp header/node.h
-	$(COMP) $(FLAGS) -c source/action.cpp
+action.o: source/action.cpp header/action.h source/object.cpp header/object.h  source/node.cpp header/node.h source/func.cpp header/func.h
+	$(CXX) $(FLAGS) -c source/action.cpp
 
-node.o: source/node.cpp header/node.h
-	$(COMP) $(FLAGS) -c source/node.cpp
+node.o: source/node.cpp header/node.h source/object.cpp header/object.h
+	$(CXX) $(FLAGS) -c source/node.cpp
 		
 object.o: source/object.cpp header/object.h
-	$(COMP) $(FLAGS) -c source/object.cpp
+	$(CXX) $(FLAGS) -c source/object.cpp
+
+func.o: source/func.cpp header/func.h 
+	$(CXX) $(FLAGS) -c source/func.cpp
 
 bin:
 	mkdir bin
@@ -42,3 +45,6 @@ clean:
 
 clear:
 	rm *.dot && rm *.jpg
+
+# implicit make variables
+# CXX is set to use g++ with c++11 standard

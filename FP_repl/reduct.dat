@@ -1,0 +1,44 @@
+std::list<int> max(std::list<int> l);
+std::list<int> min(std::list<int> l);
+
+std::list<int> max(std::list<int> seq)
+{
+    if(seq.size() <= 1)
+    { 
+        return seq;
+    }
+    
+    std::list<int> lst;
+    int chk = seq.front(); // max
+    for(std::list<int>::iterator jt = seq.begin(); jt != seq.end(); jt++)
+    {        
+        if(*jt > chk)
+        {
+            chk = *jt;
+        }
+    }
+    lst.push_back(chk);
+    return lst;
+}
+//---------------------------
+
+std::list<int> min(std::list<int> seq)
+{
+    if(seq.size() <= 1)
+    { 
+        return seq;
+    }
+    
+    std::list<int> lst;
+    int chk = seq.front(); // min 
+    for(std::list<int>::iterator it = seq.begin(); it != seq.end(); it++)
+    {
+        if(*it < chk)
+        {
+            chk = *it;
+        }
+    }
+    lst.push_back(chk);
+    return lst;
+}
+//---------------------------

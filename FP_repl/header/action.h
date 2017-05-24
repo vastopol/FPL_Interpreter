@@ -2,8 +2,10 @@
 #define __ACTION_H__
 
 #include <iostream>
+
 #include "node.h"
 #include "object.h"
+#include "func.h"
 
 class Action
 {

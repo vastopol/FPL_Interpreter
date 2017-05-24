@@ -1,7 +1,83 @@
 #include "../header/func.h"
 
 
-std::list<int> head()
+std::map<std::string, int> U_E
+{
+    {"NEG",0},
+    {"ABS",1},
+    {"INC",2},
+    {"DEC",3},
+};
+
+std::map<std::string, int> U_S
+{
+    {"HEAD",0},
+    {"TAIL",1},
+    {"ROTL",2},
+    {"ROTR",3},
+    {"REV",4}
+};
+
+//===============================================================
+
+// fill jump tables
+int (*Unary_E[])(int) // unary element
+{
+    neg,
+    abs,
+    inc,
+    dec
+    /* ... */
+};
+
+std::list<int> (*Unary_S[])(std::list<int>) // unary sequence
+{
+    head,
+    tail,
+    rotr,
+    rotl,
+    rev
+    /* ... */
+};
+
+
+//===============================================================
+
+int neg(int x) // x = -x
+{
+    return (-1) * x;
+}
+//---------------------------
+
+int abs(int x) // x = |x|
+{
+    if(x < 0)
+    {
+        return (-1) * x;
+    }
+    else
+    {
+        return x;
+    }
+}
+//---------------------------
+
+int inc(int x) // x = x--
+{
+    return ++x;
+}
+//---------------------------
+
+int dec(int x) // x = x++
+{
+    return --x;
+}
+//---------------------------
+
+//===============================================================
+//===============================================================
+
+std::list<int> head(std::list<int> seq)
 {  
     if(seq.size() <= 1)
     { 
@@ -14,7 +90,7 @@ std::list<int> head()
 }
 //---------------------------
 
-std::list<int> tail()
+std::list<int> tail(std::list<int> seq)
 {
     if(seq.size() <= 1)
     { 
@@ -26,20 +102,7 @@ std::list<int> tail()
 }
 //---------------------------
 
-std::list<int> rotr()
-{
-    if(seq.size() <= 1)
-    { 
-        return seq;
-    }
-    
-    std::list<int> lst(seq.begin()++, seq.end());
-    lst.push_back(seq.front());
-    return lst;   
-}
-//---------------------------
-
-std::list<int> rotl()
+std::list<int> rotl(std::list<int> seq)
 {
     if(seq.size() <= 1)
     { 
@@ -52,7 +115,21 @@ std::list<int> rotl()
 }
 //---------------------------
 
-std::list<int> rev()
+std::list<int> rotr(std::list<int> seq)
+{
+    if(seq.size() <= 1)
+    { 
+        return seq;
+    }
+    
+    std::list<int> lst(seq.begin()++, seq.end());
+    lst.push_back(seq.front());
+    return lst;   
+}
+//---------------------------
+
+
+std::list<int> rev(std::list<int> seq)
 {
     if(seq.size() <= 1)
     { 
@@ -65,44 +142,3 @@ std::list<int> rev()
 }
 //---------------------------
 
-std::list<int> max()
-{
-    if(seq.size() <= 1)
-    { 
-        return seq;
-    }
-    
-    std::list<int> lst;
-    int chk = seq.front(); // max
-    for(std::list<int>::iterator jt = seq.begin(); jt != seq.end(); jt++)
-    {        
-        if(*jt > chk)
-        {
-            chk = *jt;
-        }
-    }
-    lst.push_back(chk);
-    return lst;
-}
-//---------------------------
-
-std::list<int> min()
-{
-    if(seq.size() <= 1)
-    { 
-        return seq;
-    }
-    
-    std::list<int> lst;
-    int chk = seq.front(); // min 
-    for(std::list<int>::iterator it = seq.begin(); it != seq.end(); it++)
-    {
-        if(*it < chk)
-        {
-            chk = *it;
-        }
-    }
-    lst.push_back(chk);
-    return lst;
-}
-//---------------------------

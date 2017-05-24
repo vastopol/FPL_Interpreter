@@ -33,7 +33,7 @@ void process(std::string s, Memory* m) /* preprocessing function */
 }
 //---------------------------------------------------------------------------------
 
-void com(std::string s, Memory* m) // big branch statement to choose syscom || parse. ( {let, def, rm, load, parse}  ALL have string arguments)
+void com(std::string s, Memory* m) // branch statement to choose syscom || parse.
 {
     if(s == "exit")
     {
@@ -51,37 +51,7 @@ void com(std::string s, Memory* m) // big branch statement to choose syscom || p
     } 
     else if(s.substr(0,5) == "print")
     {
-        if(s.size() == 5) // echo \n
-        {
-            std::cout << std::endl;
-            return;
-        }
-
-        if(s.find(" ") != 5) // location of first space
-        { std::cout << "ERROR1: Syntax\n"; return; } 
-
-        // cut out "print " 
-        s = s.substr(6, s.size()-6);
-
-        if(s.at(0) == '$') // print item from mem
-        {
-            Object* ob = m->goGet(s.substr(1, s.size()-1));
-            if(ob != NULL)
-            {
-                ob->print();
-                std::cout << std::endl;
-            }
-            else
-            {
-                std::cout << "ERROR: Undefined" << std::endl;
-            }
-
-            // delete ob; ob = 0; // ?? ptr management ??
-        }
-        else // print string
-        {
-            std::cout << s << std::endl;
-        }
+        print_ln(s,m);
     }
     else if(s.substr(0, 3) == "let") // Variable creation
     {        
@@ -112,19 +82,19 @@ void com(std::string s, Memory* m) // big branch statement to choose syscom || p
     }
     else if(s == "dump")
     {
-        dump(m); // clear all memory content
+        dump_mem(m); 
     }
     else if(s == "ls")
     {
-        print(m); // print all memory content
+        print_mem(m); 
     }
     else if(s == "bufdump")
     {
-        bufdump(m); // clear all buffer content
+        dump_buf(m); 
     }
     else if(s == "bufls")
     {
-        bufprint(m); // print all buffer content
+        print_buf(m); 
     }
     else if(s.substr(0, 4) == "load") // load script content from file to buffer
     {        
@@ -144,56 +114,11 @@ void com(std::string s, Memory* m) // big branch statement to choose syscom || p
         if(s.find(" ") != 7) // location of first space
         { std::cout << "ERROR1: Syntax\n"; return; }
 
-        s = s.substr(8,s.size()-1);
-        Pattern* P = new Pattern(s); // construct pattern with
-        
-        // PARSE
-        try
-        {
-            P -> setRoot( P -> getI() -> parse(s, m) );
-        }
-        catch(std::exception &e)
-        {
-            std::cout << "ERROR: Parse" << std::endl;
-            std::cout << e.what() << std::endl;
-        }
-
-        // print tree
-        P->preOrder(P->getRoot()); std::cout << std::endl;
-        P->inOrder(P->getRoot()); std::cout << std::endl;
-        P->postOrder(P->getRoot()); std::cout << std::endl;
-
-        // generate tree with graphviz
-        P->visualizeTree("output.dot");
+        gentree(s.substr(8,s.size()-1), m);
     }
-    else // parse && try execute user input
+    else // try to execute user input
     {
-        Pattern* P = new Pattern(s); // construct pattern with
-        
-        // PARSE
-        try
-        {
-            P -> setRoot( P -> getI() -> parse(s, m) );
-        }
-        catch(std::exception &e)
-        {
-            std::cout << "ERROR: Parse" << std::endl;
-            std::cout << e.what() << std::endl;
-        }
-        
-        // EXECUTE
-        try
-        {
-            P -> getA() -> exec( P -> getRoot() );
-        }
-        catch(std::exception &e)
-        {
-            std::cout << "ERROR: Execute" << std::endl;
-            std::cout << e.what() << std::endl;
-        }
-        
-        delete P; // delete the current pattern on heap
-        P = 0;
+        eval(s,m);
     } 
     
     return; // catch any breakouts
@@ -360,19 +285,19 @@ void rem(std::string s, Memory* m) // access hashes and remove var if found
 }
 //------------------------------------------------------------------------------------------
 
-void dump(Memory* m)
+void dump_mem(Memory* m)
 {
     m -> clear();
 }
 //-------------------------------------------------------------------------------------------
 
-void bufdump(Memory* m)
+void dump_buf(Memory* m)
 {
     m -> empty_buf();
 }
 //-------------------------------------------------------------------------------------------
 
-void print(Memory* m) // ls
+void print_mem(Memory* m) // ls
 {
     std::cout << std::endl;
     std::cout << "Buffer: "; 
@@ -387,13 +312,109 @@ void print(Memory* m) // ls
 }
 //------------------------------------------------------------------------------------------
 
-void bufprint(Memory* m) // bufls
+void print_buf(Memory* m) // bufls
 {
     std::cout << std::endl;
     std::cout << "START BUFFER { " << std::endl;
     m -> print_buf();
     std::cout << "} END BUFFER" << std::endl;
     std::cout << std::endl;
+}
+//------------------------------------------------------------------------------------------
+
+void print_ln(std::string s, Memory* m)
+{
+        if(s.size() == 5) // echo \n
+        {
+            std::cout << std::endl;
+            return;
+        }
+
+        if(s.find(" ") != 5) // location of first space
+        { std::cout << "ERROR1: Syntax\n"; return; } 
+
+        // cut out "print " 
+        s = s.substr(6, s.size()-6);
+
+        if(s.at(0) == '$') // print item from mem
+        {
+            Object* ob = m->goGet(s.substr(1, s.size()-1));
+            if(ob != NULL)
+            {
+                ob->print();
+                std::cout << std::endl;
+            }
+            else
+            {
+                std::cout << "ERROR: Undefined" << std::endl;
+            }
+
+            // delete ob; ob = 0; // ?? ptr management ??
+        }
+        else // print string
+        {
+            std::cout << s << std::endl;
+        }
+}
+//------------------------------------------------------------------------------------------
+
+
+void gentree(std::string s, Memory* m)   // generate a visual of the AST with Graphviz
+{
+    Pattern* P = new Pattern(s); // construct pattern with
+    
+    // PARSE
+    try
+    {
+        P -> setRoot( P -> getI() -> parse(s, m) );
+    }
+    catch(std::exception &e)
+    {
+        std::cout << "ERROR: Parse" << std::endl;
+        std::cout << e.what() << std::endl;
+    }
+
+    // print tree
+    P->preOrder(P->getRoot()); std::cout << std::endl;
+    P->inOrder(P->getRoot()); std::cout << std::endl;
+    P->postOrder(P->getRoot()); std::cout << std::endl;
+
+    // generate tree with graphviz
+    P->visualizeTree("output.dot");
+
+    delete P; // delete the current pattern on heap
+    P = 0;
+}
+//------------------------------------------------------------------------------------------
+void eval(std::string s, Memory* m)      // evaluate an expression   
+{
+    Pattern* P = new Pattern(s); // construct pattern with
+    
+    // PARSE
+    try
+    {
+        P -> setRoot( P -> getI() -> parse(s, m) );
+    }
+    catch(std::exception &e)
+    {
+        std::cout << "ERROR: Parse" << std::endl;
+        std::cout << e.what() << std::endl;
+    }
+    
+    // EXECUTE
+    try
+    {
+        Object* obb = P -> getA() -> exec( P -> getRoot() );
+        obb->print(); std::cout << std::endl;
+    }
+    catch(std::exception &e)
+    {
+        std::cout << "ERROR: Execute" << std::endl;
+        std::cout << e.what() << std::endl;
+    }
+    
+    delete P; // delete the current pattern on heap
+    P = 0;
 }
 //------------------------------------------------------------------------------------------
 
@@ -407,7 +428,7 @@ void load(std::string s, Memory* m) // removes comments && trims spaces
         std::cout << "ERROR: LOAD: FILE" << std::endl;
         return;
     }
-    else if( s.substr(s.find_last_of('.'), s.size()-1) != ".fps")
+    else if( s.substr(s.find_last_of('.'), s.size()-1) != ".fpl")
     {
         std::cout << "ERROR: LOAD: FILE: EXTENTION" << std::endl;
         return;
@@ -485,12 +506,12 @@ std::string trimSpace(std::string s) // removes any (leading || trailing) whites
     if(s.empty()){return s;}
     while(s.at(0) == ' ') // remove any forward spaces
     {
-        if(s.size() == 1 /* && s.at(0) == ' '*/){return "";}
+        if(s.size() == 1){return "";}
         s = s.substr(1, (s.size()-1));
     }
     while(s.at(s.size()-1) == ' ') // remove any trailing spaces
     {
-        if(s.size() == 1 /*&& s.at(0) == ' '*/){return "";}
+        if(s.size() == 1){return "";}
         s = s.substr(0, (s.size()-1));
     }
     return s;

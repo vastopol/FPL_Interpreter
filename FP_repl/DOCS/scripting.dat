@@ -2,7 +2,7 @@ load a file && execute
 //--------------------------------------
 
 FP_REPL supports scripting of system commands and evaluations.
-repl scripts need to end with file extention ".fps"
+repl scripts need to end with file extention ".fpl"
 
 scripts are lists of statements to be performed in sequence
 files are structrued in procedural order.
@@ -14,7 +14,7 @@ the '#' is comment, it and everything after will be ignored until newline
 OPERATIONS:
 //==========================================================================
 
-load file.fps == loads the contents of file.fps into the system buffer
+load file.fpl == load the contents of "file.fpl" into the system buffer
 
 run == execute content of the system buffer. if buffer is empty will not work.
     system buffer is a queue of commands to be executed in Sequential order. 
