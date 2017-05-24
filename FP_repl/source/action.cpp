@@ -76,7 +76,7 @@ Object* Action::doing(Object* fun, Object* arg) // function execute
     }
     else // sequence
     {
-        op = U_E[tag];
+        op = U_S[tag];
         if(op == -1){return 0;} 
         Sequence* seq = static_cast<Sequence*>(arg);
         std::list<int> l = (*Unary_S[op])(seq->getList());

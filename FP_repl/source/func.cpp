@@ -79,7 +79,7 @@ int dec(int x) // x = x++
 
 std::list<int> head(std::list<int> seq)
 {  
-    if(seq.size() <= 1)
+    if(seq.size() == 1 || seq.empty())
     { 
         return seq;
     }
@@ -98,6 +98,7 @@ std::list<int> tail(std::list<int> seq)
     }
     
     std::list<int> lst(seq.begin()++, seq.end());
+    lst.pop_front();
     return lst;
 }
 //---------------------------
@@ -109,8 +110,9 @@ std::list<int> rotl(std::list<int> seq)
         return seq;
     }
     
-    std::list<int> lst(seq.begin(), seq.end()--);
+    std::list<int> lst(seq.begin()++, seq.end()--);
     lst.push_front(seq.back());
+    lst.pop_back();
     return lst;
 }
 //---------------------------
@@ -122,8 +124,9 @@ std::list<int> rotr(std::list<int> seq)
         return seq;
     }
     
-    std::list<int> lst(seq.begin()++, seq.end());
+    std::list<int> lst(seq.begin()++, seq.end()--);
     lst.push_back(seq.front());
+    lst.pop_front();
     return lst;   
 }
 //---------------------------
