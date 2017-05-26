@@ -55,20 +55,25 @@ Object* Action::doing(Object* fun, Object* arg) // function execute
     std::cout << "doing" << std::endl;
 
     if(fun == 0 || arg == 0) // error checking null pointers
-    { return 0; }
+    { 
+        std::cout << "INPUT ERROR: (FUNCT || ELM) == NULL" << std::endl;
+        return 0;
+    }
 
     std::string tag = fun->stringify();
     Object* ret = 0;
-    int op = 0;    
-
-
-    // have to search for string in opcode map*********
+    int op = 0;     // have to search for opcode corresponding to tag in hashmap*********
 
     // type conversion of Object*
     if(arg->type() == "Element")
     {  
+        if(U_E.find(tag) == U_E.end())
+        {
+            std::cout << "ERROR: INVALID FUNCT ELM: " << tag << std::endl;
+            return 0;
+        }
+
         op = U_E[tag];
-        if(op == -1){return 0;} 
         Element* el = static_cast<Element*>(arg);
         int x = (*Unary_E[op])(el->getElement());
         ret = new Element(x);
@@ -76,10 +81,24 @@ Object* Action::doing(Object* fun, Object* arg) // function execute
     }
     else // sequence
     {
-        op = U_S[tag];
-        if(op == -1){return 0;} 
+        if(U_S_R_E.find(tag) != U_S_R_E.end()) // function returning an element
+        {
+            op = U_S_R_E[tag];
+            Sequence* seq = static_cast<Sequence*>(arg);
+            int x = (*Unary_S_R_E[op])(seq->getList());
+            ret = new Element(x);
+            return ret;
+        }
+
+        if(U_S_R_S.find(tag) == U_S_R_S.end())
+        {
+            std::cout << "ERROR: INVALID FUNCT SEQ: " << tag << std::endl;
+            return 0;
+        }
+
+        op = U_S_R_S[tag];
         Sequence* seq = static_cast<Sequence*>(arg);
-        std::list<int> l = (*Unary_S[op])(seq->getList());
+        std::list<int> l = (*Unary_S_R_S[op])(seq->getList());
         ret = new Sequence(l);
         return ret;
     }

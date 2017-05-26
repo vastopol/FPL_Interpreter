@@ -15,7 +15,9 @@ TODO - Unfinished works
 
 * action.h/cpp -> tree traversal on AST nodes
 
-* func.h/cpp ?? -> functs for the vm fn_pointers 
+* func.h/cpp -> add more functs for the vm fn_pointers 
+
+* syscom.h/cpp -> set function; set var = eval(expr);
 
 -----------------------
 

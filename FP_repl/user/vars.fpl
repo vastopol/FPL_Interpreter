@@ -4,10 +4,10 @@
 # FUNCTION  DEFINITIONS
 
 # SEQUENCE FUNCTIONS
-def SECOND = HEAD.TAIL        # returns second element, (sequence must be size >= 2)
-def LAST = HEAD.REV           # returns last element
-def MINL = HEAD.SORT          # return minimum element of list
-def MAXL = HEAD.REV.SORT      # return maximum element of list
-def MIN2L = HEAD.SORT.CAT     # return min element of 2 lists
-def MAX2L = HEAD.REV.SORT.CAT # return max element of 2 lists
+def SECOND = HEAD.TAIL         # returns second element, (sequence must be size >= 2)
+def LAST = HEAD.REV            # returns last element
+def MIN_L = HEAD.SORT          # return minimum element of list
+def MAX_L = HEAD.REV.SORT      # return maximum element of list
+def MIN_2L = HEAD.SORT.CAT     # return min element of 2 lists
+def MAX_2L = HEAD.REV.SORT.CAT # return max element of 2 lists
 
