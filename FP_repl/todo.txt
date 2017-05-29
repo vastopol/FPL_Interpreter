@@ -8,7 +8,7 @@ TODO - Unfinished works
 
 - apply-to-all  
 	"@"  
-	
+
 - conditial branch  
 	"(H -> F,G)" 
 
@@ -17,8 +17,6 @@ TODO - Unfinished works
 * action.h/cpp -> tree traversal on AST nodes
 
 * func.h/cpp -> add more functs for the vm fn_pointers 
-
-* syscom.h/cpp -> set function; set var = eval(expr);
 
 -----------------------
 

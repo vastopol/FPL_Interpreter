@@ -10,8 +10,9 @@ SYSCOM BRANCH STRUCTURE -> happens in call to com()
 - clear
 - help
 - print
-- let
 - def
+- let
+- set
 - rm
 - dump
 - ls
@@ -20,7 +21,7 @@ SYSCOM BRANCH STRUCTURE -> happens in call to com()
 - load
 - run
 - gentree
-- evalaluate
+- eval
 
 //-----------------------------------------------------------------
 

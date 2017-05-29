@@ -29,9 +29,11 @@ void com(std::string s, Memory* m);       // branch statement to choose syscom |
 
 void help();                              // help prompt
 
+void def(std::string s, Memory* m);       // create function macro, mapping name to value
+
 void let(std::string s, Memory* m);       // variable creaton, mapping name to value
 
-void def(std::string s, Memory* m);       // create function macro, mapping name to value
+void set(std::string s, Memory* m);		  // set a variable to the return value of a parsed expression; set x = expr
 
 void rem(std::string s, Memory* m);       // remove var if found
 

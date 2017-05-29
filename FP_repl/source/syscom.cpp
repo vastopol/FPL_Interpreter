@@ -53,6 +53,15 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
     {
         print_ln(s,m);
     }
+    else if(s.substr(0, 3) == "def") // Function Creation
+    {        
+        // syntax: "def name = fun"
+        if(s.find(" ") != 3) // location of first space
+        { std::cout << "ERROR1: Syntax\n"; return; }
+
+        // cut out "def ", now "name = fun"
+        def( s.substr(4, (s.size()-4)), m );
+    }
     else if(s.substr(0, 3) == "let") // Variable creation
     {        
         // syntax: "let name = var"
@@ -62,14 +71,12 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
         // cut out "let ", now "name = var"
         let( s.substr(4, (s.size()-4)), m );
     }
-    else if(s.substr(0, 3) == "def") // Function Creation
-    {        
-        // syntax: "def name = fun"
+    else if(s.substr(0, 3) == "set")
+    {
         if(s.find(" ") != 3) // location of first space
         { std::cout << "ERROR1: Syntax\n"; return; }
 
-        // cut out "def ", now "name = fun"
-        def( s.substr(4, (s.size()-4)), m );
+        set( s.substr(4, (s.size()-4)), m );
     }
     else if(s.substr(0, 2) == "rm")
     {
@@ -139,8 +146,9 @@ void help()
     std::cout << "help" << " == " << "display help prompt" << std::endl;
     std::cout << "clear" << " == " << "clear the screen contents" << std::endl;
     std::cout << "exit" << " == " << "quit program" << std::endl;
-    std::cout << "let" << " == " << "create variable" << std::endl;
     std::cout << "def" << " == " << "define function macro" << std::endl;
+    std::cout << "let" << " == " << "create variable" << std::endl;
+    std::cout << "set" << " == " << "set a variable to an expression value" << std::endl;
     std::cout << "rm" << " == " << "remove an entry from memory" << std::endl;
     std::cout << "dump" << " == " << "empty all memory" << std::endl;
     std::cout << "bufdump" << " == " << "empty all buffer content" << std::endl;
@@ -153,6 +161,35 @@ void help()
     std::cout << std::endl;
 }
 //-------------------------------------------------------------------------------------------
+
+void def(std::string s, Memory* m) //  function macro definition
+{
+    // string s comes in as "name = value" format
+    // split out " = ", the equals and padding spaces
+    // string var = name; string val = value
+    //**************************************************
+    size_t pos = s.find(" = "); // location of =
+    if(pos >= s.size() || pos == std::string::npos)
+    {std::cout << "ERROR2: Syntax\n"; return;}
+            
+    std::string var = s.substr(0, (pos)); // variable name, left half; sz = (0 to pos)
+    var = trimSpace(var);
+    if(var.empty()){std::cout << "ERROR3: Syntax -> var\n"; return;}
+    
+    pos = s.find(" "); // location of first " "
+    pos = s.find(" ", pos+1); // location of " " right after the "="
+    if(pos >= s.size() || pos == std::string::npos)
+    { std::cout << "ERROR4: Syntax" << std::endl; return; }
+    
+    std::string val = s.substr((pos + 1), (s.size() - pos)); // variable value, right half
+    val = trimSpace(val);
+    if(val.empty()){ std::cout << "ERROR5: Syntax -> val\n"; return; }
+    
+    Function fun(val);
+
+    m -> add_macro(var, fun);
+}
+//-----------------------------------------------------------------------------------------
 
 void let(std::string s, Memory* m) // variable creation
 {
@@ -242,7 +279,8 @@ void let(std::string s, Memory* m) // variable creation
 }
 //-----------------------------------------------------------------------------------------
 
-void def(std::string s, Memory* m) //  function macro definition
+
+void set(std::string s, Memory* m) 
 {
     // string s comes in as "name = value" format
     // split out " = ", the equals and padding spaces
@@ -264,12 +302,67 @@ void def(std::string s, Memory* m) //  function macro definition
     std::string val = s.substr((pos + 1), (s.size() - pos)); // variable value, right half
     val = trimSpace(val);
     if(val.empty()){ std::cout << "ERROR5: Syntax -> val\n"; return; }
-    
-    Function fun(val);
 
-    m -> add_macro(var, fun);
+    if(m->goGet(var) == 0)
+    {
+        std::cout << "ERROR: Undefined variable to bind to" << std::endl; return;
+    }
+
+    Pattern* P = new Pattern(val); // construct pattern with
+    Object* obb = 0;
+
+    // PARSE
+    try
+    {
+        P -> setRoot( P -> getI() -> parse(val, m) );
+    }
+    catch(std::exception &e)
+    {
+        std::cout << "ERROR: Parse" << std::endl;
+        std::cout << e.what() << std::endl;
+    }
+    
+    // EXECUTE
+    try
+    {
+        obb = P -> getA() -> exec( P -> getRoot() );
+        obb->print(); std::cout << std::endl;
+    }
+    catch(std::exception &e)
+    {
+        std::cout << "ERROR: Execute" << std::endl;
+        std::cout << e.what() << std::endl;
+    }
+    
+    if(obb == 0)
+    {
+        std::cout << "ERROR: Execute produced null" << std::endl; return;
+    }
+    else
+    {
+        rem(var,m);
+        if(obb->type() == "Element")
+        {
+            m->add_element(var, *(static_cast<Element*>(obb)) );
+        }
+        else if (obb->type() == "Sequence")
+        {
+            m->add_sequence(var, *(static_cast<Sequence*>(obb)) );
+        }
+        else
+        {
+            std::cout << "ERROR: Execute produced unknown" << std::endl; return;
+        }
+    }
+
+    delete obb;
+    delete P; // delete the current pattern on heap
+    obb = 0;
+    P = 0;
+
 }
 //-----------------------------------------------------------------------------------------
+
 
 void rem(std::string s, Memory* m) // access hashes and remove var if found
 {

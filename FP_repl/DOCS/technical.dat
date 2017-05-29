@@ -3,6 +3,15 @@ Technical stuff on memory management && system
 SYSTEM CALLS (for memory management)
 ///******************************************
 
+* def == compositional function
+
+syntax: "def name = function"
+
+ex:   def LAST = HEAD.REV    # returns last element
+
+the functions are macros substituted in on interpretation
+//----------------------------------------
+
 * let == set variables
 
 syntax: "let name = value"
@@ -18,13 +27,14 @@ where sequence
    s = <1,2,3>
 //----------------------------------------
 
-* def == compositional function
+* set == set a variable to new value
 
-syntax: "def name = function"
+syntax: "set var = expr"
 
-ex:   def LAST = HEAD.REV    # returns last element
+expr is any valid fpl expression returning an element or sequence
+var is looked up in memory, the old variable is removed, and
+is replaced with the new object returned from evaluation
 
-the functions are macros substituted in on interpretation
 //----------------------------------------
 
 * rm  == delete variable from memory
@@ -85,9 +95,8 @@ eg.
 EVALUATION
 ///*********************************************
 
-Upon user input, string is checked to see if is a syscom.
 Evaluation is invoked if the input is not a call to syscom.
-evaluation is called on the sequence of characters.
+evaluation is called on the input string.
 eg.
 
 # evaluation
@@ -95,9 +104,5 @@ eg.
     evaluate("F:x")
     apply function f to variable x
     return result.
-
-# syscom
->>> ls
-    call to syscom, prints memory content
 
 ///*********************************************
