@@ -106,9 +106,16 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
                 ob = 0;
                 continue;
             }
-            else if(val.at(0) == '<' && val.at(val.size() - 1) == '>' ) // sequence || element
+            else if(isdigit(val.at(0))) // element
+            {
+                    std::cout << "element part: " << val << std::endl;
+                    ob = new Element(atoi(val.c_str()));
+                    oblist.push_back(ob);
+                    ob = 0;
+            }
+            else if(val.at(0) == '<' && val.at(val.size() - 1) == '>' ) // sequence 
             {    
-                std::cout << "variable part: " << val << std::endl;
+                std::cout << "sequence part: " << val << std::endl;
                 std::list<int> lst;
                 
                 // remove <>
@@ -156,18 +163,9 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
                     }
                 } 
 
-                if(lst.size() == 1)
-                {
-                    ob = new Element(*lst.begin()); // element HERE
-                    oblist.push_back(ob);
-                    ob = 0;
-                }
-                else
-                {
-                    ob = new Sequence(lst);         // list with data HERE
-                    oblist.push_back(ob);
-                    ob = 0;
-                }
+                ob = new Sequence(lst);         // list with data HERE
+                oblist.push_back(ob);
+                ob = 0;
             }
             else // function
             {   

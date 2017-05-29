@@ -8,6 +8,7 @@ TODO - Unfinished works
 
 - apply-to-all  
 	"@"  
+	
 - conditial branch  
 	"(H -> F,G)" 
 
@@ -24,15 +25,13 @@ TODO - Unfinished works
 * interpreter.h/cpp
 
 parse user defined functions at the very begining
-before the call to p_dot()
+before the call to p_dot() have another function
 
 fix immediate object construction, add the {} environment part
 
-f:1 = parse incorrect
+f:1 = element
 
-f:<1> = single element
-
-g:<1,2> = sequence
+f:<1> = sequence
 
 -----------------------
 
