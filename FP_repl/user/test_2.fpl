@@ -1,53 +1,37 @@
-# load/run test2 file
-# 1. simulates running a program, 
-# 2. dumps memory && buffer,
-# 3. loads and runs another program before ending (user/test1.fps)
+# error testing function application
+# ALL cases should fail
 
+# apply element function to sequence
 
-# PART 1
-#-------------------------------------
+INC:<>
+INC:<1>
+INC:<1,2>
 
-dump # clear old mem
+DEC:<>
+DEC:<1>
+DEC:<1,2>
 
-# do arbitrary lets
-let a = 1
-let b = 2
-let c = 3
-let d = 4
-let l = <2,3,4,5,6>
+NEG:<>
+NEG:<1>
+NEG:<1,2>
 
-# assume that other computations would happen here
-# ...
-
-#-------------------------------------
-
-
-# PART 2
-#------------------------------------
-
-ls      # display mem before
-dump    # delete current mem
-ls      # display mem after
-
-bufls   # display buf before
-bufdump # delete current buffer content
-bufls   # display buf after
+ABS:<>
+ABS:<1>
+ABS:<1,2>
 
 #--------------------------------------
 
+# apply sequence function to an element
 
-# PART 3
-#--------------------------------------
+ROTL:0
 
-# load another script file to the system buffer
-load user/test1.fps
+ROTR:0
 
-bufls   # display new buffer content
+REV:0
 
-run     # run new loaded buffer
+SORT:0
 
-#--------------------------------------
+POPL:0
 
-# end script by dumping memory && buffer
-dump
-bufdump
+POPR:0
+

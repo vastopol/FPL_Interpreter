@@ -1,5 +1,5 @@
-# most basic testing
-# test builtin system commands and primitives
+# basic testing: builtin system commands/primitives
+# let, def, set, rm, dump, print, help, ...
 
 print
 print TEST_0.FPS
@@ -45,12 +45,26 @@ ls
 
 #-----------------------------
 
+print Creating Functions
+
+# define functions
+def ADD2 = INC.INC
+def ADD3 = INC.INC.INC
+def ADD4 = INC.INC.INC.INC
+def SUB2 = DEC.DEC
+def SUB3 = DEC.DEC.DEC
+def SUB4 = DEC.DEC.DEC.DEC
+
+ls
+
+#-----------------------------
+
 print Removing Variables
 print
 
 print var_k
 print $var_k
-print removing variable
+print removing element
 rm var_k
 print var_k
 print $var_k
@@ -58,7 +72,7 @@ print
 
 print var_a
 print $var_a
-print removing variable
+print removing element
 rm var_a
 print var_a
 print $var_a
@@ -66,7 +80,7 @@ print
 
 print seq_h
 print $seq_h
-print removing variable
+print removing sequence
 rm seq_h
 print seq_h
 print $seq_h
@@ -74,12 +88,53 @@ print
 
 print seq_f
 print $seq_f
-print removing variable
+print removing sequence
 rm seq_f
 print seq_f
 print $seq_f
 print
 
+print ADD2
+print $ADD2
+print removing function
+rm ADD2
+print ADD2
+print $ADD2
+print
+
+print SUB3
+print $SUB3
+print removing function
+rm SUB3
+print SUB3
+print $SUB3
+print
+
+ls
+
+print Dump memory
+
+dump
+
+#-----------------------------
+
+print Testing set function
+
+let x = 0
+let y = <>
+
+ls
+
+print setting x to INC.INC.HEAD:<1,2>
+set x = INC.INC.HEAD:<1,2>
+
+ls
+
+print setting y to NEG.HEAD.REV.ROTL.ROTL:<5,6,7,8,9,0>
+set y = NEG.HEAD.REV.ROTL.ROTL:<5,6,7,8,9,0>
+
 ls
 
 #-----------------------------
+
+dump

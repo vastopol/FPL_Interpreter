@@ -2,7 +2,10 @@
 # gentree doesn't execute the expression
 # so the tests can use arbitrary function compositions
 
+print
 print GENTREE TEST HARNESS
+
+dump # clear mem
 
 # define functions
 def F = J.K
@@ -76,3 +79,5 @@ gentree F.G:x
 
 gentree F.G.H:a
 #---------------------------------------------
+
+dump # remove variables from mem

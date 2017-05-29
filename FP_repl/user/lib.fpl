@@ -1,0 +1,44 @@
+# test file only for holding def && let statements
+# for example could contain useful/common variables/functions
+
+# VARIABLE CREATION
+#===================================================================
+
+# ELEMENTS
+#------------------------------------------
+#------------------------------------------
+
+# SEQUENCES
+#------------------------------------------
+let NIL = <>    # the empty list
+#------------------------------------------
+
+#===================================================================
+
+
+# FUNCTION  DEFINITIONS
+#===================================================================
+
+# ELEMENT FUNCTIONS
+#------------------------------------------
+def ++ = INC    # c style increment
+def -- = DEC    # c style decrement
+#------------------------------------------
+
+# SEQUENCE FUNCTIONS
+#------------------------------------------
+def CAR = HEAD
+def CDR = TAIL
+def CADR = HEAD.TAIL
+def CDDR = TAIL.TAIL
+def CADDR = HEAD.TAIL.TAIL
+def CDDDR = TAIL.TAIL.TAIL
+def SECOND = HEAD.TAIL         # returns second element, (size >= 2)
+def LAST = HEAD.REV            # returns last element
+def MIN_L = HEAD.SORT          # return minimum element of list
+def MAX_L = HEAD.REV.SORT      # return maximum element of list
+def MIN_2L = HEAD.SORT.CAT     # return min element of 2 lists
+def MAX_2L = HEAD.REV.SORT.CAT # return max element of 2 lists
+#------------------------------------------
+
+#===================================================================

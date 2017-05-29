@@ -1,16 +1,67 @@
 # simple test script for user defined objects
-# tests: let, def, and function application
+# tests: let, def, and mainly function application
+# all tests should pass
 
-print TEST1.FPS
+print
+print TEST_1.FPS
 
 # begin script by dumping any existing memory
 dump
 
+# part 1 -> instantaneous
+#-----------------------------------
+INC:-1
+INC:0
+INC:1
+
+INC.INC:0
+
+DEC:-1
+DEC:0
+DEC:1
+
+DEC.DEC:0
+
+NEG:-1
+NEG:0
+NEG:1
+
+NEG.NEG:1
+NEG.NEG:-1
+
+ROTL:<1,2,3,4,5>
+ROTL.ROTL:<1,2,3,4,5>
+
+ROTR:<1,2,3,4,5>
+ROTR.ROTR:<1,2,3,4,5>
+
+POPL:<1,2,3,4,5>
+POPL.POPL:<1,2,3,4,5>
+POPL.POPL.POPL:<1,2,3,4,5>
+
+POPR:<1,2,3,4,5>
+POPR.POPR:<1,2,3,4,5>
+POPR.POPR.POPR:<1,2,3,4,5>
+
+REV:<1,2,3,4,5>
+REV.REV:<1,2,3,4,5>
+
+SORT:<2,6,1,99,4,66,2,0,77,5,6,4,23,54>
+
+#==========================================================================
+#==========================================================================
+
+# part 2 -> user defined
+#-----------------------------------
+
 # function definitions (none of these functions do anything useful)
+def NO_REV = REV.REV
 def NO_ROTO1 = ROTL.ROTR 
 def NO_ROTO2 = ROTR.ROTL
 def NO_ADD = DEC.INC
 def NO_SUB = INC.DEC
+def NO_NEG = NEG.NEG
+
 
 # create variables
 let a = -1
@@ -26,10 +77,9 @@ let z = <1,2,2,3,3,3,4,4,4,4>
 ls
 
 # expression evaluation
-+:<c,d>     # 6
-SIZE:x      # 5
-NO_ROTO:y   # <-2,-1,0,1,2>
+SIZE:z       # 10
+NO_ROTO1:x   # <1,2,3,4,5>
+NO_ROTO2:y   # <-2,-1,0,1,2>
 
-# end script by dumping memory && buffer
+# end script by dumping memory
 dump
-bufdump
