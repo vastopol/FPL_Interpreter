@@ -19,12 +19,14 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
     if(s.empty()) 
     {
       std::cout << "ERROR: empty string" << std::endl; 
-      return 0;
+      // return 0;
+      throw std::runtime_error("parse() : empty string in prelim");
     }
     else if(!isBalanced(s))
     {
       std::cout << "ERROR: incorrect syntax : \"(), {}, [], <>\"" << std::endl; 
-      return 0;
+      // return 0;
+      throw std::runtime_error("parse() : unballanced <,(,{,[");
     } 
     ///=======================================================
     
@@ -69,7 +71,8 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
         if( (*it).empty() || *it == "" ) // error check
         {
             std::cout << "ERROR: null string for build object" << std::endl;
-            return 0;
+            // return 0;
+            throw std::runtime_error("parse() : null string for build object");
         }
 
         if(*it == ":") // make colon object

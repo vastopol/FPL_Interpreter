@@ -14,16 +14,16 @@ TODO - Unfinished works
 
 -------------------------
 
-* action.h/cpp -> tree traversal on AST nodes
+* action.h/cpp -> complex tree traversal on AST nodes
 
-* func.h/cpp -> add more functs for the vm fn_pointers 
+* func.h/cpp -> add more functions for the vm fn_pointers 
 
 -----------------------
 
 * interpreter.h/cpp
 
 parse user defined functions at the very begining
-before the call to p_dot() have another function
+before the call to p_dot() have another function for that
 
 fix immediate object construction, add the {} environment part
 
@@ -48,3 +48,9 @@ F:{<1,2,3>}
 F:{1;2}
 F:{<1,2,3>;<4,5,6>}
 F:{1;<7,8,9>}
+
+//---------------------------------------------
+
+convert all instances of return 0 for NULL pointers to:
+
+throw std::runtime_error("");

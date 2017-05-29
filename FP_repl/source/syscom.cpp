@@ -320,6 +320,9 @@ void set(std::string s, Memory* m)
     {
         std::cout << "ERROR: Parse" << std::endl;
         std::cout << e.what() << std::endl;
+        delete P; // delete the current pattern on heap
+        P = 0;
+        return;
     }
     
     // EXECUTE
@@ -332,6 +335,11 @@ void set(std::string s, Memory* m)
     {
         std::cout << "ERROR: Execute" << std::endl;
         std::cout << e.what() << std::endl;
+        delete P; // delete the current pattern on heap
+        delete obb;
+        obb = 0;
+        P = 0;
+        return;
     }
     
     if(obb == 0)
@@ -465,6 +473,9 @@ void gentree(std::string s, Memory* m)   // generate a visual of the AST with Gr
     {
         std::cout << "ERROR: Parse" << std::endl;
         std::cout << e.what() << std::endl;
+        delete P; // delete the current pattern on heap
+        P = 0;
+        return;
     }
 
     // print tree
@@ -492,6 +503,9 @@ void eval(std::string s, Memory* m)      // evaluate an expression
     {
         std::cout << "ERROR: Parse" << std::endl;
         std::cout << e.what() << std::endl;
+        delete P; // delete the current pattern on heap
+        P = 0;
+        return;
     }
     
     // EXECUTE
@@ -499,6 +513,8 @@ void eval(std::string s, Memory* m)      // evaluate an expression
     {
         Object* obb = P -> getA() -> exec( P -> getRoot() );
         obb->print(); std::cout << std::endl;
+        delete obb;
+        obb = 0;
     }
     catch(std::exception &e)
     {
@@ -571,7 +587,7 @@ void load(std::string s, Memory* m) // removes comments && trims spaces
 
 void run(Memory* m)
 {
-    std::list<std::string> lst = m -> get_buffer(); // copy buffer from memory // &lst
+    std::list<std::string>& lst = m -> get_buffer(); // copy buffer from memory, &lst 
     if( lst.empty() )
     {
         std::cout << "ERROR: RUN: EMPTY BUFFER" << std::endl;

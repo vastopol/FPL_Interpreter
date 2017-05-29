@@ -17,7 +17,8 @@ Object* Action::exec(Node* n) // tree traverse
     if(n == 0) // null tree
     {
     	std::cout << "NULL" << std::endl;
-    	return 0;
+    	// return 0;
+        throw std::runtime_error("exec() : NULL tree");
     }
 
     if(n != 0 && n->getKey()->type() != "Colon") // fetch
@@ -32,32 +33,44 @@ Object* Action::exec(Node* n) // tree traverse
 
     	arg = exec(n->getRight());
         if(arg != 0) { arg->print(); std::cout << std::endl; }
-        else { std::cout << "ERROR: NULL ARG" << std::endl; return 0;}
+        else 
+        { 
+            std::cout << "ERROR: NULL ARG" << std::endl;
+            // return 0;
+            throw std::runtime_error("exec() : NULL arg");
+        }
     	
         n->getKey()->print(); // print ':'
 
     	fun = exec(n->getLeft());
         if(fun != 0) { fun->print(); std::cout << std::endl; }
-        else { std::cout << "ERROR: NULL FUNCT" << std::endl; return 0;}
+        else 
+        { 
+            std::cout << "ERROR: NULL FUNCT" << std::endl;
+            // return 0;
+            throw std::runtime_error("exec() : NULL function");
+        }
 
         // evaluate expression here
-        res = doing(fun, arg);
+        res = apply(fun, arg);
 
         return res;
     }
 
-    return 0;
+    // return 0;
+    throw std::runtime_error("exec() : ERROR : ERROR");
 }    
 //--------------------------------------------------------------
 
-Object* Action::doing(Object* fun, Object* arg) // function execute
+Object* Action::apply(Object* fun, Object* arg) // function execute
 {
     std::cout << "doing" << std::endl;
 
     if(fun == 0 || arg == 0) // error checking null pointers
     { 
         std::cout << "INPUT ERROR: (FUNCT || ELM) == NULL" << std::endl;
-        return 0;
+        // return 0;
+        throw std::runtime_error("apply() : (FUNCT || ELM) == NULL");
     }
 
     std::string tag = fun->stringify();
@@ -70,7 +83,8 @@ Object* Action::doing(Object* fun, Object* arg) // function execute
         if(U_E.find(tag) == U_E.end())
         {
             std::cout << "ERROR: INVALID FUNCT ELM: " << tag << std::endl;
-            return 0;
+            // return 0;
+            throw std::runtime_error("apply() : INVALID FUNCT ELM");
         }
 
         op = U_E[tag];
@@ -93,7 +107,8 @@ Object* Action::doing(Object* fun, Object* arg) // function execute
         if(U_S_R_S.find(tag) == U_S_R_S.end())
         {
             std::cout << "ERROR: INVALID FUNCT SEQ: " << tag << std::endl;
-            return 0;
+            // return 0;
+            throw std::runtime_error("apply() : INVALID FUNCT SEQ");
         }
 
         op = U_S_R_S[tag];
@@ -103,5 +118,6 @@ Object* Action::doing(Object* fun, Object* arg) // function execute
         return ret;
     }
 
-	return 0;
+	// return 0;
+    throw std::runtime_error("apply() : ERROR : ERROR");
 }

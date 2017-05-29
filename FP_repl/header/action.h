@@ -15,7 +15,7 @@ class Action
         
         Object* exec(Node* n); // tree traversal
 
-        Object* doing(Object* fun, Object* arg); // apply;  fun(arg)
+        Object* apply(Object* fun, Object* arg); //  fun(arg)
 };
 
 #endif // __ACTION_H__

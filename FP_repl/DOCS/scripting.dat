@@ -20,8 +20,6 @@ run == execute content of the system buffer. if buffer is empty will not work.
     system buffer is a queue of commands to be executed in Sequential order. 
     each command is executed, and removed from the queue. continues until queue is empty.
     
-    note: after run, system buffer will contain content of loads unless explicit call to "bufdump"
-
 //==========================================================================
 
 FP_REPL script file format

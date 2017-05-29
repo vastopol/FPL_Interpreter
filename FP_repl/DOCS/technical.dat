@@ -67,7 +67,7 @@ syntax: "bufls"
 syntax: "load file.fpl"
 //----------------------------------------
 
-* run  == execute content of buffer
+* run  == execute content of buffer until empty
 
 syntax: "run"
 

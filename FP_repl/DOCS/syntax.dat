@@ -109,11 +109,9 @@ then use like:
 
 FUNCTION APPLICATION EXAMPLES
 
-see user/vars.fps for implementation library
+let lst = <0,1,2,3,4,5,6,7,8,9>
 
-let list = <0,1,2,3,4,5,6,7,8,9>
-
->>>  SECOND:list
+>>>  SECOND:lst
      HEAD.TAIL:<0,1,2,3,4,5,6,7,8,9>
      HEAD:(TAIL:<0,1,2,3,4,5,6,7,8,9>)
      HEAD:<1,2,3,4,5,6,7,8,9>
