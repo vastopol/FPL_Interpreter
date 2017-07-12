@@ -14,26 +14,7 @@ TODO - Unfinished works
 
 -------------------------
 
-* action.h/cpp -> complex tree traversal on AST nodes
-
-* func.h/cpp -> add more functions for the vm fn_pointers 
-
------------------------
-
-* interpreter.h/cpp
-
-parse user defined functions at the very begining
-before the call to p_dot() have another function for that
-
-fix immediate object construction, add the {} environment part
-
-f:1 = element
-
-f:<1> = sequence
-
------------------------
-
-* eventually
+* eventually add the {} environment part
 
 expression format -> functions:{arg1;arg2}
 
@@ -54,3 +35,42 @@ F:{1;<7,8,9>}
 convert all instances of return 0 for NULL pointers to:
 
 throw std::runtime_error("");
+-----------------------------------
+
+* action.h/cpp -> complex tree traversal on AST nodes
+
+* func.h/cpp -> add more functions for the vm fn_pointers 
+
+-----------------------
+
+* interpreter.h/cpp
+
+in part 3
+
+fix immediate object construction, 
+
+
+f:1 = function apply to element
+
+f:<1> = function apply to sequence
+
+but...
+
+f:-1 = function apply to function
+
+f:<-1> = function applied to sequence, but negative not preserved
+
+-----------------------
+
+VERSION 0.1
+
+resolve function definitions
+parse user defined functions at the very begining
+before the call to p_dot() have another function for that
+
+fix immediate object construction
+
+write_ln()
+this should write one line of text to the execution buffer
+
+fix gentree

@@ -4,7 +4,7 @@
 # 3. loads and runs another program before ending (user/test_1.fpl)
 
 print
-print TEST_3.FPl
+print TEST_3.FPL
 
 # PART 1
 #-------------------------------------

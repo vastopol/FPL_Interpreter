@@ -1,0 +1,11 @@
+# testing the function definiton resolver
+
+def inc = INC
+def 2+ = inc.inc
+def dec = DEC
+def 3- = dec.dec.dec
+def 1- = 3-.2+
+let x = 1
+
+1-:x
+

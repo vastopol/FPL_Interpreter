@@ -55,8 +55,8 @@ void gentree(std::string s, Memory* m);   // parse expression and generate a vis
 
 void eval(std::string s, Memory* m);      // evaluate an expression             
 
-std::string trimSpace(std::string s);     // removes any (leading || trailing) whitespace characters (INTERPRETER)
+std::string trimSpace(std::string s);     // removes any (leading || trailing) whitespace characters (for INTERPRETER)
 
-std::string trimSharp(std::string s);     // remove comments (INTERPRETER)
+std::string trimSharp(std::string s);     // remove comments (for INTERPRETER)
 
 #endif // __SYSCOM_H__

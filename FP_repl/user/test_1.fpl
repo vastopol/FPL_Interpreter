@@ -3,7 +3,7 @@
 # all tests should pass
 
 print
-print TEST_1.FPS
+print TEST_1.FPL
 
 # begin script by dumping any existing memory
 dump

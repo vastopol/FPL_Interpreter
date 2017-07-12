@@ -34,8 +34,8 @@ recursive programming techinques, interpretation of code, etc...
 ### Syntax (primer)
 The syntax and semantics of this interpreter is primarily FP language based, there is a also some inspiration from Lisp and Forth.
 Some of the syntax has been changed, other features have been modified also for ease of use. 
-For comprehensive docomentation of the syntax see "DOCS/syntax.dat".
-This will show some of the more important basics of FP_REPL interaction. 
+For comprehensive docomentation of the syntax see "FP_repl/DOCS/syntax.dat".
+This will show some of the more important basics of REPL interaction. 
 such as...
 (insert list here later)
 

@@ -26,18 +26,20 @@ composition   "F.G"
     where   (F.G):x = F:(G:x)
 ------------------------------------------------
 
-construction combining form
+construction combining form (FIXME)
     "[F1,F2,...,Fn]"
     
     where   [F1,F2,...,Fn]:x  =  <F1:x,...,Fn:x>
 ------------------------------------------------
     
-apply-to-all  "@"  
+apply-to-all  (FIXME)
+    "@"  
     
     where   @F:<x1,...,xn>  =  <F:x1,...,F:xn>
 ------------------------------------------------
         
-conditial branch  "(H -> F,G)" 
+conditial branch  (FIXME)
+    "(H -> F,G)" 
     
     where   (H -> F,G):x   
              =  F:x   if   H:x  =  True

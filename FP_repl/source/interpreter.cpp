@@ -37,8 +37,15 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
         
     //START
     std::cout << "PARSE\n" << "\"" << s << "\"" << std::endl << std::endl;
-    std::cout << "PART1\n" << "\"" << s << "\"" << std::endl << std::endl;
+    std::cout << "PART0\n" << "\"" << s << "\"" << std::endl << std::endl;
     
+    // RESOLVE DEFINITIONS
+    ///=======================================================
+    s = resolve(s,m);
+    ///=======================================================
+    std::cout << std::endl;    
+
+    std::cout << "PART1\n" << "\"" << s << "\"" << std::endl << std::endl;
     // PARSE '.'
     ///=======================================================
     s = par_dot(s);
@@ -279,6 +286,88 @@ std::string Interpreter::trimSpace(std::string s) // removes any (leading || tra
         if(s.size() == 1 && s.at(0) == ' '){return "";}
         s = s.substr(0, (s.size()-1));
     }
+    return s;
+}
+//----------------------------------------------------------------------------------------------
+
+std::string Interpreter::resolve(std::string& s, Memory* m)    // resolve all definitions on left to chain of composed primitives
+{
+    std::cout << "resolver" << std::endl << s << std::endl;
+
+    std::string left;
+    std::string right;
+    std::string temp;
+    std::queue<std::string> qq;
+    Object* ob = 0;
+    std::size_t pos = 0;
+
+    pos = s.find(':');
+    if(pos == std::string::npos || pos >= s.size())
+    {
+        return s;
+    }
+
+    right = s.substr(pos+1,s.size()-1);
+    left = s.substr(0,pos);
+
+    temp = left;
+    pos = 0;
+    while(pos != std::string::npos || pos >= temp.size()) 
+    {
+        std::string zap = "";
+
+        pos = temp.find('.');
+        if(pos == std::string::npos || pos >= temp.size()) // lookup ?
+        {
+            ob = m->goGet(temp); 
+            if(ob == 0)
+            {
+                qq.push(temp); // last primitive ?
+                break;
+            }
+            else
+            {
+                std::cout << ob->stringify() << std::endl;
+                temp = ob->stringify();
+            }
+        }
+        else
+        {
+            zap = temp.substr(0,pos);
+            temp = temp.substr(pos+1,temp.size()-1);
+
+            ob = m->goGet(zap); 
+            if(ob == 0)
+            {
+                qq.push(zap); // primitive ?
+            }
+            else
+            {
+                std::cout << ob->stringify() << std::endl;
+                zap = ob->stringify();
+                temp = zap + "." + temp;
+                std::cout << temp << std::endl;
+            }
+        }
+    }
+
+    left = "";
+
+    std::cout << "content:" << std::endl;
+    while(!qq.empty())
+    {
+        std::cout << qq.front() << std::endl;
+        left = left + qq.front() + ".";
+        qq.pop();
+    }
+    std::cout << std::endl;
+
+    left.pop_back();
+
+    std::cout << left << ":" << right << std::endl;
+
+    s = left + ":" + right;
+
     return s;
 }
 //----------------------------------------------------------------------------------------------
