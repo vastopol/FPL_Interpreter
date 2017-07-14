@@ -307,6 +307,7 @@ void set(std::string s, Memory* m)
     {
         std::cout << "ERROR: Undefined variable to bind to" << std::endl; return;
     }
+    //**************************************************
 
     Pattern* P = new Pattern(val); // construct pattern with
     Object* obb = 0;
@@ -336,38 +337,46 @@ void set(std::string s, Memory* m)
         std::cout << "ERROR: Execute" << std::endl;
         std::cout << e.what() << std::endl;
         delete P; // delete the current pattern on heap
+        P = 0;  
         delete obb;
         obb = 0;
-        P = 0;
         return;
     }
-    
+
+    // SET
     if(obb == 0)
     {
         std::cout << "ERROR: Execute produced null" << std::endl; return;
     }
+    else if(obb->type() == "Element")
+    {
+        rem(var,m); // deletes old variable entry
+        m->add_element(var, *(static_cast<Element*>(obb)) );
+    }
+    else if (obb->type() == "Sequence")
+    {
+        rem(var,m); // deletes old variable entry
+        m->add_sequence(var, *(static_cast<Sequence*>(obb)) );
+    }
     else
     {
-        rem(var,m);
-        if(obb->type() == "Element")
-        {
-            m->add_element(var, *(static_cast<Element*>(obb)) );
-        }
-        else if (obb->type() == "Sequence")
-        {
-            m->add_sequence(var, *(static_cast<Sequence*>(obb)) );
-        }
-        else
-        {
-            std::cout << "ERROR: Execute produced unknown" << std::endl; return;
-        }
+        std::cout << "ERROR: Execute produced an unknown value" << std::endl; return;
     }
 
-    delete obb;
     delete P; // delete the current pattern on heap
-    obb = 0;
     P = 0;
 
+    // delete obb; // comment out to fix ERROR #2
+    // obb = 0;
+
+
+// ERROR #1 (appears to be fixed... idk why...)
+// setting a variable equal to itself causes an error (probably because of remove and recreate...)
+// Error pure virtual method called terminate called without an active exception, Aborted
+
+// ERROR #2 (fixed)
+// setting a variable equal to another variable causes an error
+// *** Error in `bin/fplr': free(): invalid pointer *** Aborted
 }
 //-----------------------------------------------------------------------------------------
 
@@ -383,18 +392,21 @@ void rem(std::string s, Memory* m) // access hashes and remove var if found
     m -> remove_element(s);
     m -> remove_sequence(s);
     m -> remove_macro(s);
+    return;
 }
 //------------------------------------------------------------------------------------------
 
 void dump_mem(Memory* m)
 {
     m -> clear();
+    return;
 }
 //-------------------------------------------------------------------------------------------
 
 void dump_buf(Memory* m)
 {
     m -> empty_buf();
+    return;
 }
 //-------------------------------------------------------------------------------------------
 
@@ -410,6 +422,7 @@ void print_mem(Memory* m) // ls
     std::cout << "Functions:" << std::endl;    
     m -> print_macros();
     std::cout << std::endl;
+    return;
 }
 //------------------------------------------------------------------------------------------
 
@@ -420,42 +433,44 @@ void print_buf(Memory* m) // bufls
     m -> print_buf();
     std::cout << "} END BUFFER" << std::endl;
     std::cout << std::endl;
+    return;
 }
 //------------------------------------------------------------------------------------------
 
 void print_ln(std::string s, Memory* m)
 {
-        if(s.size() == 5) // echo \n
+    if(s.size() == 5) // echo \n
+    {
+        std::cout << std::endl;
+        return;
+    }
+
+    if(s.find(" ") != 5) // location of first space
+    { std::cout << "ERROR1: Syntax\n"; return; } 
+
+    // cut out "print " 
+    s = s.substr(6, s.size()-6);
+
+    if(s.at(0) == '$') // print item from mem
+    {
+        Object* ob = m->goGet(s.substr(1, s.size()-1));
+        if(ob != NULL)
         {
+            ob->print();
             std::cout << std::endl;
-            return;
         }
-
-        if(s.find(" ") != 5) // location of first space
-        { std::cout << "ERROR1: Syntax\n"; return; } 
-
-        // cut out "print " 
-        s = s.substr(6, s.size()-6);
-
-        if(s.at(0) == '$') // print item from mem
+        else
         {
-            Object* ob = m->goGet(s.substr(1, s.size()-1));
-            if(ob != NULL)
-            {
-                ob->print();
-                std::cout << std::endl;
-            }
-            else
-            {
-                std::cout << "ERROR: Undefined" << std::endl;
-            }
+            std::cout << "ERROR: Undefined" << std::endl;
+        }
 
-            // delete ob; ob = 0; // ?? ptr management ??
-        }
-        else // print string
-        {
-            std::cout << s << std::endl;
-        }
+        // delete ob; ob = 0; // ?? ptr management ??
+    }
+    else // print string
+    {
+        std::cout << s << std::endl;
+    }
+    return;
 }
 //------------------------------------------------------------------------------------------
 
@@ -488,11 +503,12 @@ void gentree(std::string s, Memory* m)   // generate a visual of the AST with Gr
 
     delete P; // delete the current pattern on heap
     P = 0;
+    return;
 }
 //------------------------------------------------------------------------------------------
 void eval(std::string s, Memory* m)      // evaluate an expression   
 {
-    Pattern* P = new Pattern(s); // construct pattern with
+    Pattern* P = new Pattern(s); // construct pattern with user input
     
     // PARSE
     try
@@ -512,18 +528,25 @@ void eval(std::string s, Memory* m)      // evaluate an expression
     try
     {
         Object* obb = P -> getA() -> exec( P -> getRoot() );
-        obb->print(); std::cout << std::endl;
-        delete obb;
-        obb = 0;
+        if(obb != 0)
+        {
+            obb->print(); std::cout << std::endl;
+        }
+        // delete obb; // comment out to fix ERROR #1
+        // obb = 0;    
     }
     catch(std::exception &e)
     {
         std::cout << "ERROR: Execute" << std::endl;
         std::cout << e.what() << std::endl;
     }
-    
     delete P; // delete the current pattern on heap
     P = 0;
+    return;
+
+// ERROR #1 (fixed)
+// evaluating an element or sequence by itself crashes
+
 }
 //------------------------------------------------------------------------------------------
 
@@ -582,6 +605,7 @@ void load(std::string s, Memory* m) // removes comments && trims spaces
     
     inFS.close();
     std::cout << "SUCCESSFUL LOAD" << std::endl;
+    return;
 }
 //------------------------------------------------------------------------------------------
 
@@ -606,7 +630,8 @@ void run(Memory* m)
         }
     }
     
-    std::cout << "}END RUN" << std::endl << std::endl; 
+    std::cout << "}END RUN" << std::endl << std::endl;
+    return; 
 }
 //------------------------------------------------------------------------------------------
 

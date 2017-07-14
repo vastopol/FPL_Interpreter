@@ -3,16 +3,18 @@ TODO - Unfinished works
 
 * PRIMITIVE LANGUAGE OPERATIONS (not implemented yet)
 
+- apply-to-all  
+	"@" 
+
 - construction combining form
     "[F1,F2,...,Fn]"
 
-- apply-to-all  
-	"@"  
-
-- conditial branch  
+ - conditial branching 
 	"(H -> F,G)" 
 
 -------------------------
+
+* convert to floating point
 
 * eventually add the {} environment part
 
@@ -30,47 +32,69 @@ F:{1;2}
 F:{<1,2,3>;<4,5,6>}
 F:{1;<7,8,9>}
 
+# nested
+F:{ G:{x} ; H:{y} }
+
 //---------------------------------------------
 
-convert all instances of return 0 for NULL pointers to:
-
-throw std::runtime_error("");
------------------------------------
-
-* action.h/cpp -> complex tree traversal on AST nodes
+* action.h/cpp -> complex tree traversal on AST nodes for "@", "[]", && conditionals
 
 * func.h/cpp -> add more functions for the vm fn_pointers 
 
------------------------
-
-* interpreter.h/cpp
-
-in part 3
-
-fix immediate object construction, 
+//---------------------------------------------
 
 
-f:1 = function apply to element
-
-f:<1> = function apply to sequence
-
-but...
-
-f:-1 = function apply to function
-
-f:<-1> = function applied to sequence, but negative not preserved
-
------------------------
-
-VERSION 0.1
-
-resolve function definitions
-parse user defined functions at the very begining
-before the call to p_dot() have another function for that
-
-fix immediate object construction
-
+* possibly add a write function
 write_ln()
-this should write one line of text to the execution buffer
+this should write one line of text to the execution buffer -> Syscom
 
-fix gentree
+=======================================================================
+=======================================================================
+
+VERSION 1.0
+
+* convert all instances of return 0 for NULL pointers to:
+throw std::runtime_error("");
+
+* resolve function definitions
+parse user defined functions at the very begining
+before the call to p_dot() have another function for that -> interpreter
+
+* finish adding all unary functions -> func
+
+* fix object construction -> interpreter (part 3) & syscom
+
+* fix gentree -> Pattern
+
+* clean up all source code for uniformity
+
+-----------------------
+
+* interpreter.h/cpp && syscom ?
+
+fix immediate object construction, in part 3 && syscom ?
+
+what works: 
+
+	$$ let x = 1
+
+	$$ let x = -1
+
+	$$ let y = <>
+
+	$$ let y = <1,2,3>
+
+what fails:
+
+(just enter immediate on command line)
+	$$ -1
+	<<< creates a function called -1
+
+(any list starting with a negative)
+	$$ <-1,-2,-3>
+	<<< creates a list, but if first number is negative, it will lose negative sign
+
+(set to a negative )
+	$$ let x = 0
+	$$ set x = -1
+	<<< Error execute produces an unknown

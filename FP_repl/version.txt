@@ -1,0 +1,19 @@
+Version Descriptions
+(tentative)
+--------------------
+
+* 1.0
+Basic operations && functions
+
+* 2.0
+syntax change
+binary operations
+
+* 3.0
+For_each/mapping "@"
+
+* 4.0
+construction combining form "[]"
+
+* 5.0 
+Conditional branching

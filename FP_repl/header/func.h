@@ -7,7 +7,7 @@
 #include <iostream>
 
 // mapping of function names to opcodes**********
-// map strings to int
+// map strings to integer index
 extern std::map<std::string, int> U_E;     // functions of type: int f(int)
 extern std::map<std::string, int> U_S_R_E; // functions of type: int f(list<int>)
 extern std::map<std::string, int> U_S_R_S; // functions of type: list<int> f(list<int>)
@@ -26,7 +26,8 @@ int neg(int x); // x = -x
 int abs(int x); // x = |x|
 int inc(int x); // x = x--
 int dec(int x); // x = x++
-int sqr(int x); // x = x*x
+// int sqr(int x); // x = x*x
+// int cube(int x); // x = x*x*x
 
 //-------------------------------------------------------------------------------
 
@@ -74,6 +75,7 @@ neq = not equal
 */
 
 /*
+
 function groups ny argument type:
 - Unary_E
 - Unary_S
@@ -82,6 +84,7 @@ function groups ny argument type:
 - Binary_E_E
 - Binary_S_S
 - Binary_E_S
+
 */
 
 /*
