@@ -51,10 +51,13 @@ conditial branch  (FIXME)
 ELEMENT OPERATIONS (add & multiply are symbols all else are LABELS)
 ///*****************************************
 
-- NEG == negate, take opposite of number
+- NEG == negate, take opposite sign of number
 - ABS == take absolute value of number
 - INC == increment (plus 1)
 - DEC == decrement (minus 1)
+- SQUARE == second power
+- CUBE == third power
+- SQRT == square root
 
 ///*****************************************
 
@@ -62,17 +65,20 @@ SEQUENCE OPERATIONS
 ///*****************************************
   
 RETURN TYPE (ELEMENT)  
-- MAX  == maximum value in sequence
-- MIN  == minimum value in sequence
 - SIZE == number of elements in list
 - HEAD == first element of sequence
-    
+- LMAX  == maximum value in sequence
+- LMIN  == minimum value in sequence
+
 RETURN TYPE (SEQUENCE)
 - TAIL == sequence from second to end
-- REV  == reverse sequence elements order
 - ROTR == rotate sequence elements to the right
 - ROTL == rotate sequence elements to the left 
-- CAT  == concatenate 2 sequences
+- REV  == reverse sequence elements order
+- POPL == pop element from left of sequence
+- POPR == pop element from right of sequence
+- SORT == sort sequence elements in ascending order
+- RMDUP == remove duplicates, preserves order
 
 ///*****************************************
 
@@ -93,17 +99,16 @@ the macros can be used to lable a composition
 the macros will be substituted in during interpretation
 
 ex:
->>> def G = ROTL.CAT
->>> let x = <1,2,3>
->>> let y = <5,6,7>
+>>> def G = ROTL.POPL
+>>> let x = <1,2,3,4>
 
 then use like:
->>> G:(x,y)
-    G:(x,y) 
-    ROTL.CAT:(<1,2,3>, <5,6,7>)
-    ROTL:(CAT:(<1,2,3>, <5,6,7>))
-    ROTL:<1,2,3,5,6,7>
-<<< <2,3,5,6,7,1>
+>>> G:x
+    G:x
+    ROTL.POPL:<1,2,3,4>
+    ROTL:(POPL:(<1,2,3,4>))
+    ROTL:(<2,3,4>)
+<<< <3,4,2>
 
 ///**************************************************
 
@@ -124,5 +129,3 @@ F:x
 G:(F:x)
 
 H:(I:(J:x))
-
-A:( (B:x) , ( D:(E:y) ) )

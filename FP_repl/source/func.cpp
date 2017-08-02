@@ -6,7 +6,10 @@ std::map<std::string, int> U_E
     {"NEG",0},
     {"ABS",1},
     {"INC",2},
-    {"DEC",3}
+    {"DEC",3},
+    {"SQUARE",4},
+    {"CUBE",5},
+    {"SQRT",6}
 };
 
 std::map<std::string, int> U_S_R_E
@@ -26,7 +29,7 @@ std::map<std::string, int> U_S_R_S
     {"POPR",4},
     {"REV",5},
     {"SORT",6},
-    // {"RMDUP",7}
+    {"RMDUP",7}
 };
 
 //===============================================================
@@ -37,7 +40,10 @@ int (*Unary_E[])(int) // unary element return element
     neg,
     abs,
     inc,
-    dec
+    dec,
+    square,
+    cube,
+    sqroot
     /* ... */
 };
 
@@ -59,7 +65,7 @@ std::list<int> (*Unary_S_R_S[])(std::list<int>) // unary sequence returns sequen
     popr,
     rev,
     sort,
-    // rmdup
+    rmdup
     /* ... */
 };
 
@@ -94,6 +100,26 @@ int inc(int x) // x = x--
 int dec(int x) // x = x++
 {
     return --x;
+}
+//---------------------------
+
+int square(int x) // x = x*x
+{
+    return x*x;
+}
+//---------------------------
+
+int cube(int x) // x = x*x*x
+{
+    return x*x*x;
+}
+//---------------------------
+
+int sqroot(int x) // x = sqrt(x)
+{
+    double d = x;
+    d = sqrt(d);
+    return (int)d;
 }
 //---------------------------
 
@@ -262,10 +288,29 @@ std::list<int> sort(std::list<int> seq)
 }
 //---------------------------
 
-/*
 std::list<int> rmdup(std::list<int> seq)
 {
-    return seq;
+    if(seq.size() <= 1)
+    { 
+        return seq;
+    }
+
+    std::list<int> lst;
+    std::list<int>::iterator i = seq.begin();
+
+    while( i != seq.end() )
+    {  
+        if( find(lst.begin(), lst.end(), *i) != lst.end() )
+        {
+            i = seq.erase(i);
+        }
+        else
+        {
+            lst.push_back(*i);
+            i++;
+        }
+    } 
+
+    return lst;
 }
 //---------------------------
-*/

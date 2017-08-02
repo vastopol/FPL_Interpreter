@@ -39,11 +39,11 @@ F:{ G:{x} ; H:{y} }
 
 * action.h/cpp -> complex tree traversal on AST nodes for "@", "[]", && conditionals
 
-* func.h/cpp -> add more functions for the vm fn_pointers 
+* func.h/cpp -> add more functions for the vm fn_pointers from the math.h library
 
 //---------------------------------------------
 
-
+MAYBE...
 * possibly add a write function
 write_ln()
 this should write one line of text to the execution buffer -> Syscom
@@ -64,13 +64,15 @@ before the call to p_dot() have another function for that -> interpreter
 * fix object construction (DONE!)
 syscom let && interpreter part 3 
 
-* finish adding all unary functions -> func
+* finish defining all unary functions (DONE!)
 
 * fix gentree -> Pattern
 
 * in main() have cline() be able to handle multiple files from command line
 
 * clean up all source code for uniformity
+
+* comment out print debugging
 
 -----------------------
 

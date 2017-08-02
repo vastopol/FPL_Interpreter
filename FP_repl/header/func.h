@@ -1,10 +1,13 @@
 #ifndef __FUNC_H__
 #define __FUNC_H__
 
+#include <map>
 #include <list>
 #include <string>
-#include <map>
 #include <iostream>
+#include <cmath>
+#include <algorithm>
+
 
 // mapping of function names to opcodes**********
 // map strings to integer index
@@ -22,13 +25,13 @@ extern std::list<int> (*Unary_S_R_S[])(std::list<int>);
 
 // unary functions to operate on elements
 // returns an ELEMENT
-int neg(int x); // x = -x
-int abs(int x); // x = |x|
-int inc(int x); // x = x--
-int dec(int x); // x = x++
-// int square(int x); // x = x*x
-// int cube(int x); // x = x*x*x
-// int sqroot(int x); // x = sqrt(x)
+int neg(int x);    // x = -x
+int abs(int x);    // x = |x|
+int inc(int x);    // x = x--
+int dec(int x);    // x = x++
+int square(int x); // x = x*x
+int cube(int x);   // x = x*x*x
+int sqroot(int x); // x = sqrt(x)
 
 //-------------------------------------------------------------------------------
 
@@ -50,7 +53,7 @@ std::list<int> rev(std::list<int> l);
 std::list<int> popl(std::list<int> l);
 std::list<int> popr(std::list<int> l);
 std::list<int> sort(std::list<int> l);
-// std::list<int> rmdup(std::list<int> l);
+std::list<int> rmdup(std::list<int> l);
 
 //-------------------------------------------------------------------------------
 
