@@ -116,7 +116,7 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
                 ob = 0;
                 continue;
             }
-            else if(isdigit(val.at(0))) // element
+            else if( isdigit(val.at(0)) || ( (val.size() >= 2)&&( (val.at(0) == '-')&&isdigit(val.at(1)) ) ) ) // element
             {
                     std::cout << "element part: " << val << std::endl;
                     ob = new Element(atoi(val.c_str()));
@@ -147,6 +147,9 @@ Node* Interpreter::parse(std::string str, Memory* m) // parse engine
                 while( !isalnum(val.at(0)) && val.size() >= 1 )
                 {
                     if(val.size() == 1){val = ""; break;}
+
+                    if(val.at(0) == '-') {break;} // a negative number
+
                     val = val.substr(1, (val.size() - 1));
                 } 
                 

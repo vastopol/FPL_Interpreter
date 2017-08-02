@@ -26,8 +26,9 @@ int neg(int x); // x = -x
 int abs(int x); // x = |x|
 int inc(int x); // x = x--
 int dec(int x); // x = x++
-// int sqr(int x); // x = x*x
+// int square(int x); // x = x*x
 // int cube(int x); // x = x*x*x
+// int sqroot(int x); // x = sqrt(x)
 
 //-------------------------------------------------------------------------------
 

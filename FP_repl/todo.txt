@@ -3,7 +3,7 @@ TODO - Unfinished works
 
 * PRIMITIVE LANGUAGE OPERATIONS (not implemented yet)
 
-- apply-to-all  
+- apply-to-all
 	"@" 
 
 - construction combining form
@@ -53,26 +53,28 @@ this should write one line of text to the execution buffer -> Syscom
 
 VERSION 1.0
 
-* convert all instances of return 0 for NULL pointers to:
+* no return null pointers (DONE!)
+convert all instances of return 0 for NULL pointers to:
 throw std::runtime_error("");
 
-* resolve function definitions
+* resolve function definitions (DONE!)
 parse user defined functions at the very begining
 before the call to p_dot() have another function for that -> interpreter
 
+* fix object construction (DONE!)
+syscom let && interpreter part 3 
+
 * finish adding all unary functions -> func
 
-* fix object construction -> interpreter (part 3) & syscom
-
 * fix gentree -> Pattern
+
+* in main() have cline() be able to handle multiple files from command line
 
 * clean up all source code for uniformity
 
 -----------------------
 
-* interpreter.h/cpp && syscom ?
-
-fix immediate object construction, in part 3 && syscom ?
+immediate object construction, in part 3 && syscom 
 
 what works: 
 
@@ -84,17 +86,17 @@ what works:
 
 	$$ let y = <1,2,3>
 
-what fails:
+	$$ let y = <-1,-2,-3>
 
-(just enter immediate on command line)
+	$$ 1
+
 	$$ -1
-	<<< creates a function called -1
 
-(any list starting with a negative)
+	$$ <>
+
+	$$ <1,2,3>
+
 	$$ <-1,-2,-3>
-	<<< creates a list, but if first number is negative, it will lose negative sign
 
-(set to a negative )
 	$$ let x = 0
 	$$ set x = -1
-	<<< Error execute produces an unknown

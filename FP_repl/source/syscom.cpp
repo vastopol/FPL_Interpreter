@@ -234,14 +234,17 @@ void let(std::string s, Memory* m) // variable creation
             m -> add_sequence(var, seq); 
             return;
         }
-        
+
         // remove bad junk before segfault
         while( !isalnum(val.at(0)) && val.size() >= 1 )
         {
             if(val.size() == 1){val = ""; break;}
+
+            if(val.at(0) == '-') {break;} // a negative number
+
             val = val.substr(1, (val.size() - 1));
         } 
-        
+
         // add empty list HERE 
         if(val.empty())
         {
@@ -252,9 +255,9 @@ void let(std::string s, Memory* m) // variable creation
         
         char* copy = (char*)(val.c_str());      // copy to give strtok for parse
         char* arr = 0;                          // temp array
-        
+
         // extract && store the elements of the sequence        
-        arr = strtok(copy, ",");            
+        arr = strtok(copy, ","); 
         lst.push_back( atoi( arr ) );
         for(unsigned i = 1; arr != 0; i++)
         {
@@ -396,14 +399,14 @@ void rem(std::string s, Memory* m) // access hashes and remove var if found
 }
 //------------------------------------------------------------------------------------------
 
-void dump_mem(Memory* m)
+void dump_mem(Memory* m) // dump
 {
     m -> clear();
     return;
 }
 //-------------------------------------------------------------------------------------------
 
-void dump_buf(Memory* m)
+void dump_buf(Memory* m) // bufdump
 {
     m -> empty_buf();
     return;
@@ -437,7 +440,7 @@ void print_buf(Memory* m) // bufls
 }
 //------------------------------------------------------------------------------------------
 
-void print_ln(std::string s, Memory* m)
+void print_ln(std::string s, Memory* m) // print
 {
     if(s.size() == 5) // echo \n
     {
