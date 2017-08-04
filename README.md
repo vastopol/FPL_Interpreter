@@ -28,13 +28,14 @@ $ bin/fplr
 * Full Interpreter: (not started)
 
 These goals explore:
-Deveolpment and design of software, abstract syntax and paridigms of programming langauges, manipulation of data structures, 
-recursive programming techinques, interpretation of code, etc...
+Deveolpment and design of software, manipulation of data structures, recursive programming techinques, interpretation of code, formal language theory etc...
 
 ### Syntax (primer)
 The syntax and semantics of this interpreter is primarily FP language based, there is a also some inspiration from Lisp and Forth.
 Some of the syntax has been changed, other features have been modified also for ease of use. 
-For comprehensive docomentation of the syntax see "FP_repl/DOCS/syntax.dat".
+For now this implementation is basicly a small and limited subset of traditional FP. 
+By version 2 the syntax will most likely change and no longer be conformant to typical FP.
+For comprehensive documentation of the syntax see "FP_repl/DOCS/syntax.dat".
 This will show some of the more important basics of REPL interaction. 
 such as...
 (insert list here later)

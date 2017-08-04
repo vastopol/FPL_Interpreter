@@ -1,5 +1,6 @@
 # testing the function definiton resolver
 
+
 def inc = INC
 def 2+ = inc.inc
 def dec = DEC

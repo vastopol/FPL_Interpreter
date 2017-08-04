@@ -1,7 +1,9 @@
-# test useful/common variables/functions
+# Library of variables/functions
+# to use, load this file first, then any other files
+
 
 # VARIABLES
-#===================================================================
+#====================================================================
 
 # ELEMENTS
 #------------------------------------------
@@ -14,16 +16,19 @@ let ONE = 1
 let NIL = <>    # the empty list
 #------------------------------------------
 
-#===================================================================
+#====================================================================
 
 
 # FUNCTIONS
-#===================================================================
+#====================================================================
 
 # ELEMENT FUNCTIONS
 #------------------------------------------
-def ++ = INC    # c style increment
-def -- = DEC    # c style decrement
+def -- = DEC    			   # c style decrement
+def ++ = INC    			   # c style increment
+def +2 = INC.INC			   # increment by two
+def SAFE_SQRT = SQRT.ABS	   # prevent passing negative number to SQRT
+def QUARTIC = SQUARE.SQUARE	   # raise to fourth power
 #------------------------------------------
 
 # SEQUENCE FUNCTIONS
@@ -34,10 +39,12 @@ def CADR = HEAD.TAIL
 def CDDR = TAIL.TAIL
 def CADDR = HEAD.TAIL.TAIL
 def CDDDR = TAIL.TAIL.TAIL
-def SECOND = HEAD.TAIL         # returns second element, (size >= 2)
-def LAST = HEAD.REV            # returns last element
-def MIN_L = HEAD.SORT          # return minimum element of list
-def MAX_L = HEAD.REV.SORT      # return maximum element of list
+def SECOND = HEAD.TAIL         # return second element, (size >= 2)
+def LAST = HEAD.REV            # return last element
+def MIN_L = HEAD.SORT          # return minimum element of sequence
+def MAX_L = HEAD.REV.SORT      # return maximum element of sequence
+def SORTED_SET = SORT.RMDUP    # return unique sequence in ascending order
 #------------------------------------------
 
-#===================================================================
+#====================================================================
+

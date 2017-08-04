@@ -2,6 +2,7 @@
 # gentree doesn't execute the expression
 # so the tests can use arbitrary function compositions
 
+
 print
 print GENTREE TEST HARNESS
 
@@ -17,6 +18,7 @@ let a = 1
 let b = 2
 let x = <1,2,3>
 let y = <4,5,6>
+
 #---------------------------------------------
 
 # PART 1
@@ -33,6 +35,7 @@ gentree ROTL:<10,11,12>
 gentree INC.MAX:<10,20,30>
 
 gentree ABS.NEG.HEAD.REV:<0,1,2>
+
 #---------------------------------------------
 
 # PART 2
@@ -49,6 +52,7 @@ gentree F:<111,222,333>
 gentree H.G:<56,57,58>
 
 gentree F.G.H:<1,2,3,4,5,6,7,8,9,0>
+
 #---------------------------------------------
 
 # PART 3
@@ -78,6 +82,7 @@ gentree F:x
 gentree F.G:x
 
 gentree F.G.H:a
+
 #---------------------------------------------
 
 dump # remove variables from mem

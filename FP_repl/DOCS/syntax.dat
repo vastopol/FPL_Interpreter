@@ -79,10 +79,10 @@ RETURN TYPE (SEQUENCE)
 - TAIL  == sequence from second to end
 - ROTR  == rotate sequence elements to the right
 - ROTL  == rotate sequence elements to the left 
-- REV   == reverse sequence elements order
+- REV   == reverse the order of a sequence
 - POPL  == pop element from left of sequence
 - POPR  == pop element from right of sequence
-- SORT  == sort sequence elements in ascending order
+- SORT  == sort sequence into ascending order
 - RMDUP == remove duplicates, preserves order
 
 ///*****************************************

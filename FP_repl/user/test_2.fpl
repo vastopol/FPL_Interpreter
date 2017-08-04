@@ -1,6 +1,16 @@
 # error testing function application
 # ALL cases should fail
 
+dump
+
+print
+print TEST_2.FPL
+
+print
+print This file should cause errors
+
+#--------------------------------------
+
 # apply element function to sequence
 
 INC:<>
@@ -34,4 +44,44 @@ SORT:0
 POPL:0
 
 POPR:0
+
+#--------------------------------------
+
+# using nonexistent functions && variables
+
+GURP:1
+
+KURP.LURP:2
+
+WERP:<>
+
+SERP.DERP.QWERP:<1,2,3>
+
+INC:x
+
+DEC.INC:y
+
+RMDUP:www
+
+BLURP:op
+
+TASD.FGHE:rtyu
+
+#--------------------------------------
+
+# functions no variables, combos of : && .
+
+INC:DEC
+
+SQUARE:CUBE
+
+REV:SQRT:POPL:SORT
+
+ABS.NEG:POPR.ROTL
+
+POPL:RMDUP.LMAX:LMIN
+
+INC.INC.INC.INC
+
+#--------------------------------------
 

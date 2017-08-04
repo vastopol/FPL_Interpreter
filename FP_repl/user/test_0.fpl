@@ -1,6 +1,7 @@
 # basic testing: builtin system commands/primitives
 # let, def, set, rm, dump, print, help, ...
 
+
 print
 print TEST_0.FPL
 
@@ -122,6 +123,7 @@ print Testing set function
 
 let x = 0
 let y = <>
+let z = <1,4,9,16,25>
 
 ls
 
@@ -134,6 +136,26 @@ print setting y to NEG.HEAD.REV.ROTL.ROTL:<5,6,7,8,9,0>
 set y = NEG.HEAD.REV.ROTL.ROTL:<5,6,7,8,9,0>
 
 ls
+
+print setting z multiple times
+print original value
+print $z
+
+print changes
+set z = 0
+print $z
+set z = -1
+print $z
+set z = <>
+print $z
+
+print setting z = x
+set z = x
+print $z
+
+print setting z = y
+set z = y
+print $z
 
 #-----------------------------
 
