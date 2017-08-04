@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
+#include <stack>
 
 #include "action.h"
 #include "interpreter.h"
@@ -32,8 +33,11 @@ class Pattern
         void inOrder(Node* n);
         void postOrder(Node* n);
         
-        // genterate tree with system call to graphviz (based on code from cs14)
-        void generateTree(std::ofstream& out, Node* n);
+        // genterate tree with system call to graphviz
+        void generateTree(std::ofstream& out, Node* n, int i); // recursive
+        void generateTree2(std::ofstream& out, Node* n);       // iterative, BROKEN
+
+        // visualizeTree is a wrapper that then calls generateTree      
         void visualizeTree(const std::string& outputFilename);  
 };
 

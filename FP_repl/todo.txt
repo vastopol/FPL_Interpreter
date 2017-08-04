@@ -66,9 +66,9 @@ syscom let && interpreter part 3
 
 * finish defining all unary functions (DONE!)
 
-* fix gentree -> Pattern
+* fix gentree -> Pattern (DONE!)
 
-* in main() have cline() be able to handle multiple files from command line
+* in main.cpp have cline() be able to handle multiple files from command line (DONE!)
 
 * clean up all source code for uniformity
 

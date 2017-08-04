@@ -3,17 +3,29 @@ Version Descriptions
 --------------------
 
 * 1.0
-Basic operations && functions
+  * Data Types: Elements && Sequences (Integers)
+  * Basic Operators: Composition && Application
+  * Primitive Functions: 19 Unary Functions (7 Element) (12 Sequence)
+  * Virtual Memory: Define Functions && Create Variables
+  * Interactive REPL with File Handling
+
+--------------------
 
 * 2.0
-syntax change
-binary operations
+  * syntax change
+  * binary operations
+
+--------------------
 
 * 3.0
-For_each/mapping "@"
+  * For_each/mapping "@"
+
+--------------------
 
 * 4.0
-construction combining form "[]"
+  * construction combining form "[]"
+
+--------------------
 
 * 5.0 
-Conditional branching
+  * Conditional branching

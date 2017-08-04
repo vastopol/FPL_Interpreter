@@ -101,33 +101,114 @@ void Pattern::postOrder(Node* n)
 }
 //--------------------------------------------------
 
-
- void Pattern::generateTree(std::ofstream& out, Node* n) // doesn't work completely, generated dot files often need manual correction to work
+ void Pattern::generateTree(std::ofstream& out, Node* n, int i=1) // might 
  {
      if (n == 0)
      {
          return;
      }
 
-     std::string temp_M = n->getKey()->stringify(); // error with generate DOT file and ':' char
+     std::string temp_M = n->getKey()->stringify(); 
      if(temp_M == ":"){temp_M = "Colon";}
+     temp_M = temp_M + "_" + std::to_string(i);
 
-     out << '\n';
-     out << temp_M << " [label=\"" << temp_M;
-     out << "\"];";
+     out << '\n'; out << temp_M << " [label=\"" << temp_M; out << "\"];";
+     // i++;
+
      if (n->getLeft() != 0)
      {
+        i++;
         std::string temp_L = (n->getLeft())->getKey()->stringify();
+        if(temp_L == ":"){temp_L = "Colon";}
+        temp_L = temp_L + "_" + std::to_string(i);
         out << "\n" << temp_M << " -> " << temp_L << ";";
-        generateTree(out, n->getLeft());
+        generateTree(out, n->getLeft(), i);
      }
      if (n->getRight() != 0)
      {
+        i++;
         std::string temp_R = (n->getRight())->getKey()->stringify();
+        if(temp_R == ":"){temp_R = "Colon";}
+        temp_R = temp_R + "_" + std::to_string(i);
         out << "\n" << temp_M << " -> " << temp_R << ";";
-        generateTree(out, n->getRight());
+        generateTree(out, n->getRight(), i);
      }
  }
+//--------------------------------------------------
+
+void Pattern::generateTree2(std::ofstream& out, Node* n) // iterative, BROKEN // (geeks for geeks)
+{   
+    if (n == 0)
+    {
+        return;
+    }
+
+    std::string temp_M;
+    std::string temp_L;
+    std::string temp_R;
+    Node* prev = 0;
+    std::stack<Node*> s;
+    s.push(n);
+
+    while(!s.empty())
+    {
+        Node* current = s.top();
+
+        /* go down the tree in search of a leaf an if so process it 
+        and pop stack otherwise move down */
+        if (prev == 0 || prev->getLeft() == current || prev->getRight() == current) 
+        {
+            if (current->getLeft() != 0)
+            {
+                s.push(current->getLeft());
+            }
+            else if (current->getRight() != 0)
+            {
+                s.push(current->getRight());
+            }
+            else
+            {
+                temp_M = (s.top())->getKey()->stringify();
+                if(temp_M == ":"){temp_M = "Colon";}
+                out << '\n'; out << temp_M << " [label=\"" << temp_M; out << "\"];";
+                s.pop();
+            }
+
+            /* go up the tree from left node, if the child is right 
+               push it onto stack otherwise process parent and pop 
+               stack */
+        } 
+        else if (current->getLeft() == prev) 
+        {
+            if (current->getRight() != 0)
+            {
+                s.push(current->getRight());
+            }
+            else
+            {
+                temp_L = (s.top())->getKey()->stringify();
+                if(temp_L == ":"){temp_L = "Colon";}
+                out << '\n'; out << temp_L << " [label=\"" << temp_L; out << "\"];";
+                out << "\n" << temp_M << " -> " << temp_L << ";";
+                s.pop();
+            }
+              
+            /* go up the tree from right node and after coming back
+             from right node process parent and pop stack */
+        } 
+        else if (current->getRight() == prev) 
+        {
+            temp_R = (s.top())->getKey()->stringify();
+            if(temp_R == ":"){temp_R = "Colon";}
+            out << '\n'; out << temp_R << " [label=\"" << temp_R; out << "\"];";
+            out << "\n" << temp_M << " -> " << temp_R << ";";
+            s.pop();
+        }
+
+        prev = current;
+    }
+}
+//--------------------------------------------------
 
 
  void Pattern::visualizeTree(const std::string& outputFilename)
@@ -139,9 +220,9 @@ void Pattern::postOrder(Node* n)
         std::cout << "Error opening " << outputFilename << std::endl;
         return;
     }
-    outFS << "digraph G {" << std::endl;
+    outFS << "digraph G {";
     generateTree(outFS,root);
-    outFS << "}";
+    outFS << std::endl << "}";
     outFS.close();
     std::string jpgFilename = outputFilename.substr(0,outputFilename.size()-4) + ".jpg";
     std::string command = "dot -Tjpg " + outputFilename + " -o " + jpgFilename;
