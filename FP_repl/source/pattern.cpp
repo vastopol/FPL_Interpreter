@@ -65,7 +65,7 @@ void Pattern::preOrder(Node* n)
 
     preOrder(n->getRight());
 }
-//--------------------------------------------------
+//--------------------------------------------------------------
 
 void Pattern::inOrder(Node* n)
 {
@@ -82,7 +82,7 @@ void Pattern::inOrder(Node* n)
     
     inOrder(n->getRight());
 }
-//--------------------------------------------------
+//--------------------------------------------------------------
 
 void Pattern::postOrder(Node* n)
 {
@@ -99,9 +99,9 @@ void Pattern::postOrder(Node* n)
     n->getKey()->print();
     std::cout << "), ";
 }
-//--------------------------------------------------
+//--------------------------------------------------------------
 
- void Pattern::generateTree(std::ofstream& out, Node* n, int i=1) // might 
+ void Pattern::generateTree(std::ofstream& out, Node* n, int i=1)
  {
      if (n == 0)
      {
@@ -111,9 +111,7 @@ void Pattern::postOrder(Node* n)
      std::string temp_M = n->getKey()->stringify(); 
      if(temp_M == ":"){temp_M = "Colon";}
      temp_M = temp_M + "_" + std::to_string(i);
-
      out << '\n'; out << temp_M << " [label=\"" << temp_M; out << "\"];";
-     // i++;
 
      if (n->getLeft() != 0)
      {
@@ -134,7 +132,7 @@ void Pattern::postOrder(Node* n)
         generateTree(out, n->getRight(), i);
      }
  }
-//--------------------------------------------------
+//--------------------------------------------------------------
 
 void Pattern::generateTree2(std::ofstream& out, Node* n) // iterative, BROKEN // (geeks for geeks)
 {   
@@ -208,7 +206,7 @@ void Pattern::generateTree2(std::ofstream& out, Node* n) // iterative, BROKEN //
         prev = current;
     }
 }
-//--------------------------------------------------
+//--------------------------------------------------------------
 
 
  void Pattern::visualizeTree(const std::string& outputFilename)
@@ -220,6 +218,7 @@ void Pattern::generateTree2(std::ofstream& out, Node* n) // iterative, BROKEN //
         std::cout << "Error opening " << outputFilename << std::endl;
         return;
     }
+
     outFS << "digraph G {";
     generateTree(outFS,root);
     outFS << std::endl << "}";
@@ -228,3 +227,5 @@ void Pattern::generateTree2(std::ofstream& out, Node* n) // iterative, BROKEN //
     std::string command = "dot -Tjpg " + outputFilename + " -o " + jpgFilename;
     system(command.c_str());
 }
+//--------------------------------------------------------------
+

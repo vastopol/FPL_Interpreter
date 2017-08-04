@@ -109,3 +109,6 @@ Object* Block::get()
 	Object* ptr = this;
 	return ptr;
  }
+ //------------------------------------
+
+ 

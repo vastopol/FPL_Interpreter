@@ -60,23 +60,6 @@ std::list<int> rmdup(std::list<int> l);
 
 #endif // __FUNC_H__
 
-/*
-
-universals:
-id  = identity
-
-bools: 
-elm = ? is element
-seq = ? is sequence
-nil = ? is empty sequence
-lt  = less than
-gt  = greater than
-eq  = equal to
-lte = less than or equal
-gte = greater than or equal
-neq = not equal
-
-*/
 
 /*
 

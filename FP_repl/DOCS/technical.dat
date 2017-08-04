@@ -1,4 +1,7 @@
-Technical stuff on memory management && system
+Technical stuff
+commentary on memory management && using system calls
+//----------------------------------------------------
+
 
 SYSTEM CALLS (for memory management)
 ///******************************************
@@ -7,102 +10,119 @@ SYSTEM CALLS (for memory management)
 
 syntax: "def name = function"
 
-ex:   def LAST = HEAD.REV    # returns last element
+the functions are text macros substituted in on interpretation.
+def can also be used to rename functions
 
-the functions are macros substituted in on interpretation
 //----------------------------------------
 
 * let == set variables
 
 syntax: "let name = value"
 
-where element
-   name = atom   
-   x = 3
-   
+where Element
+name = atom   
+x = 3
+
 OR
 
-where sequence
-   name = <atom,...,atom>   
-   s = <1,2,3>
+where Sequence
+name = <atom,...,atom>   
+s = <1,2,3>
+
 //----------------------------------------
 
 * set == set a variable to new value
 
 syntax: "set var = expr"
 
-expr is any valid fpl expression returning an element or sequence
-var is looked up in memory, the old variable is removed, and
-is replaced with the new object returned from evaluation
+expr is any valid fpl expression returning an element or sequence.
+var is looked up in memory, the old variable is removed, and it
+is replaced with the new object returned from evaluation of expr.
 
 //----------------------------------------
 
-* rm  == delete variable from memory
+* rm  == delete a variable from memory
 
 syntax: "rm var"
+
 //----------------------------------------
 
-* dump == clear all contents of memory stored variables
+* dump == clear all contents of memory
 
 syntax: "dump"
+
 //----------------------------------------
 
 * bufdump == clear all contents of buffer
 
 syntax: "bufdump"
+
 //----------------------------------------
 
 * ls == prints contents of memory stored variables
 
 syntax: "ls"
+
 //----------------------------------------
 
 * bufls == prints contents of buffer
 
 syntax: "bufls"
+
 //----------------------------------------
 
 * load  == load content of script file to buffer
 
 syntax: "load file.fpl"
+
 //----------------------------------------
 
 * run  == execute content of buffer until empty
 
 syntax: "run"
 
+//----------------------------------------
+
+* print == print a newline, string, or variable. use "$" prepended to variable name 
+
+syntax: "print x"
+
+eg:
+
+>>> print
+<<< 
+
+>>> print this is a string
+<<< this is a string
+
+>>> let x = <1,2,3>
+>>> print $x
+<<< <1,2,3>
+
+//----------------------------------------
+
+* gentree == parse an expression and print out the AST
+
+syntax: "gentree expr"
+
+expr is any valid fpl expression returning an element or sequence.
+prints expr in prefix, infix, && postfix then generates 2 files.
+output.dot is used by the program dot to produce the output.jpg file.
+
 ///*********************************************
 
-* print == print a string or variable, use "$" prepended to variable name 
-	
-eg.
-	>>> print this is a string
-	<<< this is a string
-
-	>>> let x = <1,2,3>
-	>>> print $x
-	<<< <1,2,3>
- //****************************************
-
- * gentree == parse expr and print the AST
-
- eg.
- >>> gentree F.G:<1,2,3>
- 
- argument is an expression to parse
-//**************************************** 
 
 EVALUATION
 ///*********************************************
 
-Evaluation is invoked if the input is not a call to syscom.
-evaluation is called on the input string.
-eg.
+Evaluation is invoked if the input string is not a call to a syscom.
+The input string and the current system memory contents are passed to the parser.
 
-# evaluation
->>> F:x
-    evaluate("F:x")
-    apply function f to variable x
-    return result.
+eg:
+
+>>>  F:x
+     eval("F:x")
+     apply function F to variable x
+<<<  return results
 
 ///*********************************************

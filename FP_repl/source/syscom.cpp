@@ -29,9 +29,10 @@ void process(std::string s, Memory* m) /* preprocessing function */
     if(s.empty()){return;}
     ///******************************************************************
     
-    com(s,m); // call to syscom || user input
+    com(s,m); // call to syscom || eval user input
 }
 //---------------------------------------------------------------------------------
+
 
 void com(std::string s, Memory* m) // branch statement to choose syscom || parse.
 {
@@ -73,9 +74,11 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
     }
     else if(s.substr(0, 3) == "set")
     {
+        // syntax: "set name = expr"
         if(s.find(" ") != 3) // location of first space
         { std::cout << "ERROR1: Syntax\n"; return; }
 
+        // cut out "set ", now "name = expr"
         set( s.substr(4, (s.size()-4)), m );
     }
     else if(s.substr(0, 2) == "rm")
@@ -84,8 +87,8 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
         if(s.find(" ") != 2) // location of first space
         { std::cout << "ERROR1: Syntax\n"; return; }   
         
-        // remove the variable
-        rem( s.substr(3, (s.size()-1)), m ); // pass name
+        // pass variable name
+        rem( s.substr(3, (s.size()-1)), m );
     }
     else if(s == "dump")
     {
@@ -103,16 +106,16 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
     {
         print_buf(m); 
     }
-    else if(s.substr(0, 4) == "load") // load script content from file to buffer
+    else if(s.substr(0, 4) == "load")
     {        
-        // syntax: load "file.fps"
+        // syntax: load "file.fpl"
         if(s.find(" ") != 4) // location of first space
         { std::cout << "ERROR1: Syntax\n"; return; }
 
-        // cut out "load", now " file.fsp"
+        // cut out "load", now " file.fpl"
         load( s.substr(5, (s.size()-1)), m );
     }
-    else if(s == "run") // execute buffer content
+    else if(s == "run")
     {
         run(m); 
     }
@@ -123,7 +126,7 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
 
         gentree(s.substr(8,s.size()-1), m);
     }
-    else // try to execute user input
+    else
     {
         eval(s,m);
     } 
@@ -132,13 +135,12 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
 }
 //-------------------------------------------------------------------------------------------
 
+
 void help()
 {
     std::cout << std::endl;
     std::cout << "GENERAL:" << std::endl;
-    std::cout << "Enter System commands OR evaluate expressions AND equations." << std::endl;
-    std::cout << "Have matching parenthesis and correct syntax and grammar." << std::endl;   //// A = B, A != B, A < B, etc... use only 1 binary evaluator
-    std::cout << "Separete distinct sub-pieces with parenthesis." << std::endl;
+    std::cout << "Enter system commands OR evaluate expressions." << std::endl;
     std::cout << "For more detailed information see folder: FP_repl/DOCS/" << std::endl;
     std::cout << std::endl;
     
@@ -162,6 +164,7 @@ void help()
 }
 //-------------------------------------------------------------------------------------------
 
+
 void def(std::string s, Memory* m) //  function macro definition
 {
     // string s comes in as "name = value" format
@@ -176,7 +179,7 @@ void def(std::string s, Memory* m) //  function macro definition
     var = trimSpace(var);
     if(var.empty()){std::cout << "ERROR3: Syntax -> var\n"; return;}
     
-    pos = s.find(" "); // location of first " "
+    pos = s.find(" ");        // location of first " "
     pos = s.find(" ", pos+1); // location of " " right after the "="
     if(pos >= s.size() || pos == std::string::npos)
     { std::cout << "ERROR4: Syntax" << std::endl; return; }
@@ -190,6 +193,7 @@ void def(std::string s, Memory* m) //  function macro definition
     m -> add_macro(var, fun);
 }
 //-----------------------------------------------------------------------------------------
+
 
 void let(std::string s, Memory* m) // variable creation
 {
@@ -205,7 +209,7 @@ void let(std::string s, Memory* m) // variable creation
     var = trimSpace(var);
     if(var.empty()){ std::cout << "ERROR3: Syntax -> var\n"; return; }
     
-    pos = s.find(" "); // location of first " "
+    pos = s.find(" ");        // location of first " "
     pos = s.find(" ", pos+1); // location of " " right after the "="
     if(pos >= s.size() || pos == std::string::npos)
     { std::cout << "ERROR4: Syntax\n"; return; }
@@ -297,7 +301,7 @@ void set(std::string s, Memory* m)
     var = trimSpace(var);
     if(var.empty()){std::cout << "ERROR3: Syntax -> var\n"; return;}
     
-    pos = s.find(" "); // location of first " "
+    pos = s.find(" ");        // location of first " "
     pos = s.find(" ", pos+1); // location of " " right after the "="
     if(pos >= s.size() || pos == std::string::npos)
     { std::cout << "ERROR4: Syntax" << std::endl; return; }
@@ -373,13 +377,13 @@ void set(std::string s, Memory* m)
     // obb = 0;
 
 
-// ERROR #1 (appears to be fixed... idk why...)
-// setting a variable equal to itself causes an error (probably because of remove and recreate...)
-// Error pure virtual method called terminate called without an active exception, Aborted
+    // ERROR #1 (appears to be fixed... idk why...)
+    // setting a variable equal to itself causes an error (probably because of remove and recreate...)
+    // Error pure virtual method called terminate called without an active exception, Aborted
 
-// ERROR #2 (fixed)
-// setting a variable equal to another variable causes an error
-// *** Error in `bin/fplr': free(): invalid pointer *** Aborted
+    // ERROR #2 (fixed)
+    // setting a variable equal to another variable causes an error
+    // *** Error in `bin/fplr': free(): invalid pointer *** Aborted
 }
 //-----------------------------------------------------------------------------------------
 
@@ -399,6 +403,7 @@ void rem(std::string s, Memory* m) // access hashes and remove var if found
 }
 //------------------------------------------------------------------------------------------
 
+
 void dump_mem(Memory* m) // dump
 {
     m -> clear();
@@ -406,12 +411,14 @@ void dump_mem(Memory* m) // dump
 }
 //-------------------------------------------------------------------------------------------
 
+
 void dump_buf(Memory* m) // bufdump
 {
     m -> empty_buf();
     return;
 }
 //-------------------------------------------------------------------------------------------
+
 
 void print_mem(Memory* m) // ls
 {
@@ -429,16 +436,18 @@ void print_mem(Memory* m) // ls
 }
 //------------------------------------------------------------------------------------------
 
+
 void print_buf(Memory* m) // bufls
 {
     std::cout << std::endl;
     std::cout << "START BUFFER { " << std::endl;
-    m -> print_buf();
+    m -> print_buffer();
     std::cout << "} END BUFFER" << std::endl;
     std::cout << std::endl;
     return;
 }
 //------------------------------------------------------------------------------------------
+
 
 void print_ln(std::string s, Memory* m) // print
 {
@@ -480,7 +489,7 @@ void print_ln(std::string s, Memory* m) // print
 
 void gentree(std::string s, Memory* m)   // generate a visual of the AST with Graphviz
 {
-    Pattern* P = new Pattern(s); // construct pattern with
+    Pattern* P = new Pattern(s); // construct pattern
     
     // PARSE
     try
@@ -509,9 +518,11 @@ void gentree(std::string s, Memory* m)   // generate a visual of the AST with Gr
     return;
 }
 //------------------------------------------------------------------------------------------
-void eval(std::string s, Memory* m)      // evaluate an expression   
+
+
+void eval(std::string s, Memory* m)    // evaluate an expression   
 {
-    Pattern* P = new Pattern(s); // construct pattern with user input
+    Pattern* P = new Pattern(s);       // construct pattern with user input
     
     // PARSE
     try
@@ -535,6 +546,7 @@ void eval(std::string s, Memory* m)      // evaluate an expression
         {
             obb->print(); std::cout << std::endl;
         }
+
         // delete obb; // comment out to fix ERROR #1
         // obb = 0;    
     }
@@ -543,15 +555,16 @@ void eval(std::string s, Memory* m)      // evaluate an expression
         std::cout << "ERROR: Execute" << std::endl;
         std::cout << e.what() << std::endl;
     }
+    
     delete P; // delete the current pattern on heap
     P = 0;
     return;
 
-// ERROR #1 (fixed)
-// evaluating an element or sequence by itself crashes
-
+    // ERROR #1 (fixed)
+    // evaluating an element or sequence by itself crashes
 }
 //------------------------------------------------------------------------------------------
+
 
 void load(std::string s, Memory* m) // removes comments && trims spaces
 {
@@ -602,7 +615,7 @@ void load(std::string s, Memory* m) // removes comments && trims spaces
         {
             temp = trimSharp(temp); if(temp.empty()){continue;} // rm comments
             temp = trimSpace(temp); if(temp.empty()){continue;} // rm pad spaces
-            m -> add_str_buf(temp); // LOAD STRINGS
+            m -> add_str_buf(temp);                             // LOAD STRING
         }
     }
     
@@ -612,9 +625,10 @@ void load(std::string s, Memory* m) // removes comments && trims spaces
 }
 //------------------------------------------------------------------------------------------
 
+
 void run(Memory* m)
 {
-    std::list<std::string>& lst = m -> get_buffer(); // copy buffer from memory, &lst 
+    std::list<std::string>& lst = m -> get_buffer();    // copy buffer from memory // &lst 
     if( lst.empty() )
     {
         std::cout << "ERROR: RUN: EMPTY BUFFER" << std::endl;
@@ -624,7 +638,7 @@ void run(Memory* m)
     std::cout << std::endl << "BEGIN RUN{";
     
     std::list<std::string>::iterator it = lst.begin();
-    for( ; it != lst.end(); it = lst.begin() ) // it reset to begin each time
+    for( ; it != lst.end(); it = lst.begin() )          // it reset to begin each time
     {
         process(*it, m);
         if(!lst.empty())
@@ -638,15 +652,16 @@ void run(Memory* m)
 }
 //------------------------------------------------------------------------------------------
 
-std::string trimSpace(std::string s) // removes any (leading || trailing) whitespace characters
+
+std::string trimSpace(std::string s)     // removes any (leading || trailing) whitespace characters
 {
     if(s.empty()){return s;}
-    while(s.at(0) == ' ') // remove any forward spaces
+    while(s.at(0) == ' ')                // remove any leading spaces
     {
         if(s.size() == 1){return "";}
         s = s.substr(1, (s.size()-1));
     }
-    while(s.at(s.size()-1) == ' ') // remove any trailing spaces
+    while(s.at(s.size()-1) == ' ')       // remove any trailing spaces
     {
         if(s.size() == 1){return "";}
         s = s.substr(0, (s.size()-1));
@@ -654,6 +669,7 @@ std::string trimSpace(std::string s) // removes any (leading || trailing) whites
     return s;
 }
 //----------------------------------------------------------------------------------------------
+
 
 std::string trimSharp(std::string s) // remove comments
 {

@@ -1,7 +1,14 @@
+System Design && Layout
+rough outlines
+//------------------------
+
+
 SYSCOM:
 "syscom.h" is a set of functions which are responsible for the basic user interactions with the memory and system.
+The syscoms make up the operations in the outer interpreter which is mainly responsible for managing memory and the buffer.
+The outer interpreter acts as the interface to the inner interpreter, which is not directly accessable.
+It passes an input string and the memory block to the inner interpreter, then collects the result.
 
-variables and command buffer have different dumps SO the variables can be dumped by a script.
 
 //-----------------------------------------------------------------
 
@@ -24,6 +31,7 @@ SYSCOM BRANCH STRUCTURE -> happens in call to com()
 - eval
 
 //-----------------------------------------------------------------
+
 
 CLASSES
 - Pattern == compositional object / mediator

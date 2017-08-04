@@ -1,5 +1,7 @@
 FP_REPL Interaction Primer
 The "comprehensive" guide to syntax.
+//-----------------------------------
+
 
 LANGUAGE COMPONENTS
 ///*****************************************
@@ -13,12 +15,13 @@ sequences are collections of elements
 
 ///******************************************
 
+
 PRIMITVE OPERATIONS
 ///******************************************
 
-application  "F:a"
+application  "F:x"
     
-    where   function F applied to value a
+    where   function F applied to value x
 ------------------------------------------------
 
 composition   "F.G"
@@ -48,6 +51,7 @@ conditial branch  (FIXME)
 
 ///*****************************************
 
+
 ELEMENT OPERATIONS (add & multiply are symbols all else are LABELS)
 ///*****************************************
 
@@ -61,71 +65,76 @@ ELEMENT OPERATIONS (add & multiply are symbols all else are LABELS)
 
 ///*****************************************
 
+
 SEQUENCE OPERATIONS
 ///*****************************************
   
 RETURN TYPE (ELEMENT)  
-- SIZE == number of elements in list
-- HEAD == first element of sequence
+- SIZE  == number of elements in list
+- HEAD  == first element of sequence
 - LMAX  == maximum value in sequence
 - LMIN  == minimum value in sequence
 
 RETURN TYPE (SEQUENCE)
-- TAIL == sequence from second to end
-- ROTR == rotate sequence elements to the right
-- ROTL == rotate sequence elements to the left 
-- REV  == reverse sequence elements order
-- POPL == pop element from left of sequence
-- POPR == pop element from right of sequence
-- SORT == sort sequence elements in ascending order
+- TAIL  == sequence from second to end
+- ROTR  == rotate sequence elements to the right
+- ROTL  == rotate sequence elements to the left 
+- REV   == reverse sequence elements order
+- POPL  == pop element from left of sequence
+- POPR  == pop element from right of sequence
+- SORT  == sort sequence elements in ascending order
 - RMDUP == remove duplicates, preserves order
 
 ///*****************************************
 
 
 GUIDELINES ON PROGRAMMING
-///*******************************
+///***************************************************
 
-- Functions are written in Uppercase 
-
+- Functions should be written in Uppercase letters
 - Variable names should only contain Lowercase letters
-- Each variable should be given a unique name
+- Each new function or variable should have a unique name
 - Avoid having multiple variables defined as same value
+- Use def to create and label new function compositions
+
+///***************************************************
 
 
-the best option is:
-use def LIKE how composition works
-the macros can be used to lable a composition
-the macros will be substituted in during interpretation
+APPLICATION EXAMPLES
+///***************************************************
 
-ex:
->>> def G = ROTL.POPL
->>> let x = <1,2,3,4>
+>>>  def LAST = HEAD.REV    # returns last element
 
-then use like:
->>> G:x
-    G:x
-    ROTL.POPL:<1,2,3,4>
-    ROTL:(POPL:(<1,2,3,4>))
-    ROTL:(<2,3,4>)
-<<< <3,4,2>
+>>>  def G = ROTL.POPL
 
-///**************************************************
+>>>  let x = <1,2,3,4>
 
-FUNCTION APPLICATION EXAMPLES
+>>>  G:x
+     ROTL.POPL:<1,2,3,4>
+     ROTL:(POPL:<1,2,3,4>)
+     ROTL:<2,3,4>
+<<<  <3,4,2>
 
-let lst = <0,1,2,3,4,5,6,7,8,9>
+------------------------------------------------
 
->>>  SECOND:lst
-     HEAD.TAIL:<0,1,2,3,4,5,6,7,8,9>
-     HEAD:(TAIL:<0,1,2,3,4,5,6,7,8,9>)
-     HEAD:<1,2,3,4,5,6,7,8,9>
-<<<  1
+>>>  let lst = <0,1,2,3,4,5,6,7,8,9>
+
+>>>  NEG.SECOND:lst
+     NEG.HEAD.TAIL:<0,1,2,3,4,5,6,7,8,9>
+     NEG:(HEAD:(TAIL:<0,1,2,3,4,5,6,7,8,9>))
+     NEG:(HEAD:<1,2,3,4,5,6,7,8,9>)
+     NEG:1
+<<<  -1
   
 ///***************************************************
+
 
 F:x
 
 G:(F:x)
 
 H:(I:(J:x))
+
+K:(L:(M:(N:x)))
+
+etc...

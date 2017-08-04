@@ -15,7 +15,7 @@ class Object
         virtual std::string type() = 0;
         virtual void print() = 0;
 
-        // ?? for the parse
+        // for the parse
         virtual Object* get() = 0;
         virtual std::string stringify() = 0;
 };

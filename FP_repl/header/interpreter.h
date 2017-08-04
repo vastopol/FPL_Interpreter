@@ -18,26 +18,26 @@ class Interpreter
 {
     private:
         // Helper functions
-        bool isBalanced(std::string s);        // refers to brackets, braces, parentheses...
+        bool isBalanced(std::string s);                              // refers to brackets, braces, parentheses...
         
-        std::string trimSpace(std::string s);  // removes any (leading || trailing) whitespace characters
+        std::string trimSpace(std::string s);                        // removes any (leading || trailing) whitespace characters
 
-        std::string resolve(std::string& s, Memory* m);    // resolve all definitions on left to chain of composed primitives
+        std::string resolve(std::string& s, Memory* m);              // resolve all definitions on left to chain of composed primitives
         
-        std::string par_dot(std::string& s);    // rewrite (f.g):x -> f:(g:x)
+        std::string par_dot(std::string& s);                         // rewrite (f.g):x -> f:(g:x)
         
         void par_colon(std::string& s, std::list<std::string>& lst); // parsing on ':'
 
-        std::list<Object*> postfix(std::list<Object*> lst); // convert from infix to postfix
+        std::list<Object*> postfix(std::list<Object*> lst);          // convert from infix to postfix
 
-        Node* buildtree(std::list<Object*> lst, Memory* m); // build the AST
+        Node* buildtree(std::list<Object*> lst, Memory* m);          // build the AST
 
     public:
         Interpreter(){};
 
         ~Interpreter();
         
-        Node* parse(std::string s, Memory* m); // parse engine    
+        Node* parse(std::string s, Memory* m);                       // parsing engine    
 };
 
 #endif // __INTERPRETER_H__

@@ -23,12 +23,12 @@ class Pattern
         Pattern(std::string s);
         ~Pattern();
         
-        void setRoot(Node* n); // set a root
-        Node* getRoot();     // get root of abstract syntax tree
-        Interpreter* getI(); // get interpreter object
-        Action* getA();      // get execution object
+        void setRoot(Node* n);      // set a root
+        Node* getRoot();            // get root of abstract syntax tree
+        Interpreter* getI();        // get interpreter object
+        Action* getA();             // get execution object
 
-        //Printing
+        // Printing
         void preOrder(Node* n);
         void inOrder(Node* n);
         void postOrder(Node* n);
