@@ -9,7 +9,7 @@ OFILES = source/syscom.o source/memory.o source/pattern.o source/interpreter.o s
 # Targets
 main: main.cpp $(OFILES) | bin
 	$(CXX) $(FLAGS) $(OFILES) main.cpp -o fplr && mv fplr bin/
-	
+
 debug: main.cpp $(OFILES) | bin
 	$(CXX) $(FLAGS) $(DEBUG) $(OFILES) main.cpp -o fplr && mv fplr bin/
 
@@ -24,22 +24,22 @@ pattern.o: source/pattern.cpp header/pattern.h source/interpreter.cpp header/int
 
 interpreter.o: source/interpreter.cpp header/interpreter.h source/memory.cpp header/memory.h source/object.cpp header/object.h source/node.cpp header/node.h
 	$(CXX) $(FLAGS) -c source/interpreter.cpp
-	
+
 action.o: source/action.cpp header/action.h source/object.cpp header/object.h  source/node.cpp header/node.h source/func.cpp header/func.h
 	$(CXX) $(FLAGS) -c source/action.cpp
 
 node.o: source/node.cpp header/node.h source/object.cpp header/object.h
 	$(CXX) $(FLAGS) -c source/node.cpp
-		
+
 object.o: source/object.cpp header/object.h
 	$(CXX) $(FLAGS) -c source/object.cpp
 
-func.o: source/func.cpp header/func.h 
+func.o: source/func.cpp header/func.h
 	$(CXX) $(FLAGS) -c source/func.cpp
 
 bin:
 	mkdir bin
-	
+
 clean:
 	rm -rf bin && rm source/*.o && rm *.dot && rm *.jpg
 
