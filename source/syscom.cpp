@@ -22,13 +22,13 @@ void process(std::string s, Memory* m) /* preprocessing function */
     s = trimSharp(s);
     if(s.empty()){return;}
     ///******************************************************************
-    
+
     // REMOVE PADDING SPACES
     ///******************************************************************
     s = trimSpace(s);
     if(s.empty()){return;}
     ///******************************************************************
-    
+
     com(s,m); // call to syscom || eval user input
 }
 //---------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
     if(s == "exit")
     {
         delete m; // delete memory object
-        m = 0; 
+        m = 0;
         exit(0);
     }
     else if(s == "clear")
@@ -49,13 +49,13 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
     else if(s == "help")
     {
         help();
-    } 
+    }
     else if(s.substr(0,5) == "print")
     {
         print_ln(s,m);
     }
     else if(s.substr(0, 3) == "def") // Function Creation
-    {        
+    {
         // syntax: "def name = fun"
         if(s.find(" ") != 3) // location of first space
         { std::cout << "ERROR1: Syntax\n"; return; }
@@ -64,7 +64,7 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
         def( s.substr(4, (s.size()-4)), m );
     }
     else if(s.substr(0, 3) == "let") // Variable creation
-    {        
+    {
         // syntax: "let name = var"
         if(s.find(" ") != 3) // location of first space
         { std::cout << "ERROR1: Syntax\n"; return; }
@@ -85,29 +85,29 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
     {
         // syntax: rm name
         if(s.find(" ") != 2) // location of first space
-        { std::cout << "ERROR1: Syntax\n"; return; }   
-        
+        { std::cout << "ERROR1: Syntax\n"; return; }
+
         // pass variable name
         rem( s.substr(3, (s.size()-1)), m );
     }
     else if(s == "dump")
     {
-        dump_mem(m); 
+        dump_mem(m);
     }
     else if(s == "ls")
     {
-        print_mem(m); 
+        print_mem(m);
     }
     else if(s == "bufdump")
     {
-        dump_buf(m); 
+        dump_buf(m);
     }
     else if(s == "bufls")
     {
-        print_buf(m); 
+        print_buf(m);
     }
     else if(s.substr(0, 4) == "load")
-    {        
+    {
         // syntax: load "file.fpl"
         if(s.find(" ") != 4) // location of first space
         { std::cout << "ERROR1: Syntax\n"; return; }
@@ -117,7 +117,7 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
     }
     else if(s == "run")
     {
-        run(m); 
+        run(m);
     }
     else if(s.substr(0,7) == "gentree")
     {
@@ -129,8 +129,8 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
     else
     {
         eval(s,m);
-    } 
-    
+    }
+
     return; // catch any breakouts
 }
 //-------------------------------------------------------------------------------------------
@@ -141,9 +141,8 @@ void help()
     std::cout << std::endl;
     std::cout << "GENERAL:" << std::endl;
     std::cout << "Enter system commands OR evaluate expressions." << std::endl;
-    std::cout << "For more detailed information see folder: FP_repl/DOCS/" << std::endl;
     std::cout << std::endl;
-    
+
     std::cout << "SYSTEM COMMANDS:" << std::endl;
     std::cout << "help" << " == " << "display help prompt" << std::endl;
     std::cout << "clear" << " == " << "clear the screen contents" << std::endl;
@@ -174,20 +173,20 @@ void def(std::string s, Memory* m) //  function macro definition
     size_t pos = s.find(" = "); // location of =
     if(pos >= s.size() || pos == std::string::npos)
     {std::cout << "ERROR2: Syntax\n"; return;}
-            
+
     std::string var = s.substr(0, (pos)); // variable name, left half; sz = (0 to pos)
     var = trimSpace(var);
     if(var.empty()){std::cout << "ERROR3: Syntax -> var\n"; return;}
-    
+
     pos = s.find(" ");        // location of first " "
     pos = s.find(" ", pos+1); // location of " " right after the "="
     if(pos >= s.size() || pos == std::string::npos)
     { std::cout << "ERROR4: Syntax" << std::endl; return; }
-    
+
     std::string val = s.substr((pos + 1), (s.size() - pos)); // variable value, right half
     val = trimSpace(val);
     if(val.empty()){ std::cout << "ERROR5: Syntax -> val\n"; return; }
-    
+
     Function fun(val);
 
     m -> add_macro(var, fun);
@@ -204,38 +203,38 @@ void let(std::string s, Memory* m) // variable creation
     size_t pos = s.find(" = "); // location of =
     if(pos >= s.size() || pos == std::string::npos)
     { std::cout << "ERROR2: Syntax\n"; return; }
-            
+
     std::string var = s.substr(0, (pos)); // variable name, left half; sz = (0 to pos)
     var = trimSpace(var);
     if(var.empty()){ std::cout << "ERROR3: Syntax -> var\n"; return; }
-    
+
     pos = s.find(" ");        // location of first " "
     pos = s.find(" ", pos+1); // location of " " right after the "="
     if(pos >= s.size() || pos == std::string::npos)
     { std::cout << "ERROR4: Syntax\n"; return; }
-    
+
     std::string val = s.substr((pos + 1), (s.size() - pos)); // variable value, right half
     val = trimSpace(val);
     if(val.empty()){ std::cout << "ERROR5: Syntax -> val\n"; return; }
     //*****************************************************
-    
+
     // hash here
     //**************************************************************
     if(val.at(0) == '<' && val.at(val.size() - 1) == '>' ) // sequence
-    {    
+    {
         std::list<int> lst;
-        
+
         // remove <>
         val = val.substr(1, (val.size() - 1)); // gone <
         val = val.substr(0, (val.size() - 1)); // gone >
-        
-        val = trimSpace(val);        
-        
-        // add empty list HERE 
+
+        val = trimSpace(val);
+
+        // add empty list HERE
         if(val.empty())
         {
             Sequence seq(lst);
-            m -> add_sequence(var, seq); 
+            m -> add_sequence(var, seq);
             return;
         }
 
@@ -247,30 +246,30 @@ void let(std::string s, Memory* m) // variable creation
             if(val.at(0) == '-') {break;} // a negative number
 
             val = val.substr(1, (val.size() - 1));
-        } 
+        }
 
-        // add empty list HERE 
+        // add empty list HERE
         if(val.empty())
         {
             Sequence seq(lst);
-            m -> add_sequence(var, seq); 
+            m -> add_sequence(var, seq);
             return;
         }
-        
+
         char* copy = (char*)(val.c_str());      // copy to give strtok for parse
         char* arr = 0;                          // temp array
 
-        // extract && store the elements of the sequence        
-        arr = strtok(copy, ","); 
+        // extract && store the elements of the sequence
+        arr = strtok(copy, ",");
         lst.push_back( atoi( arr ) );
         for(unsigned i = 1; arr != 0; i++)
         {
-            arr = strtok(NULL, ",");          
+            arr = strtok(NULL, ",");
             if(arr)
-            {   
+            {
                 lst.push_back( atoi( arr ) );
             }
-        } 
+        }
 
         // add list with data HERE
         Sequence seq(lst);
@@ -279,15 +278,15 @@ void let(std::string s, Memory* m) // variable creation
     else // element
     {
         Element e(atoi(val.c_str()));
-        m -> add_element( var, e );        
+        m -> add_element( var, e );
     }
-    //****************************************************************************** 
+    //******************************************************************************
 
 }
 //-----------------------------------------------------------------------------------------
 
 
-void set(std::string s, Memory* m) 
+void set(std::string s, Memory* m)
 {
     // string s comes in as "name = value" format
     // split out " = ", the equals and padding spaces
@@ -296,16 +295,16 @@ void set(std::string s, Memory* m)
     size_t pos = s.find(" = "); // location of =
     if(pos >= s.size() || pos == std::string::npos)
     {std::cout << "ERROR2: Syntax\n"; return;}
-            
+
     std::string var = s.substr(0, (pos)); // variable name, left half; sz = (0 to pos)
     var = trimSpace(var);
     if(var.empty()){std::cout << "ERROR3: Syntax -> var\n"; return;}
-    
+
     pos = s.find(" ");        // location of first " "
     pos = s.find(" ", pos+1); // location of " " right after the "="
     if(pos >= s.size() || pos == std::string::npos)
     { std::cout << "ERROR4: Syntax" << std::endl; return; }
-    
+
     std::string val = s.substr((pos + 1), (s.size() - pos)); // variable value, right half
     val = trimSpace(val);
     if(val.empty()){ std::cout << "ERROR5: Syntax -> val\n"; return; }
@@ -332,7 +331,7 @@ void set(std::string s, Memory* m)
         P = 0;
         return;
     }
-    
+
     // EXECUTE
     try
     {
@@ -344,7 +343,7 @@ void set(std::string s, Memory* m)
         std::cout << "ERROR: Execute" << std::endl;
         std::cout << e.what() << std::endl;
         delete P; // delete the current pattern on heap
-        P = 0;  
+        P = 0;
         delete obb;
         obb = 0;
         return;
@@ -392,10 +391,10 @@ void rem(std::string s, Memory* m) // access hashes and remove var if found
 {
     if(s.empty())
     { std::cout << "ERROR: empty var name\n"; return; }
-    
+
     s = trimSpace(s);
     if(s.empty()){return;}
-    
+
     m -> remove_element(s);
     m -> remove_sequence(s);
     m -> remove_macro(s);
@@ -423,13 +422,13 @@ void dump_buf(Memory* m) // bufdump
 void print_mem(Memory* m) // ls
 {
     std::cout << std::endl;
-    std::cout << "Buffer: "; 
+    std::cout << "Buffer: ";
     m -> print_buf_status();
     std::cout << "Elements:" << std::endl;
     m -> print_elements();
-    std::cout << "Sequences:" << std::endl;    
+    std::cout << "Sequences:" << std::endl;
     m -> print_sequences();
-    std::cout << "Functions:" << std::endl;    
+    std::cout << "Functions:" << std::endl;
     m -> print_macros();
     std::cout << std::endl;
     return;
@@ -458,9 +457,9 @@ void print_ln(std::string s, Memory* m) // print
     }
 
     if(s.find(" ") != 5) // location of first space
-    { std::cout << "ERROR1: Syntax\n"; return; } 
+    { std::cout << "ERROR1: Syntax\n"; return; }
 
-    // cut out "print " 
+    // cut out "print "
     s = s.substr(6, s.size()-6);
 
     if(s.at(0) == '$') // print item from mem
@@ -490,7 +489,7 @@ void print_ln(std::string s, Memory* m) // print
 void gentree(std::string s, Memory* m)   // generate a visual of the AST with Graphviz
 {
     Pattern* P = new Pattern(s); // construct pattern
-    
+
     // PARSE
     try
     {
@@ -520,10 +519,10 @@ void gentree(std::string s, Memory* m)   // generate a visual of the AST with Gr
 //------------------------------------------------------------------------------------------
 
 
-void eval(std::string s, Memory* m)    // evaluate an expression   
+void eval(std::string s, Memory* m)    // evaluate an expression
 {
     Pattern* P = new Pattern(s);       // construct pattern with user input
-    
+
     // PARSE
     try
     {
@@ -537,7 +536,7 @@ void eval(std::string s, Memory* m)    // evaluate an expression
         P = 0;
         return;
     }
-    
+
     // EXECUTE
     try
     {
@@ -548,14 +547,14 @@ void eval(std::string s, Memory* m)    // evaluate an expression
         }
 
         // delete obb; // comment out to fix ERROR #1
-        // obb = 0;    
+        // obb = 0;
     }
     catch(std::exception &e)
     {
         std::cout << "ERROR: Execute" << std::endl;
         std::cout << e.what() << std::endl;
     }
-    
+
     delete P; // delete the current pattern on heap
     P = 0;
     return;
@@ -592,18 +591,18 @@ void load(std::string s, Memory* m) // removes comments && trims spaces
                 return;
             }
         }
-        else 
+        else
         {
             std::cout << "ERROR: LOAD: FILE NOT EXIST2" << std::endl;
             return;
         }
     }
     ///*******************************************************************
-    
+
     std::string temp;
     std::ifstream inFS;
     inFS.open(s.c_str());
-    
+
     if(!inFS.is_open())
     {
         std::cout << "ERROR: FAILURE TO OPEN: " << s << std::endl;
@@ -618,7 +617,7 @@ void load(std::string s, Memory* m) // removes comments && trims spaces
             m -> add_str_buf(temp);                             // LOAD STRING
         }
     }
-    
+
     inFS.close();
     std::cout << "SUCCESSFUL LOAD" << std::endl;
     return;
@@ -628,15 +627,15 @@ void load(std::string s, Memory* m) // removes comments && trims spaces
 
 void run(Memory* m)
 {
-    std::list<std::string>& lst = m -> get_buffer();    // copy buffer from memory // &lst 
+    std::list<std::string>& lst = m -> get_buffer();    // copy buffer from memory // &lst
     if( lst.empty() )
     {
         std::cout << "ERROR: RUN: EMPTY BUFFER" << std::endl;
         return;
     }
-    
+
     std::cout << std::endl << "BEGIN RUN{";
-    
+
     std::list<std::string>::iterator it = lst.begin();
     for( ; it != lst.end(); it = lst.begin() )          // it reset to begin each time
     {
@@ -646,9 +645,9 @@ void run(Memory* m)
             lst.pop_front();
         }
     }
-    
+
     std::cout << "}END RUN" << std::endl << std::endl;
-    return; 
+    return;
 }
 //------------------------------------------------------------------------------------------
 
@@ -677,8 +676,7 @@ std::string trimSharp(std::string s) // remove comments
     if( pos != std::string::npos && pos < s.size() )
     {
         s = s.substr(0, pos);
-    }  
+    }
     return s;
 }
 //----------------------------------------------------------------------------------------------
-

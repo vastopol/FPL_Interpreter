@@ -1,76 +1,82 @@
 #include "../header/func.h"
 
+//===============================================================
+// Map names to position in jump tables
+//===============================================================
 
 std::map<std::string, int> U_E
 {
-    {"NEG",0},
-    {"ABS",1},
-    {"INC",2},
-    {"DEC",3},
-    {"SQUARE",4},
-    {"CUBE",5},
-    {"SQRT",6}
+    {"NEG",F_NEG},
+    {"ABS",F_ABS},
+    {"INC",F_INC},
+    {"DEC",F_DEC},
+    {"SQUARE",F_SQUARE},
+    {"CUBE",F_CUBE},
+    {"SQRT",F_SQRT}
 };
 
 std::map<std::string, int> U_S_R_E
 {
-    {"SIZE",0},
-    {"HEAD",1},
-    {"LMAX",2},
-    {"LMIN",3}
+    {"SIZE",F_SIZE},
+    {"HEAD",F_HEAD},
+    {"LMAX",F_LMAX},
+    {"LMIN",F_LMIN}
 };
 
 std::map<std::string, int> U_S_R_S
 {
-    {"TAIL",0},
-    {"ROTL",1},
-    {"ROTR",2},
-    {"POPL",3},
-    {"POPR",4},
-    {"REV",5},
-    {"SORT",6},
-    {"RMDUP",7}
+    {"TAIL",F_TAIL},
+    {"ROTL",F_ROTL},
+    {"ROTR",F_ROTR},
+    {"POPL",F_POPL},
+    {"POPR",F_POPR},
+    {"REV",F_REV},
+    {"SORT",F_SORT},
+    {"RMDUP",F_RMDUP}
 };
 
 //===============================================================
-
 // fill jump tables
+//===============================================================
+
 int (*Unary_E[])(int) // unary element return element
 {
-    neg,
-    abs,
-    inc,
-    dec,
-    square,
-    cube,
-    sqroot
+    &neg,
+    &abs,
+    &inc,
+    &dec,
+    &square,
+    &cube,
+    &sqroot
     /* ... */
 };
 
 int (*Unary_S_R_E[])(std::list<int>) // unary sequence returns element
 {
-    size,
-    head,
-    lmax,
-    lmin
+    &size,
+    &head,
+    &lmax,
+    &lmin
     /* ... */
 };
 
 std::list<int> (*Unary_S_R_S[])(std::list<int>) // unary sequence returns sequence
 {
-    tail,
-    rotr,
-    rotl,
-    popl,
-    popr,
-    rev,
-    sort,
-    rmdup
+    &tail,
+    &rotr,
+    &rotl,
+    &popl,
+    &popr,
+    &rev,
+    &sort,
+    &rmdup
     /* ... */
 };
 
-
 //===============================================================
+// Unary Element Returns Element
+//===============================================================
+
 
 int neg(int x) // x = -x
 {
@@ -124,7 +130,9 @@ int sqroot(int x) // x = sqrt(x)
 //---------------------------
 
 //===============================================================
+// Unary Sequence Returns Element
 //===============================================================
+
 
 int size(std::list<int> l)
 {
@@ -133,7 +141,7 @@ int size(std::list<int> l)
 //---------------------------
 
 int head(std::list<int> seq)
-{  
+{
     if(seq.empty())
     {
         return 0;
@@ -150,14 +158,14 @@ int lmax(std::list<int> seq)
         return 0;
     }
     else if(seq.size() == 1)
-    { 
+    {
         return seq.front();
     }
-    
+
     std::list<int> lst;
     int chk = seq.front(); // max
     for(std::list<int>::iterator jt = seq.begin(); jt != seq.end(); jt++)
-    {        
+    {
         if(*jt > chk)
         {
             chk = *jt;
@@ -174,12 +182,12 @@ int lmin(std::list<int> seq)
         return 0;
     }
     else if(seq.size() == 1)
-    { 
+    {
         return seq.front();
     }
-    
+
     std::list<int> lst;
-    int chk = seq.front(); // min 
+    int chk = seq.front(); // min
     for(std::list<int>::iterator it = seq.begin(); it != seq.end(); it++)
     {
         if(*it < chk)
@@ -191,16 +199,14 @@ int lmin(std::list<int> seq)
 }
 //---------------------------
 
-
 //===============================================================
+// Unary Sequence Returns Sequence
 //===============================================================
-
-
 
 std::list<int> tail(std::list<int> seq)
 {
     if(seq.size() <= 1)
-    { 
+    {
         seq.clear();
         return seq;
     }
@@ -213,10 +219,10 @@ std::list<int> tail(std::list<int> seq)
 std::list<int> rotl(std::list<int> seq)
 {
     if(seq.size() <= 1)
-    { 
+    {
         return seq;
     }
-    
+
     std::list<int> lst(seq.begin()++, seq.end()--);
     lst.push_front(seq.back());
     lst.pop_back();
@@ -227,21 +233,21 @@ std::list<int> rotl(std::list<int> seq)
 std::list<int> rotr(std::list<int> seq)
 {
     if(seq.size() <= 1)
-    { 
+    {
         return seq;
     }
-    
+
     std::list<int> lst(seq.begin()++, seq.end()--);
     lst.push_back(seq.front());
     lst.pop_front();
-    return lst;   
+    return lst;
 }
 //---------------------------
 
 std::list<int> popl(std::list<int> seq)
 {
     if(seq.size() <= 1)
-    { 
+    {
         seq.clear();
         return seq;
     }
@@ -254,7 +260,7 @@ std::list<int> popl(std::list<int> seq)
 std::list<int> popr(std::list<int> seq)
 {
     if(seq.size() <= 1)
-    { 
+    {
         seq.clear();
         return seq;
     }
@@ -267,7 +273,7 @@ std::list<int> popr(std::list<int> seq)
 std::list<int> rev(std::list<int> seq)
 {
     if(seq.size() <= 1)
-    { 
+    {
         return seq;
     }
 
@@ -279,7 +285,7 @@ std::list<int> rev(std::list<int> seq)
 std::list<int> sort(std::list<int> seq)
 {
     if(seq.size() <= 1)
-    { 
+    {
         return seq;
     }
 
@@ -291,7 +297,7 @@ std::list<int> sort(std::list<int> seq)
 std::list<int> rmdup(std::list<int> seq)
 {
     if(seq.size() <= 1)
-    { 
+    {
         return seq;
     }
 
@@ -299,7 +305,7 @@ std::list<int> rmdup(std::list<int> seq)
     std::list<int>::iterator i = seq.begin();
 
     while( i != seq.end() )
-    {  
+    {
         if( find(lst.begin(), lst.end(), *i) != lst.end() )
         {
             i = seq.erase(i);
@@ -309,7 +315,7 @@ std::list<int> rmdup(std::list<int> seq)
             lst.push_back(*i);
             i++;
         }
-    } 
+    }
 
     return lst;
 }

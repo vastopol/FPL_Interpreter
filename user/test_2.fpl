@@ -1,5 +1,8 @@
 # error testing function application
 # ALL cases should fail
+# Note:
+#  - will cause errors with apply() during the Execute phase
+#  - may cause program to Segmentation fault (core dumped)
 
 dump
 
@@ -84,4 +87,3 @@ POPL:RMDUP.LMAX:LMIN
 INC.INC.INC.INC
 
 #--------------------------------------
-
