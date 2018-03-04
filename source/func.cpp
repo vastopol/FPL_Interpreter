@@ -20,7 +20,9 @@ std::map<std::string, int> U_S_R_E
     {"SIZE",F_SIZE},
     {"HEAD",F_HEAD},
     {"LMAX",F_LMAX},
-    {"LMIN",F_LMIN}
+    {"LMIN",F_LMIN},
+    {"SUM",F_SUM},
+    {"PROD",F_PROD}
 };
 
 std::map<std::string, int> U_S_R_S
@@ -56,7 +58,9 @@ int (*Unary_S_R_E[])(std::list<int>) // unary sequence returns element
     &size,
     &head,
     &lmax,
-    &lmin
+    &lmin,
+    &sum,
+    &prod
     /* ... */
 };
 
@@ -162,7 +166,6 @@ int lmax(std::list<int> seq)
         return seq.front();
     }
 
-    std::list<int> lst;
     int chk = seq.front(); // max
     for(std::list<int>::iterator jt = seq.begin(); jt != seq.end(); jt++)
     {
@@ -186,7 +189,6 @@ int lmin(std::list<int> seq)
         return seq.front();
     }
 
-    std::list<int> lst;
     int chk = seq.front(); // min
     for(std::list<int>::iterator it = seq.begin(); it != seq.end(); it++)
     {
@@ -198,6 +200,47 @@ int lmin(std::list<int> seq)
     return chk;
 }
 //---------------------------
+
+int sum(std::list<int> seq)
+{
+    if(seq.empty())
+    {
+        return 0;
+    }
+    else if(seq.size() == 1)
+    {
+        return seq.front();
+    }
+
+    int sum = 0;
+    for(std::list<int>::iterator it = seq.begin(); it != seq.end(); it++)
+    {
+        sum += *it;
+    }
+    return sum;
+}
+//---------------------------
+
+int prod(std::list<int> seq)
+{
+  if(seq.empty())
+  {
+      return 0;
+  }
+  else if(seq.size() == 1)
+  {
+      return seq.front();
+  }
+
+  int prod = 1;
+  for(std::list<int>::iterator it = seq.begin(); it != seq.end(); it++)
+  {
+      prod *= *it;
+  }
+  return prod;
+}
+//---------------------------
+
 
 //===============================================================
 // Unary Sequence Returns Sequence
