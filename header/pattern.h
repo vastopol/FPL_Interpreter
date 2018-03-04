@@ -18,11 +18,11 @@ class Pattern
         Node* root;
         Interpreter* interpreter;
         Action* action;
-        
+
     public:
         Pattern(std::string s);
         ~Pattern();
-        
+
         void setRoot(Node* n);      // set a root
         Node* getRoot();            // get root of abstract syntax tree
         Interpreter* getI();        // get interpreter object
@@ -32,13 +32,12 @@ class Pattern
         void preOrder(Node* n);
         void inOrder(Node* n);
         void postOrder(Node* n);
-        
+
         // genterate tree with system call to graphviz
         void generateTree(std::ofstream& out, Node* n, int i); // recursive
-        void generateTree2(std::ofstream& out, Node* n);       // iterative, BROKEN
 
-        // visualizeTree is a wrapper that then calls generateTree      
-        void visualizeTree(const std::string& outputFilename);  
+        // visualizeTree is a wrapper that then calls generateTree
+        void visualizeTree(const std::string& outputFilename);
 };
 
 #endif // __PATTERN_H__

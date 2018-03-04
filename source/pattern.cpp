@@ -15,12 +15,12 @@ Pattern::Pattern(std::string s)
 Pattern::~Pattern()
 {
     // std::cout << "PATTERN DESTRUCTOR" << std::endl;
-    
+
     delete root;
     root = 0;
-    delete interpreter; 
+    delete interpreter;
     interpreter = 0;
-    delete action; 
+    delete action;
     action = 0;
 }
 //--------------------------------------------------------------
@@ -55,7 +55,7 @@ void Pattern::preOrder(Node* n)
     {
       return;
     }
-    
+
 
     std::cout << "(";
     n->getKey()->print();
@@ -73,13 +73,13 @@ void Pattern::inOrder(Node* n)
     {
       return;
     }
-    
+
     inOrder(n->getLeft());
 
     std::cout << "(";
     n->getKey()->print();
     std::cout << "), ";
-    
+
     inOrder(n->getRight());
 }
 //--------------------------------------------------------------
@@ -90,7 +90,7 @@ void Pattern::postOrder(Node* n)
     {
       return;
     }
-    
+
     postOrder(n->getLeft());
 
     postOrder(n->getRight());
@@ -108,7 +108,7 @@ void Pattern::postOrder(Node* n)
          return;
      }
 
-     std::string temp_M = n->getKey()->stringify(); 
+     std::string temp_M = n->getKey()->stringify();
      if(temp_M == ":"){temp_M = "Colon";}
      temp_M = temp_M + "_" + std::to_string(i);
      out << '\n'; out << temp_M << " [label=\"" << temp_M; out << "\"];";
@@ -134,81 +134,6 @@ void Pattern::postOrder(Node* n)
  }
 //--------------------------------------------------------------
 
-void Pattern::generateTree2(std::ofstream& out, Node* n) // iterative, BROKEN // (geeks for geeks)
-{   
-    if (n == 0)
-    {
-        return;
-    }
-
-    std::string temp_M;
-    std::string temp_L;
-    std::string temp_R;
-    Node* prev = 0;
-    std::stack<Node*> s;
-    s.push(n);
-
-    while(!s.empty())
-    {
-        Node* current = s.top();
-
-        /* go down the tree in search of a leaf an if so process it 
-        and pop stack otherwise move down */
-        if (prev == 0 || prev->getLeft() == current || prev->getRight() == current) 
-        {
-            if (current->getLeft() != 0)
-            {
-                s.push(current->getLeft());
-            }
-            else if (current->getRight() != 0)
-            {
-                s.push(current->getRight());
-            }
-            else
-            {
-                temp_M = (s.top())->getKey()->stringify();
-                if(temp_M == ":"){temp_M = "Colon";}
-                out << '\n'; out << temp_M << " [label=\"" << temp_M; out << "\"];";
-                s.pop();
-            }
-
-            /* go up the tree from left node, if the child is right 
-               push it onto stack otherwise process parent and pop 
-               stack */
-        } 
-        else if (current->getLeft() == prev) 
-        {
-            if (current->getRight() != 0)
-            {
-                s.push(current->getRight());
-            }
-            else
-            {
-                temp_L = (s.top())->getKey()->stringify();
-                if(temp_L == ":"){temp_L = "Colon";}
-                out << '\n'; out << temp_L << " [label=\"" << temp_L; out << "\"];";
-                out << "\n" << temp_M << " -> " << temp_L << ";";
-                s.pop();
-            }
-              
-            /* go up the tree from right node and after coming back
-             from right node process parent and pop stack */
-        } 
-        else if (current->getRight() == prev) 
-        {
-            temp_R = (s.top())->getKey()->stringify();
-            if(temp_R == ":"){temp_R = "Colon";}
-            out << '\n'; out << temp_R << " [label=\"" << temp_R; out << "\"];";
-            out << "\n" << temp_M << " -> " << temp_R << ";";
-            s.pop();
-        }
-
-        prev = current;
-    }
-}
-//--------------------------------------------------------------
-
-
  void Pattern::visualizeTree(const std::string& outputFilename)
  {
     std::ofstream outFS;
@@ -228,4 +153,3 @@ void Pattern::generateTree2(std::ofstream& out, Node* n) // iterative, BROKEN //
     system(command.c_str());
 }
 //--------------------------------------------------------------
-
