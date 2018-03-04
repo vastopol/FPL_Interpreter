@@ -1,20 +1,23 @@
-* gentree.fpl
-tests the parser && gentree function, no execution; uses Graphviz to generate picture of AST
-
 * lib.fpl
 library of useful/interesting FPL variables/functions
 
-* test_0.fpl
+* test_1.fpl
 basic testing: builtins && primitives
 
-* test_1.fpl
+* test_2.fpl
 testing function application
 
-* test_2.fpl
-tests cases that should fail
-
 * test_3.fpl
+testing function definition resolver
+
+* test_4.fpl
 tests load && run, file nesting
 
-* test_a.fpl
-testing function definition resolver
+* test_gen_tree.fpl
+tests the parser && gentree function, no execution; uses Graphviz to generate picture of AST
+
+* test_help.fpl
+tests print function by printing the help page manually
+
+* test_break.fpl
+tests cases that should fail

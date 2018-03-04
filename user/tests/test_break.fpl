@@ -7,7 +7,7 @@
 dump
 
 print
-print TEST_2.FPL
+print TEST_Break.FPL
 
 print
 print This file should cause errors

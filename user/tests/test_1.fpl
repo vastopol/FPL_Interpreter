@@ -1,9 +1,8 @@
 # basic testing: builtin system commands/primitives
 # let, def, set, rm, dump, print, help, ...
 
-
 print
-print TEST_0.FPL
+print TEST_1.FPL
 
 dump
 

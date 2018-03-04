@@ -1,5 +1,9 @@
 # testing the function definiton resolver
 
+print
+print TEST_3.FPL
+
+dump
 
 def inc = INC
 def 2+ = inc.inc
@@ -9,4 +13,3 @@ def 1- = 3-.2+
 let x = 1
 
 1-:x
-
