@@ -3,16 +3,27 @@ TODO - Unfinished works
 
 * PRIMITIVE LANGUAGE OPERATIONS (not implemented yet)
 
-- apply-to-all
-	"@" 
+apply-to-all
+    "@"
 
-- construction combining form
+    where   @F:<x1,...,xn>  =  <F:x1,...,F:xn>
+------------------------------------------------
+
+construction combining form
     "[F1,F2,...,Fn]"
 
- - conditial branching 
-	"(H -> F,G)" 
+    where   [F1,F2,...,Fn]:x  =  <F1:x,...,Fn:x>
+------------------------------------------------
 
--------------------------
+conditial branch
+    "(H -> F,G)"
+
+    where   (H -> F,G):x
+             =  F:x   if   H:x  =  True
+             =  G:x   if   H:x  =  False
+             =  undefined  otherwise
+
+///*****************************************
 
 =======================================================================
 
@@ -63,7 +74,7 @@ possible logic functions
 universals:
 id  = identity
 
-bools: 
+bools:
 elm = ? is element
 seq = ? is sequence
 nil = ? is empty sequence

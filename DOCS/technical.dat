@@ -20,13 +20,13 @@ def can also be used to rename functions
 syntax: "let name = value"
 
 where Element
-name = atom   
+name = atom
 x = 3
 
 OR
 
 where Sequence
-name = <atom,...,atom>   
+name = <atom,...,atom>
 s = <1,2,3>
 
 //----------------------------------------
@@ -83,14 +83,14 @@ syntax: "run"
 
 //----------------------------------------
 
-* print == print a newline, string, or variable. use "$" prepended to variable name 
+* print == print a newline, string, or variable. use "$" prepended to variable name
 
 syntax: "print x"
 
 eg:
 
 >>> print
-<<< 
+<<<
 
 >>> print this is a string
 <<< this is a string

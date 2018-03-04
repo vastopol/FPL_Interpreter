@@ -2,9 +2,8 @@ FP_REPL Interaction Primer
 The "comprehensive" guide to syntax.
 //-----------------------------------
 
-
 LANGUAGE COMPONENTS
-///*****************************************
+///****************************************************************************
 
 elements: x
 sequences: <x1,...,xn>
@@ -13,14 +12,14 @@ sequences are collections of elements
 
 () = used for separation
 
-///******************************************
+///****************************************************************************
 
 
 PRIMITVE OPERATIONS
-///******************************************
+///****************************************************************************
 
 application  "F:x"
-    
+
     where   function F applied to value x
 ------------------------------------------------
 
@@ -29,31 +28,10 @@ composition   "F.G"
     where   (F.G):x = F:(G:x)
 ------------------------------------------------
 
-apply-to-all  (FIXME)
-    "@"  
-    
-    where   @F:<x1,...,xn>  =  <F:x1,...,F:xn>
-------------------------------------------------
+///****************************************************************************
 
-construction combining form (FIXME)
-    "[F1,F2,...,Fn]"
-    
-    where   [F1,F2,...,Fn]:x  =  <F1:x,...,Fn:x>
-------------------------------------------------
-           
-conditial branch  (FIXME)
-    "(H -> F,G)" 
-    
-    where   (H -> F,G):x   
-             =  F:x   if   H:x  =  True
-             =  G:x   if   H:x  =  False
-             =  undefined  otherwise
-
-///*****************************************
-
-
-ELEMENT OPERATIONS (add & multiply are symbols all else are LABELS)
-///*****************************************
+ELEMENT OPERATIONS
+///****************************************************************************
 
 - NEG == negate, take opposite sign of number
 - ABS == take absolute value of number
@@ -63,33 +41,33 @@ ELEMENT OPERATIONS (add & multiply are symbols all else are LABELS)
 - CUBE == third power
 - SQRT == square root
 
-///*****************************************
-
+///****************************************************************************
 
 SEQUENCE OPERATIONS
-///*****************************************
-  
-RETURN TYPE (ELEMENT)  
+///****************************************************************************
+
+RETURN TYPE (ELEMENT)
 - SIZE  == number of elements in list
 - HEAD  == first element of sequence
 - LMAX  == maximum value in sequence
 - LMIN  == minimum value in sequence
+- SUM   == add the elements of a sequence together
+- PROD  == multiply the elements of a sequence together
 
 RETURN TYPE (SEQUENCE)
 - TAIL  == sequence from second to end
 - ROTR  == rotate sequence elements to the right
-- ROTL  == rotate sequence elements to the left 
+- ROTL  == rotate sequence elements to the left
 - REV   == reverse the order of a sequence
 - POPL  == pop element from left of sequence
 - POPR  == pop element from right of sequence
 - SORT  == sort sequence into ascending order
 - RMDUP == remove duplicates, preserves order
 
-///*****************************************
-
+///****************************************************************************
 
 GUIDELINES ON PROGRAMMING
-///***************************************************
+///****************************************************************************
 
 - Functions should be written in Uppercase letters
 - Variable names should only contain Lowercase letters
@@ -97,11 +75,11 @@ GUIDELINES ON PROGRAMMING
 - Avoid having multiple variables defined as same value
 - Use def to create and label new function compositions
 
-///***************************************************
+///****************************************************************************
 
 
 APPLICATION EXAMPLES
-///***************************************************
+///****************************************************************************
 
 >>>  def LAST = HEAD.REV    # returns last element
 
@@ -125,8 +103,8 @@ APPLICATION EXAMPLES
      NEG:(HEAD:<1,2,3,4,5,6,7,8,9>)
      NEG:1
 <<<  -1
-  
-///***************************************************
+
+///****************************************************************************
 
 
 F:x
