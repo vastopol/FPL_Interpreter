@@ -126,6 +126,16 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
 
         gentree(s.substr(8,s.size()-1), m);
     }
+    else if(s.substr(0,1) == "!") // execute a command with the system() "not to be included into docs"
+    {
+        if(s.find(" ") != 1) // location of first space
+        { std::cout << "ERROR1: Syntax\n"; return; }
+
+        std::cout << "CALL SYSTEM" << std::endl;
+        int i = system( s.substr(1,s.size()-1).c_str() );
+        std::cout << "RETURN SYSTEM" << std::endl;
+        std::cout << "EXIT STATUS: " << i << std::endl;
+    }
     else
     {
         eval(s,m);
@@ -140,24 +150,24 @@ void help()
 {
     std::cout << std::endl;
     std::cout << "GENERAL:" << std::endl;
-    std::cout << "Enter system commands OR evaluate expressions." << std::endl;
+    std::cout << "Enter commands OR evaluate expressions." << std::endl;
     std::cout << std::endl;
 
-    std::cout << "SYSTEM COMMANDS:" << std::endl;
-    std::cout << "help" << " == " << "display help prompt" << std::endl;
-    std::cout << "clear" << " == " << "clear the screen contents" << std::endl;
-    std::cout << "exit" << " == " << "quit program" << std::endl;
-    std::cout << "def" << " == " << "define function macro" << std::endl;
-    std::cout << "let" << " == " << "create variable" << std::endl;
-    std::cout << "set" << " == " << "set a variable to an expression value" << std::endl;
-    std::cout << "rm" << " == " << "remove an entry from memory" << std::endl;
-    std::cout << "dump" << " == " << "empty all memory" << std::endl;
+    std::cout << "COMMANDS:" << std::endl;
+    std::cout << "help" << "    == " << "display help prompt" << std::endl;
+    std::cout << "clear" << "   == " << "clear the screen contents" << std::endl;
+    std::cout << "exit" << "    == " << "quit program" << std::endl;
+    std::cout << "def" << "     == " << "define function macro" << std::endl;
+    std::cout << "let" << "     == " << "create variable" << std::endl;
+    std::cout << "set" << "     == " << "set a variable to an expression value" << std::endl;
+    std::cout << "rm" << "      == " << "remove an entry from memory" << std::endl;
+    std::cout << "dump" << "    == " << "empty all memory" << std::endl;
     std::cout << "bufdump" << " == " << "empty all buffer content" << std::endl;
-    std::cout << "ls" << " == " << "list all memory" << std::endl;
-    std::cout << "bufls" << " == " << "list all buffer content" << std::endl;
-    std::cout << "load" << " == " << "load script to memory buffer" << std::endl;
-    std::cout << "run" << " == " << "execute content of memory buffer" << std::endl;
-    std::cout << "print" << " == " << "print a string, ends on newline, use $ for variables" << std::endl;
+    std::cout << "ls" << "      == " << "list all memory" << std::endl;
+    std::cout << "bufls" << "   == " << "list all buffer content" << std::endl;
+    std::cout << "load" << "    == " << "load script to memory buffer" << std::endl;
+    std::cout << "run" << "     == " << "execute content of memory buffer" << std::endl;
+    std::cout << "print" << "   == " << "print a string, ends on newline, use $ for variables" << std::endl;
     std::cout << "gentree" << " == " << "parses an expression, generates the AST using graphviz" << std::endl;
     std::cout << std::endl;
 }
