@@ -11,43 +11,43 @@ dump
 # part 1 -> instantaneous
 #-----------------------------------
 
-INC:-1
-INC:0
-INC:1
+inc:-1
+inc:0
+inc:1
 
-INC.INC:0
+inc.inc:0
 
-DEC:-1
-DEC:0
-DEC:1
+dec:-1
+dec:0
+dec:1
 
-DEC.DEC:0
+dec.dec:0
 
-NEG:-1
-NEG:0
-NEG:1
+neg:-1
+neg:0
+neg:1
 
-NEG.NEG:1
-NEG.NEG:-1
+neg.neg:1
+neg.neg:-1
 
-ROTL:<1,2,3,4,5>
-ROTL.ROTL:<1,2,3,4,5>
+rotl:<1,2,3,4,5>
+rotl.rotl:<1,2,3,4,5>
 
-ROTR:<1,2,3,4,5>
-ROTR.ROTR:<1,2,3,4,5>
+rotr:<1,2,3,4,5>
+rotr.rotr:<1,2,3,4,5>
 
-POPL:<1,2,3,4,5>
-POPL.POPL:<1,2,3,4,5>
-POPL.POPL.POPL:<1,2,3,4,5>
+popl:<1,2,3,4,5>
+popl.popl:<1,2,3,4,5>
+popl.popl.popl:<1,2,3,4,5>
 
-POPR:<1,2,3,4,5>
-POPR.POPR:<1,2,3,4,5>
-POPR.POPR.POPR:<1,2,3,4,5>
+popr:<1,2,3,4,5>
+popr.popr:<1,2,3,4,5>
+popr.popr.popr:<1,2,3,4,5>
 
-REV:<1,2,3,4,5>
-REV.REV:<1,2,3,4,5>
+rev:<1,2,3,4,5>
+rev.rev:<1,2,3,4,5>
 
-SORT:<2,6,1,99,4,66,2,0,77,5,6,4,23,54>
+sort:<2,6,1,99,4,66,2,0,77,5,6,4,23,54>
 
 
 #==========================================================================
@@ -57,12 +57,12 @@ SORT:<2,6,1,99,4,66,2,0,77,5,6,4,23,54>
 #-----------------------------------
 
 # function definitions (none of these functions do anything useful)
-def NO_REV = REV.REV
-def NO_ROTO1 = ROTL.ROTR
-def NO_ROTO2 = ROTR.ROTL
-def NO_ADD = DEC.INC
-def NO_SUB = INC.DEC
-def NO_NEG = NEG.NEG
+def NO_rev = rev.rev
+def NO_ROTO1 = rotl.rotr
+def NO_ROTO2 = rotr.rotl
+def NO_ADD = dec.inc
+def NO_SUB = inc.dec
+def NO_neg = neg.neg
 
 # create variables
 let a = -1

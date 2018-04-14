@@ -33,13 +33,19 @@ composition   "F.G"
 ELEMENT OPERATIONS
 ///****************************************************************************
 
-- NEG == negate, take opposite sign of number
-- ABS == take absolute value of number
-- INC == increment (plus 1)
-- DEC == decrement (minus 1)
-- SQUARE == second power
-- CUBE == third power
-- SQRT == square root
+RETURN TYPE (ELEMENT)
+- neg == negate, take opposite sign of number
+- abs == take absolute value of number
+- inc == increment (plus 1)
+- dec == decrement (minus 1)
+- square == second power
+- cube == third power
+- sqrt == square root
+
+RETURN TYPE (SEQUENCE)
+- genlist == list from 1 to n
+- ones    == list of n ones
+- zeros   == list of n zeros
 
 ///****************************************************************************
 
@@ -47,22 +53,22 @@ SEQUENCE OPERATIONS
 ///****************************************************************************
 
 RETURN TYPE (ELEMENT)
-- SIZE  == number of elements in list
-- HEAD  == first element of sequence
-- LMAX  == maximum value in sequence
-- LMIN  == minimum value in sequence
-- SUM   == add the elements of a sequence together
-- PROD  == multiply the elements of a sequence together
+- size  == number of elements in list
+- head  == first element of sequence
+- lmax  == maximum value in sequence
+- lmin  == minimum value in sequence
+- sum   == add the elements of a sequence together
+- prod  == multiply the elements of a sequence together
 
 RETURN TYPE (SEQUENCE)
-- TAIL  == sequence from second to end
-- ROTR  == rotate sequence elements to the right
-- ROTL  == rotate sequence elements to the left
-- REV   == reverse the order of a sequence
-- POPL  == pop element from left of sequence
-- POPR  == pop element from right of sequence
-- SORT  == sort sequence into ascending order
-- RMDUP == remove duplicates, preserves order
+- tail  == sequence from second to end
+- rotl  == rotate sequence elements to the left
+- rotr  == rotate sequence elements to the right
+- popl  == pop element from left of sequence
+- popr  == pop element from right of sequence
+- rev   == reverse the order of a sequence
+- sort  == sort sequence into ascending order
+- rmdup == remove duplicates, preserves order
 
 ///****************************************************************************
 
@@ -81,27 +87,29 @@ GUIDELINES ON PROGRAMMING
 APPLICATION EXAMPLES
 ///****************************************************************************
 
->>>  def LAST = HEAD.REV    # returns last element
+>>>  def last = head.rev    # returns last element
 
->>>  def G = ROTL.POPL
+>>>  def g = rotl.popl
 
 >>>  let x = <1,2,3,4>
 
->>>  G:x
-     ROTL.POPL:<1,2,3,4>
-     ROTL:(POPL:<1,2,3,4>)
-     ROTL:<2,3,4>
+>>>  g:x
+     rotl.popl:<1,2,3,4>
+     rotl:(popl:<1,2,3,4>)
+     rotl:<2,3,4>
 <<<  <3,4,2>
 
 ------------------------------------------------
 
+>>> def second = head.tail
+
 >>>  let lst = <0,1,2,3,4,5,6,7,8,9>
 
->>>  NEG.SECOND:lst
-     NEG.HEAD.TAIL:<0,1,2,3,4,5,6,7,8,9>
-     NEG:(HEAD:(TAIL:<0,1,2,3,4,5,6,7,8,9>))
-     NEG:(HEAD:<1,2,3,4,5,6,7,8,9>)
-     NEG:1
+>>>  neg.second:lst
+     neg.head.tail:<0,1,2,3,4,5,6,7,8,9>
+     neg:(head:(tail:<0,1,2,3,4,5,6,7,8,9>))
+     neg:(head:<1,2,3,4,5,6,7,8,9>)
+     neg:1
 <<<  -1
 
 ///****************************************************************************

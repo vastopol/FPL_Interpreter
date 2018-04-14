@@ -48,12 +48,12 @@ ls
 print Creating Functions
 
 # define functions
-def ADD2 = INC.INC
-def ADD3 = INC.INC.INC
-def ADD4 = INC.INC.INC.INC
-def SUB2 = DEC.DEC
-def SUB3 = DEC.DEC.DEC
-def SUB4 = DEC.DEC.DEC.DEC
+def ADD2 = inc.inc
+def ADD3 = inc.inc.inc
+def ADD4 = inc.inc.inc.inc
+def SUB2 = dec.dec
+def SUB3 = dec.dec.dec
+def SUB4 = dec.dec.dec.dec
 
 ls
 
@@ -126,13 +126,13 @@ let z = <1,4,9,16,25>
 
 ls
 
-print setting x to INC.INC.HEAD:<1,2>
-set x = INC.INC.HEAD:<1,2>
+print setting x to inc.inc.head:<1,2>
+set x = inc.inc.head:<1,2>
 
 ls
 
-print setting y to NEG.HEAD.REV.ROTL.ROTL:<5,6,7,8,9,0>
-set y = NEG.HEAD.REV.ROTL.ROTL:<5,6,7,8,9,0>
+print setting y to neg.head.rev.rotl.rotl:<5,6,7,8,9,0>
+set y = neg.head.rev.rotl.rotl:<5,6,7,8,9,0>
 
 ls
 

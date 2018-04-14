@@ -21,26 +21,30 @@ Notes on the REPL
   - gentree
 
 * inner interpreter:
-  - NEG
-  - ABS
-  - INC
-  - DEC
-  - SQUARE
-  - CUBE
-  - SQRT
+  - neg
+  - abs
+  - inc
+  - dec
+  - square
+  - cube
+  - sqrt
 
-  - SIZE
-  - HEAD
-  - LMAX
-  - LMIN
-  - SUM
-  - PROD
+  - genlist
+  - ones
+  - zeros
 
-  - TAIL
-  - ROTR
-  - ROTL
-  - REV
-  - POPL
-  - POPR
-  - SORT
-  - RMDUP
+  - size
+  - head
+  - lmax
+  - lmin
+  - sum
+  - prod
+
+  - tail
+  - rotl
+  - rotr
+  - popl
+  - popr
+  - rev
+  - sort
+  - rmdup

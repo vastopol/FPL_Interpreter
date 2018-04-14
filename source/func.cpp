@@ -61,7 +61,7 @@ int (*Unary_E_R_E[])(int) // unary element return element
 };
 
 
-std::list<int> (*Unary_E_R_S[])(int) // unary element return element
+std::list<int> (*Unary_E_R_S[])(int) // unary element return sequence
 {
     &genlist,
     &ones,

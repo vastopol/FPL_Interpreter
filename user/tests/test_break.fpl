@@ -16,37 +16,37 @@ print This file should cause errors
 
 # apply element function to sequence
 
-INC:<>
-INC:<1>
-INC:<1,2>
+inc:<>
+inc:<1>
+inc:<1,2>
 
-DEC:<>
-DEC:<1>
-DEC:<1,2>
+dec:<>
+dec:<1>
+dec:<1,2>
 
-NEG:<>
-NEG:<1>
-NEG:<1,2>
+neg:<>
+neg:<1>
+neg:<1,2>
 
-ABS:<>
-ABS:<1>
-ABS:<1,2>
+abs:<>
+abs:<1>
+abs:<1,2>
 
 #--------------------------------------
 
 # apply sequence function to an element
 
-ROTL:0
+rotl:0
 
-ROTR:0
+rotr:0
 
-REV:0
+rev:0
 
-SORT:0
+sort:0
 
-POPL:0
+popl:0
 
-POPR:0
+popr:0
 
 #--------------------------------------
 
@@ -60,9 +60,9 @@ WERP:<>
 
 SERP.DERP.QWERP:<1,2,3>
 
-INC:x
+inc:x
 
-DEC.INC:y
+dec.inc:y
 
 RMDUP:www
 
@@ -74,16 +74,16 @@ TASD.FGHE:rtyu
 
 # functions no variables, combos of : && .
 
-INC:DEC
+inc:dec
 
-SQUARE:CUBE
+square:cube
 
-REV:SQRT:POPL:SORT
+rev:SQRT:popl:sort
 
-ABS.NEG:POPR.ROTL
+abs.neg:popr.rotl
 
-POPL:RMDUP.LMAX:LMIN
+popl:RMDUP.lmax:lmin
 
-INC.INC.INC.INC
+inc.inc.inc.inc
 
 #--------------------------------------

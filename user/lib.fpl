@@ -7,13 +7,13 @@
 
 # ELEMENTS
 #------------------------------------------
-let ZERO = 0
-let ONE = 1
+let zero = 0
+let one = 1
 #------------------------------------------
 
 # SEQUENCES
 #------------------------------------------
-let NIL = <>    # the empty list
+let nil = <>    # the empty list
 #------------------------------------------
 
 #====================================================================
@@ -24,27 +24,27 @@ let NIL = <>    # the empty list
 
 # ELEMENT FUNCTIONS
 #------------------------------------------
-def -- = DEC    			   # c style decrement
-def ++ = INC    			   # c style increment
-def +2 = INC.INC			   # increment by two
-def SAFE_SQRT = SQRT.ABS	   # prevent passing negative number to SQRT
-def QUARTIC = SQUARE.SQUARE	   # raise to fourth power
+def -- = dec    			         # c style decrement
+def ++ = inc    			         # c style increment
+def +2 = inc.inc			         # increment by two
+def safe_sqrt = sqrt.abs	     # prevent passing negative number to sqrt
+def quartic = square.square	   # raise to fourth power
+def fact = prod.genlist        # factorial n! 
 #------------------------------------------
 
 # SEQUENCE FUNCTIONS
 #------------------------------------------
-def CAR = HEAD
-def CDR = TAIL
-def CADR = HEAD.TAIL
-def CDDR = TAIL.TAIL
-def CADDR = HEAD.TAIL.TAIL
-def CDDDR = TAIL.TAIL.TAIL
-def SECOND = HEAD.TAIL         # return second element, (size >= 2)
-def LAST = HEAD.REV            # return last element
-def MIN_L = HEAD.SORT          # return minimum element of sequence
-def MAX_L = HEAD.REV.SORT      # return maximum element of sequence
-def SORTED_SET = SORT.RMDUP    # return unique sequence in ascending order
+def car = head
+def cdr = tail
+def cadr = head.tail
+def cddr = tail.tail
+def caddr = head.tail.tail
+def cdddr = tail.tail.tail
+def second = head.tail         # return second element, (size >= 2)
+def last = head.rev            # return last element
+def min_l = head.sort          # return minimum element of sequence
+def max_l = head.rev.sort      # return maximum element of sequence
+def sorted_set = sort.rmdup    # return unique sequence in ascending order
 #------------------------------------------
 
 #====================================================================
-
