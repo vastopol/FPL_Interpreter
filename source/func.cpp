@@ -6,35 +6,35 @@
 
 std::map<std::string, int> U_E
 {
-    {"NEG",F_NEG},
-    {"ABS",F_ABS},
-    {"INC",F_INC},
-    {"DEC",F_DEC},
-    {"SQUARE",F_SQUARE},
-    {"CUBE",F_CUBE},
-    {"SQRT",F_SQRT}
+    {"neg",F_NEG},
+    {"abs",F_ABS},
+    {"inc",F_INC},
+    {"dec",F_DEC},
+    {"square",F_SQUARE},
+    {"cube",F_CUBE},
+    {"sqrt",F_SQRT}
 };
 
 std::map<std::string, int> U_S_R_E
 {
-    {"SIZE",F_SIZE},
-    {"HEAD",F_HEAD},
-    {"LMAX",F_LMAX},
-    {"LMIN",F_LMIN},
-    {"SUM",F_SUM},
-    {"PROD",F_PROD}
+    {"size",F_SIZE},
+    {"head",F_HEAD},
+    {"lmax",F_LMAX},
+    {"lmin",F_LMIN},
+    {"sum",F_SUM},
+    {"prod",F_PROD}
 };
 
 std::map<std::string, int> U_S_R_S
 {
-    {"TAIL",F_TAIL},
-    {"ROTL",F_ROTL},
-    {"ROTR",F_ROTR},
-    {"POPL",F_POPL},
-    {"POPR",F_POPR},
-    {"REV",F_REV},
-    {"SORT",F_SORT},
-    {"RMDUP",F_RMDUP}
+    {"tail",F_TAIL},
+    {"rotl",F_ROTL},
+    {"rotr",F_ROTR},
+    {"popl",F_POPL},
+    {"popr",F_POPR},
+    {"rev",F_REV},
+    {"sort",F_SORT},
+    {"rmdup",F_RMDUP}
 };
 
 //===============================================================
