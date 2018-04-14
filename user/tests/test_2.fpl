@@ -78,7 +78,7 @@ let z = <1,2,2,3,3,3,4,4,4,4>
 ls
 
 # expression evaluation
-SIZE:z       # 10
+size:z       # 10
 NO_ROTO1:x   # <1,2,3,4,5>
 NO_ROTO2:y   # <-2,-1,0,1,2>
 

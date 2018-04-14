@@ -64,7 +64,7 @@ inc:x
 
 dec.inc:y
 
-RMDUP:www
+rmdup:www
 
 BLURP:op
 
@@ -78,11 +78,11 @@ inc:dec
 
 square:cube
 
-rev:SQRT:popl:sort
+rev:sqrt:popl:sort
 
 abs.neg:popr.rotl
 
-popl:RMDUP.lmax:lmin
+popl:rmdup.lmax:lmin
 
 inc.inc.inc.inc
 
