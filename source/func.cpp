@@ -4,7 +4,7 @@
 // Map names to position in jump tables
 //===============================================================
 
-std::map<std::string, int> U_E
+std::map<std::string, int> U_E_R_E
 {
     {"neg",F_NEG},
     {"abs",F_ABS},
@@ -13,6 +13,13 @@ std::map<std::string, int> U_E
     {"square",F_SQUARE},
     {"cube",F_CUBE},
     {"sqrt",F_SQRT}
+};
+
+std::map<std::string, int> U_E_R_S
+{
+    {"genlist",F_GENLIST},
+    {"ones",F_ONES},
+    {"zeros",F_ZEROS}
 };
 
 std::map<std::string, int> U_S_R_E
@@ -41,7 +48,7 @@ std::map<std::string, int> U_S_R_S
 // fill jump tables
 //===============================================================
 
-int (*Unary_E[])(int) // unary element return element
+int (*Unary_E_R_E[])(int) // unary element return element
 {
     &neg,
     &abs,
@@ -50,6 +57,15 @@ int (*Unary_E[])(int) // unary element return element
     &square,
     &cube,
     &sqroot
+    /* ... */
+};
+
+
+std::list<int> (*Unary_E_R_S[])(int) // unary element return element
+{
+    &genlist,
+    &ones,
+    &zeros
     /* ... */
 };
 
@@ -80,7 +96,6 @@ std::list<int> (*Unary_S_R_S[])(std::list<int>) // unary sequence returns sequen
 //===============================================================
 // Unary Element Returns Element
 //===============================================================
-
 
 int neg(int x) // x = -x
 {
@@ -134,9 +149,66 @@ int sqroot(int x) // x = sqrt(x)
 //---------------------------
 
 //===============================================================
-// Unary Sequence Returns Element
+// Unary Element Returns Sequence
 //===============================================================
 
+std::list<int> genlist(int x)
+{
+    std::list<int> l;
+
+    if(x <= 0)
+    {
+      return l;
+    }
+
+    for(int i = 1; i <= x; i++)
+    {
+        l.push_back(i);
+    }
+
+    return l;
+}
+//---------------------------
+
+std::list<int> ones(int x)
+{
+    std::list<int> l;
+
+    if(x <= 0)
+    {
+      return l;
+    }
+
+    for(int i = 1; i <= x; i++)
+    {
+        l.push_back(1);
+    }
+
+    return l;
+}
+//---------------------------
+
+std::list<int> zeros(int x)
+{
+    std::list<int> l;
+
+    if(x <= 0)
+    {
+      return l;
+    }
+
+    for(int i = 1; i <= x; i++)
+    {
+        l.push_back(0);
+    }
+
+    return l;
+}
+//---------------------------
+
+//===============================================================
+// Unary Sequence Returns Element
+//===============================================================
 
 int size(std::list<int> l)
 {

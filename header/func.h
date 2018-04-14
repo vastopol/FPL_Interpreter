@@ -19,6 +19,11 @@
 #define F_CUBE 5
 #define F_SQRT 6
 
+// int -> list
+#define F_GENLIST 0
+#define F_ONES    1
+#define F_ZEROS   2
+
 // list -> int
 #define F_SIZE 0
 #define F_HEAD 1
@@ -39,18 +44,20 @@
 
 // mapping of function names to opcodes**********
 // map strings to integer index
-extern std::map<std::string, int> U_E;     // functions of type: int f(int)
+extern std::map<std::string, int> U_E_R_E; // functions of type: int f(int)
+extern std::map<std::string, int> U_E_R_S; // functions of type: list<int> f(int)
 extern std::map<std::string, int> U_S_R_E; // functions of type: int f(list<int>)
 extern std::map<std::string, int> U_S_R_S; // functions of type: list<int> f(list<int>)
 //-------------------------------------------------------------------------------
 
 // different jump tables by function type
-extern int (*Unary_E[])(int);
+extern int (*Unary_E_R_E[])(int);
+extern std::list<int> (*Unary_E_R_S[])(int);
 extern int (*Unary_S_R_E[])(std::list<int>);
 extern std::list<int> (*Unary_S_R_S[])(std::list<int>);
 //-------------------------------------------------------------------------------
 
-// unary functions to operate on elements
+// unary functions to operate on ELEMENT
 // returns an ELEMENT
 int neg(int x);    // x = -x
 int abs(int x);    // x = |x|
@@ -61,7 +68,14 @@ int cube(int x);   // x = x*x*x
 int sqroot(int x); // x = sqrt(x)
 //-------------------------------------------------------------------------------
 
-// unary functions to operate on lists
+// unary functions to operate on ELEMENT
+// returns a LIST
+std::list<int> genlist(int x);
+std::list<int> ones(int x);
+std::list<int> zeros(int x);
+//-------------------------------------------------------------------------------
+
+// unary functions to operate on LIST
 // returns an ELEMENT
 int size(std::list<int> l);
 int head(std::list<int> l);
@@ -71,7 +85,7 @@ int sum(std::list<int> l);
 int prod(std::list<int> l);
 //-------------------------------------------------------------------------------
 
-// unary functions to operate on lists
+// unary functions to operate on LIST
 // returns a LIST
 std::list<int> tail(std::list<int> l);
 std::list<int> rotl(std::list<int> l);
@@ -89,7 +103,8 @@ std::list<int> rmdup(std::list<int> l);
 /*
 
 Names of function maps:
-- U_E = takes element, returns an element
+- U_E_R_E = takes element, returns an element
+- U_E_R_S = takes element, returns an sequence
 - U_S_R_E = takes sequence, returns element
 - U_S_R_S = takes sequence, returns sequence
 
@@ -97,8 +112,10 @@ Names of function maps:
 
 /*
 
-function groups ny argument type:
+function groups by argument type:
 - Unary_E
+  - return Element
+  - return Sequence
 - Unary_S
    - return Element
    - return Sequence

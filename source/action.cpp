@@ -7,7 +7,7 @@ Action::Action()
 
 Action::~Action()
 {
-    //   std::cout << "ACTION DESTRUCTOR" << std::endl;  
+    //   std::cout << "ACTION DESTRUCTOR" << std::endl;
 }
 //--------------------------------------------------------------
 
@@ -34,17 +34,17 @@ Object* Action::exec(Node* n) // tree traversal
     	arg = exec(n->getRight());
 
         if(arg == 0) // if(arg != 0){ arg->print(); std::cout << std::endl; }
-        { 
+        {
             std::cout << "ERROR: NULL ARG" << std::endl;
             throw std::runtime_error("exec() : NULL arg"); // return 0;
         }
-    	
+
         // n->getKey()->print(); // print ':'
 
     	fun = exec(n->getLeft());
 
         if(fun == 0) // if(fun != 0){ fun->print(); std::cout << std::endl; }
-        { 
+        {
             std::cout << "ERROR: NULL FUNCT" << std::endl;
             throw std::runtime_error("exec() : NULL function"); // return 0;
         }
@@ -56,7 +56,7 @@ Object* Action::exec(Node* n) // tree traversal
     }
 
     throw std::runtime_error("exec() : ERROR : ERROR"); // return 0;
-}    
+}
 //--------------------------------------------------------------
 
 Object* Action::apply(Object* fun, Object* arg) // function execute
@@ -64,7 +64,7 @@ Object* Action::apply(Object* fun, Object* arg) // function execute
     // std::cout << "doing" << std::endl;
 
     if(fun == 0 || arg == 0) // error checking null pointers
-    { 
+    {
         std::cout << "INPUT ERROR: (FUNCT || ELM) == NULL" << std::endl;
         throw std::runtime_error("apply() : (FUNCT || ELM) == NULL"); // return 0;
     }
@@ -75,16 +75,26 @@ Object* Action::apply(Object* fun, Object* arg) // function execute
 
     // type conversion of Object*
     if(arg->type() == "Element")
-    {  
-        if(U_E.find(tag) == U_E.end())
+    {
+
+        if(U_E_R_S.find(tag) != U_E_R_S.end()) // function returning a sequence
+        {
+          op = U_E_R_S[tag];
+          Element* el = static_cast<Element*>(arg);
+          std::list<int> l = (*Unary_E_R_S[op])(el->getElement());
+          ret = new Sequence(l);
+          return ret;
+        }
+
+        if(U_E_R_E.find(tag) == U_E_R_E.end())
         {
             std::cout << "ERROR: INVALID FUNCT ELM: " << tag << std::endl;
             throw std::runtime_error("apply() : INVALID FUNCT ELM"); // return 0;
         }
 
-        op = U_E[tag];
+        op = U_E_R_E[tag];
         Element* el = static_cast<Element*>(arg);
-        int x = (*Unary_E[op])(el->getElement());
+        int x = (*Unary_E_R_E[op])(el->getElement());
         ret = new Element(x);
         return ret;
     }
