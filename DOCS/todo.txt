@@ -1,21 +1,45 @@
 TODO - Unfinished works
 -------------------------
 
-* PRIMITIVE LANGUAGE OPERATIONS (not implemented yet)
+Possible future editions (tentative)
 
-apply-to-all
+* 2.0
+  * syntax change
+  * binary operations
+
+-------------------------
+
+* 3.0
+  * For_each/mapping "@"
+
+-------------------------
+
+* 4.0
+  * construction combining form "[]"
+
+-------------------------
+
+* 5.0
+  * Conditional branching
+-------------------------
+
+=======================================================================
+
+PRIMITIVE LANGUAGE OPERATIONS (not implemented yet)
+
+* apply-to-all
     "@"
 
     where   @F:<x1,...,xn>  =  <F:x1,...,F:xn>
 ------------------------------------------------
 
-construction combining form
+* construction combining form
     "[F1,F2,...,Fn]"
 
     where   [F1,F2,...,Fn]:x  =  <F1:x,...,Fn:x>
 ------------------------------------------------
 
-conditial branch
+* conditial branch
     "(H -> F,G)"
 
     where   (H -> F,G):x
@@ -58,16 +82,7 @@ F:{ G:{x} ; H:{y} }
 
 //---------------------------------------------
 
-MAYBE...
-* possibly add a write function
-write_ln()
-this should write one line of text to the execution buffer -> Syscom
-
-
 =======================================================================
-
-
-//---------------------------------------------
 
 possible logic functions
 

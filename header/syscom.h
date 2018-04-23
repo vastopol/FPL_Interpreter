@@ -9,7 +9,7 @@
 #include <fstream>
 #include <iterator>
 #include <string>
-#include <stack> 
+#include <stack>
 #include <queue>
 #include <list>
 
@@ -23,7 +23,7 @@ class Element;
 class Sequence;
 class Function;
 
-void process(std::string s, Memory* m);   // psudeo preprocessor  
+void process(std::string s, Memory* m);   // psudeo preprocessor
 
 void com(std::string s, Memory* m);       // branch statement to choose syscom || parse.
 
@@ -33,7 +33,7 @@ void def(std::string s, Memory* m);       // create function macro, mapping name
 
 void let(std::string s, Memory* m);       // variable creaton, mapping name to value
 
-void set(std::string s, Memory* m);		  // set a variable to the return value of a parsed expression; set x = expr
+void set(std::string s, Memory* m);		    // set a variable to the return value of a parsed expression; set x = expr
 
 void rem(std::string s, Memory* m);       // remove var if found
 
@@ -53,7 +53,7 @@ void run(Memory* m);                      // execute contents of memory buffer i
 
 void gentree(std::string s, Memory* m);   // parse expression and generate a visual of the AST with system call to Graphviz
 
-void eval(std::string s, Memory* m);      // evaluate an expression             
+void eval(std::string s, Memory* m);      // evaluate an expression
 
 std::string trimSpace(std::string s);     // removes any (leading || trailing) whitespace characters (for INTERPRETER)
 

@@ -109,6 +109,14 @@ expr is any valid fpl expression returning an element or sequence.
 prints expr in prefix, infix, && postfix then generates 2 files.
 output.dot is used by the program dot to produce the output.jpg file.
 
+//----------------------------------------
+
+* ! = execute a command by passing a string to the os with system()
+
+syntax: "! str"
+
+WARNING: this can easily be abused or cause bad things to happen
+
 ///*********************************************
 
 

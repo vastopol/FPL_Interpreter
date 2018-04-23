@@ -1,5 +1,4 @@
 Version Descriptions
-(tentative)
 --------------------
 
 * 1.0
@@ -11,21 +10,10 @@ Version Descriptions
 
 --------------------
 
-* 2.0
-  * syntax change
-  * binary operations
+* 1.1
+  * all primitive functions && commands lowercase
+  * added new function type: int -> list
+  * added more functions: 24 total (10 Element) (14 sequence)
+  * refactorization of code structure
 
 --------------------
-
-* 3.0
-  * For_each/mapping "@"
-
---------------------
-
-* 4.0
-  * construction combining form "[]"
-
---------------------
-
-* 5.0
-  * Conditional branching

@@ -2,6 +2,7 @@ FP_REPL Interaction Primer
 The "comprehensive" guide to syntax.
 //-----------------------------------
 
+
 LANGUAGE COMPONENTS
 ///****************************************************************************
 
@@ -30,6 +31,7 @@ composition   "F.G"
 
 ///****************************************************************************
 
+
 ELEMENT OPERATIONS
 ///****************************************************************************
 
@@ -48,6 +50,7 @@ RETURN TYPE (SEQUENCE)
 - zeros   == list of n zeros
 
 ///****************************************************************************
+
 
 SEQUENCE OPERATIONS
 ///****************************************************************************
@@ -72,14 +75,14 @@ RETURN TYPE (SEQUENCE)
 
 ///****************************************************************************
 
+
 GUIDELINES ON PROGRAMMING
 ///****************************************************************************
 
-- Functions should be written in Uppercase letters
-- Variable names should only contain Lowercase letters
-- Each new function or variable should have a unique name
-- Avoid having multiple variables defined as same value
+- Use let to create and label variables
 - Use def to create and label new function compositions
+- Each new function or variable should have a unique name
+- Avoid having multiple variables of different types with same name
 
 ///****************************************************************************
 
