@@ -41,7 +41,12 @@ std::map<std::string, int> U_S_R_S
     {"popr",F_POPR},
     {"rev",F_REV},
     {"sort",F_SORT},
-    {"rmdup",F_RMDUP}
+    {"rmdup",F_RMDUP},
+    {"+",F_ADD},
+    {"-",F_SUB},
+    {"*",F_MUL},
+    {"/",F_DIV},
+    {"%",F_MOD}
 };
 
 //===============================================================
@@ -89,7 +94,12 @@ std::list<int> (*Unary_S_R_S[])(std::list<int>) // unary sequence returns sequen
     &popr,
     &rev,
     &sort,
-    &rmdup
+    &rmdup,
+    &add,
+    &sub,
+    &mul,
+    &div,
+    &mod
     /* ... */
 };
 
@@ -433,5 +443,105 @@ std::list<int> rmdup(std::list<int> seq)
     }
 
     return lst;
+}
+//---------------------------
+
+std::list<int> add(std::list<int> l)
+{
+    if( l.empty() || l.size() < 2 )
+    {
+        return l;
+    }
+
+    int a = l.front();
+    l.pop_front();
+
+    int b = l.front();
+    l.pop_front();
+
+    int c = a + b;
+    l.push_front(c);
+
+    return l;
+}
+//---------------------------
+
+std::list<int> sub(std::list<int> l)
+{
+    if( l.empty() || l.size() < 2 )
+    {
+        return l;
+    }
+
+    int a = l.front();
+    l.pop_front();
+
+    int b = l.front();
+    l.pop_front();
+
+    int c = a - b;
+    l.push_front(c);
+
+    return l;
+}
+//---------------------------
+
+std::list<int> mul(std::list<int> l)
+{
+    if( l.empty() || l.size() < 2 )
+    {
+        return l;
+    }
+
+    int a = l.front();
+    l.pop_front();
+
+    int b = l.front();
+    l.pop_front();
+
+    int c = a * b;
+    l.push_front(c);
+
+    return l;
+}
+//---------------------------
+
+std::list<int> div(std::list<int> l)
+{
+    if( l.empty() || l.size() < 2 )
+    {
+        return l;
+    }
+
+    int a = l.front();
+    l.pop_front();
+
+    int b = l.front();
+    l.pop_front();
+
+    int c = a / b;
+    l.push_front(c);
+
+    return l;
+}
+//---------------------------
+
+std::list<int> mod(std::list<int> l)
+{
+    if( l.empty() || l.size() < 2 )
+    {
+        return l;
+    }
+
+    int a = l.front();
+    l.pop_front();
+
+    int b = l.front();
+    l.pop_front();
+
+    int c = a % b;
+    l.push_front(c);
+
+    return l;
 }
 //---------------------------

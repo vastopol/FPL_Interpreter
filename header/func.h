@@ -41,6 +41,11 @@
 #define F_REV   5
 #define F_SORT  6
 #define F_RMDUP 7
+#define F_ADD   8   // '+'
+#define F_SUB   9   // '-'
+#define F_MUL   10  // '*'
+#define F_DIV   11  // '/'
+#define F_MOD   12  // '%'
 
 // mapping of function names to opcodes**********
 // map strings to integer index
@@ -95,6 +100,11 @@ std::list<int> popl(std::list<int> l);
 std::list<int> popr(std::list<int> l);
 std::list<int> sort(std::list<int> l);
 std::list<int> rmdup(std::list<int> l);
+std::list<int> add(std::list<int> l);
+std::list<int> sub(std::list<int> l);
+std::list<int> mul(std::list<int> l);
+std::list<int> div(std::list<int> l);
+std::list<int> mod(std::list<int> l);
 //-------------------------------------------------------------------------------
 
 

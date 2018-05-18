@@ -3,23 +3,10 @@ TODO - Unfinished works
 
 Possible future editions (tentative)
 
-* 2.0
-  * syntax change
-  * binary operations
-
--------------------------
-
-* 3.0
   * For_each/mapping "@"
 
--------------------------
-
-* 4.0
   * construction combining form "[]"
 
--------------------------
-
-* 5.0
   * Conditional branching
 -------------------------
 
@@ -51,7 +38,7 @@ PRIMITIVE LANGUAGE OPERATIONS (not implemented yet)
 
 =======================================================================
 
-VERSION 2.0
+VERSION 2.0 (MAYBE / MAYBE NOT)
 
 * add the {} environment part
 

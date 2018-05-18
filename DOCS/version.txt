@@ -13,7 +13,7 @@ Version Descriptions
 * 1.1
   * all primitive functions && commands lowercase
   * added new function type: int -> list
-  * added more functions: 24 total (10 Element) (14 sequence)
+  * added more functions
   * refactorization of code structure
 
 --------------------
