@@ -50,6 +50,10 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
     {
         help();
     }
+    else if(s == "fcts")
+    {
+        fcts();
+    }
     else if(s.substr(0,5) == "print")
     {
         print_ln(s,m);
@@ -126,7 +130,7 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
 
         gentree(s.substr(8,s.size()-1), m);
     }
-    else if(s.substr(0,1) == "!") // execute a command with the system() "not to be included into docs"
+    else if(s.substr(0,1) == "!") // execute an arbitrary command with system() -- DANGER TIME --
     {
         if(s.find(" ") != 1) // location of first space
         { std::cout << "ERROR1: Syntax\n"; return; }
@@ -149,12 +153,16 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
 void help()
 {
     std::cout << std::endl;
+    std::cout << "HELP DOCUMENT:" << std::endl;
+    std::cout << std::endl;
+
     std::cout << "GENERAL:" << std::endl;
     std::cout << "Enter commands OR evaluate expressions." << std::endl;
     std::cout << std::endl;
 
     std::cout << "COMMANDS:" << std::endl;
-    std::cout << "help" << "    == " << "display help prompt" << std::endl;
+    std::cout << "help" << "    == " << "display help" << std::endl;
+    std::cout << "fcts" << "    == " << "display functions" << std::endl;
     std::cout << "clear" << "   == " << "clear the screen contents" << std::endl;
     std::cout << "exit" << "    == " << "quit program" << std::endl;
     std::cout << "def" << "     == " << "define function macro" << std::endl;
@@ -173,6 +181,52 @@ void help()
 }
 //-------------------------------------------------------------------------------------------
 
+void fcts()
+{
+    std::cout << std::endl;
+    std::cout << "Functions in FPL:" << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "FUNCTIONS:" << std::endl;
+    std::cout << "ELEMENT OPERATIONS" << std::endl;
+    std::cout << std::endl;
+    std::cout << "RETURN TYPE (ELEMENT)" << std::endl;
+    std::cout << "- neg == negate, take opposite sign of number" << std::endl;
+    std::cout << "- abs == take absolute value of number" << std::endl;
+    std::cout << "- inc == increment (plus 1)" << std::endl;
+    std::cout << "- dec == decrement (minus 1)" << std::endl;
+    std::cout << "- square == second power" << std::endl;
+    std::cout << "- cube == third power" << std::endl;
+    std::cout << "- sqrt == square root" << std::endl;
+    std::cout << std::endl;
+    std::cout << "SEQUENCE OPERATIONS" << std::endl;
+    std::cout << std::endl;
+    std::cout << "RETURN TYPE (SEQUENCE)" << std::endl;
+    std::cout << "- genlist == list from 1 to n" << std::endl;
+    std::cout << "- ones    == list of n ones" << std::endl;
+    std::cout << "- zeros   == list of n zeros" << std::endl;
+    std::cout << std::endl;
+    std::cout << "RETURN TYPE (ELEMENT)" << std::endl;
+    std::cout << "- size  == number of elements in list" << std::endl;
+    std::cout << "- head  == first element of sequence" << std::endl;
+    std::cout << "- lmax  == maximum value in sequence" << std::endl;
+    std::cout << "- lmin  == minimum value in sequence" << std::endl;
+    std::cout << "- sum   == add the elements of a sequence together" << std::endl;
+    std::cout << "- prod  == multiply the elements of a sequence together" << std::endl;
+    std::cout << std::endl;
+    std::cout << "RETURN TYPE (SEQUENCE)" << std::endl;
+    std::cout << "- rotl  == rotate sequence elements to the left" << std::endl;
+    std::cout << "- tail  == sequence from second to end" << std::endl;
+    std::cout << "- rotr  == rotate sequence elements to the right" << std::endl;
+    std::cout << "- popl  == pop element from left of sequence" << std::endl;
+    std::cout << "- popr  == pop element from right of sequence" << std::endl;
+    std::cout << "- rev   == reverse the order of a sequence" << std::endl;
+    std::cout << "- sort  == sort sequence into ascending order" << std::endl;
+    std::cout << "- rmdup == remove duplicates, preserves order" << std::endl;
+    std::cout << "(+,-,*,/,%) == act on first 2 elements" << std::endl;
+    std::cout << std::endl;
+}
+//-------------------------------------------------------------------------------------------
 
 void def(std::string s, Memory* m) //  function macro definition
 {

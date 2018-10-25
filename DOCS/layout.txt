@@ -28,6 +28,7 @@ SYSCOM BRANCH STRUCTURE -> happens in call to com()
 - load
 - run
 - gentree
+- system call
 - eval
 
 //-----------------------------------------------------------------
@@ -43,7 +44,7 @@ CLASSES
 
 
 On construction Pattern is initialized with an input string and a reference to the Memory object.
-The Node pointer will initially be NULL. 
+The Node pointer will initially be NULL.
 
 Pattern
 {
@@ -52,7 +53,7 @@ Pattern
     Node* root;     // root of abstract syntax tree
     Interpreter* I; // for parsing
     Action* A;      // for executing
-    
+
     // constructor, set, get, etc...
 }
 
@@ -61,7 +62,7 @@ Memory
     map<string, int> elements;
     map<string, list<int> > sequences;
     map<string, string> macros;
-    
+
     // constructor, set, get, print, etc...
 }
 
@@ -69,7 +70,7 @@ Node
 {
     Object* key;
     Node *parent, *left, *right;
-    
+
     // constructor, set, get, etc...
 }
 
@@ -77,7 +78,7 @@ Node
 Interpreter
 {
     Node* parse(std::string);
-    
+
     // helper functions
 }
 
@@ -92,14 +93,14 @@ Action
 
 Object
 {
-    
+
 * object.h/cpp -> base class
     - function
     - sequence
     - element
     - colon   ':' the apply links the other parts  (might not need to be a class)
     - block    chunk of data to call parse on again
-    
+
     // NOTE -> nodes hold object pointer
 }
 

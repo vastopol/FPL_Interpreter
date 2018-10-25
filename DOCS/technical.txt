@@ -1,17 +1,36 @@
 Technical stuff
-commentary on memory management && using system calls
-//----------------------------------------------------
+commentary on memory management && using system commands
+//-------------------------------------------------------
 
 
-SYSTEM CALLS (for memory management)
+SYSTEM COMMANDS
 ///******************************************
 
-* def == compositional function
+* help == display help message
+
+syntax: help
+
+show a list to screen of help prompt
+
+//----------------------------------------
+
+* fcts == display available FPL functions
+
+syntax: fcts
+
+show a list to screen of the functions
+
+//----------------------------------------
+
+* def == define a function
 
 syntax: "def name = function"
 
+ex:     def add2 = inc.inc
+
 the functions are text macros substituted in on interpretation.
 def can also be used to rename functions
+
 
 //----------------------------------------
 
@@ -108,6 +127,7 @@ syntax: "gentree expr"
 expr is any valid fpl expression returning an element or sequence.
 prints expr in prefix, infix, && postfix then generates 2 files.
 output.dot is used by the program dot to produce the output.jpg file.
+calls dot to produce the files using system()
 
 //----------------------------------------
 
@@ -115,7 +135,10 @@ output.dot is used by the program dot to produce the output.jpg file.
 
 syntax: "! str"
 
-WARNING: this can easily be abused or cause bad things to happen
+WARNING:
+this can easily be dangerous cause bad things to happen
+it exists mainly for convenience, debugging, etc
+it can be commented out if needed.
 
 ///*********************************************
 

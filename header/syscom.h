@@ -27,7 +27,9 @@ void process(std::string s, Memory* m);   // psudeo preprocessor
 
 void com(std::string s, Memory* m);       // branch statement to choose syscom || parse.
 
-void help();                              // help prompt
+void help();                              // show help message, display available system commands for outer interpreter
+
+void fcts();                              // show functions message, display available functions for inner intepreter
 
 void def(std::string s, Memory* m);       // create function macro, mapping name to value
 

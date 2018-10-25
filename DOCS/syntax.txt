@@ -36,18 +36,20 @@ ELEMENT OPERATIONS
 ///****************************************************************************
 
 RETURN TYPE (ELEMENT)
-- neg == negate, take opposite sign of number
-- abs == take absolute value of number
-- inc == increment (plus 1)
-- dec == decrement (minus 1)
-- square == second power
-- cube == third power
-- sqrt == square root
+---------------------------------------
+neg == negate, take opposite sign of number
+abs == take absolute value of number
+inc == increment (plus 1)
+dec == decrement (minus 1)
+square == second power
+cube == third power
+sqrt == square root
 
 RETURN TYPE (SEQUENCE)
-- genlist == list from 1 to n
-- ones    == list of n ones
-- zeros   == list of n zeros
+---------------------------------------
+genlist == list from 1 to n
+ones    == list of n ones
+zeros   == list of n zeros
 
 ///****************************************************************************
 
@@ -56,22 +58,29 @@ SEQUENCE OPERATIONS
 ///****************************************************************************
 
 RETURN TYPE (ELEMENT)
-- size  == number of elements in list
-- head  == first element of sequence
-- lmax  == maximum value in sequence
-- lmin  == minimum value in sequence
-- sum   == add the elements of a sequence together
-- prod  == multiply the elements of a sequence together
+---------------------------------------
+size  == number of elements in list
+head  == first element of sequence
+lmax  == maximum value in sequence
+lmin  == minimum value in sequence
+sum   == add the elements of a sequence together
+prod  == multiply the elements of a sequence together
 
 RETURN TYPE (SEQUENCE)
-- tail  == sequence from second to end
-- rotl  == rotate sequence elements to the left
-- rotr  == rotate sequence elements to the right
-- popl  == pop element from left of sequence
-- popr  == pop element from right of sequence
-- rev   == reverse the order of a sequence
-- sort  == sort sequence into ascending order
-- rmdup == remove duplicates, preserves order
+---------------------------------------
+tail  == sequence from second to end
+rotl  == rotate sequence elements to the left
+rotr  == rotate sequence elements to the right
+popl  == pop element from left of sequence
+popr  == pop element from right of sequence
+rev   == reverse the order of a sequence
+sort  == sort sequence into ascending order
+rmdup == remove duplicates, preserves order
++     == add first 2 elements of a sequence
+-     == subtract first 2 elements of a sequence
+*     == multiply first 2 elements of a sequence
+/     == divide first 2 elements of a sequence
+%     == modulo first 2 elements of a sequence
 
 ///****************************************************************************
 
