@@ -31,11 +31,13 @@ void help();                              // show help message, display availabl
 
 void fcts();                              // show functions message, display available functions for inner intepreter
 
+void history(Memory* m);                  // print command history
+
 void def(std::string s, Memory* m);       // create function macro, mapping name to value
 
 void let(std::string s, Memory* m);       // variable creaton, mapping name to value
 
-void set(std::string s, Memory* m);		    // set a variable to the return value of a parsed expression; set x = expr
+void set(std::string s, Memory* m);       // set a variable to the return value of a parsed expression; set x = expr
 
 void rem(std::string s, Memory* m);       // remove var if found
 
@@ -47,11 +49,15 @@ void print_mem(Memory* m);                // print all memory content
 
 void print_buf(Memory* m);                // print all buffer content
 
+void write_buf(std::string s, Memory* m); // write 1 line append to buffer
+
 void print_ln(std::string s, Memory* m);  // print line || variable to screen
 
 void load(std::string s, Memory* m);      // load content of script file to memory buffer
 
 void run(Memory* m);                      // execute contents of memory buffer in sequential order
+
+void step(Memory* m);                     // execute 1 command form buffer
 
 void gentree(std::string s, Memory* m);   // parse expression and generate a visual of the AST with system call to Graphviz
 

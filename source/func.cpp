@@ -519,6 +519,12 @@ std::list<int> div(std::list<int> l)
     int b = l.front();
     l.pop_front();
 
+    if(b == 0)
+    {
+      std::cout << "ERROR: div by 0" << std::endl;
+      throw std::runtime_error("div() : division by 0 as rval");
+    }
+
     int c = a / b;
     l.push_front(c);
 
@@ -538,6 +544,12 @@ std::list<int> mod(std::list<int> l)
 
     int b = l.front();
     l.pop_front();
+
+    if(b == 0)
+    {
+      std::cout << "ERROR: mod by 0" << std::endl;
+      throw std::runtime_error("mod() : modulo by 0 as rval");
+    }
 
     int c = a % b;
     l.push_front(c);

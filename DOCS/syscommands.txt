@@ -1,5 +1,5 @@
 Technical stuff
-commentary on memory management && using system commands
+commentary on using system commands && memory management
 //-------------------------------------------------------
 
 
@@ -10,7 +10,7 @@ SYSTEM COMMANDS
 
 syntax: help
 
-show a list to screen of help prompt
+show on the screen the help prompt
 
 //----------------------------------------
 
@@ -18,7 +18,7 @@ show a list to screen of help prompt
 
 syntax: fcts
 
-show a list to screen of the functions
+show on the screen a list of the functions available
 
 //----------------------------------------
 
@@ -78,15 +78,15 @@ syntax: "bufdump"
 
 //----------------------------------------
 
-* ls == prints contents of memory stored variables
+* mem == prints contents of memory stored variables
 
-syntax: "ls"
+syntax: "mem"
 
 //----------------------------------------
 
-* bufls == prints contents of buffer
+* buf == prints contents of buffer
 
-syntax: "bufls"
+syntax: "buf"
 
 //----------------------------------------
 

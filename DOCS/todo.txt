@@ -1,133 +1,69 @@
 TODO - Unfinished works
-//---------------------------------------
 
-i think i found a better way to keep all the functions 1 input 1 output.
-the binary functions (+,-,*,/,%) already work on lists.
-the operators should follow this concept too.
-rename the operators in the form of "name{args}"
-arguments are separated by semicolons for parsing reasons
-they are called operators to distinguish the fact that they have bound variables
-they are used in this special form to maintain the 1 input 1 output interface
-this is important because it creates function pipelines with easy to understand data flows
 
-notation:
+ver 1.2
 
-operator   = name{arg1;...;argn}
-element    = E
-list       = L
-function   = F
-predicate  = P
-expression = X
+* possible logic functions
+    universals:
+        id  = identity
+    bools:
+        elm = ? is element
+        seq = ? is sequence
+        nil = ? is empty sequence
+        lt  = less than
+        gt  = greater than
+        eq  = equal to
+        lte = less than or equal
+        gte = greater than or equal
+        neq = not equal
 
-new operators:
+* func.h/cpp -> add more functions for the vm fn_pointers from the math.h library
 
-// apply to all, for each
-// F is unary function for elements F:E -> E
-map{F}:L -> L
-    tmp = <>
-    For_each e in L
-    do
-        tmp.append(F:e)
-    done
-    return tmp
+* fix gentree so it can print out (+,-,*,/%)
 
-//---------------------------------------
+* combine let and set
 
-// reduce, left fold a binary function
-red{F}:L -> E
-    tmp = e1
-    For e2 to en in L
-    do
-        tmp = F:<tmp,ei>
-    done
-    return tmp
+* change how process searches for strings to match
+    cant name variables similarly to commands
+    handles the string splitting badly
 
-//---------------------------------------
+* the trim_space function doesn't handle tabs
 
-// filter
-// F is unary predicate for elements P:E -> E where 1 == true, 0 == false
-filt{P}:L -> L
-    tmp = <>
-    For_each e in L
-    do
-        if P:e == true
-            tmp.append(e)
-    done
-    return tmp
+* Ctrl-D will crash command line in endless loop
 
-//---------------------------------------
+* refactor code and documentation
 
-// list access
-at{i}:L -> E
-    return the ith item
+* UPDATE USER PROGRAMS AFTER CHANGES SO THEY STILL WORK
 
-//---------------------------------------
+DONE:
+* add the fcts command
+* rename ls -> mem
+* rename dump -> memdump
+* rename bufls -> buf
+* add safety checks to div and mod by 0
+* add a history command
+* add step command to execute top instruction in buffer
+* add write command to append a line to buffer
 
-// list append
-app{E}:L -> L
-    append E to the end of L
+//=============================================
 
-//---------------------------------------
+ver 1.3
 
-// list delete
-del{i}:L -> L
-    delete the ith item
+* add the operators name{args} format part
+    map{f}
+    red{f}
+    filt{p}
+    insert{i;x}
+    del{i}
+    app{x}
+    ccf{f1;...;fn}
+    if{p;x1;x2}
 
-//---------------------------------------
+//=============================================
 
-// list insert
-ins{i,E}:L -> L
-    insert E at index i
+etc...
 
-//---------------------------------------
+* convert all to floating point
 
-// construction combining form
-// all F are unary but must be of same type as arg
-ccf{F1;...;Fn}:E -> L
-or
-ccf{F1;...;Fn}:L -> L
-    tmp = <>
-    fns = <F1,...,Fn>
-    For_each f in fns
-    do
-        tmp.append(fi:arg)
-    done
-    return tmp
 
-//---------------------------------------
 
-// if else branch
-// P must be a predicate of the same type as arg
-if{P;X1;X2}:E -> ?
-or
-if{P;X1;X2}:L -> ?
-    if P:arg == true
-        eval(X1)
-    else
-        eval(X2)
-
-//---------------------------------------
-
-notes:
-
-REDUCE
-technically since binary functions are F:L -> L
-this should just apply f until list.size() == 1
-then return list.head()
-
-CCF
-probably need 2 functions for ccf
-
-ccf(E) -> L
-ccf(L) -> L
-
-IF
-will be unknown what will happen when run X1 or X2 until it happens
-if it can parse it does not necessarily mean it is correct
-
-probably need 4 functions for if
-
-if(P;E) -> E
-if(P;E) -> L
-if(P:L) -> E
-if(P;L) -> L

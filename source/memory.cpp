@@ -46,6 +46,15 @@ void Memory::add_str_buf(std::string s) // queue 1 string to buffer
         buffer.push_back(s);
     }
 }
+//----------------------------------------------------------
+
+void Memory::add_str_hist(std::string s)
+{
+    if(!s.empty())
+    {
+        history.push_back(s);
+    }
+}
 ///*****************************************************************************
 
 
@@ -166,7 +175,7 @@ void Memory::print_sequences()
 {
     std::map< std::string, Sequence>::iterator it = this->sequences.begin(); // external iterator (map)
     for(; it != this->sequences.end(); it++)
-    {       
+    {
         std::cout << it->first << " = ";
         it->second.print();
         std::cout << std::endl;
@@ -204,9 +213,25 @@ void Memory::print_buffer()
         std::cout << "EMPTY" << std::endl;
         return;
     }
-    
+
     std::list<std::string>::iterator it = this->buffer.begin(); // iterator
     for(; it != this->buffer.end(); it++)
+    {
+        std::cout << *it << std::endl;
+    }
+}
+//----------------------------------------------------------
+
+void Memory::print_history()
+{
+    if(history.empty())
+    {
+        std::cout << "EMPTY" << std::endl;
+        return;
+    }
+
+    std::list<std::string>::iterator it = this->history.begin(); // iterator
+    for(; it != this->history.end(); it++)
     {
         std::cout << *it << std::endl;
     }

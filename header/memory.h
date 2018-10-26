@@ -20,39 +20,42 @@ class Memory
         // maps for holding variables
         std::map<std::string, Element> elements;
         std::map<std::string, Sequence > sequences;
-        std::map<std::string, Function> macros;             // macros represent functions
+        std::map<std::string, Function> macros;             // macros representing functions
         std::list<std::string> buffer;                      // list of arguments to be processed in sequence
-    
-    public:        
+        std::list<std::string> history;                     // list of commands entered write to and print only so far
+
+    public:
         Memory(){};
         ~Memory();
-        
+
         // ADD
         void add_element(std::string, Element);
         void add_sequence(std::string, Sequence);
         void add_macro(std::string, Function);
         void add_str_buf(std::string);                      // queue 1 string to buffer
-        
+        void add_str_hist(std::string);                     // write to history
+
         // REMOVE
         void remove_element(std::string);
         void remove_sequence(std::string);
         void remove_macro(std::string);
         void empty_buf();                                   // empty whole buffer
         void clear();
-        
+
         // ACCESS
         std::map<std::string, Element>& get_elements();
         std::map<std::string, Sequence >& get_sequences();
         std::map<std::string, Function >& get_macros();
         std::list<std::string>& get_buffer();
         Object* goGet(std::string);
-        
+
         // PRINT
         void print_elements();
-        void print_sequences(); 
+        void print_sequences();
         void print_macros();
         void print_buf_status();                            // print if full/empty buffer
         void print_buffer();                                // print buffer content
+        void print_history();                               // print the history of commands
 };
 
 #endif // __MEM_H__

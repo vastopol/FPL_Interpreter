@@ -29,7 +29,9 @@ void process(std::string s, Memory* m) /* preprocessing function */
     if(s.empty()){return;}
     ///******************************************************************
 
-    com(s,m); // call to syscom || eval user input
+    m->add_str_hist(s); // save to history the cleaned up command
+
+    com(s,m);           // call to syscom || eval user input
 }
 //---------------------------------------------------------------------------------
 
@@ -54,9 +56,21 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
     {
         fcts();
     }
+    else if(s == "history")
+    {
+        history(m);
+    }
     else if(s.substr(0,5) == "print")
     {
         print_ln(s,m);
+    }
+    else if(s.substr(0,5) == "write" )
+    {
+        write_buf(s,m);
+    }
+    else if(s == "step")
+    {
+        step(m);
     }
     else if(s.substr(0, 3) == "def") // Function Creation
     {
@@ -94,21 +108,21 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
         // pass variable name
         rem( s.substr(3, (s.size()-1)), m );
     }
-    else if(s == "dump")
+    else if(s == "mem")
+    {
+        print_mem(m);
+    }
+    else if(s == "memdump")
     {
         dump_mem(m);
     }
-    else if(s == "ls")
+    else if(s == "buf")
     {
-        print_mem(m);
+        print_buf(m);
     }
     else if(s == "bufdump")
     {
         dump_buf(m);
-    }
-    else if(s == "bufls")
-    {
-        print_buf(m);
     }
     else if(s.substr(0, 4) == "load")
     {
@@ -163,16 +177,17 @@ void help()
     std::cout << "COMMANDS:" << std::endl;
     std::cout << "help" << "    == " << "display help" << std::endl;
     std::cout << "fcts" << "    == " << "display functions" << std::endl;
+    std::cout << "history" << " == " << "display history" << std::endl;
     std::cout << "clear" << "   == " << "clear the screen contents" << std::endl;
     std::cout << "exit" << "    == " << "quit program" << std::endl;
     std::cout << "def" << "     == " << "define function macro" << std::endl;
     std::cout << "let" << "     == " << "create variable" << std::endl;
     std::cout << "set" << "     == " << "set a variable to an expression value" << std::endl;
     std::cout << "rm" << "      == " << "remove an entry from memory" << std::endl;
-    std::cout << "dump" << "    == " << "empty all memory" << std::endl;
+    std::cout << "mem" << "     == " << "list all memory" << std::endl;
+    std::cout << "buf" << "     == " << "list all buffer content" << std::endl;
+    std::cout << "memdump" << " == " << "empty all memory" << std::endl;
     std::cout << "bufdump" << " == " << "empty all buffer content" << std::endl;
-    std::cout << "ls" << "      == " << "list all memory" << std::endl;
-    std::cout << "bufls" << "   == " << "list all buffer content" << std::endl;
     std::cout << "load" << "    == " << "load script to memory buffer" << std::endl;
     std::cout << "run" << "     == " << "execute content of memory buffer" << std::endl;
     std::cout << "print" << "   == " << "print a string, ends on newline, use $ for variables" << std::endl;
@@ -186,8 +201,6 @@ void fcts()
     std::cout << std::endl;
     std::cout << "Functions in FPL:" << std::endl;
     std::cout << std::endl;
-
-    std::cout << "FUNCTIONS:" << std::endl;
     std::cout << "ELEMENT OPERATIONS" << std::endl;
     std::cout << std::endl;
     std::cout << "RETURN TYPE (ELEMENT)" << std::endl;
@@ -199,12 +212,12 @@ void fcts()
     std::cout << "- cube == third power" << std::endl;
     std::cout << "- sqrt == square root" << std::endl;
     std::cout << std::endl;
-    std::cout << "SEQUENCE OPERATIONS" << std::endl;
-    std::cout << std::endl;
     std::cout << "RETURN TYPE (SEQUENCE)" << std::endl;
     std::cout << "- genlist == list from 1 to n" << std::endl;
     std::cout << "- ones    == list of n ones" << std::endl;
     std::cout << "- zeros   == list of n zeros" << std::endl;
+    std::cout << std::endl;
+    std::cout << "SEQUENCE OPERATIONS" << std::endl;
     std::cout << std::endl;
     std::cout << "RETURN TYPE (ELEMENT)" << std::endl;
     std::cout << "- size  == number of elements in list" << std::endl;
@@ -226,6 +239,17 @@ void fcts()
     std::cout << "(+,-,*,/,%) == act on first 2 elements" << std::endl;
     std::cout << std::endl;
 }
+//-------------------------------------------------------------------------------------------
+
+void history(Memory* m)
+{
+    std::cout << std::endl;
+    std::cout << "History: " << std::endl;
+    std::cout << std::endl;
+    m->print_history();
+    std::cout << std::endl;
+}
+
 //-------------------------------------------------------------------------------------------
 
 void def(std::string s, Memory* m) //  function macro definition
@@ -698,7 +722,7 @@ void run(Memory* m)
         return;
     }
 
-    std::cout << std::endl << "BEGIN RUN{";
+    //std::cout << std::endl << "BEGIN RUN{";
 
     std::list<std::string>::iterator it = lst.begin();
     for( ; it != lst.end(); it = lst.begin() )          // it reset to begin each time
@@ -710,11 +734,45 @@ void run(Memory* m)
         }
     }
 
-    std::cout << "}END RUN" << std::endl << std::endl;
+    //std::cout << "}END RUN" << std::endl << std::endl;
     return;
 }
 //------------------------------------------------------------------------------------------
 
+void step(Memory* m)                     // execute 1 command form buffer
+{
+    std::list<std::string>& lst = m -> get_buffer();    // copy buffer from memory // &lst
+    if( lst.empty() )
+    {
+        std::cout << "ERROR: STEP: EMPTY BUFFER" << std::endl;
+        return;
+    }
+    std::string s = lst.front();
+    lst.pop_front();
+    process(s, m);
+    return;
+}
+//------------------------------------------------------------------------------------------
+
+void write_buf(std::string s, Memory* m) // write 1 line append to buffer
+{
+    if(s.size() == 5)
+    {
+        std::cout << "ERROR: WRITE: empty string" << std::endl;
+        return;
+    }
+
+    if(s.find(" ") != 5) // location of first space
+    { std::cout << "ERROR1: Syntax\n"; return; }
+
+    // cut out "write "
+    s = s.substr(6, s.size()-6);
+
+    m->add_str_buf(s);
+
+    return;
+}
+//------------------------------------------------------------------------------------------
 
 std::string trimSpace(std::string s)     // removes any (leading || trailing) whitespace characters
 {

@@ -1,0 +1,138 @@
+Operators
+//---------------------------------------
+
+i think i found a better way to keep all the functions 1 input 1 output.
+the binary functions (+,-,*,/,%) already work on lists.
+the operators should follow this concept too.
+rename the operators in the form of "name{args}"
+arguments are separated by semicolons for parsing reasons
+they are called operators to distinguish the fact that they have bound variables
+they are used in this special form to maintain the 1 input 1 output interface
+this is important because it creates function pipelines with easy to understand data flows
+
+notation:
+
+operator   = name{arg1;...;argn}
+element    = E
+list       = L
+function   = F
+predicate  = P
+expression = X
+
+new operators:
+
+// apply to all, for each
+// F is unary function for elements F:E -> E
+map{F}:L -> L
+    tmp = <>
+    For_each e in L
+    do
+        tmp.append(F:e)
+    done
+    return tmp
+
+//---------------------------------------
+
+// reduce, left fold a binary function
+red{F}:L -> E
+    tmp = e1
+    For e2 to en in L
+    do
+        tmp = F:<tmp,ei>
+    done
+    return tmp
+
+//---------------------------------------
+
+// filter
+// F is unary predicate for elements P:E -> E where 1 == true, 0 == false
+filt{P}:L -> L
+    tmp = <>
+    For_each e in L
+    do
+        if P:e == true
+            tmp.append(e)
+    done
+    return tmp
+
+//---------------------------------------
+
+// list access
+at{i}:L -> E
+    return the ith item
+
+//---------------------------------------
+
+// list append
+app{E}:L -> L
+    append E to the end of L
+
+//---------------------------------------
+
+// list delete
+del{i}:L -> L
+    delete the ith item
+
+//---------------------------------------
+
+// list insert
+ins{i,E}:L -> L
+    insert E at index i
+
+//---------------------------------------
+
+// construction combining form
+// all F are unary but must be of same type as arg
+ccf{F1;...;Fn}:E -> L
+or
+ccf{F1;...;Fn}:L -> L
+    tmp = <>
+    fns = <F1,...,Fn>
+    For_each f in fns
+    do
+        tmp.append(fi:arg)
+    done
+    return tmp
+
+//---------------------------------------
+
+// if else branch
+// P must be a predicate of the same type as arg
+if{P;X1;X2}:E -> ?
+or
+if{P;X1;X2}:L -> ?
+    if P:arg == true
+        eval(X1)
+    else
+        eval(X2)
+
+//---------------------------------------
+
+notes:
+
+MAP
+map is applied to lists, f is applied to elements
+where   map{F}:<x1,...,xn>  =  <F:x1,...,F:xn>
+
+REDUCE
+technically since binary functions are F:L -> L
+this should just apply f until list.size() == 1
+then return list.head()
+
+CCF
+probably need 2 functions for ccf
+
+ccf(E) -> L
+ccf(L) -> L
+where   ccf{F1,F2,...,Fn}:x  =  <F1:x,...,Fn:x>
+
+IF
+will be unknown what will happen when run X1 or X2 until it happens
+if it can parse it does not necessarily mean it is correct
+
+probably need 4 functions for if
+
+if(P;E) -> E
+if(P;E) -> L
+if(P:L) -> E
+if(P;L) -> L
