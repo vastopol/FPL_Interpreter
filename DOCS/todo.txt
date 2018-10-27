@@ -1,5 +1,4 @@
-TODO - Unfinished works
-
+TODO
 
 ver 1.2
 
@@ -26,6 +25,15 @@ ver 1.2
 * change how process searches for strings to match
     cant name variables similarly to commands
     handles the string splitting badly
+
+* irregularities with parsing
+    nested lists are not supported
+    using them causes unexpected behavior
+    <1,<2,3,4>> -> <1,0,3,4>
+    also see composition and application
+    inc.abs:1 works the same as inc.abs.1
+    because
+    inc.abs.1 -> inc:(abs:(1))
 
 * the trim_space function doesn't handle tabs
 
