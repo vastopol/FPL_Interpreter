@@ -8,6 +8,7 @@ The file extension for script files is `.fpl`.
 ## Version 1.2 Update in progress
 
 ### Dependencies
+* make
 * g++11
 * graphviz
 
@@ -16,7 +17,9 @@ The file extension for script files is `.fpl`.
 ```
 $ git clone https://github.com/vastopol/FP_Interpreter.git
 
-$ make
+$ cd FP_Interpreter
+
+$ ./setup.sh
 
 $ bin/fplr
 ```
