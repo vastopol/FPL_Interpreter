@@ -1,4 +1,4 @@
-# FPL_Interpreter
+# FP_Interpreter
 A functional programming language based Interpreter for integer sequence manipulation.
 The REPL is the interface to the memory management system and the interpreter.
 The REPL has primitive capabilities for simple automation of tasks through writing scripts.
