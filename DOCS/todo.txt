@@ -43,6 +43,10 @@ ver 1.2
 
 * UPDATE USER PROGRAMS AFTER CHANGES SO THEY STILL WORK
 
+* something is worng with functions
+    sort.rmdup:list # this works
+    rmdup.sort:list # syntax error 1
+
 DONE:
 * add the fcts command
 * rename ls -> mem
