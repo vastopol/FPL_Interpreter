@@ -10,7 +10,7 @@ print TEST_4.FPL
 # PART 1
 #-------------------------------------
 
-dump # clear old mem
+memdump # clear old mem
 
 # do arbitrary lets
 let a = 1
@@ -28,13 +28,13 @@ let l = <2,3,4,5,6>
 # PART 2
 #------------------------------------
 
-ls      # display mem before
-dump    # delete current mem
-ls      # display mem after
+mem      # display mem before
+memdump  # delete current mem
+mem      # display mem after
 
-bufls   # display buf before
+buf     # display buf before
 bufdump # delete current buffer content
-bufls   # display buf after
+buf     # display buf after
 
 #--------------------------------------
 
@@ -45,11 +45,11 @@ bufls   # display buf after
 # load another script file to the system buffer
 load user/test_1.fpl
 
-bufls   # display new buffer content
+buf   # display new buffer content
 
-run     # run new loaded buffer
+run   # run new loaded buffer
 
 #--------------------------------------
 
 # end script by dumping memory
-dump
+memdump

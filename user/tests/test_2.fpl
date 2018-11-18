@@ -6,7 +6,7 @@ print
 print TEST_2.FPL
 
 # begin script by dumping any existing memory
-dump
+memdump
 
 # part 1 -> instantaneous
 #-----------------------------------
@@ -75,7 +75,7 @@ let y = <-2,-1,0,1,2>
 let z = <1,2,2,3,3,3,4,4,4,4>
 
 # system commands
-ls
+mem
 
 # expression evaluation
 size:z       # 10
@@ -83,4 +83,4 @@ NO_ROTO1:x   # <1,2,3,4,5>
 NO_ROTO2:y   # <-2,-1,0,1,2>
 
 # end script by dumping memory
-dump
+memdump

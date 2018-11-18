@@ -3,7 +3,7 @@
 print
 print TEST_3.FPL
 
-dump
+memdump
 
 def INC = inc
 def DEC = dec

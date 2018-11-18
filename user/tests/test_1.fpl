@@ -1,10 +1,10 @@
 # basic testing: builtin system commands/primitives
-# let, def, set, rm, dump, print, help, ...
+# let, def, rm, memdump, print, help, ...
 
 print
 print TEST_1.FPL
 
-dump
+memdump
 
 help
 
@@ -25,7 +25,7 @@ let var_i = 3
 let var_j = 4
 let var_k = 5
 
-ls
+mem
 
 #-----------------------------
 
@@ -41,7 +41,7 @@ let seq_f = <1,1,1,1,1>
 let seq_g = <1,2,3,4,5>
 let seq_h = <-1,-2,-3,-4,-5>
 
-ls
+mem
 
 #-----------------------------
 
@@ -55,7 +55,7 @@ def SUB2 = dec.dec
 def SUB3 = dec.dec.dec
 def SUB4 = dec.dec.dec.dec
 
-ls
+mem
 
 #-----------------------------
 
@@ -110,52 +110,52 @@ print SUB3
 print $SUB3
 print
 
-ls
+mem
 
 print Dump memory
 
-dump
+memdump
 
 #-----------------------------
 
-print Testing set function
+print Testing let function
 
 let x = 0
 let y = <>
 let z = <1,4,9,16,25>
 
-ls
+mem
 
-print setting x to inc.inc.head:<1,2>
-set x = inc.inc.head:<1,2>
+print letting x to inc.inc.head:<1,2>
+let x = inc.inc.head:<1,2>
 
-ls
+mem
 
-print setting y to neg.head.rev.rotl.rotl:<5,6,7,8,9,0>
-set y = neg.head.rev.rotl.rotl:<5,6,7,8,9,0>
+print letting y to neg.head.rev.rotl.rotl:<5,6,7,8,9,0>
+let y = neg.head.rev.rotl.rotl:<5,6,7,8,9,0>
 
-ls
+mem
 
-print setting z multiple times
+print letting z multiple times
 print original value
 print $z
 
 print changes
-set z = 0
+let z = 0
 print $z
-set z = -1
+let z = -1
 print $z
-set z = <>
-print $z
-
-print setting z = x
-set z = x
+let z = <>
 print $z
 
-print setting z = y
-set z = y
+print letting z = x
+let z = x
+print $z
+
+print letting z = y
+let z = y
 print $z
 
 #-----------------------------
 
-dump
+memdump

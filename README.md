@@ -1,4 +1,4 @@
-# FP_Interpreter
+# FPL_Interpreter
 A functional programming language based Interpreter for integer sequence manipulation.
 The REPL is the interface to the memory management system and the interpreter.
 The REPL has primitive capabilities for simple automation of tasks through writing scripts.
@@ -17,9 +17,9 @@ The file extension for script files is `.fpl`.
 
 ### Installation
 ```
-$ git clone https://github.com/vastopol/FP_Interpreter.git
+$ git clone https://github.com/vastopol/FPL_Interpreter.git
 
-$ cd FP_Interpreter
+$ cd FPL_Interpreter
 
 $ ./setup.sh
 
