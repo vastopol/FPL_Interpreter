@@ -1,7 +1,7 @@
 # Library of variables/functions
 # to use, load this file first, then any other files
 
-
+#====================================================================
 # VARIABLES
 #====================================================================
 
@@ -17,8 +17,6 @@ let nil = <>    # the empty list
 #------------------------------------------
 
 #====================================================================
-
-
 # FUNCTIONS
 #====================================================================
 
@@ -42,9 +40,5 @@ def caddr = head.tail.tail
 def cdddr = tail.tail.tail
 def second = head.tail         # return second element, (size >= 2)
 def last = head.rev            # return last element
-def min_l = head.sort          # return minimum element of sequence
-def max_l = head.rev.sort      # return maximum element of sequence
 def sorted_set = sort.rmdup    # return unique sequence in ascending order
 #------------------------------------------
-
-#====================================================================

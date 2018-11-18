@@ -35,6 +35,5 @@ function build_manual()
 
 #----------------------------------------
 
-set -e
 build_interp
 build_manual

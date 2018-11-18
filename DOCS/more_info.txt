@@ -1,23 +1,25 @@
 General:
 
-The syntax and semantics of this interpreter are primarily derived from applicative functional languages and concatenation based stack languages.
-Historically the main inspiration comes from: FP/FL, Lisp, Forth, Factor, Joy, J, PLaSM
-Some of the syntax has been changed, other features have been modified also for ease of use.
-For now this implementation is basically a small and limited subset of traditional FP/FL.
-In later versions the syntax will most likely change and no longer be as compliant.
+The strongest influence on the fpl language is John Backus.
+This implementation is basically a modified small and limited subset of FP/FL.
+The some ideas have been kept the similar, but this isn't true 100% syntactically and semantically.
 
+The syntax and semantics of this interpreter are primarily derived from a variety of functional languages and stack based languages.
+Historically the main inspiration comes mostly from these groups:
+* FP, FL, PLaSM
+* Forth, Factor, Joy
+* APL, J, K
+* Lisp, Scheme
+* Haskell, ML
 
-Languages:
+Specific Languages:
 
-* FP
-    FP was developed by John Backus as a notation in the late 1970's. It evolved into FL an IBM research language.
-    The language PLaSM is based on FL. Other examples and implementations exist also.
-    See: FP84, IFP, FurryPaws, ...
+* FP/FL
+    FP was developed by John Backus as a notation in the late 1970's.
+    It evolved into FL an IBM research language. The language PLaSM is based on FL.
+    Other examples and implementations exist also.
+    See: FP84, IFP, FurryPaws, etc...
     * https://en.wikipedia.org/wiki/FP_(programming_language)
     * http://www.math.bas.bg/bantchev/place/fp.html
     * https://pdfs.semanticscholar.org/d4e1/218282009bed1f9c9011647d3029330082d8.pdf
     * http://theory.stanford.edu/~aiken/publications/trs/RJ7100.pdf
-
-* FL, J, FORTH, LISP
-
-* etc...

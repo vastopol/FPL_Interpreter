@@ -43,7 +43,7 @@ buf     # display buf after
 #--------------------------------------
 
 # load another script file to the system buffer
-load user/test_1.fpl
+load user/test/test_1.fpl
 
 buf   # display new buffer content
 

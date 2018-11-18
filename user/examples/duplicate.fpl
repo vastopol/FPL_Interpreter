@@ -1,0 +1,5 @@
+# functions that duplicate built-ins
+
+# TYPE: Sequence
+def _min = head.sort          # return minimum element of sequence
+def _max = head.rev.sort      # return maximum element of sequence

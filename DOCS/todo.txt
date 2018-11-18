@@ -16,6 +16,9 @@ ver 1.2
         gte = greater than or equal
         neq = not equal
 
+* add a function "list" which takes an int and tunrs it to a list
+    list:int  ->  <int>
+
 * func.h/cpp -> add more functions for the vm fn_pointers from the math.h library
 
 * fix gentree so it can print out (+,-,*,/%)
@@ -35,9 +38,14 @@ ver 1.2
 
 * refactor code and documentation
 
+* maybe rename lmin/lmax to min/max
+
 * UPDATE USER PROGRAMS AFTER CHANGES SO THEY STILL WORK
 
-* something is worng with functions (should be fixed when process() is fixed)
+* some how safe_sqrt in lib.fpl is broken
+    not sure how since sqrt.abs works by itself
+
+* something is wrong with functions (should be fixed when process() is fixed)
     sort.rmdup:list # this works
     rmdup.sort:list # syntax error 1
 
@@ -61,7 +69,7 @@ DONE:
 
 ver 1.3
 
-* add the operators name{args} format part
+* add the operators name{params}:arg format part
     map{f}
     red{f}
     filt{p}
@@ -71,11 +79,32 @@ ver 1.3
     ccf{f1;...;fn}
     if{p;x1;x2}
 
+let the arg be represented by @ as an abstraction
+can be used for ifs
+
 //=============================================
 
 etc...
 
 * convert all to floating point
+* perhaps latex documentation?
 
 
+//=============================================
 
+actual ideas
+
+def _sum  = red{+}
+def _prod = red{*}
+def alt_sum  = red{-}
+def alt_prod = red{/}
+def sum_squares = sum.map{square}
+def _sum_squares = red{+}.map{square}
+def abs = if{lt:<@,0>;neg:@;@}
+
+
+potential ideas
+
+let l = <...>
+let l_avg1 = /:<sum:l,size:l>
+let l_avg2 = /.app{size:l}.list.sum:l

@@ -1,0 +1,8 @@
+# Test harness for the other scripts
+
+load user/tests/test_1.fpl
+load user/tests/test_2.fpl
+load user/tests/test_3.fpl
+load user/tests/test_4.fpl
+load user/tests/test_gentree.fpl
+load user/tests/test_break.fpl

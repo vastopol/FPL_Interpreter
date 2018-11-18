@@ -1,23 +1,37 @@
-* lib.fpl
-library of useful/interesting FPL variables/functions
+FPL Code script examples and tests
 
-* test_1.fpl
-basic testing: builtins && primitives
+USER
+    * lib.fpl
+    library of useful/interesting FPL variables and functions
 
-* test_2.fpl
-testing function application
+USER/EXAMPLES
+    * duplicate.fpl
+        recreate built in functions
 
-* test_3.fpl
-testing function definition resolver
+    * factorial.fpl
+        calculate 20 factorials
 
-* test_4.fpl
-tests load && run, file nesting
+    * hello.fpl
+        the hello world program
 
-* test_gen_tree.fpl
-tests the parser && gentree function, no execution; uses Graphviz to generate picture of AST
+    * print_help.fpl
+        show the help page with print statements
 
-* test_help.fpl
-tests print function by printing the help page manually
+USER/TESTS
+    * test_1.fpl
+    basic testing: builtins && primitives
 
-* test_break.fpl
-tests cases that should fail
+    * test_2.fpl
+    testing function application
+
+    * test_3.fpl
+    testing function definition resolver
+
+    * test_4.fpl
+    tests load && run, file nesting
+
+    * test_gen_tree.fpl
+    tests the parser && gentree function, no execution; uses Graphviz to generate picture of AST
+
+    * test_break.fpl
+    tests cases that should fail
