@@ -31,31 +31,21 @@ ex:     def add2 = inc.inc
 the functions are text macros substituted in on interpretation.
 def can also be used to rename functions
 
-
 //----------------------------------------
 
-* let == set variables
+* let == create/set variables
 
-syntax: "let name = value"
+syntax: "let var = expr"
 
-where Element
-name = atom
-x = 3
+where expr is Element, Sequence, or Expression
 
-OR
-
-where Sequence
-name = <atom,...,atom>
-s = <1,2,3>
-
-//----------------------------------------
-
-* set == set a variable to new value
-
-syntax: "set var = expr"
+let x = 3
+let y = <1,2,3>
+let z = rev.sort:lst
 
 expr is any valid fpl expression returning an element or sequence.
-var is looked up in memory, the old variable is removed, and it
+if var does not exist yet it is created and stored in memory.
+otherwise var is looked up in memory, the old variable is removed, and it
 is replaced with the new object returned from evaluation of expr.
 
 //----------------------------------------

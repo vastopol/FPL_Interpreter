@@ -35,9 +35,7 @@ void history(Memory* m);                  // print command history
 
 void def(std::string s, Memory* m);       // create function macro, mapping name to value
 
-void let(std::string s, Memory* m);       // variable creaton, mapping name to value
-
-void set(std::string s, Memory* m);       // set a variable to the return value of a parsed expression; set x = expr
+void let(std::string s, Memory* m);       // variable creaton, sets a variable to the return value of a parsed expression; let x = expr
 
 void rem(std::string s, Memory* m);       // remove var if found
 

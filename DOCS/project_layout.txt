@@ -20,7 +20,6 @@ SYSCOM BRANCH STRUCTURE -> happens in call to com()
 - print
 - def
 - let
-- set
 - rm
 - mem
 - memdump

@@ -90,15 +90,6 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
         // cut out "let ", now "name = var"
         let( s.substr(4, (s.size()-4)), m );
     }
-    else if(s.substr(0, 3) == "set")
-    {
-        // syntax: "set name = expr"
-        if(s.find(" ") != 3) // location of first space
-        { std::cout << "ERROR1: Syntax\n"; return; }
-
-        // cut out "set ", now "name = expr"
-        set( s.substr(4, (s.size()-4)), m );
-    }
     else if(s.substr(0, 2) == "rm")
     {
         // syntax: rm name
@@ -181,8 +172,7 @@ void help()
     std::cout << "clear" << "   == " << "clear the screen contents" << std::endl;
     std::cout << "exit" << "    == " << "quit program" << std::endl;
     std::cout << "def" << "     == " << "define function macro" << std::endl;
-    std::cout << "let" << "     == " << "create variable" << std::endl;
-    std::cout << "set" << "     == " << "set a variable to an expression value" << std::endl;
+    std::cout << "let" << "     == " << "create/set a variable to an expression value" << std::endl;
     std::cout << "rm" << "      == " << "remove an entry from memory" << std::endl;
     std::cout << "mem" << "     == " << "list all memory" << std::endl;
     std::cout << "buf" << "     == " << "list all buffer content" << std::endl;
@@ -282,99 +272,7 @@ void def(std::string s, Memory* m) //  function macro definition
 //-----------------------------------------------------------------------------------------
 
 
-void let(std::string s, Memory* m) // variable creation
-{
-    // string s comes in as "name = value" format
-    // split out " = ", the equals and padding spaces
-    // string var = name; string val = value
-    //**************************************************
-    size_t pos = s.find(" = "); // location of =
-    if(pos >= s.size() || pos == std::string::npos)
-    { std::cout << "ERROR2: Syntax\n"; return; }
-
-    std::string var = s.substr(0, (pos)); // variable name, left half; sz = (0 to pos)
-    var = trimSpace(var);
-    if(var.empty()){ std::cout << "ERROR3: Syntax -> var\n"; return; }
-
-    pos = s.find(" ");        // location of first " "
-    pos = s.find(" ", pos+1); // location of " " right after the "="
-    if(pos >= s.size() || pos == std::string::npos)
-    { std::cout << "ERROR4: Syntax\n"; return; }
-
-    std::string val = s.substr((pos + 1), (s.size() - pos)); // variable value, right half
-    val = trimSpace(val);
-    if(val.empty()){ std::cout << "ERROR5: Syntax -> val\n"; return; }
-    //*****************************************************
-
-    // hash here
-    //**************************************************************
-    if(val.at(0) == '<' && val.at(val.size() - 1) == '>' ) // sequence
-    {
-        std::list<int> lst;
-
-        // remove <>
-        val = val.substr(1, (val.size() - 1)); // gone <
-        val = val.substr(0, (val.size() - 1)); // gone >
-
-        val = trimSpace(val);
-
-        // add empty list HERE
-        if(val.empty())
-        {
-            Sequence seq(lst);
-            m -> add_sequence(var, seq);
-            return;
-        }
-
-        // remove bad junk before segfault
-        while( !isalnum(val.at(0)) && val.size() >= 1 )
-        {
-            if(val.size() == 1){val = ""; break;}
-
-            if(val.at(0) == '-') {break;} // a negative number
-
-            val = val.substr(1, (val.size() - 1));
-        }
-
-        // add empty list HERE
-        if(val.empty())
-        {
-            Sequence seq(lst);
-            m -> add_sequence(var, seq);
-            return;
-        }
-
-        char* copy = (char*)(val.c_str());      // copy to give strtok for parse
-        char* arr = 0;                          // temp array
-
-        // extract && store the elements of the sequence
-        arr = strtok(copy, ",");
-        lst.push_back( atoi( arr ) );
-        for(unsigned i = 1; arr != 0; i++)
-        {
-            arr = strtok(NULL, ",");
-            if(arr)
-            {
-                lst.push_back( atoi( arr ) );
-            }
-        }
-
-        // add list with data HERE
-        Sequence seq(lst);
-        m -> add_sequence( var, seq );
-    }
-    else // element
-    {
-        Element e(atoi(val.c_str()));
-        m -> add_element( var, e );
-    }
-    //******************************************************************************
-
-}
-//-----------------------------------------------------------------------------------------
-
-
-void set(std::string s, Memory* m)
+void let(std::string s, Memory* m)
 {
     // string s comes in as "name = value" format
     // split out " = ", the equals and padding spaces
@@ -397,10 +295,10 @@ void set(std::string s, Memory* m)
     val = trimSpace(val);
     if(val.empty()){ std::cout << "ERROR5: Syntax -> val\n"; return; }
 
-    if(m->goGet(var) == 0)
+    /*if(m->goGet(var) == 0)
     {
         std::cout << "ERROR: Undefined variable to bind to" << std::endl; return;
-    }
+    }*/
     //**************************************************
 
     Pattern* P = new Pattern(val); // construct pattern with

@@ -20,8 +20,6 @@ ver 1.2
 
 * fix gentree so it can print out (+,-,*,/%)
 
-* combine let and set
-
 * change how process searches for strings to match
     cant name variables similarly to commands
     handles the string splitting badly
@@ -56,6 +54,10 @@ DONE:
 * add a history command
 * add step command to execute top instruction in buffer
 * add write command to append a line to buffer
+* combine let and set into 1 routine
+    no more direct creation of element/sequences in outer interpreter
+    now elements/sequences are created by toklist() in the inner interpreter
+    the variables are set equal to return values from evaluating the syntax tree
 
 //=============================================
 
