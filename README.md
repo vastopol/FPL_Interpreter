@@ -11,6 +11,8 @@ The file extension for script files is `.fpl`.
 * make
 * g++11
 * graphviz
+* a2ps
+* ps2pdf
 
 
 ### Installation
