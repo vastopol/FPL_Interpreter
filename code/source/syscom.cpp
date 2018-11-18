@@ -60,11 +60,11 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
     {
         history(m);
     }
-    else if(s.substr(0,5) == "print")
+    else if(s == "print" || s.substr(0,6) == "print ")
     {
         print_ln(s,m);
     }
-    else if(s.substr(0,5) == "write" )
+    else if(s.substr(0,6) == "write " )
     {
         write_buf(s,m);
     }
@@ -72,7 +72,7 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
     {
         step(m);
     }
-    else if(s.substr(0, 3) == "def") // Function Creation
+    else if(s.substr(0, 4) == "def ") // Function Creation
     {
         // syntax: "def name = fun"
         if(s.find(" ") != 3) // location of first space
@@ -81,7 +81,7 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
         // cut out "def ", now "name = fun"
         def( s.substr(4, (s.size()-4)), m );
     }
-    else if(s.substr(0, 3) == "let") // Variable creation
+    else if(s.substr(0, 4) == "let ") // Variable creation
     {
         // syntax: "let name = var"
         if(s.find(" ") != 3) // location of first space
@@ -90,7 +90,7 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
         // cut out "let ", now "name = var"
         let( s.substr(4, (s.size()-4)), m );
     }
-    else if(s.substr(0, 2) == "rm")
+    else if(s.substr(0, 3) == "rm ")
     {
         // syntax: rm name
         if(s.find(" ") != 2) // location of first space
@@ -115,7 +115,7 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
     {
         dump_buf(m);
     }
-    else if(s.substr(0, 4) == "load")
+    else if(s.substr(0, 5) == "load ")
     {
         // syntax: load "file.fpl"
         if(s.find(" ") != 4) // location of first space
@@ -128,22 +128,22 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
     {
         run(m);
     }
-    else if(s.substr(0,7) == "gentree")
+    else if(s.substr(0,8) == "gentree ")
     {
         if(s.find(" ") != 7) // location of first space
         { std::cout << "ERROR1: Syntax\n"; return; }
 
         gentree(s.substr(8,s.size()-1), m);
     }
-    else if(s.substr(0,1) == "!") // execute an arbitrary command with system() -- DANGER TIME --
+    else if(s.substr(0,2) == "! ") // execute an arbitrary command with system() -- DANGER TIME --
     {
         if(s.find(" ") != 1) // location of first space
         { std::cout << "ERROR1: Syntax\n"; return; }
 
-        std::cout << "CALL SYSTEM" << std::endl;
+        //std::cout << "CALL SYSTEM" << std::endl;
         int i = system( s.substr(1,s.size()-1).c_str() );
-        std::cout << "RETURN SYSTEM" << std::endl;
-        std::cout << "EXIT STATUS: " << i << std::endl;
+        //std::cout << "RETURN SYSTEM" << std::endl;
+        //std::cout << "EXIT STATUS: " << i << std::endl;
     }
     else
     {
@@ -425,9 +425,9 @@ void print_mem(Memory* m) // ls
 void print_buf(Memory* m) // bufls
 {
     std::cout << std::endl;
-    std::cout << "START BUFFER { " << std::endl;
+    // std::cout << "START BUFFER { " << std::endl;
     m -> print_buffer();
-    std::cout << "} END BUFFER" << std::endl;
+    // std::cout << "} END BUFFER" << std::endl;
     std::cout << std::endl;
     return;
 }

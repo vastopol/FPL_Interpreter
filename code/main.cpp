@@ -17,8 +17,8 @@ int main(int argc, char** argv)
 
     c_line(argc, argv, storage);      // handle any command line arguments to run a file
 
-    std::cout << "FPL Engine" << std::endl;
-    std::cout << "Enter system commands OR evaluate expressions." << std::endl;
+    std::cout << "FPL Interpreter" << std::endl;
+    std::cout << "Version 1.2" << std::endl;
 
     do
     {

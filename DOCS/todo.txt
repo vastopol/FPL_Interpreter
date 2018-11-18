@@ -20,10 +20,6 @@ ver 1.2
 
 * fix gentree so it can print out (+,-,*,/%)
 
-* change how process searches for strings to match
-    cant name variables similarly to commands
-    handles the string splitting badly
-
 * irregularities with parsing
     nested lists are not supported
     using them causes unexpected behavior
@@ -41,23 +37,25 @@ ver 1.2
 
 * UPDATE USER PROGRAMS AFTER CHANGES SO THEY STILL WORK
 
-* something is worng with functions
+* something is worng with functions (should be fixed when process() is fixed)
     sort.rmdup:list # this works
     rmdup.sort:list # syntax error 1
 
 DONE:
-* add the fcts command
 * rename ls -> mem
 * rename dump -> memdump
 * rename bufls -> buf
-* add safety checks to div and mod by 0
-* add a history command
-* add step command to execute top instruction in buffer
+* add fcts command
+* add history command
 * add write command to append a line to buffer
-* combine let and set into 1 routine
+* add step command to execute top instruction in buffer
+* put safety checks for div and mod by 0
+* combine let and set into 1 command
     no more direct creation of element/sequences in outer interpreter
     now elements/sequences are created by toklist() in the inner interpreter
     the variables are set equal to return values from evaluating the syntax tree
+* change how process() searches for strings to match for some commands
+    handles the string splitting better, can name variables/functions similarly to commands
 
 //=============================================
 
