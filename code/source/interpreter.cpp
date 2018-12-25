@@ -155,23 +155,6 @@ bool Interpreter::isBalanced(std::string s) // check for ballanced number of sep
 //-------------------------------------------------------------------------------------------
 
 
-std::string Interpreter::trimSpace(std::string s) // removes any (leading || trailing) whitespace characters
-{
-    if(s.empty()){return s;}
-    while(s.at(0) == ' ')          // remove any forward spaces
-    {
-        if(s.size() == 1 && s.at(0) == ' '){return "";}
-        s = s.substr(1, (s.size()-1));
-    }
-    while(s.at(s.size()-1) == ' ') // remove any trailing spaces
-    {
-        if(s.size() == 1 && s.at(0) == ' '){return "";}
-        s = s.substr(0, (s.size()-1));
-    }
-    return s;
-}
-//----------------------------------------------------------------------------------------------
-
 std::string Interpreter::resolve(std::string& s, Memory* m)    // resolve all definitions on left to chain of composed primitives
 {
     // std::cout << "resolver" << std::endl << s << std::endl;

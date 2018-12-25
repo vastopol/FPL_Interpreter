@@ -1,8 +1,6 @@
 #ifndef __SYSCOM_H__
 #define __SYSCOM_H__
 
-// this should be merged into the interpreter class at some point
-
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
@@ -16,6 +14,7 @@
 #include "memory.h"
 #include "object.h"
 #include "node.h"
+#include "utils.h"
 
 // forward declare
 class Object;
@@ -55,14 +54,10 @@ void load(std::string s, Memory* m);      // load content of script file to memo
 
 void run(Memory* m);                      // execute contents of memory buffer in sequential order
 
-void step(Memory* m);                     // execute 1 command form buffer
+void step(Memory* m);                     // execute 1 command from buffer
 
 void gentree(std::string s, Memory* m);   // parse expression and generate a visual of the AST with system call to Graphviz
 
 void eval(std::string s, Memory* m);      // evaluate an expression
-
-std::string trimSpace(std::string s);     // removes any (leading || trailing) whitespace characters (for INTERPRETER)
-
-std::string trimSharp(std::string s);     // remove comments (for INTERPRETER)
 
 #endif // __SYSCOM_H__

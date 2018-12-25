@@ -13,14 +13,13 @@
 #include "memory.h"
 #include "object.h"
 #include "node.h"
+#include "utils.h"
 
 class Interpreter
 {
     private:
         // Helper functions
         bool isBalanced(std::string s);                                    // refers to brackets, braces, parentheses...
-
-        std::string trimSpace(std::string s);                              // removes any (leading || trailing) whitespace characters
 
         std::string resolve(std::string& s, Memory* m);                    // resolve all definitions on left to chain of composed primitives
 

@@ -49,6 +49,15 @@ ver 1.2
     sort.rmdup:list # this works
     rmdup.sort:list # syntax error 1
 
+* rewrite Makefile so less complex and ugly
+
+* consider merging the syscom functionalities into the interpreter
+
+* inconsistencies with throwing exceptions and print error message and return.
+    should go through and convert all error printing code to actual exception throwing.
+
+* go through and remove unnecessary include statements, old inaccurate comments, other cruft...
+
 DONE:
 * rename ls -> mem
 * rename dump -> memdump
