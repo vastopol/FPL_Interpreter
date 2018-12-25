@@ -7,10 +7,10 @@ memdump
 
 def INC = inc
 def DEC = dec
-def 2+ = INC.INC
-def 3- = DEC.DEC.DEC
-def 1- = 3-.2+
+def _2+ = INC.INC
+def _3- = DEC.DEC.DEC
+def _1- = _3-._2+
 
 let x = 1
 
-1-:x
+_1-:x

@@ -19,6 +19,10 @@ class Pattern
         Interpreter* interpreter;
         Action* action;
 
+        // hidden part for type checking
+        std::stack<std::string> secret_stk;
+        void postOrderCheck(Node* n);
+
     public:
         Pattern(std::string s);
         ~Pattern();
@@ -32,6 +36,9 @@ class Pattern
         void preOrder(Node* n);
         void inOrder(Node* n);
         void postOrder(Node* n);
+
+        // type check traverse
+        std::stack<std::string> postOrderCheckWrap(Node* n);
 
         // genterate tree with system call to graphviz
         void generateTree(std::ofstream& out, Node* n, int i); // recursive

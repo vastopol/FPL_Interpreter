@@ -101,6 +101,34 @@ void Pattern::postOrder(Node* n)
 }
 //--------------------------------------------------------------
 
+std::stack<std::string> Pattern::postOrderCheckWrap(Node* n) // wrapper to save && return state
+{
+    while(!secret_stk.empty()) // clear stack
+    {
+        secret_stk.pop();
+    }
+
+    postOrderCheck(n);  // fill stack
+
+    return secret_stk;
+}
+//--------------------------------------------------------------
+
+void Pattern::postOrderCheck(Node* n) // actual recursive traversal
+{
+    if(n == NULL)
+    {
+      return;
+    }
+
+    postOrderCheck(n->getLeft());
+
+    postOrderCheck(n->getRight());
+
+    secret_stk.push( n->getKey()->stringify() ); // save token
+}
+//--------------------------------------------------------------
+
  void Pattern::generateTree(std::ofstream& out, Node* n, int i=1)
  {
      if (n == 0)

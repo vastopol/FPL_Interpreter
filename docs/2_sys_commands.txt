@@ -118,6 +118,15 @@ calls dot to produce the files using system()
 
 //----------------------------------------
 
+* type == print type signature of a function or expression
+
+syntax: "type expr"
+
+expr is any fpl expression (does not have to be valid since not actually executed)
+will parse expression and print the types of each component
+
+//----------------------------------------
+
 * ! = execute a command by passing a string to the os with system()
 
 syntax: "! str"

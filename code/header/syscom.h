@@ -60,4 +60,6 @@ void gentree(std::string s, Memory* m);   // parse expression and generate a vis
 
 void eval(std::string s, Memory* m);      // evaluate an expression
 
+void type(std::string s, Memory* m);      // show the type signature of a function/expression
+
 #endif // __SYSCOM_H__

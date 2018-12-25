@@ -135,6 +135,13 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
 
         gentree(s.substr(8,s.size()-1), m);
     }
+    else if(s.substr(0,5) == "type ")
+    {
+        if(s.find(" ") != 4) // location of first space
+        { std::cout << "ERROR1: Syntax\n"; return; }
+
+        type(s.substr(5,s.size()-1), m);
+    }
     else if(s.substr(0,2) == "! ") // execute an arbitrary command with system() -- DANGER TIME --
     {
         if(s.find(" ") != 1) // location of first space
@@ -182,6 +189,8 @@ void help()
     std::cout << "run" << "     == " << "execute content of memory buffer" << std::endl;
     std::cout << "print" << "   == " << "print a string, ends on newline, use $ for variables" << std::endl;
     std::cout << "gentree" << " == " << "parses an expression, generates the AST using graphviz" << std::endl;
+    std::cout << "type" << "    == " << "show function or expression type signature" << std::endl;
+    std::cout << "!" << "       == " << "execute external shell command with system()" << std::endl;
     std::cout << std::endl;
 }
 //-------------------------------------------------------------------------------------------
@@ -671,4 +680,79 @@ void write_buf(std::string s, Memory* m) // write 1 line append to buffer
     return;
 }
 //------------------------------------------------------------------------------------------
+
+void type(std::string s, Memory* m) // type signature
+{
+    Pattern* P = new Pattern(s); // construct pattern
+    std::stack<std::string> type_toks;
+    std::string tmp_tok;
+    int func_type;
+
+    // PARSE
+    try
+    {
+        P -> setRoot( P -> getI() -> parse(s, m) );
+    }
+    catch(std::exception &e)
+    {
+        std::cout << "ERROR: Parse" << std::endl;
+        std::cout << e.what() << std::endl;
+        delete P; // delete the current pattern on heap
+        P = 0;
+        return;
+    }
+
+    // TRAVERSE
+    type_toks = P->postOrderCheckWrap(P->getRoot());
+
+    if(type_toks.empty()){ std::cout << "Error: Type stack is empty" << std::endl; }
+
+    // assume type of first char in string
+    // number = int, '<' = list, alpha/symbol = function
+    while(!type_toks.empty())
+    {
+        if(type_toks.top() == ":"){ type_toks.pop(); continue; }
+        tmp_tok = type_toks.top();
+        type_toks.pop();
+        if( isdigit(tmp_tok.at(0)) ) // int
+        {
+            std::cout << "INT" << std::endl;
+        }
+        else if(tmp_tok.at(0) == '<') // list
+        {
+            std::cout << "LIST" << std::endl;
+        }
+        else // function
+        {
+            func_type = func_classifier(tmp_tok);
+            if(func_type == -1){ std::cout << "Error: unknown function type" << std::endl; break; }
+            std::cout << "FUN: ";
+            switch(func_type)
+            {
+                case 0:
+                    std::cout << "INT  -> INT";
+                    break;
+                case 1:
+                    std::cout << "INT  -> LIST";
+                    break;
+                case 2:
+                    std::cout << "LIST -> INT";
+                    break;
+                case 3:
+                    std::cout << "LIST -> LIST";
+                    break;
+                default:
+                    std::cout << "Error: unknown function type (in switch)" << std::endl; // should never go here because the if above switch
+                    break;
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    delete P; // delete the current pattern on heap
+    P = 0;
+    return;
+}
+
+
 

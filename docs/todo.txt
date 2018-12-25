@@ -2,13 +2,13 @@ TODO
 
 ver 1.2
 
-* possible logic functions
+* possibly add new logic functions
     universals:
         id  = identity
     bools:
-        elm = ? is element
-        seq = ? is sequence
-        nil = ? is empty sequence
+        elm = is element
+        seq = is sequence
+        nil = is empty sequence
         lt  = less than
         gt  = greater than
         eq  = equal to
@@ -16,12 +16,15 @@ ver 1.2
         gte = greater than or equal
         neq = not equal
 
-* add a function "list" which takes an int and tunrs it to a list
-    list:int  ->  <int>
-
 * func.h/cpp -> add more functions for the vm fn_pointers from the math.h library
 
-* fix gentree so it can print out (+,-,*,/%)
+* add a function "list" which takes an int and turns it to a list
+    list:int  ->  <int>
+
+* rename lmin && lmax to min && max
+* rename sequence to list and element to int for clarity
+
+* fix gentree so it can print out (+,-,*,/%) breaks on the symbols because of the .dot files
 
 * irregularities with parsing
     nested lists are not supported
@@ -32,40 +35,37 @@ ver 1.2
     because
     inc.abs.1 -> inc:(abs:(1))
 
-* the trim_space function doesn't handle tabs
-
-* Ctrl-D will crash command line in endless loop
-
-* refactor code and documentation
-
-* maybe rename lmin/lmax to min/max
-
-* UPDATE USER PROGRAMS AFTER CHANGES SO THEY STILL WORK
-
 * some how safe_sqrt in lib.fpl is broken
     not sure how since sqrt.abs works by itself
 
-* something is wrong with functions (should be fixed when process() is fixed)
+* something is wrong with functions (should be fixed when process() is fixed... i think...)
     sort.rmdup:list # this works
     rmdup.sort:list # syntax error 1
 
-* rewrite Makefile so less complex and ugly
+* refactor code and update documentation
 
-* consider merging the syscom functionalities into the interpreter
+* the trim_space function doesn't handle tabs
+* Ctrl-D will crash command line in endless loop
 
-* inconsistencies with throwing exceptions and print error message and return.
+* inconsistencies with throwing exceptions or print error message and return.
     should go through and convert all error printing code to actual exception throwing.
 
+* rewrite Makefile so less complex and ugly
 * go through and remove unnecessary include statements, old inaccurate comments, other cruft...
+* restructure the .cpp files so functions are defined in same order as declared in header files
+
+* UPDATE AND CHECK ALL USER PROGRAMS AFTER CHANGES SO THEY STILL WORK
+
 
 DONE:
 * rename ls -> mem
 * rename dump -> memdump
 * rename bufls -> buf
-* add fcts command
-* add history command
-* add write command to append a line to buffer
-* add step command to execute top instruction in buffer
+* new fcts command
+* new history command
+* new write command to append a line to buffer
+* new step command to execute top instruction in buffer
+* new type check command show function/expression signature
 * put safety checks for div and mod by 0
 * combine let and set into 1 command
     no more direct creation of element/sequences in outer interpreter
@@ -93,11 +93,11 @@ can be used for ifs
 
 //=============================================
 
-etc...
+etc... maybe???
 
 * convert all to floating point
-* perhaps latex documentation?
-
+* consider merging the syscom commands into interpreter functions
+* perhaps latex documentation
 
 //=============================================
 
