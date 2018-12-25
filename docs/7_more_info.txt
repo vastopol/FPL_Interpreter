@@ -1,8 +1,9 @@
+
 General:
 
-The strongest influence on the fpl language is John Backus.
-This implementation is basically a modified small and limited subset of FP/FL.
-The some ideas have been kept the similar, but this isn't true 100% syntactically and semantically.
+The strongest influence on the FPL language is John Backus.
+This implementation is based on a modified and limited subset of FP/FL.
+The some ideas have been kept the similar, but this is not 100% syntactically and semantically the same.
 
 The syntax and semantics of this interpreter are primarily derived from a variety of functional languages and stack based languages.
 Historically the main inspiration comes mostly from these groups:

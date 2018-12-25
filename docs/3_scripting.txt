@@ -1,19 +1,20 @@
+
 Scripting
 loading && executing files
 //-------------------------
 
 
-FP_REPL supports scripting of system commands and expression evaluations.
-Repl scripts need to end with file extention ".fpl"
+FPL supports scripting of system commands and expression evaluations.
+FPL scripts need to end with file extention ".fpl"
 
 scripts are lists of statements to be performed in sequential order.
-files should be structrued in a well defined procedural order.
+files should be structured in a well defined procedural order.
 input reads until newline, constructs a string, queues string in buffer.
 
 the '#' is comment, it and everything after will be ignored until newline
 
 files can be included in other files.
-The variable space and the buffer have different dumps SO the variables can be dumped by a running script.
+The variable space and the buffer have different dumps SO the variables CAN be dumped by a running script.
 
 
 OPERATIONS:
@@ -22,13 +23,13 @@ OPERATIONS:
 load file.fpl == load the contents of "file.fpl" into the system buffer
 
 run == execute content of the system buffer. if buffer is empty will not work.
-       system buffer is a queue of commands to be executed in sequential order. 
+       system buffer is a queue of commands to be executed in sequential order.
        each command is executed, and removed from the queue. continues until queue is empty.
-    
+
 //==========================================================================
 
 
-FP_REPL script file formating
+FPL script file formating
 
 define functions, let variables, then have operations
 use '#' for comments as needed

@@ -1,7 +1,5 @@
-Notes on the REPL
-------------------------
 
-1. Reserved words
+Reserved words in FPL
 
 outer interpreter:
 -------------------

@@ -1,5 +1,5 @@
-FP_REPL Interaction Primer
-The "comprehensive" guide to syntax.
+
+FPL Syntax
 //-----------------------------------
 
 

@@ -1,9 +1,6 @@
-Technical stuff
-commentary on using system commands && memory management
-//-------------------------------------------------------
-
 
 SYSTEM COMMANDS
+commentary on using system commands && memory management
 ///******************************************
 
 * help == display help message
