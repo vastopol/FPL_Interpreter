@@ -5,7 +5,14 @@
 
 function main()
 {
+
+    if [ "$1" = "-c" ] ; then
+        wiper
+        exit 0
+    fi
+
     build_interp
+    tester
     build_manual
 }
 
@@ -14,16 +21,18 @@ function main()
 # build interpreter
 function build_interp()
 {
+    echo; echo "building interpreter"; echo
     cd code
     make
     mv bin ..
-    make clean
+    make clean > /dev/null 2>&1
     cd ..
 }
 
 # build pdf manual from postscript
 function build_manual()
 {
+    echo; echo "building manual"; echo
     # code to pdf
     a2ps -R -1 code/main.cpp -o main.ps
     a2ps -R -1 code/header/* -o hed.ps
@@ -40,10 +49,40 @@ function build_manual()
     pdfunite docs.pdf main.pdf hed.pdf src.pdf manual.pdf
 
     # cleanup extras
-    rm *.ps docs.pdf main.pdf hed.pdf src.pdf
+    rm *.ps docs.pdf main.pdf hed.pdf src.pdf > /dev/null 2>&1
+}
+
+
+function wiper()
+{
+    echo; echo "wiping"; echo
+    rm -rf bin > /dev/null 2>&1
+
+    rm -rf output > /dev/null 2>&1
+
+    rm manual.pdf > /dev/null 2>&1
+
+    cd code
+    make clean > /dev/null 2>&1
+
+    cd ..
+}
+
+
+function tester()
+{
+    echo; echo "testing"; echo
+
+    for file in $(ls user/tests) ; do
+        echo $file; echo
+        if ! bin/fplr "user/tests/$file" ; then # error infor for segfaults
+            dmesg | tail -1
+        fi
+        echo
+    done
 }
 
 #----------------------------------------
 
 # call script driver
-main
+main $@

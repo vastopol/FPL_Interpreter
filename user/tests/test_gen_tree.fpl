@@ -2,11 +2,31 @@
 # gentree doesn't execute the expression
 # so the tests can use arbitrary function compositions
 
+#---------------------------------------------
+
+# part 0
+# create the initial output directory
+
+! mkdir output
+
+# note: magic embedded shell code below renames and moves files
+# only meant to work with build.sh test harness
+# need to put a sequence after every gentree
+# ! mv output.dot o1.dot
+# ! mv output.jpg o1.jpg
+# ! mv *.dot output/
+# ! mv *.jpg output/
+
+#---------------------------------------------
+
+# part 0.1
+# create the variables and functions
 
 print
 print GENTREE TEST HARNESS
 
-memdump # clear mem
+# clear mem
+memdump
 
 # define functions
 def F = J.K
@@ -27,14 +47,34 @@ let y = <4,5,6>
 print PART 1
 
 gentree dec:1
+! mv output.dot o1.dot
+! mv output.jpg o1.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 gentree neg.inc:0
+! mv output.dot o2.dot
+! mv output.jpg o2.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 gentree rotl:<10,11,12>
+! mv output.dot o3.dot
+! mv output.jpg o3.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 gentree inc.lmax:<10,20,30>
+! mv output.dot o4.dot
+! mv output.jpg o4.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 gentree abs.neg.head.rev:<0,1,2>
+! mv output.dot o5.dot
+! mv output.jpg o5.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 #---------------------------------------------
 
@@ -44,14 +84,34 @@ gentree abs.neg.head.rev:<0,1,2>
 print PART 2
 
 gentree F:5
+! mv output.dot o6.dot
+! mv output.jpg o6.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 gentree F.G:6
+! mv output.dot o7.dot
+! mv output.jpg o7.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 gentree F:<111,222,333>
+! mv output.dot o8.dot
+! mv output.jpg o8.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 gentree H.G:<56,57,58>
+! mv output.dot o9.dot
+! mv output.jpg o9.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 gentree F.G.H:<1,2,3,4,5,6,7,8,9,0>
+! mv output.dot o10.dot
+! mv output.jpg o10.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 #---------------------------------------------
 
@@ -61,14 +121,34 @@ gentree F.G.H:<1,2,3,4,5,6,7,8,9,0>
 print PART 3
 
 gentree dec:a
+! mv output.dot o11.dot
+! mv output.jpg o11.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 gentree neg.inc:b
+! mv output.dot o12.dot
+! mv output.jpg o12.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 gentree rotl:x
+! mv output.dot o13.dot
+! mv output.jpg o13.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 gentree inc.lmax:x
+! mv output.dot o14.dot
+! mv output.jpg o14.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 gentree abs.neg.head.rev:y
+! mv output.dot o15.dot
+! mv output.jpg o15.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 #---------------------------------------------
 
@@ -78,10 +158,22 @@ gentree abs.neg.head.rev:y
 print PART 4
 
 gentree F:x
+! mv output.dot o16.dot
+! mv output.jpg o16.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 gentree F.G:x
+! mv output.dot o17.dot
+! mv output.jpg o17.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 gentree F.G.H:a
+! mv output.dot o18.dot
+! mv output.jpg o18.jpg
+! mv *.dot output/
+! mv *.jpg output/
 
 #---------------------------------------------
 

@@ -47,8 +47,9 @@ bin:
 	mkdir bin
 
 clean:
-	rm -rf bin && rm source/*.o && rm *.dot && rm *.jpg
+	rm -rf bin && rm source/*.o && rm *.dot && rm *.jpg  > /dev/null 2>&1
 
 clear:
-	rm *.dot && rm *.jpg
+	rm *.dot && rm *.jpg > /dev/null 2>&1
+
 
