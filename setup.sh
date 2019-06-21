@@ -13,7 +13,7 @@ function main()
 
     build_interp
     tester
-    build_manual
+    # build_manual
 }
 
 #----------------------------------------
@@ -23,7 +23,7 @@ function build_interp()
 {
     echo; echo "building interpreter"; echo
     cd code
-    make
+    make debug
     mv bin ..
     make clean > /dev/null 2>&1
     cd ..
@@ -75,7 +75,7 @@ function tester()
 
     for file in $(ls user/tests) ; do
         echo $file; echo
-        if ! bin/fplr "user/tests/$file" ; then # error infor for segfaults
+        if ! bin/fplr "user/tests/$file" ; then # error info for segfaults
             dmesg | tail -1
         fi
         echo
