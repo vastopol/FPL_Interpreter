@@ -1,7 +1,5 @@
 TODO
 
-DIE
-
 ver 1.2
 
 * possibly add new logic functions
@@ -58,7 +56,6 @@ ver 1.2
 
 * UPDATE AND CHECK ALL USER PROGRAMS AFTER CHANGES SO THEY STILL WORK
 
-* documentation
 
 DONE:
 * rename ls -> mem

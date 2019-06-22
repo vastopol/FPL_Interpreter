@@ -1,7 +1,0 @@
-digraph G {
-Colon_1 [label="Colon_1"];
-Colon_1 -> rotl_2;
-rotl_2 [label="rotl_2"];
-Colon_1 -> <10,1011,101112>_3;
-<10,1011,101112>_3 [label="<10,1011,101112>_3"];
-}
