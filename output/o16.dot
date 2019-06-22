@@ -1,0 +1,11 @@
+digraph G {
+Colon_1 [label="Colon_1"];
+Colon_1 -> J_2;
+J_2 [label="J_2"];
+Colon_1 -> Colon_3;
+Colon_3 [label="Colon_3"];
+Colon_3 -> K_4;
+K_4 [label="K_4"];
+Colon_3 -> <1,12,123>_5;
+<1,12,123>_5 [label="<1,12,123>_5"];
+}
