@@ -22,11 +22,11 @@ let nil = <>    # the empty list
 
 # ELEMENT FUNCTIONS
 #------------------------------------------
-def -- = dec                   # c style decrement
-def ++ = inc                   # c style increment
-def +2 = inc.inc               # increment by two
-def safe_sqrt = sqrt.abs       # prevent passing negative number to sqrt
-def quartic = square.square    # raise to fourth power
+def -- = dec    			   # c style decrement
+def ++ = inc    			   # c style increment
+def +2 = inc.inc			   # increment by two
+def safe_sqrt = sqrt.abs	   # prevent passing negative number to sqrt
+def quartic = square.square	   # raise to fourth power
 def fact = prod.genlist        # factorial n!
 #------------------------------------------
 

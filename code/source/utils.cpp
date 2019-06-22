@@ -2,6 +2,9 @@
 
 #include "../header/func.h" // need the maps for the classifier
 
+
+
+
 std::string trimSpace(std::string s)     // removes any (leading || trailing) whitespace characters
 {
     if(s.empty()){return s;}

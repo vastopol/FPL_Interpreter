@@ -7,8 +7,16 @@ ver 1.2
 * possibly add new logic functions
     universals:
         id  = identity
+    bools:
         elm = is element
         seq = is sequence
+        nil = is empty sequence
+        lt  = less than
+        gt  = greater than
+        eq  = equal to
+        lte = less than or equal
+        gte = greater than or equal
+        neq = not equal
 
 * func.h/cpp -> add more functions for the vm fn_pointers from the math.h library
 
@@ -28,6 +36,9 @@ ver 1.2
     inc.abs:1 works the same as inc.abs.1
     because
     inc.abs.1 -> inc:(abs:(1))
+
+* some how safe_sqrt in lib.fpl is broken
+    not sure how since sqrt.abs works by itself
 
 * something is wrong with functions (should be fixed when process() is fixed... i think...)
     sort.rmdup:list # this works
@@ -65,17 +76,6 @@ DONE:
     the variables are set equal to return values from evaluating the syntax tree
 * change how process() searches for strings to match for some commands
     handles the string splitting better, can name variables/functions similarly to commands
-*    bools:
-        nil = is empty sequence
-        lt  = less than
-        gt  = greater than
-        eq  = equal to
-        lte = less than or equal
-        gte = greater than or equal
-        neq = not equal
-* safe_sqrt in lib.fpl is broken
-    not sure how since sqrt.abs works by itself
-    FIXED -- had to do with tabs and spaces in the fpl file and not proper stripping of trailing whitespace
 
 //=============================================
 

@@ -31,14 +31,6 @@
 #define F_LMIN 3
 #define F_SUM  4
 #define F_PROD 5
-// booleans
-#define F_NIL  6
-#define F_EQ   7
-#define F_NEQ  8
-#define F_GT   9
-#define F_LT   10
-#define F_GTE  11
-#define F_LTE  12
 
 // list -> list
 #define F_TAIL  0
@@ -96,13 +88,6 @@ int lmax(std::list<int> l);
 int lmin(std::list<int> l);
 int sum(std::list<int> l);
 int prod(std::list<int> l);
-int nil(std::list<int> l);
-int eq(std::list<int> l);
-int neq(std::list<int> l);
-int gt(std::list<int> l);
-int lt(std::list<int> l);
-int gte(std::list<int> l);
-int lte(std::list<int> l);
 //-------------------------------------------------------------------------------
 
 // unary functions to operate on LIST

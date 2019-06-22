@@ -29,14 +29,7 @@ std::map<std::string, int> U_S_R_E
     {"lmax",F_LMAX},
     {"lmin",F_LMIN},
     {"sum",F_SUM},
-    {"prod",F_PROD},
-    {"nil",F_NIL},
-    {"eq",F_EQ},
-    {"neq",F_NEQ},
-    {"gt",F_GT},
-    {"lt",F_LT},
-    {"gte",F_GTE},
-    {"lte",F_LTE}
+    {"prod",F_PROD}
 };
 
 std::map<std::string, int> U_S_R_S
@@ -88,14 +81,7 @@ int (*Unary_S_R_E[])(std::list<int>) // unary sequence returns element
     &lmax,
     &lmin,
     &sum,
-    &prod,
-    &nil,
-    &eq,
-    &neq,
-    &gt,
-    &lt,
-    &gte,
-    &lte
+    &prod
     /* ... */
 };
 
@@ -337,142 +323,6 @@ int prod(std::list<int> seq)
 }
 //---------------------------
 
-int nil(std::list<int> l)
-{
-    if(l.empty())
-    {
-        return 1;
-    }
-    return 0;
-}
-//---------------------------
-
-int eq(std::list<int> l)
-{
-    if( l.empty() || l.size() < 2 )
-    {
-        return 0;
-    }
-
-    int a = l.front();
-    l.pop_front();
-
-    int b = l.front();
-    l.pop_front();
-
-    if(a == b)
-    {
-        return 1;
-    }
-    return 0;
-}
-//---------------------------
-
-int neq(std::list<int> l)
-{
-    if( l.empty() || l.size() < 2 )
-    {
-        return 0;
-    }
-
-    int a = l.front();
-    l.pop_front();
-
-    int b = l.front();
-    l.pop_front();
-
-    if(a != b)
-    {
-        return 1;
-    }
-    return 0;
-}
-//---------------------------
-
-int gt(std::list<int> l)
-{
-    if( l.empty() || l.size() < 2 )
-    {
-        return 0;
-    }
-
-    int a = l.front();
-    l.pop_front();
-
-    int b = l.front();
-    l.pop_front();
-
-    if(a > b)
-    {
-        return 1;
-    }
-    return 0;
-}
-//---------------------------
-
-int lt(std::list<int> l)
-{
-    if( l.empty() || l.size() < 2 )
-    {
-        return 0;
-    }
-
-    int a = l.front();
-    l.pop_front();
-
-    int b = l.front();
-    l.pop_front();
-
-    if(a < b)
-    {
-        return 1;
-    }
-    return 0;
-}
-//---------------------------
-
-int gte(std::list<int> l)
-{
-    if( l.empty() || l.size() < 2 )
-    {
-        return 0;
-    }
-
-    int a = l.front();
-    l.pop_front();
-
-    int b = l.front();
-    l.pop_front();
-
-    if(a >= b)
-    {
-        return 1;
-    }
-    return 0;
-}
-//---------------------------
-
-int lte(std::list<int> l)
-{
-    if( l.empty() || l.size() < 2 )
-    {
-        return 0;
-    }
-
-    int a = l.front();
-    l.pop_front();
-
-    int b = l.front();
-    l.pop_front();
-
-    if(a <= b)
-    {
-        return 1;
-    }
-    return 0;
-}
-//---------------------------
-
 
 //===============================================================
 // Unary Sequence Returns Sequence
@@ -707,11 +557,3 @@ std::list<int> mod(std::list<int> l)
     return l;
 }
 //---------------------------
-
-
-
-
-
-
-
-
