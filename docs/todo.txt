@@ -1,7 +1,5 @@
 TODO
 
-DIE
-
 ver 1.2
 
 * possibly add new logic functions
@@ -12,14 +10,6 @@ ver 1.2
 
 * func.h/cpp -> add more functions for the vm fn_pointers from the math.h library
 
-* add a function "list" which takes an int and turns it to a list
-    list:int  ->  <int>
-
-* rename lmin && lmax to min && max
-* rename sequence to list and element to int for clarity
-
-* fix gentree so it can print out (+,-,*,/%) breaks on the symbols because of the .dot files
-
 * irregularities with parsing
     nested lists are not supported
     using them causes unexpected behavior
@@ -28,12 +18,6 @@ ver 1.2
     inc.abs:1 works the same as inc.abs.1
     because
     inc.abs.1 -> inc:(abs:(1))
-
-* something is wrong with functions (should be fixed when process() is fixed... i think...)
-    sort.rmdup:list # this works
-    rmdup.sort:list # syntax error 1
-
-* refactor code and update documentation
 
 * the trim_space function doesn't handle tabs
 * Ctrl-D will crash command line in endless loop
@@ -45,9 +29,12 @@ ver 1.2
 * go through and remove unnecessary include statements, old inaccurate comments, other cruft...
 * restructure the .cpp files so functions are defined in same order as declared in header files
 
-* UPDATE AND CHECK ALL USER PROGRAMS AFTER CHANGES SO THEY STILL WORK
+* refactor code and update documentation
 
-* documentation
+* rename lmin && lmax to min && max
+* rename sequence to list and element to int for clarity
+
+* UPDATE AND CHECK ALL USER PROGRAMS AFTER CHANGES SO THEY STILL WORK
 
 DONE:
 * rename ls -> mem
@@ -65,7 +52,11 @@ DONE:
     the variables are set equal to return values from evaluating the syntax tree
 * change how process() searches for strings to match for some commands
     handles the string splitting better, can name variables/functions similarly to commands
-*    bools:
+* something is wrong with functions when reordered ?
+    (should be fixed when process() is fixed... i think...)
+    sort.rmdup:list # this works
+    rmdup.sort:list # syntax error 1
+*   add new functions for predicate booleans:
         nil = is empty sequence
         lt  = less than
         gt  = greater than
@@ -76,7 +67,10 @@ DONE:
 * safe_sqrt in lib.fpl is broken
     not sure how since sqrt.abs works by itself
     FIXED -- had to do with tabs and spaces in the fpl file and not proper stripping of trailing whitespace
-
+* add a function "list" which takes an int and turns it to a list
+    list : int  ->  <int>
+* fix gentree so it can print out (+,-,*,/%) breaks on the symbols because of the .dot files
+    
 //=============================================
 
 ver 1.3

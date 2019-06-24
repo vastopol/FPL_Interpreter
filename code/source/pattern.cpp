@@ -129,6 +129,7 @@ void Pattern::postOrderCheck(Node* n) // actual recursive traversal
 }
 //--------------------------------------------------------------
 
+// need to handle special chars that graphviz can't represent
  void Pattern::generateTree(std::ofstream& out, Node* n, int i=1)
  {
      if (n == 0)
@@ -138,6 +139,11 @@ void Pattern::postOrderCheck(Node* n) // actual recursive traversal
 
      std::string temp_M = n->getKey()->stringify();
      if(temp_M == ":"){temp_M = "Colon";}
+     if(temp_M == "+"){temp_M = "Add";}
+     if(temp_M == "-"){temp_M = "Sub";}
+     if(temp_M == "*"){temp_M = "Mul";}
+     if(temp_M == "/"){temp_M = "Div";}
+     if(temp_M == "%"){temp_M = "Mod";}
      temp_M = temp_M + "_" + std::to_string(i);
      out << '\n'; out << temp_M << " [label=\"" << temp_M; out << "\"];";
 
@@ -146,15 +152,26 @@ void Pattern::postOrderCheck(Node* n) // actual recursive traversal
         i++;
         std::string temp_L = (n->getLeft())->getKey()->stringify();
         if(temp_L == ":"){temp_L = "Colon";}
+        if(temp_L == "+"){temp_L = "Add";}
+        if(temp_L == "-"){temp_L = "Sub";}
+        if(temp_L == "*"){temp_L = "Mul";}
+        if(temp_L == "/"){temp_L = "Div";}
+        if(temp_L == "%"){temp_L = "Mod";}
         temp_L = temp_L + "_" + std::to_string(i);
         out << "\n" << temp_M << " -> " << temp_L << ";";
         generateTree(out, n->getLeft(), i);
      }
+
      if (n->getRight() != 0)
      {
         i++;
         std::string temp_R = (n->getRight())->getKey()->stringify();
         if(temp_R == ":"){temp_R = "Colon";}
+        if(temp_R == "+"){temp_R = "Add";}
+        if(temp_R == "-"){temp_R = "Sub";}
+        if(temp_R == "*"){temp_R = "Mul";}
+        if(temp_R == "/"){temp_R = "Div";}
+        if(temp_R == "%"){temp_R = "Mod";}
         temp_R = temp_R + "_" + std::to_string(i);
         out << "\n" << temp_M << " -> " << temp_R << ";";
         generateTree(out, n->getRight(), i);

@@ -64,7 +64,7 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
     {
         print_ln(s,m);
     }
-    else if(s.substr(0,6) == "write " )
+    else if(s.substr(0,6) == "write ")
     {
         write_buf(s,m);
     }

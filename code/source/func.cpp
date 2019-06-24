@@ -19,7 +19,8 @@ std::map<std::string, int> U_E_R_S
 {
     {"genlist",F_GENLIST},
     {"ones",F_ONES},
-    {"zeros",F_ZEROS}
+    {"zeros",F_ZEROS},
+    {"list",F_LIST}
 };
 
 std::map<std::string, int> U_S_R_E
@@ -77,7 +78,8 @@ std::list<int> (*Unary_E_R_S[])(int) // unary element return sequence
 {
     &genlist,
     &ones,
-    &zeros
+    &zeros,
+    &list
     /* ... */
 };
 
@@ -226,6 +228,14 @@ std::list<int> zeros(int x)
         l.push_back(0);
     }
 
+    return l;
+}
+//---------------------------
+
+std::list<int> list(int x)
+{
+    std::list<int> l;
+    l.push_back(x);
     return l;
 }
 //---------------------------

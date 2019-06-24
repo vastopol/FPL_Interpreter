@@ -23,6 +23,7 @@
 #define F_GENLIST 0
 #define F_ONES    1
 #define F_ZEROS   2
+#define F_LIST    3
 
 // list -> int
 #define F_SIZE 0
@@ -86,6 +87,7 @@ int sqroot(int x); // x = sqrt(x)
 std::list<int> genlist(int x);
 std::list<int> ones(int x);
 std::list<int> zeros(int x);
+std::list<int> list(int x);
 //-------------------------------------------------------------------------------
 
 // unary functions to operate on LIST
