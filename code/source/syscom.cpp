@@ -335,7 +335,7 @@ void let(std::string s, Memory* m)
     // EXECUTE
     try
     {
-        obb = P -> getA() -> exec( P -> getRoot() );
+        obb = P -> getA() -> exec( P -> getRoot() , m );
         obb->print(); std::cout << std::endl;
     }
     catch(std::exception &e)
@@ -540,7 +540,7 @@ void eval(std::string s, Memory* m)    // evaluate an expression
     // EXECUTE
     try
     {
-        Object* obb = P -> getA() -> exec( P -> getRoot() );
+        Object* obb = P -> getA() -> exec( P -> getRoot() , m );
         if(obb != 0)
         {
             obb->print(); std::cout << std::endl;

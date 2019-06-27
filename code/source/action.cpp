@@ -11,7 +11,7 @@ Action::~Action()
 }
 //--------------------------------------------------------------
 
-Object* Action::exec(Node* n) // tree traversal
+Object* Action::exec(Node* n, Memory* m) // tree traversal
 {
     // std::cout << "\nEXEC\n" << std::endl;
 
@@ -31,7 +31,7 @@ Object* Action::exec(Node* n) // tree traversal
         Object* fun = 0;
         Object* res = 0;
 
-    	arg = exec(n->getRight());
+    	arg = exec(n->getRight(),m);
 
         if(arg == 0) // if(arg != 0){ arg->print(); std::cout << std::endl; }
         {
@@ -41,7 +41,7 @@ Object* Action::exec(Node* n) // tree traversal
 
         // n->getKey()->print(); // print ':'
 
-    	fun = exec(n->getLeft());
+    	fun = exec(n->getLeft(),m);
 
         if(fun == 0) // if(fun != 0){ fun->print(); std::cout << std::endl; }
         {
@@ -50,7 +50,7 @@ Object* Action::exec(Node* n) // tree traversal
         }
 
         // evaluate expression here
-        res = apply(fun, arg);
+        res = apply(fun, arg, m);
 
         return res;
     }
@@ -59,7 +59,7 @@ Object* Action::exec(Node* n) // tree traversal
 }
 //--------------------------------------------------------------
 
-Object* Action::apply(Object* fun, Object* arg) // function execute
+Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
 {
     // std::cout << "doing" << std::endl;
 
@@ -71,8 +71,49 @@ Object* Action::apply(Object* fun, Object* arg) // function execute
 
     std::string tag = fun->stringify();
     Object* ret = 0;
-    int op = 0;     // have to search for opcode corresponding to tag in hashmap*********
+    int op = 0;     // have to search for opcode corresponding to tag in hashmap
 
+    // opereators / higher order functions
+    if(tag.substr(0,4) == "map{")
+    {
+        // printer("MAP");
+        std::string mop = trimSpace( tag.substr( 4 , tag.size()-4 ) ) ;
+        mop.pop_back();
+        Object* fu = m->goGet(mop); // function
+        if(fu == 0)
+        {
+            tag = mop;
+        }
+        else
+        {
+            tag = fu->stringify();
+        }
+
+        if(!mop.empty() && arg->type() == "Sequence" && arg->stringify() != "<>")
+        {
+            // printer("op: "+op);
+            // printer("fu: "+fu->stringify());
+            // printer("l1: "+arg->stringify());
+            std::list<int> l1 = ((Sequence*)arg)->getList();
+            std::list<int> l2;
+            for(auto i : l1)
+            {
+                op = U_E_R_E[tag];
+                Element* el = new Element(i);
+                int x = (*Unary_E_R_E[op])(el->getElement());
+                l2.push_back(x);
+                // printer(x);
+            }
+            return new Sequence(l2);
+        }
+        else
+        {
+            printer("ERROR: empty argument to map operator");
+            throw std::runtime_error("apply() : map{} operator");
+        }
+    }
+
+    // regular functions
     // type conversion of Object*
     if(arg->type() == "Element")
     {
