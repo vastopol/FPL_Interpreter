@@ -34,9 +34,9 @@ class Interpreter
         Node* buildtree(std::list<Object*> lst, Memory* m);                // build the AST
 
     public:
-        Interpreter(){};
+        Interpreter() {};
 
-        ~Interpreter();
+       ~Interpreter();
 
         Node* parse(std::string s, Memory* m);                             // parsing engine
 };

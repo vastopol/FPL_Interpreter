@@ -186,7 +186,8 @@ void Pattern::postOrderCheck(Node* n) // actual recursive traversal
     if(!outFS.is_open())
     {
         std::cout << "Error opening " << outputFilename << std::endl;
-        return;
+        throw std::runtime_error("visualizeTree() : missing file"); 
+        // return;
     }
 
     outFS << "digraph G {";

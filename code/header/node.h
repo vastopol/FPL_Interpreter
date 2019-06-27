@@ -13,11 +13,11 @@ class Node
         Node* parent;
         Node* left;
         Node* right;
-        
+
     public:
         Node(Object*);
-        ~Node();
-        
+       ~Node();
+
         Object* getKey();
         Node* getParent();
         Node* getLeft();

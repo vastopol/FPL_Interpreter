@@ -5,12 +5,12 @@
 std::string trimSpace(std::string s)     // removes any (leading || trailing) whitespace characters
 {
     if(s.empty()){return s;}
-    while(s.at(0) == ' ')                // remove any leading spaces
+    while(s.at(0) == ' ' || s.at(0) == '\t')                // remove any leading whitespace
     {
         if(s.size() == 1){return "";}
         s = s.substr(1, (s.size()-1));
     }
-    while(s.at(s.size()-1) == ' ')       // remove any trailing spaces
+    while(s.at(s.size()-1) == ' ' || s.at(s.size()-1) == '\t')       // remove any trailing whitespace
     {
         if(s.size() == 1){return "";}
         s = s.substr(0, (s.size()-1));

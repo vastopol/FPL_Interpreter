@@ -56,8 +56,8 @@
 #define F_DIV   11  // '/'
 #define F_MOD   12  // '%'
 
-// mapping of function names to opcodes**********
-// map strings to integer index
+// mapping of function names to opcodes
+// strings to integer index into table
 extern std::map<std::string, int> U_E_R_E; // functions of type: int f(int)
 extern std::map<std::string, int> U_E_R_S; // functions of type: list<int> f(int)
 extern std::map<std::string, int> U_S_R_E; // functions of type: int f(list<int>)
@@ -124,18 +124,7 @@ std::list<int> div(std::list<int> l);
 std::list<int> mod(std::list<int> l);
 //-------------------------------------------------------------------------------
 
-
 #endif // __FUNC_H__
-
-/*
-
-Names of function maps:
-- U_E_R_E = takes element, returns an element
-- U_E_R_S = takes element, returns an sequence
-- U_S_R_E = takes sequence, returns element
-- U_S_R_S = takes sequence, returns sequence
-
-*/
 
 /*
 
@@ -146,10 +135,11 @@ function groups by argument type:
 - Unary_S
    - return Element
    - return Sequence
-- Binary_E_E (not implemented yet)
-- Binary_E_S (not implemented yet)
-- Binary_S_S (not implemented yet)
 
-
+Names of function maps:
+- U_E_R_E = takes element, returns an element
+- U_E_R_S = takes element, returns an sequence
+- U_S_R_E = takes sequence, returns element
+- U_S_R_S = takes sequence, returns sequence
 
 */

@@ -25,16 +25,17 @@ class Element : public Object
 {
     private:
         int val;
-    
+
     public:
         Element() {}
         Element(int i);
-        ~Element() {} 
-        std::string type() {return "Element";} 
+       ~Element() {}
+
+        std::string type() {return "Element";}
         void print() {std::cout << this->val;}
         int getElement() {return val;}
 
-        Object* get();  
+        Object* get();
         std::string stringify();
 };
 //---------------------------------
@@ -43,11 +44,12 @@ class Sequence : public Object
 {
     private:
         std::list<int> seq;
-    
+
     public:
-        Sequence(){}
+        Sequence() {}
         Sequence(std::list<int> l);
-        ~Sequence() {}
+       ~Sequence() {}
+
         std::string type() {return "Sequence";}
         void print()
         {
@@ -67,7 +69,7 @@ class Sequence : public Object
         }
         std::list<int> getList() {return seq;}
 
-        Object* get();  
+        Object* get();
         std::string stringify();
 };
 //---------------------------------
@@ -76,7 +78,7 @@ class Function : public Object
 {
     private:
         std::string func;
-    
+
     public:
         Function() {}
         Function(std::string s);
@@ -94,15 +96,15 @@ class Colon : public Object
 {
     private:
         std::string col;
-    
+
     public:
         Colon() {}
         Colon(std::string s);
-        ~Colon() {}  
+        ~Colon() {}
         std::string type() {return "Colon";}
         void print() {std::cout << col;}
         std::string getColon() {return col;}
-        
+
         Object* get();
         std::string stringify();
 };
@@ -112,11 +114,11 @@ class Block : public Object  // to reparse again
 {
     private:
         std::string block;
-    
+
     public:
         Block() {}
         Block(std::string s);
-        ~Block() {}  
+        ~Block() {}
         std::string type() {return "Block";}
         void print() {std::cout << this->block;}
         std::string getBlock() {return this->block;}

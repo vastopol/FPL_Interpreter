@@ -109,7 +109,7 @@ Object* Action::apply(Object* fun, Object* arg) // function execute
             return ret;
         }
 
-        if(U_S_R_S.find(tag) == U_S_R_S.end())
+        if(U_S_R_S.find(tag) == U_S_R_S.end()) // can cause a segfault if inc is used... unknown bug
         {
             std::cout << "ERROR: INVALID FUNCT SEQ: " << tag << std::endl;
             throw std::runtime_error("apply() : INVALID FUNCT SEQ"); // return 0;

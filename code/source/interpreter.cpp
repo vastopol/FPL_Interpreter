@@ -77,8 +77,8 @@ Node* Interpreter::parse(std::string str, Memory* m) // parsing engine
     // for(std::list<Object*>::iterator it = oblist.begin(); it != oblist.end(); it++)
     // {
     //     std::cout << (*it)->type() << " ";
-    // 	(*it)->print();
-    // 	std::cout << std::endl;
+    //     (*it)->print();
+    //     std::cout << std::endl;
     // }
 
     // PART 4
@@ -91,7 +91,7 @@ Node* Interpreter::parse(std::string str, Memory* m) // parsing engine
     // for(std::list<Object*>::iterator it = oblist.begin(); it != oblist.end(); it++)
     // {
     //     //std::cout << (*it)->type() << " ";
-    // 	std::cout << "\""; (*it)->print(); std::cout << "\", ";
+    //     std::cout << "\""; (*it)->print(); std::cout << "\", ";
     // }
     // std::cout << std::endl;
 
@@ -302,128 +302,137 @@ std::list<Object*> Interpreter::toklist(std::list<std::string> lst, Memory* m)
 
   for(std::list<std::string>::iterator it = lst.begin(); it != lst.end(); it++)
   {
-      if( (*it).empty() || *it == "" ) // error check
-      {
-          std::cout << "ERROR: null string for build object" << std::endl;
-          throw std::runtime_error("parse() : null string for build object"); // return 0;
-      }
+        if( (*it).empty() || *it == "" ) // error check
+        {
+            std::cout << "ERROR: null string for build object" << std::endl;
+            throw std::runtime_error("parse() : null string for build object"); // return 0;
+        }
 
-      if(*it == ":") // make colon object
-      {
-          // std::cout << "colon part: " << *it << std::endl;
+        if(*it == ":") // make colon object
+        {
+            // std::cout << "colon part: " << *it << std::endl;
+            ob = new Colon(*it);
+            oblist.push_back(ob);
+            ob = 0;
+            continue;
+        }
 
-        ob = new Colon(*it);
-        oblist.push_back(ob);
-        ob = 0;
-          continue;
-      }
+        ob = m->goGet(*it); // look for variable||function object in memory hashes
+        if(ob != 0)
+        {
+            // std::cout << "mem_variable part: " << *it << std::endl;
+            oblist.push_back(ob);
+            ob = 0;
+            continue;
+        }
+        else // make new object
+        {
+            std::string val = *it;
+            if( val.at(0) == '(' && val.at(val.size()-1) == ')' )
+            {
+                // std::cout << "block part: " << val << std::endl;
+                // remove ()
+                val = val.substr(1, (val.size() - 1)); // gone (
+                val = val.substr(0, (val.size() - 1)); // gone )
+                ob  = new Block(val);
+                oblist.push_back(ob);
+                ob = 0;
+                continue;
+            }
+            else if( isdigit(val.at(0)) || ( (val.size() >= 2)&&( (val.at(0) == '-')&&isdigit(val.at(1)) ) ) ) // element
+            {
+                // std::cout << "element part: " << val << std::endl;
+                ob = new Element(atoi(val.c_str()));
+                oblist.push_back(ob);
+                ob = 0;
+            }
+            else if(val.at(0) == '<' && val.at(val.size() - 1) == '>' ) // sequence
+            {
+                // std::cout << "sequence part: " << val << std::endl;
 
-      ob = m->goGet(*it); // look for variable||function object in memory hashes
-      if(ob != 0)
-      {
-          // std::cout << "mem_variable part: " << *it << std::endl;
+                std::list<int> ilst;
 
-          oblist.push_back(ob);
-          ob = 0;
-          continue;
-      }
-      else // make new object
-      {
-          // code from syscom.cpp modified
-          /////////////////////////////////////////////////////////////////////
-          std::string val = *it;
-          if( val.at(0) == '(' && val.at(val.size()-1) == ')' )
-          {
-              // std::cout << "block part: " << val << std::endl;
+                // remove <>
+                val = val.substr(1, (val.size() - 1)); // gone <
+                val = val.substr(0, (val.size() - 1)); // gone >
 
-              // remove ()
-              val = val.substr(1, (val.size() - 1)); // gone (
-              val = val.substr(0, (val.size() - 1)); // gone )
-              ob  = new Block(val);
-              oblist.push_back(ob);
-              ob = 0;
-              continue;
-          }
-          else if( isdigit(val.at(0)) || ( (val.size() >= 2)&&( (val.at(0) == '-')&&isdigit(val.at(1)) ) ) ) // element
-          {
-              // std::cout << "element part: " << val << std::endl;
+                val = trimSpace(val);
 
-              ob = new Element(atoi(val.c_str()));
-              oblist.push_back(ob);
-              ob = 0;
-          }
-          else if(val.at(0) == '<' && val.at(val.size() - 1) == '>' ) // sequence
-          {
-              // std::cout << "sequence part: " << val << std::endl;
+                // add empty list HERE
+                if(val.empty())
+                {
+                    ob = new Sequence(ilst);
+                    oblist.push_back(ob);
+                    ob = 0;
+                    continue;
+                }
 
-              std::list<int> lst;
+                // remove bad junk before segfault
+                while( !isalnum(val.at(0)) && val.size() >= 1 )
+                {
+                    if(val.size() == 1){val = ""; break;}
+                    if(val.at(0) == '-') {break;} // a negative number
+                    val = val.substr(1, (val.size() - 1));
+                }
 
-              // remove <>
-              val = val.substr(1, (val.size() - 1)); // gone <
-              val = val.substr(0, (val.size() - 1)); // gone >
+                // add empty list HERE
+                if(val.empty())
+                {
+                    ob = new Sequence(ilst);
+                    oblist.push_back(ob);
+                    ob = 0;
+                    continue;
+                }
 
-              val = trimSpace(val);
+                // extract && store the elements of the sequence
+                char* copy = (char*)(val.c_str());  // copy to give strtok for parse
+                char* arr = strtok(copy, ",");      // temp array
 
-              // add empty list HERE
-              if(val.empty())
-              {
-                  ob = new Sequence(lst);
-                  oblist.push_back(ob);
-                  ob = 0;
-                  continue;
-              }
+                // 1st element
+                Object* tmpobj = m->goGet(std::string(arr)); // have to see if list has vars: <1,2,x,3>
+                if(tmpobj != 0 && tmpobj->type() == "Element")
+                {
+                    ilst.push_back( (static_cast<Element*>(tmpobj)->getElement() ) );
+                }
+                else
+                {
+                    ilst.push_back( atoi( arr ) );
+                }
 
-              // remove bad junk before segfault
-              while( !isalnum(val.at(0)) && val.size() >= 1 )
-              {
-                  if(val.size() == 1){val = ""; break;}
+                // rest of the elements
+                for(unsigned i = 1; arr != 0; i++)
+                {
+                    arr = strtok(NULL, ",");
+                    if(arr)
+                    {
+                        tmpobj = m->goGet( std::string(arr) ); // have to see if list has vars: <1,2,x,3>
+                        if(tmpobj != 0 && tmpobj->type() == "Element")
+                        {
+                            ilst.push_back( (static_cast<Element*>(tmpobj)->getElement() ) );
+                        }
+                        else
+                        {
+                            ilst.push_back( atoi( arr ) );
+                        }
+                    }
+                }
 
-                  if(val.at(0) == '-') {break;} // a negative number
+                ob = new Sequence(ilst);    // list with data HERE
+                oblist.push_back(ob);
+                ob = 0;
+            }
+            else // function
+            {
+                // std::cout << "Function part: " << val << std::endl;
+                ob = new Function(val);
+                oblist.push_back(ob);
+                ob = 0;
+            }
+            // end make object
 
-                  val = val.substr(1, (val.size() - 1));
-              }
+        } // end if
 
-              // add empty list HERE
-              if(val.empty())
-              {
-                  ob = new Sequence(lst);
-                  oblist.push_back(ob);
-                  ob = 0;
-                  continue;
-              }
-
-              // extract && store the elements of the sequence
-              char* copy = (char*)(val.c_str());  // copy to give strtok for parse
-              char* arr = strtok(copy, ",");      // temp array
-              lst.push_back( atoi( arr ) );		// add
-
-              for(unsigned i = 1; arr != 0; i++)
-              {
-                  arr = strtok(NULL, ",");
-                  if(arr)
-                  {
-                      lst.push_back( atoi( arr ) );
-                  }
-              }
-
-              ob = new Sequence(lst);    // list with data HERE
-              oblist.push_back(ob);
-              ob = 0;
-          }
-          else // function
-          {
-              // std::cout << "Function part: " << val << std::endl;
-
-              ob = new Function(val);
-              oblist.push_back(ob);
-              ob = 0;
-          }
-          ///////////////////////////////////////////////////////////////////////
-          // end make object
-
-      } // end if
-
-  } // end for
+    } // end for
 
   ob = 0;    // pointer clean
   delete ob;
@@ -483,24 +492,24 @@ Node* Interpreter::buildtree(std::list<Object*> lst, Memory* m) // build the AST
 
     for(std::list<Object*>::iterator i = lst.begin(); i != lst.end(); i++)
     {
-		if((*i)->type() == "Block") // recursive parse***
+        if((*i)->type() == "Block") // recursive parse***
         {
-        	// std::cout << "bt: case1" << std::endl;
+            // std::cout << "bt: case1" << std::endl;
 
-        	std::string xstr = (*i)->get()->stringify();
+            std::string xstr = (*i)->get()->stringify();
             n = parse(xstr, m);
             s.push(n);
         }
         else if( (*i)->type() == "Function"|| (*i)->type() == "Sequence" || (*i)->type() == "Element" )
         {
-        	// std::cout << "bt: case2 " << (*i)->type() << std::endl;
+            // std::cout << "bt: case2 " << (*i)->type() << std::endl;
 
             n = new Node((*i)->get());
             s.push(n);
         }
         else // Colon
         {
-        	// std::cout << "bt: case3 " << (*i)->type() << std::endl;
+            // std::cout << "bt: case3 " << (*i)->type() << std::endl;
 
             if(!s.empty()) // empty == do nothing
             {

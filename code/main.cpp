@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <stdexcept>
 
-void c_line(int argc, char** argv, Memory* storage); // comline args to run file(s)
+void c_line(int argc, char** argv, Memory* storage); // handle comline args to run files
 
 //=====================================================
 int main(int argc, char** argv)
@@ -28,11 +28,12 @@ int main(int argc, char** argv)
     }
     while(1);
 
-return 0;
+    return 0;
 }
 //=====================================================
 
-void c_line(int argc, char** argv, Memory* storage) // handle comline args to run files
+// handle comline args to run files
+void c_line(int argc, char** argv, Memory* storage)
 {
     if(argc < 2)
     {

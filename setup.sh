@@ -3,6 +3,11 @@
 # script to build the FPL interpreter and manual
 # this will create bin/ && manual.pdf in current directory
 
+# doesn't seem to work, copy paste into terminal
+shopt -s expand_aliases
+alias fpl='rlwrap bin/fplr'
+alias build_fpl='./setup.sh -c && ./setup.sh && clear && rlwrap bin/fplr'
+
 function main()
 {
 

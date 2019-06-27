@@ -167,30 +167,30 @@ void help()
     std::cout << std::endl;
     std::cout << "HELP DOCUMENT:" << std::endl;
     std::cout << std::endl;
-
     std::cout << "GENERAL:" << std::endl;
     std::cout << "Enter commands OR evaluate expressions." << std::endl;
     std::cout << std::endl;
-
     std::cout << "COMMANDS:" << std::endl;
-    std::cout << "help" << "    == " << "display help" << std::endl;
-    std::cout << "fcts" << "    == " << "display functions" << std::endl;
-    std::cout << "history" << " == " << "display history" << std::endl;
-    std::cout << "clear" << "   == " << "clear the screen contents" << std::endl;
-    std::cout << "exit" << "    == " << "quit program" << std::endl;
-    std::cout << "def" << "     == " << "define function macro" << std::endl;
-    std::cout << "let" << "     == " << "create/set a variable to an expression value" << std::endl;
-    std::cout << "rm" << "      == " << "remove an entry from memory" << std::endl;
-    std::cout << "mem" << "     == " << "list all memory" << std::endl;
-    std::cout << "buf" << "     == " << "list all buffer content" << std::endl;
-    std::cout << "memdump" << " == " << "empty all memory" << std::endl;
-    std::cout << "bufdump" << " == " << "empty all buffer content" << std::endl;
-    std::cout << "load" << "    == " << "load script to memory buffer" << std::endl;
-    std::cout << "run" << "     == " << "execute content of memory buffer" << std::endl;
-    std::cout << "print" << "   == " << "print a string, ends on newline, use $ for variables" << std::endl;
-    std::cout << "gentree" << " == " << "parses an expression, generates the AST using graphviz" << std::endl;
-    std::cout << "type" << "    == " << "show function or expression type signature" << std::endl;
-    std::cout << "!" << "       == " << "execute external shell command with system()" << std::endl;
+    std::cout << "help    == display help" << std::endl;
+    std::cout << "fcts    == display functions" << std::endl;
+    std::cout << "history == display history" << std::endl;
+    std::cout << "clear   == clear the screen contents" << std::endl;
+    std::cout << "exit    == quit program" << std::endl;
+    std::cout << "def     == define function macro" << std::endl;
+    std::cout << "let     == create/set a variable to an expression value" << std::endl;
+    std::cout << "rm      == remove an entry from memory" << std::endl;
+    std::cout << "mem     == list all memory" << std::endl;
+    std::cout << "buf     == list all buffer content" << std::endl;
+    std::cout << "memdump == empty all memory" << std::endl;
+    std::cout << "bufdump == empty all buffer content" << std::endl;
+    std::cout << "load    == load script to memory buffer" << std::endl;
+    std::cout << "run     == execute content of memory buffer" << std::endl;
+    std::cout << "step    == execute 1 instruction from memory buffer" << std::endl;
+    std::cout << "write   == write line to memory buffer" << std::endl;
+    std::cout << "print   == print a string, ends on newline, use $ for variables" << std::endl;
+    std::cout << "gentree == parses an expression, generates the AST using graphviz" << std::endl;
+    std::cout << "type    == show function or expression type signature" << std::endl;
+    std::cout << "!       == execute external shell command with system()" << std::endl;
     std::cout << std::endl;
 }
 //-------------------------------------------------------------------------------------------
@@ -215,23 +215,26 @@ void fcts()
     std::cout << "- genlist == list from 1 to n" << std::endl;
     std::cout << "- ones    == list of n ones" << std::endl;
     std::cout << "- zeros   == list of n zeros" << std::endl;
+    std::cout << "- list    == create a list around an element" << std::endl;
     std::cout << std::endl;
     std::cout << "SEQUENCE OPERATIONS" << std::endl;
     std::cout << std::endl;
     std::cout << "RETURN TYPE (ELEMENT)" << std::endl;
-    std::cout << "- size  == number of elements in list" << std::endl;
     std::cout << "- head  == first element of sequence" << std::endl;
+    std::cout << "- size  == number of elements in list" << std::endl;
     std::cout << "- lmax  == maximum value in sequence" << std::endl;
     std::cout << "- lmin  == minimum value in sequence" << std::endl;
     std::cout << "- sum   == add the elements of a sequence together" << std::endl;
     std::cout << "- prod  == multiply the elements of a sequence together" << std::endl;
+    std::cout << "- nil   == check for empty list" << std::endl;
+    std::cout << "(eq,neq,gt,lt,gte,lte) == act on first 2 elements" << std::endl;
     std::cout << std::endl;
     std::cout << "RETURN TYPE (SEQUENCE)" << std::endl;
-    std::cout << "- rotl  == rotate sequence elements to the left" << std::endl;
     std::cout << "- tail  == sequence from second to end" << std::endl;
-    std::cout << "- rotr  == rotate sequence elements to the right" << std::endl;
     std::cout << "- popl  == pop element from left of sequence" << std::endl;
     std::cout << "- popr  == pop element from right of sequence" << std::endl;
+    std::cout << "- rotl  == rotate sequence elements to the left" << std::endl;
+    std::cout << "- rotr  == rotate sequence elements to the right" << std::endl;
     std::cout << "- rev   == reverse the order of a sequence" << std::endl;
     std::cout << "- sort  == sort sequence into ascending order" << std::endl;
     std::cout << "- rmdup == remove duplicates, preserves order" << std::endl;
@@ -257,7 +260,8 @@ void def(std::string s, Memory* m) //  function macro definition
     // split out " = ", the equals and padding spaces
     // string var = name; string val = value
     //**************************************************
-    size_t pos = s.find(" = "); // location of =
+    // size_t pos = s.find(" = "); // location of =
+    size_t pos = s.find("="); // location of =
     if(pos >= s.size() || pos == std::string::npos)
     {std::cout << "ERROR2: Syntax\n"; return;}
 
@@ -265,10 +269,10 @@ void def(std::string s, Memory* m) //  function macro definition
     var = trimSpace(var);
     if(var.empty()){std::cout << "ERROR3: Syntax -> var\n"; return;}
 
-    pos = s.find(" ");        // location of first " "
-    pos = s.find(" ", pos+1); // location of " " right after the "="
-    if(pos >= s.size() || pos == std::string::npos)
-    { std::cout << "ERROR4: Syntax" << std::endl; return; }
+    // pos = s.find(" ");        // location of first " "
+    // pos = s.find(" ", pos+1); // location of " " right after the "="
+    // if(pos >= s.size() || pos == std::string::npos)
+    // { std::cout << "ERROR4: Syntax" << std::endl; return; }
 
     std::string val = s.substr((pos + 1), (s.size() - pos)); // variable value, right half
     val = trimSpace(val);
@@ -287,7 +291,8 @@ void let(std::string s, Memory* m)
     // split out " = ", the equals and padding spaces
     // string var = name; string val = value
     //**************************************************
-    size_t pos = s.find(" = "); // location of =
+    // size_t pos = s.find(" = "); // location of =
+    size_t pos = s.find("="); // location of =
     if(pos >= s.size() || pos == std::string::npos)
     {std::cout << "ERROR2: Syntax\n"; return;}
 
@@ -295,10 +300,10 @@ void let(std::string s, Memory* m)
     var = trimSpace(var);
     if(var.empty()){std::cout << "ERROR3: Syntax -> var\n"; return;}
 
-    pos = s.find(" ");        // location of first " "
-    pos = s.find(" ", pos+1); // location of " " right after the "="
-    if(pos >= s.size() || pos == std::string::npos)
-    { std::cout << "ERROR4: Syntax" << std::endl; return; }
+    // pos = s.find(" ");        // location of first " "
+    // pos = s.find(" ", pos+1); // location of " " right after the "="
+    // if(pos >= s.size() || pos == std::string::npos)
+    // { std::cout << "ERROR4: Syntax" << std::endl; return; }
 
     std::string val = s.substr((pos + 1), (s.size() - pos)); // variable value, right half
     val = trimSpace(val);

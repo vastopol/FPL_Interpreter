@@ -25,8 +25,8 @@ class Memory
         std::list<std::string> history;                     // list of commands entered write to and print only so far
 
     public:
-        Memory(){};
-        ~Memory();
+        Memory() {};
+       ~Memory();
 
         // ADD
         void add_element(std::string, Element);
