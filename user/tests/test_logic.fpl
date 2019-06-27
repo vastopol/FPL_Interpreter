@@ -1,0 +1,53 @@
+# truth tables
+# testing boolean logic simulation
+# or is represented as a sum
+# and is represented by a product
+# xor is equality
+
+
+def or = sum
+def and = prod
+def xor = eq
+
+print
+print t/f
+
+let true = 1
+let false = 0
+
+print
+print pairs
+
+let aa = <true,true>
+let ab = <true,false>
+let ba = <false,true>
+let bb = <false,false>
+
+#--------------------
+
+print
+print and
+
+and:aa
+and:ab
+and:ba
+and:bb
+
+print
+print or
+
+or:aa
+or:ab
+or:ba
+or:bb
+
+print
+print xor
+
+xor:aa
+xor:ab
+xor:ba
+xor:bb
+
+print
+
