@@ -73,6 +73,8 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
     Object* ret = 0;
     int op = 0;     // have to search for opcode corresponding to tag in hashmap
 
+    //----------------------------------------
+
     // opereators / higher order functions
     if(tag.substr(0,4) == "map{")
     {
@@ -112,6 +114,50 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
             throw std::runtime_error("apply() : map{} operator");
         }
     }
+
+    if(tag.substr(0,5) == "filt{")
+    {
+        // printer("MAP");
+        std::string mop = trimSpace( tag.substr( 5 , tag.size()-5 ) ) ;
+        mop.pop_back();
+        Object* fu = m->goGet(mop); // function
+        if(fu == 0)
+        {
+            tag = mop;
+        }
+        else
+        {
+            tag = fu->stringify();
+        }
+
+        if(!mop.empty() && arg->type() == "Sequence" && arg->stringify() != "<>")
+        {
+            // printer("op: "+op);
+            // printer("fu: "+fu->stringify());
+            // printer("l1: "+arg->stringify());
+            std::list<int> l1 = ((Sequence*)arg)->getList();
+            std::list<int> l2;
+            for(auto i : l1)
+            {
+                op = U_E_R_E[tag];
+                Element* el = new Element(i);
+                int x = (*Unary_E_R_E[op])(el->getElement());
+                if(x == 1)
+                {
+                    l2.push_back(i);
+                }
+                // printer(x);
+            }
+            return new Sequence(l2);
+        }
+        else
+        {
+            printer("ERROR: empty argument to map operator");
+            throw std::runtime_error("apply() : map{} operator");
+        }
+    }
+
+    //----------------------------------------
 
     // regular functions
     // type conversion of Object*

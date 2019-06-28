@@ -21,7 +21,7 @@ expression = X
 
 new operators:
 
-// apply to all, for each
+// map, apply to all, for each (DONE)
 // F is unary function for elements F:E -> E
 map{F}:L -> L
     tmp = <>
@@ -33,18 +33,7 @@ map{F}:L -> L
 
 //---------------------------------------
 
-// reduce, left fold a binary function
-red{F}:L -> E
-    tmp = e1
-    For e2 to en in L
-    do
-        tmp = F:<tmp,ei>
-    done
-    return tmp
-
-//---------------------------------------
-
-// filter
+// filter (DONE)
 // F is unary predicate for elements P:E -> E where 1 == true, 0 == false
 filt{P}:L -> L
     tmp = <>
@@ -52,6 +41,17 @@ filt{P}:L -> L
     do
         if P:e == true
             tmp.append(e)
+    done
+    return tmp
+
+//---------------------------------------
+
+// reduce, left fold a binary function
+red{F}:L -> E
+    tmp = e1
+    For e2 to en in L
+    do
+        tmp = F:<tmp,ei>
     done
     return tmp
 
@@ -76,8 +76,14 @@ del{i}:L -> L
 //---------------------------------------
 
 // list insert
-ins{i,E}:L -> L
+ins{i;E}:L -> L
     insert E at index i
+
+//---------------------------------------
+
+// list concatenate
+app{L2}:L1 -> L
+    append L2 to the end of L1
 
 //---------------------------------------
 

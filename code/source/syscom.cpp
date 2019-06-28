@@ -210,6 +210,9 @@ void fcts()
     std::cout << "- square == second power" << std::endl;
     std::cout << "- cube == third power" << std::endl;
     std::cout << "- sqrt == square root" << std::endl;
+    std::cout << "- not  == logical not" << std::endl;
+    std::cout << "- odd  == test is odd" << std::endl;
+    std::cout << "- even == test is even" << std::endl;
     std::cout << std::endl;
     std::cout << "RETURN TYPE (SEQUENCE)" << std::endl;
     std::cout << "- genlist == list from 1 to n" << std::endl;

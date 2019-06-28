@@ -12,7 +12,10 @@ std::map<std::string, int> U_E_R_E
     {"dec",F_DEC},
     {"square",F_SQUARE},
     {"cube",F_CUBE},
-    {"sqrt",F_SQRT}
+    {"sqrt",F_SQRT},
+    {"not",F_NOT},
+    {"odd",F_ODD},
+    {"even",F_EVEN}
 };
 
 std::map<std::string, int> U_E_R_S
@@ -69,7 +72,10 @@ int (*Unary_E_R_E[])(int) // unary element return element
     &dec,
     &square,
     &cube,
-    &sqroot
+    &sqroot,
+    &_not,
+    &odd,
+    &even
     /* ... */
 };
 
@@ -171,6 +177,36 @@ int sqroot(int x) // x = sqrt(x)
     double d = x;
     d = sqrt(d);
     return (int)d;
+}
+//---------------------------
+
+int _not(int x) // needs underscore in name or will not compile
+{
+    if(x == 0)
+    {
+        return 1;
+    }
+    return 0;
+}
+//---------------------------
+
+int odd(int x) // x = -x
+{
+    if(x % 2 != 0)
+    {
+        return 1;
+    }
+    return 0;
+}
+//---------------------------
+
+int even(int x) // x = -x
+{
+    if(x % 2 == 0)
+    {
+        return 1;
+    }
+    return 0;
 }
 //---------------------------
 

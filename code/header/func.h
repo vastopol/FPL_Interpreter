@@ -18,6 +18,10 @@
 #define F_SQUARE 4
 #define F_CUBE 5
 #define F_SQRT 6
+// booleans : int -> int
+#define F_NOT  7
+#define F_ODD  8
+#define F_EVEN 9
 
 // int -> list
 #define F_GENLIST 0
@@ -32,7 +36,7 @@
 #define F_LMIN 3
 #define F_SUM  4
 #define F_PROD 5
-// booleans
+// booleans : list -> int
 #define F_NIL  6
 #define F_EQ   7
 #define F_NEQ  8
@@ -80,6 +84,9 @@ int dec(int x);    // x = x++
 int square(int x); // x = x*x
 int cube(int x);   // x = x*x*x
 int sqroot(int x); // x = sqrt(x)
+int _not(int x);    // needs underscore in name or will not compile
+int odd(int x);
+int even(int x);
 //-------------------------------------------------------------------------------
 
 // unary functions to operate on ELEMENT
