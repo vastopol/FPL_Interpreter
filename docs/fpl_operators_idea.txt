@@ -57,7 +57,7 @@ red{F}:L -> E
 
 //---------------------------------------
 
-// list access
+// list access (DONE)
 at{i}:L -> E
     return the ith item
 
@@ -82,7 +82,7 @@ ins{i;E}:L -> L
 //---------------------------------------
 
 // list concatenate
-app{L2}:L1 -> L
+cat{L2}:L1 -> L
     append L2 to the end of L1
 
 //---------------------------------------

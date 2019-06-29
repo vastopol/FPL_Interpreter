@@ -117,7 +117,7 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
 
     if(tag.substr(0,5) == "filt{")
     {
-        // printer("MAP");
+        // printer("FILTER");
         std::string mop = trimSpace( tag.substr( 5 , tag.size()-5 ) ) ;
         mop.pop_back();
         Object* fu = m->goGet(mop); // function
@@ -152,8 +152,49 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
         }
         else
         {
-            printer("ERROR: empty argument to map operator");
-            throw std::runtime_error("apply() : map{} operator");
+            printer("ERROR: empty argument to filter operator");
+            throw std::runtime_error("apply() : filt{} operator");
+        }
+    }
+
+    if(tag.substr(0,3) == "at{")
+    {
+        // printer("AT");
+        std::string mop = trimSpace( tag.substr( 3 , tag.size()-3 ) ) ;
+        mop.pop_back();
+
+        if(!mop.empty() && arg->type() == "Sequence" && arg->stringify() != "<>")
+        {
+            std::list<int> l1 = ((Sequence*)arg)->getList();
+            int ee = 0;
+            Object* fu = m->goGet(mop); // function
+            if(fu == 0)
+            {
+                ee = atoi(mop.c_str());
+            }
+            else
+            {
+                ee = atoi( fu->stringify().c_str() );
+            }
+            // int ee = atoi(mop.c_str());
+            // printer(ee);
+            // printer(l1.size());
+            if(ee > l1.size() || ee < 1)
+            {
+                printer("ERROR: index to at operator");
+                throw std::runtime_error("apply() : at{} operator");
+            }
+            for(int i = 1; i < ee; i++)
+            {
+                // printer(l1.front());
+                l1.pop_front();
+            }
+            return new Element(l1.front());
+        }
+        else
+        {
+            printer("ERROR: empty argument to at operator");
+            throw std::runtime_error("apply() : at{} operator");
         }
     }
 
