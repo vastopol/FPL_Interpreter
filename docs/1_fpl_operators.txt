@@ -1,7 +1,7 @@
 Operators
 //---------------------------------------
 
-i think i found a better way to keep all the functions 1 input 1 output.
+a better way to keep all the functions 1 input 1 output.
 the binary functions (+,-,*,/,%) already work on lists.
 the operators should follow this concept too.
 rename the operators in the form of "name{args}"
@@ -18,6 +18,13 @@ list       = L
 function   = F
 predicate  = P
 expression = X
+
+
+add the operators name{params}:arg format part, and
+let the arg be represented by @ as an abstraction
+can be used for ifs
+
+//---------------------------------------
 
 new operators:
 

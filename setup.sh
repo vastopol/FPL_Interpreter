@@ -18,7 +18,7 @@ function main()
 
     build_interp
     tester
-    # build_manual
+    build_manual
 }
 
 #----------------------------------------
@@ -63,7 +63,7 @@ function wiper()
     echo; echo "wiping"; echo
     rm -rf bin > /dev/null 2>&1
 
-    rm -rf output > /dev/null 2>&1
+    rm -rf output* > /dev/null 2>&1
 
     rm manual.pdf > /dev/null 2>&1
 

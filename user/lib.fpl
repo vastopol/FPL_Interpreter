@@ -38,7 +38,8 @@ def cadr = head.tail
 def cddr = tail.tail
 def caddr = head.tail.tail
 def cdddr = tail.tail.tail
-def second = head.tail         # return second element, (size >= 2)
-def last = head.rev            # return last element
-def sorted_set = sort.rmdup    # return unique sequence in ascending order
+def second = head.tail            # return second element, (size >= 2)
+def last = head.rev               # return last element
+def sorted_set = sort.rmdup       # return unique sequence in ascending order
+def sum_squares = sum.map{square}
 #------------------------------------------

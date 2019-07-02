@@ -3,54 +3,79 @@ Reserved words in FPL
 
 outer interpreter:
 -------------------
-exit
-clear
-help
-print
-def
-let
-rm
-dump
-ls
-bufdump
-bufls
-load
-run
-gentree
-type
-!
+
+COMMANDS:
+help    == display help
+fcts    == display functions
+history == display history
+clear   == clear the screen contents
+exit    == quit program
+def     == define function macro
+let     == create/set a variable to an expression value
+rm      == remove an entry from memory
+mem     == list all memory
+buf     == list all buffer content
+memdump == empty all memory
+bufdump == empty all buffer content
+load    == load script to memory buffer
+run     == execute content of memory buffer
+step    == execute 1 instruction from memory buffer
+write   == write line to memory buffer
+print   == print a string, ends on newline, use $ for variables
+gentree == parses an expression, generates the AST using graphviz
+type    == show function or expression type signature
+!       == execute external shell command with system()
 
 inner interpreter:
 -------------------
-neg
-abs
-inc
-dec
-square
-cube
-sqrt
 
-genlist
-ones
-zeros
+Functions in FPL:
 
-size
-head
-lmax
-lmin
-sum
-prod
+ELEMENT OPERATIONS
 
-tail
-rotl
-rotr
-popl
-popr
-rev
-sort
-rmdup
-+
--
-*
-/
-%
+RETURN TYPE (ELEMENT)
+- neg == negate, take opposite sign of number
+- abs == take absolute value of number
+- inc == increment (plus 1)
+- dec == decrement (minus 1)
+- square == second power
+- cube == third power
+- sqrt == square root
+- not  == logical not
+- odd  == test is odd
+- even == test is even
+
+RETURN TYPE (SEQUENCE)
+- genlist == list from 1 to n
+- ones    == list of n ones
+- zeros   == list of n zeros
+- list    == create a list around an element
+
+SEQUENCE OPERATIONS
+
+RETURN TYPE (ELEMENT)
+- head  == first element of sequence
+- size  == number of elements in list
+- lmax  == maximum value in sequence
+- lmin  == minimum value in sequence
+- sum   == add the elements of a sequence together
+- prod  == multiply the elements of a sequence together
+- nil   == check for empty list
+(eq,neq,gt,lt,gte,lte) == act on first 2 elements
+
+RETURN TYPE (SEQUENCE)
+- tail  == sequence from second to end
+- popl  == pop element from left of sequence
+- popr  == pop element from right of sequence
+- rotl  == rotate sequence elements to the left
+- rotr  == rotate sequence elements to the right
+- rev   == reverse the order of a sequence
+- sort  == sort sequence into ascending order
+- rmdup == remove duplicates, preserves order
+(+,-,*,/,%) == act on first 2 elements
+
+HIGHER ORDER FUNCTIONS/OPERATORS
+
+- map{f}  == apply function f to each element of list
+- filt{p} == filter elements that fail predicate p from list
+- at{i}   == get element at index i from list

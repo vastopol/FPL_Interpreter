@@ -1,0 +1,34 @@
+# map operator
+
+def d = abs
+def e = dec
+def f = inc
+def g = even
+def h = odd
+
+let x = <-3,-2,-1,0,1,2,3>
+
+sum:x
+
+map{d}:x
+
+sum.map{d}:x
+
+prod:x
+
+prod.map{d}:x
+
+map{e}:x
+
+map{f}:x
+
+filt{g}:x
+
+filt{h}:x
+
+at{1}:x
+
+at{1}.filt{g}.map{f}:x
+
+at{1}.filt{h}.map{e}:x
+

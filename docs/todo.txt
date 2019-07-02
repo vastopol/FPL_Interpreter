@@ -69,24 +69,7 @@ DONE:
     because
     inc.abs.1 -> inc:(abs:(1))
 * the trim_space function doesn't handle tabs (fixed)
-
-
-//=============================================
-
-ver 1.3
-
-* add the operators name{params}:arg format part
-    map{f}
-    red{f}
-    filt{p}
-    insert{i;x}
-    del{i}
-    app{x}
-    ccf{f1;...;fn}
-    if{p;x1;x2}
-
-let the arg be represented by @ as an abstraction
-can be used for ifs
+* adding some higher order functions/operators
 
 //=============================================
 
@@ -104,10 +87,8 @@ def _sum  = red{+}
 def _prod = red{*}
 def alt_sum  = red{-}
 def alt_prod = red{/}
-def sum_squares = sum.map{square}
 def _sum_squares = red{+}.map{square}
 def abs = if{lt:<@,0>;neg:@;@}
-
 
 potential ideas
 

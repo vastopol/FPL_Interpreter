@@ -243,6 +243,12 @@ void fcts()
     std::cout << "- rmdup == remove duplicates, preserves order" << std::endl;
     std::cout << "(+,-,*,/,%) == act on first 2 elements" << std::endl;
     std::cout << std::endl;
+    std::cout << "HIGHER ORDER FUNCTIONS/OPERATORS" << std::endl;
+    std::cout << std::endl;
+    std::cout << "- map{f}  == apply function f to each element of list" << std::endl;
+    std::cout << "- filt{p} == filter elements that fail predicate p from list" << std::endl;
+    std::cout << "- at{i}   == get element at index i from list" << std::endl;
+    std::cout << std::endl;
 }
 //-------------------------------------------------------------------------------------------
 

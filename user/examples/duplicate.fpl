@@ -3,3 +3,4 @@
 # TYPE: Sequence
 def _min = head.sort          # return minimum element of sequence
 def _max = head.rev.sort      # return maximum element of sequence
+def _head = at{1}             # return head of a list
