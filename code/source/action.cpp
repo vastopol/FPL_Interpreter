@@ -260,6 +260,50 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
         }
     }
 
+    if(tag.substr(0,4) == "cat{")
+    {
+        // printer("CAT");
+        std::string mop = trimSpace( tag.substr( 4 , tag.size()-4 ) ) ;
+        mop.pop_back();
+
+        if(!mop.empty() && arg->type() == "Sequence")
+        {
+            std::list<int> l1 = ((Sequence*)arg)->getList();
+            std::list<int> l2;
+
+            if(mop.at(0) != '<') // lookup, since errors if the "<" encountered...
+            {
+                Object* fu = m->goGet(mop);
+                if(fu == 0)
+                {
+                    printer("ERROR: empty argument to concatenate operator");
+                    throw std::runtime_error("apply() : cat{} operator");
+                }
+                else
+                {
+                    l2 = ((Sequence*)fu)->getList();
+                }
+            }
+            else // parse
+            {
+                printer(mop);
+                Sequence* ssqq = seq_par(mop,m);
+                l2 = ssqq->getList();
+            }
+
+            for(int i : l2)
+            {
+                l1.push_back(i);
+            }
+            return new Sequence(l1);
+        }
+        else
+        {
+            printer("ERROR: empty argument to concatenate operator");
+            throw std::runtime_error("apply() : cat{} operator");
+        }
+    }
+
     //----------------------------------------
 
     // regular functions

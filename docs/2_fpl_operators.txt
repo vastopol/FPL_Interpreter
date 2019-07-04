@@ -19,14 +19,11 @@ function   = F
 predicate  = P
 expression = X
 
-
 add the operators name{params}:arg format part, and
 let the arg be represented by @ as an abstraction
 can be used for ifs
 
 //---------------------------------------
-
-new operators:
 
 // map, apply to all, for each (DONE)
 // F is unary function for elements F:E -> E'
@@ -99,7 +96,7 @@ ins{i;E}:L -> L'
 
 //---------------------------------------
 
-// list concatenate
+// list concatenate (DONE)
 cat{L2}:L1 -> L
     append L2 to the end of L1
 

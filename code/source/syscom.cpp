@@ -248,6 +248,9 @@ void fcts()
     std::cout << "- map{f}  == apply function f to each element of list" << std::endl;
     std::cout << "- filt{p} == filter elements that fail predicate p from list" << std::endl;
     std::cout << "- at{i}   == get element at index i from list" << std::endl;
+    std::cout << "- apr{e}  == append element at right of list" << std::endl;
+    std::cout << "- apl{e}  == append element at left of list" << std::endl;
+    std::cout << "- cat{l}  == concatenate 2 lists" << std::endl;
     std::cout << std::endl;
 }
 //-------------------------------------------------------------------------------------------
