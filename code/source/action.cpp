@@ -167,7 +167,7 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
         {
             std::list<int> l1 = ((Sequence*)arg)->getList();
             int ee = 0;
-            Object* fu = m->goGet(mop); // function
+            Object* fu = m->goGet(mop);
             if(fu == 0)
             {
                 ee = atoi(mop.c_str());
@@ -195,6 +195,68 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
         {
             printer("ERROR: empty argument to at operator");
             throw std::runtime_error("apply() : at{} operator");
+        }
+    }
+
+    if(tag.substr(0,4) == "apr{")
+    {
+        // printer("APR");
+        std::string mop = trimSpace( tag.substr( 4 , tag.size()-4 ) ) ;
+        mop.pop_back();
+
+        if(!mop.empty() && arg->type() == "Sequence")
+        {
+            std::list<int> l1 = ((Sequence*)arg)->getList();
+            int ee = 0;
+            Object* fu = m->goGet(mop);
+            if(fu == 0)
+            {
+                ee = atoi(mop.c_str());
+            }
+            else
+            {
+                ee = atoi( fu->stringify().c_str() );
+            }
+            // int ee = atoi(mop.c_str());
+            // printer(ee);
+            l1.push_back(ee);
+            return new Sequence(l1);
+        }
+        else
+        {
+            printer("ERROR: empty argument to append right operator");
+            throw std::runtime_error("apply() : apr{} operator");
+        }
+    }
+
+    if(tag.substr(0,4) == "apl{")
+    {
+        // printer("APL");
+        std::string mop = trimSpace( tag.substr( 4 , tag.size()-4 ) ) ;
+        mop.pop_back();
+
+        if(!mop.empty() && arg->type() == "Sequence")
+        {
+            std::list<int> l1 = ((Sequence*)arg)->getList();
+            int ee = 0;
+            Object* fu = m->goGet(mop);
+            if(fu == 0)
+            {
+                ee = atoi(mop.c_str());
+            }
+            else
+            {
+                ee = atoi( fu->stringify().c_str() );
+            }
+            // int ee = atoi(mop.c_str());
+            // printer(ee);
+            l1.push_front(ee);
+            return new Sequence(l1);
+        }
+        else
+        {
+            printer("ERROR: empty argument to append left operator");
+            throw std::runtime_error("apply() : apl{} operator");
         }
     }
 

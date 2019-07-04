@@ -1,6 +1,0 @@
-Documentation notes:
---------------------
-
-only the numbered documents actually go into the manual
-
-in each manual section file, text should start on the second line to look better.

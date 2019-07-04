@@ -1,6 +1,6 @@
 
 FPL Version Descriptions
---------------------
+//---------------------------------------
 
 * 1.0
   * Data Types: Elements && Sequences (Integers)
@@ -9,7 +9,7 @@ FPL Version Descriptions
   * Virtual Memory: Define Functions && Create Variables
   * Interactive REPL with File Handling
 
---------------------
+//---------------------------------------
 
 * 1.1
   * all primitive functions && commands lowercase
@@ -17,4 +17,4 @@ FPL Version Descriptions
   * added more functions
   * refactorization of code structure
 
---------------------
+//---------------------------------------

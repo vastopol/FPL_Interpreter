@@ -29,8 +29,8 @@ can be used for ifs
 new operators:
 
 // map, apply to all, for each (DONE)
-// F is unary function for elements F:E -> E
-map{F}:L -> L
+// F is unary function for elements F:E -> E'
+map{F}:L -> L'
     tmp = <>
     For_each e in L
     do
@@ -42,7 +42,7 @@ map{F}:L -> L
 
 // filter (DONE)
 // F is unary predicate for elements P:E -> E where 1 == true, 0 == false
-filt{P}:L -> L
+filt{P}:L -> L'
     tmp = <>
     For_each e in L
     do
@@ -62,6 +62,9 @@ red{F}:L -> E
     done
     return tmp
 
+The 2 most general cases of this are sum and product
+both have special built ins for this purpose
+
 //---------------------------------------
 
 // list access (DONE)
@@ -70,20 +73,28 @@ at{i}:L -> E
 
 //---------------------------------------
 
-// list append
-app{E}:L -> L
+// list append right (DONE)
+apr{E}:L -> L'
     append E to the end of L
 
 //---------------------------------------
 
+// list append left (DONE)
+apl{E}:L -> L'
+    append E to the front of L
+
+this is technically a prepend
+
+//---------------------------------------
+
 // list delete
-del{i}:L -> L
+del{i}:L -> L'
     delete the ith item
 
 //---------------------------------------
 
 // list insert
-ins{i;E}:L -> L
+ins{i;E}:L -> L'
     insert E at index i
 
 //---------------------------------------

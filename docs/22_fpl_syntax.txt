@@ -1,10 +1,10 @@
 
 FPL Syntax
-//-----------------------------------
+//---------------------------------------
 
 
 LANGUAGE COMPONENTS
-///****************************************************************************
+//---------------------------------------
 
 elements: x
 sequences: <x1,...,xn>
@@ -13,30 +13,28 @@ sequences are collections of elements
 
 () = used for separation
 
-///****************************************************************************
+//---------------------------------------
 
 
 PRIMITVE OPERATIONS
-///****************************************************************************
+//---------------------------------------
 
 application  "F:x"
 
     where   function F applied to value x
-------------------------------------------------
+//---------------------------------------
 
 composition   "F.G"
 
     where   (F.G):x = F:(G:x)
-------------------------------------------------
-
-///****************************************************************************
+//---------------------------------------
 
 
 ELEMENT OPERATIONS
-///****************************************************************************
+//---------------------------------------
 
 RETURN TYPE (ELEMENT)
----------------------------------------
+//---------------------------------------
 neg == negate, take opposite sign of number
 abs == take absolute value of number
 inc == increment (plus 1)
@@ -46,19 +44,19 @@ cube == third power
 sqrt == square root
 
 RETURN TYPE (SEQUENCE)
----------------------------------------
+//---------------------------------------
 genlist == list from 1 to n
 ones    == list of n ones
 zeros   == list of n zeros
 
-///****************************************************************************
+//---------------------------------------
 
 
 SEQUENCE OPERATIONS
-///****************************************************************************
+//---------------------------------------
 
 RETURN TYPE (ELEMENT)
----------------------------------------
+//---------------------------------------
 size  == number of elements in list
 head  == first element of sequence
 lmax  == maximum value in sequence
@@ -67,7 +65,7 @@ sum   == add the elements of a sequence together
 prod  == multiply the elements of a sequence together
 
 RETURN TYPE (SEQUENCE)
----------------------------------------
+//---------------------------------------
 tail  == sequence from second to end
 rotl  == rotate sequence elements to the left
 rotr  == rotate sequence elements to the right
@@ -82,22 +80,22 @@ rmdup == remove duplicates, preserves order
 /     == divide first 2 elements of a sequence
 %     == modulo first 2 elements of a sequence
 
-///****************************************************************************
+//---------------------------------------
 
 
 GUIDELINES ON PROGRAMMING
-///****************************************************************************
+//---------------------------------------
 
 - Use let to create and label variables
 - Use def to create and label new function compositions
 - Each new function or variable should have a unique name
 - Avoid having multiple variables of different types with same name
 
-///****************************************************************************
+//---------------------------------------
 
 
 APPLICATION EXAMPLES
-///****************************************************************************
+//---------------------------------------
 
 >>>  def last = head.rev    # returns last element
 
@@ -111,7 +109,7 @@ APPLICATION EXAMPLES
      rotl:<2,3,4>
 <<<  <3,4,2>
 
-------------------------------------------------
+//---------------------------------------
 
 >>> def second = head.tail
 
@@ -124,7 +122,7 @@ APPLICATION EXAMPLES
      neg:1
 <<<  -1
 
-///****************************************************************************
+//---------------------------------------
 
 
 F:x
