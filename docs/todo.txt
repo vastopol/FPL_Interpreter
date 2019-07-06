@@ -79,8 +79,6 @@ etc... maybe???
 * consider merging the syscom commands into interpreter functions
 * perhaps latex documentation
 
-//=============================================
-
 actual ideas
 
 def _sum  = red{+}

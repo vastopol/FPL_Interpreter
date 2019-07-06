@@ -1,5 +1,5 @@
 #include "../header/action.h"
-
+#include <vector>
 
 Action::Action()
 {}
@@ -304,13 +304,169 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
         }
     }
 
+    if(tag.substr(0,3) == "if{")
+    {
+        // printer("IF");
+        std::string mop = trimSpace( tag.substr( 3 , tag.size()-3 ) ) ;
+        mop.pop_back();
+
+        if(!mop.empty())
+        {
+            //split parameters
+            unsigned pos = mop.find(';');
+            std::string tmpstr = "";
+            std::list<std::string> pargs;
+            while( pos != std::string::npos && pos < mop.size() )
+            {
+                tmpstr = mop.substr(0, pos);
+                // printer(tmpstr);
+                pargs.push_back(tmpstr);
+                mop = mop.substr(pos+1,mop.size()-1);
+                pos = mop.find(';'); // ?
+            }
+            if(!mop.empty())
+            {
+                pargs.push_back(mop);
+            }
+            if(pargs.size() != 3) // if{p;f1;f2}:x
+            {
+                printer(pargs.size());
+                printer("ERROR: arity of argument to if operator");
+                throw std::runtime_error("apply() : if{} operator");
+            }
+
+            // get parameters
+            std::vector<std::string> vblob;
+            for ( std::string stds : pargs )
+            {
+                Object* fu = m->goGet(stds);
+                if(fu == 0)
+                {
+                    vblob.push_back(stds);
+                }
+                else
+                {
+                    vblob.push_back(fu->stringify());
+                }
+            }
+
+            std::string pred = vblob.at(0);
+            std::string tarm = vblob.at(1);
+            std::string farm = vblob.at(2);
+            int pres;
+            int pret;
+            std::list<int> lret;
+
+            if(arg->type() == "Sequence")
+            {
+                std::list<int> l1 = ((Sequence*)arg)->getList();
+
+                if(U_S_R_E.find(pred) != U_S_R_E.end())// predicate must return int (U_S_R_E)
+                {
+                    op = U_S_R_E[pred];
+                    pres = (*Unary_S_R_E[op])(l1);
+
+                    // should check here for function types ?
+                    if(pres!=0)
+                    {
+                        if(U_S_R_E.find(tarm) != U_S_R_E.end())
+                        {
+                            op = U_S_R_E[tarm];
+                            pret = (*Unary_S_R_E[op])(l1);
+                            ret = new Element(pret);
+                        }
+                        else if(U_S_R_S.find(tarm) != U_S_R_S.end())
+                        {
+                            op = U_S_R_S[tarm];
+                            lret = (*Unary_S_R_S[op])(l1);
+                            ret = new Sequence(lret);
+                        }
+                    }
+                    else
+                    {
+                        if(U_S_R_E.find(farm) != U_S_R_E.end())
+                        {
+                            op = U_S_R_E[farm];
+                            pret = (*Unary_S_R_E[op])(l1);
+                            ret = new Element(pret);
+                        }
+                        else if(U_E_R_S.find(farm) != U_E_R_S.end())
+                        {
+                            op = U_S_R_S[farm];
+                            lret = (*Unary_S_R_S[op])(l1);
+                            ret = new Sequence(lret);
+                        }
+                    }
+                    return ret;
+                }
+                else
+                {
+                    std::cout << "ERROR: INVALID FUNCT SEQ: inside if " << pred << std::endl;
+                    throw std::runtime_error("apply() : INVALID FUNCT SEQ"); // return 0;
+                }
+            }
+            else // Element
+            {
+                int e1 = ((Element*)arg)->getElement();
+
+                if(U_E_R_E.find(pred) != U_E_R_E.end()) // predicate must return int (U_E_R_E)
+                {
+                    op = U_E_R_E[pred];
+                    pres = (*Unary_E_R_E[op])(e1);
+
+                    // should check here for function types ?
+                    if(pres!=0)
+                    {
+                        if(U_E_R_E.find(tarm) != U_E_R_E.end())
+                        {
+                            op = U_E_R_E[tarm];
+                            pret = (*Unary_E_R_E[op])(e1);
+                            ret = new Element(pret);
+                        }
+                        else if(U_E_R_S.find(tarm) != U_E_R_S.end())
+                        {
+                            op = U_E_R_S[tarm];
+                            lret = (*Unary_E_R_S[op])(e1);
+                            ret = new Sequence(lret);
+                        }
+                    }
+                    else
+                    {
+                        if(U_E_R_E.find(farm) != U_E_R_E.end())
+                        {
+                            op = U_E_R_E[farm];
+                            pret = (*Unary_E_R_E[op])(e1);
+                            ret = new Element(pret);
+                        }
+                        else if(U_E_R_S.find(farm) != U_E_R_S.end())
+                        {
+                            op = U_E_R_S[farm];
+                            lret = (*Unary_E_R_S[op])(e1);
+                            ret = new Sequence(lret);
+                        }
+                    }
+                    return ret;
+                }
+                else
+                {
+                    std::cout << "ERROR: INVALID FUNCT ELM: inside if " << pred << std::endl;
+                    throw std::runtime_error("apply() : INVALID FUNCT ELM"); // return 0;
+                }
+            }
+        }
+        else
+        {
+            printer("ERROR: empty argument to if operator");
+            throw std::runtime_error("apply() : if{} operator");
+        }
+    }
+
     //----------------------------------------
 
     // regular functions
     // type conversion of Object*
     if(arg->type() == "Element")
     {
-
         if(U_E_R_S.find(tag) != U_E_R_S.end()) // function returning a sequence
         {
           op = U_E_R_S[tag];

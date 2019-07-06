@@ -7,6 +7,8 @@ def g = even
 def h = odd
 
 let x = <-3,-2,-1,0,1,2,3>
+let a = <1,2,3>
+let b = <4,5,6>
 
 sum:x
 
@@ -32,3 +34,12 @@ at{1}.filt{g}.map{f}:x
 
 at{1}.filt{h}.map{e}:x
 
+cat{b}:a
+
+cat{a}:b
+
+cat{b}:x
+
+if{even;inc;dec}:0
+
+if{odd;dec;inc}:1
