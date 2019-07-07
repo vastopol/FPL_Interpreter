@@ -18,7 +18,7 @@ function main()
 
     build_interp
     tester
-    # build_manual
+    build_manual
 }
 
 #----------------------------------------

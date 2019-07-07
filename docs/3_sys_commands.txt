@@ -1,7 +1,7 @@
 
 SYSTEM COMMANDS
 commentary on using system commands && memory management
-///******************************************
+//----------------------------------------
 
 * help == display help message
 
@@ -136,11 +136,11 @@ this can easily be dangerous cause bad things to happen
 it exists mainly for convenience, debugging, etc
 it can be commented out if needed.
 
-///*********************************************
+//----------------------------------------
 
 
 EVALUATION
-///*********************************************
+//----------------------------------------
 
 Evaluation is invoked if the input string is not a call to a syscom.
 The input string and the current system memory contents are passed to the parser.
@@ -152,4 +152,4 @@ eg:
      apply function F to variable x
 <<<  return results
 
-///*********************************************
+//----------------------------------------

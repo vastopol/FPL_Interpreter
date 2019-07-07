@@ -75,10 +75,38 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
 
     //----------------------------------------
 
-    // opereators / higher order functions
+    // opereators / higher order functions (special cases)
+    if(tag == "id")
+    {
+        return arg;
+    }
+
+    if(tag == "elm")
+    {
+        if(arg->type() == "Element")
+        {
+            return new Element(1);
+        }
+        else
+        {
+            return new Element(0);
+        }
+    }
+
+    if(tag == "seq")
+    {
+        if(arg->type() == "Sequence")
+        {
+            return new Element(1);
+        }
+        else
+        {
+            return new Element(0);
+        }
+    }
+
     if(tag.substr(0,4) == "map{")
     {
-        // printer("MAP");
         std::string mop = trimSpace( tag.substr( 4 , tag.size()-4 ) ) ;
         mop.pop_back();
         Object* fu = m->goGet(mop); // function
@@ -93,9 +121,6 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
 
         if(!mop.empty() && arg->type() == "Sequence" && arg->stringify() != "<>")
         {
-            // printer("op: "+op);
-            // printer("fu: "+fu->stringify());
-            // printer("l1: "+arg->stringify());
             std::list<int> l1 = ((Sequence*)arg)->getList();
             std::list<int> l2;
             for(auto i : l1)
@@ -104,7 +129,6 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
                 Element* el = new Element(i);
                 int x = (*Unary_E_R_E[op])(el->getElement());
                 l2.push_back(x);
-                // printer(x);
             }
             return new Sequence(l2);
         }
@@ -117,7 +141,6 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
 
     if(tag.substr(0,5) == "filt{")
     {
-        // printer("FILTER");
         std::string mop = trimSpace( tag.substr( 5 , tag.size()-5 ) ) ;
         mop.pop_back();
         Object* fu = m->goGet(mop); // function
@@ -132,9 +155,6 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
 
         if(!mop.empty() && arg->type() == "Sequence" && arg->stringify() != "<>")
         {
-            // printer("op: "+op);
-            // printer("fu: "+fu->stringify());
-            // printer("l1: "+arg->stringify());
             std::list<int> l1 = ((Sequence*)arg)->getList();
             std::list<int> l2;
             for(auto i : l1)
@@ -146,7 +166,6 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
                 {
                     l2.push_back(i);
                 }
-                // printer(x);
             }
             return new Sequence(l2);
         }
@@ -159,7 +178,6 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
 
     if(tag.substr(0,3) == "at{")
     {
-        // printer("AT");
         std::string mop = trimSpace( tag.substr( 3 , tag.size()-3 ) ) ;
         mop.pop_back();
 
@@ -168,6 +186,7 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
             std::list<int> l1 = ((Sequence*)arg)->getList();
             int ee = 0;
             Object* fu = m->goGet(mop);
+
             if(fu == 0)
             {
                 ee = atoi(mop.c_str());
@@ -176,9 +195,7 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
             {
                 ee = atoi( fu->stringify().c_str() );
             }
-            // int ee = atoi(mop.c_str());
-            // printer(ee);
-            // printer(l1.size());
+
             if(ee > l1.size() || ee < 1)
             {
                 printer("ERROR: index to at operator");
@@ -186,7 +203,6 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
             }
             for(int i = 1; i < ee; i++)
             {
-                // printer(l1.front());
                 l1.pop_front();
             }
             return new Element(l1.front());
@@ -198,9 +214,8 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
         }
     }
 
-    if(tag.substr(0,4) == "apr{")
+    if(tag.substr(0,4) == "apr{") // append right
     {
-        // printer("APR");
         std::string mop = trimSpace( tag.substr( 4 , tag.size()-4 ) ) ;
         mop.pop_back();
 
@@ -209,6 +224,7 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
             std::list<int> l1 = ((Sequence*)arg)->getList();
             int ee = 0;
             Object* fu = m->goGet(mop);
+
             if(fu == 0)
             {
                 ee = atoi(mop.c_str());
@@ -217,8 +233,7 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
             {
                 ee = atoi( fu->stringify().c_str() );
             }
-            // int ee = atoi(mop.c_str());
-            // printer(ee);
+
             l1.push_back(ee);
             return new Sequence(l1);
         }
@@ -229,9 +244,8 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
         }
     }
 
-    if(tag.substr(0,4) == "apl{")
+    if(tag.substr(0,4) == "apl{") // append left
     {
-        // printer("APL");
         std::string mop = trimSpace( tag.substr( 4 , tag.size()-4 ) ) ;
         mop.pop_back();
 
@@ -248,8 +262,6 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
             {
                 ee = atoi( fu->stringify().c_str() );
             }
-            // int ee = atoi(mop.c_str());
-            // printer(ee);
             l1.push_front(ee);
             return new Sequence(l1);
         }
@@ -262,7 +274,6 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
 
     if(tag.substr(0,4) == "cat{")
     {
-        // printer("CAT");
         std::string mop = trimSpace( tag.substr( 4 , tag.size()-4 ) ) ;
         mop.pop_back();
 
@@ -319,7 +330,6 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
             while( pos != std::string::npos && pos < mop.size() )
             {
                 tmpstr = mop.substr(0, pos);
-                // printer(tmpstr);
                 pargs.push_back(tmpstr);
                 mop = mop.substr(pos+1,mop.size()-1);
                 pos = mop.find(';'); // ?

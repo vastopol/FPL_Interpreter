@@ -245,12 +245,16 @@ void fcts()
     std::cout << std::endl;
     std::cout << "HIGHER ORDER FUNCTIONS/OPERATORS" << std::endl;
     std::cout << std::endl;
+    std::cout << "- id   == identity" << std::endl;
+    std::cout << "- elm  == check is type Element" << std::endl;
+    std::cout << "- seq  == check is type Sequence" << std::endl;
     std::cout << "- map{f}  == apply function f to each element of list" << std::endl;
     std::cout << "- filt{p} == filter elements that fail predicate p from list" << std::endl;
     std::cout << "- at{i}   == get element at index i from list" << std::endl;
     std::cout << "- apr{e}  == append element at right of list" << std::endl;
     std::cout << "- apl{e}  == append element at left of list" << std::endl;
     std::cout << "- cat{l}  == concatenate 2 lists" << std::endl;
+    std::cout << "- if{p;f;g}  == if p is true when applied, then f else g" << std::endl;
     std::cout << std::endl;
 }
 //-------------------------------------------------------------------------------------------

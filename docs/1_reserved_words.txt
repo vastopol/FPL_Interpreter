@@ -76,6 +76,14 @@ RETURN TYPE (SEQUENCE)
 
 HIGHER ORDER FUNCTIONS/OPERATORS
 
+- id   == identity
+- elm  == check is type Element
+- seq  == check is type Sequence
 - map{f}  == apply function f to each element of list
 - filt{p} == filter elements that fail predicate p from list
 - at{i}   == get element at index i from list
+- apr{e}  == append element at right of list
+- apl{e}  == append element at left of list
+- cat{l}  == concatenate 2 lists
+- if{p;f;g}  == if p is true when applied, then f else g
+

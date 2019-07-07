@@ -1,5 +1,5 @@
 
-FPL Version Descriptions
+FPL Version Descriptions (informal)
 //---------------------------------------
 
 * 1.0
@@ -18,3 +18,52 @@ FPL Version Descriptions
   * refactorization of code structure
 
 //---------------------------------------
+
+* 1.2
+    * rename ls -> mem
+    * rename dump -> memdump
+    * rename bufls -> buf
+    * new fcts command
+    * new history command
+    * new write command to append a line to buffer
+    * new step command to execute top instruction in buffer
+    * new type check command show function/expression signature
+    * put safety checks for div and mod by 0
+    * combine let and set into 1 command
+        no more direct creation of element/sequences in outer interpreter
+        now elements/sequences are created by toklist() in the inner interpreter
+        the variables are set equal to return values from evaluating the syntax tree
+    * change how process() searches for strings to match for some commands
+        handles the string splitting better, can name variables/functions similarly to commands
+    * something is wrong with functions when reordered ?
+        (should be fixed when process() is fixed... i think...)
+        sort.rmdup:list # this works
+        rmdup.sort:list # syntax error 1
+    * add new functions for predicate booleans:
+        nil = is empty sequence
+        lt  = less than
+        gt  = greater than
+        eq  = equal to
+        lte = less than or equal
+        gte = greater than or equal
+        neq = not equal
+    * safe_sqrt in lib.fpl is broken
+        not sure how since sqrt.abs works by itself
+        FIXED -- had to do with tabs and spaces in the fpl file and not proper stripping of trailing whitespace
+    * add a function "list" which takes an int and turns it to a list
+        list : int  ->  <int>
+    * fix gentree so it can print out (+,-,*,/%) breaks on the symbols because of the .dot files
+    * irregularities with parsing
+        nested lists are not supported
+        using them causes unexpected behavior
+        <1,<2,3,4>> -> <1,0,3,4>
+        also see composition and application ??
+        inc.abs:1 works the same as inc.abs.1
+        because
+        inc.abs.1 -> inc:(abs:(1))
+    * the trim_space function doesn't handle tabs (fixed)
+    * adding some higher order functions/operators
+    * add newer logic functions
+        id  = identity
+        elm = is element
+        seq = is sequence

@@ -117,15 +117,15 @@ ccf{F1;...;Fn}:L -> L
 
 //---------------------------------------
 
-// if else branch
+// if else branch (DONE)
 // P must be a predicate of the same type as arg
 if{P;X1;X2}:E -> ?
 or
 if{P;X1;X2}:L -> ?
     if P:arg == true
-        eval(X1)
+        eval(X1:arg)
     else
-        eval(X2)
+        eval(X2:arg)
 
 //---------------------------------------
 
