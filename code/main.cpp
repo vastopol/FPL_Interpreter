@@ -24,6 +24,12 @@ int main(int argc, char** argv)
     {
         std::cout << "$$ ";
         getline(std::cin, input);
+        if(std::cin.eof()) // catch Ctrl-D eof crash loop
+        {
+            std::cin.clear();
+            printer("");
+            continue;
+        }
         process(input, storage);
     }
     while(1);

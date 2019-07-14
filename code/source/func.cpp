@@ -30,8 +30,8 @@ std::map<std::string, int> U_S_R_E
 {
     {"size",F_SIZE},
     {"head",F_HEAD},
-    {"lmax",F_LMAX},
-    {"lmin",F_LMIN},
+    {"max",F_MAX},
+    {"min",F_MIN},
     {"sum",F_SUM},
     {"prod",F_PROD},
     {"nil",F_NIL},
@@ -93,8 +93,8 @@ int (*Unary_S_R_E[])(std::list<int>) // unary sequence returns element
 {
     &size,
     &head,
-    &lmax,
-    &lmin,
+    &max,
+    &min,
     &sum,
     &prod,
     &nil,
@@ -297,7 +297,7 @@ int head(std::list<int> seq)
 }
 //---------------------------
 
-int lmax(std::list<int> seq)
+int max(std::list<int> seq)
 {
     if(seq.empty())
     {
@@ -320,7 +320,7 @@ int lmax(std::list<int> seq)
 }
 //---------------------------
 
-int lmin(std::list<int> seq)
+int min(std::list<int> seq)
 {
     if(seq.empty())
     {

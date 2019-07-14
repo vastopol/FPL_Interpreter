@@ -82,7 +82,7 @@ rev:sqrt:popl:sort
 
 abs.neg:popr.rotl
 
-popl:rmdup.lmax:lmin
+popl:rmdup.max:min
 
 inc.inc.inc.inc
 

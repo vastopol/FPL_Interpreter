@@ -67,3 +67,5 @@ FPL Version Descriptions (informal)
         id  = identity
         elm = is element
         seq = is sequence
+    * rename lmin && lmax to min && max
+    * Ctrl-D will crash command line in endless loop -- fixed

@@ -7,11 +7,10 @@ ver 1.21
 
 * implement ccf{},ins{},del{},red{} (special cases of existing functionality)
 
+* have @ for rhs argument reference inside the operators
+
 * func.h/cpp -> add more functions for the vm fn_pointers from the math.h library - pow, ...
 
-* Ctrl-D will crash command line in endless loop
-
-* rename lmin && lmax to min && max (maybe)
 * rename sequence to list and element to int for clarity
 
 * inconsistencies with throwing exceptions or print error message and return in syscom.cpp

@@ -64,7 +64,7 @@ gentree rotl:<10,11,12>
 ! mv *.dot output/
 ! mv *.jpg output/
 
-gentree inc.lmax:<10,20,30>
+gentree inc.max:<10,20,30>
 ! mv output.dot o4.dot
 ! mv output.jpg o4.jpg
 ! mv *.dot output/
@@ -138,7 +138,7 @@ gentree rotl:x
 ! mv *.dot output/
 ! mv *.jpg output/
 
-gentree inc.lmax:x
+gentree inc.max:x
 ! mv output.dot o14.dot
 ! mv output.jpg o14.jpg
 ! mv *.dot output/

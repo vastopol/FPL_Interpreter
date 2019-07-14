@@ -32,8 +32,8 @@
 // list -> int
 #define F_SIZE 0
 #define F_HEAD 1
-#define F_LMAX 2
-#define F_LMIN 3
+#define F_MAX 2
+#define F_MIN 3
 #define F_SUM  4
 #define F_PROD 5
 // booleans : list -> int
@@ -101,8 +101,8 @@ std::list<int> list(int x);
 // returns an ELEMENT
 int size(std::list<int> l);
 int head(std::list<int> l);
-int lmax(std::list<int> l);
-int lmin(std::list<int> l);
+int max(std::list<int> l);
+int min(std::list<int> l);
 int sum(std::list<int> l);
 int prod(std::list<int> l);
 int nil(std::list<int> l);

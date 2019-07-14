@@ -16,9 +16,9 @@ function main()
         exit 0
     fi
 
+    build_manual
     build_interp
     tester
-    build_manual
 }
 
 #----------------------------------------
