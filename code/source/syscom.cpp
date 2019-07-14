@@ -35,7 +35,6 @@ void process(std::string s, Memory* m) // preprocessing using utils functions
 }
 //---------------------------------------------------------------------------------
 
-
 void com(std::string s, Memory* m) // branch statement to choose syscom || parse.
 {
     if(s == "exit")
@@ -161,7 +160,6 @@ void com(std::string s, Memory* m) // branch statement to choose syscom || parse
 }
 //-------------------------------------------------------------------------------------------
 
-
 void help()
 {
     std::cout << std::endl;
@@ -213,6 +211,7 @@ void fcts()
     std::cout << "- not  == logical not" << std::endl;
     std::cout << "- odd  == test is odd" << std::endl;
     std::cout << "- even == test is even" << std::endl;
+    std::cout << "- zero == test is zero" << std::endl;
     std::cout << std::endl;
     std::cout << "RETURN TYPE (SEQUENCE)" << std::endl;
     std::cout << "- genlist == list from 1 to n" << std::endl;
@@ -299,7 +298,6 @@ void def(std::string s, Memory* m) //  function macro definition
     m -> add_macro(var, fun);
 }
 //-----------------------------------------------------------------------------------------
-
 
 void let(std::string s, Memory* m)
 {
@@ -402,7 +400,6 @@ void let(std::string s, Memory* m)
 }
 //-----------------------------------------------------------------------------------------
 
-
 void rem(std::string s, Memory* m) // access hashes and remove var if found
 {
     if(s.empty())
@@ -418,7 +415,6 @@ void rem(std::string s, Memory* m) // access hashes and remove var if found
 }
 //------------------------------------------------------------------------------------------
 
-
 void dump_mem(Memory* m) // dump
 {
     m -> clear();
@@ -426,14 +422,12 @@ void dump_mem(Memory* m) // dump
 }
 //-------------------------------------------------------------------------------------------
 
-
 void dump_buf(Memory* m) // bufdump
 {
     m -> empty_buf();
     return;
 }
 //-------------------------------------------------------------------------------------------
-
 
 void print_mem(Memory* m) // ls
 {
@@ -451,7 +445,6 @@ void print_mem(Memory* m) // ls
 }
 //------------------------------------------------------------------------------------------
 
-
 void print_buf(Memory* m) // bufls
 {
     std::cout << std::endl;
@@ -462,7 +455,6 @@ void print_buf(Memory* m) // bufls
     return;
 }
 //------------------------------------------------------------------------------------------
-
 
 void print_ln(std::string s, Memory* m) // print
 {
@@ -501,7 +493,6 @@ void print_ln(std::string s, Memory* m) // print
 }
 //------------------------------------------------------------------------------------------
 
-
 void gentree(std::string s, Memory* m)   // generate a visual of the AST with Graphviz
 {
     Pattern* P = new Pattern(s); // construct pattern
@@ -533,7 +524,6 @@ void gentree(std::string s, Memory* m)   // generate a visual of the AST with Gr
     return;
 }
 //------------------------------------------------------------------------------------------
-
 
 void eval(std::string s, Memory* m)    // evaluate an expression
 {
@@ -579,7 +569,6 @@ void eval(std::string s, Memory* m)    // evaluate an expression
     // evaluating an element or sequence by itself crashes
 }
 //------------------------------------------------------------------------------------------
-
 
 void load(std::string s, Memory* m) // removes comments && trims spaces
 {
@@ -639,7 +628,6 @@ void load(std::string s, Memory* m) // removes comments && trims spaces
     return;
 }
 //------------------------------------------------------------------------------------------
-
 
 void run(Memory* m)
 {

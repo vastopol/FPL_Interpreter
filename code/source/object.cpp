@@ -4,7 +4,9 @@
 #include <sstream>
 #include <string>
 #include <cstring>
-#include <cstdlib> 
+#include <cstdlib>
+
+//------------------------------------
 
 Element::Element(int i)
     : Object(),  val(i)
@@ -19,8 +21,8 @@ std::string Element::stringify()
 	return s;
 }
 
-Object* Element::get() 
-{ 
+Object* Element::get()
+{
 	Object* ptr = this;
 	return ptr;
 }
@@ -44,17 +46,17 @@ std::string Sequence::stringify()
     for(; it != --seq.end(); it++)
     {
     	streamz << *it;
-        s += streamz.str(); 
+        s += streamz.str();
         s += ",";
     }
 	streamz << *it;
     s += streamz.str();
-    s += ">";	
+    s += ">";
 	return s;
 }
 
 Object* Sequence::get()
- { 
+ {
 	Object* ptr = this;
 	return ptr;
  }
@@ -71,7 +73,7 @@ std::string Function::stringify()
 }
 
 Object* Function::get()
- { 
+ {
 	Object* ptr = this;
 	return ptr;
  }
@@ -88,7 +90,7 @@ std::string Colon::stringify()
 }
 
 Object* Colon::get()
- { 
+ {
 	Object* ptr = this;
 	return ptr;
  }
@@ -105,10 +107,10 @@ std::string Block::stringify()
 }
 
 Object* Block::get()
- { 
+ {
 	Object* ptr = this;
 	return ptr;
  }
+
  //------------------------------------
 
- 

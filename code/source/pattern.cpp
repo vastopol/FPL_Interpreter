@@ -56,7 +56,6 @@ void Pattern::preOrder(Node* n)
       return;
     }
 
-
     std::cout << "(";
     n->getKey()->print();
     std::cout << "), ";
@@ -186,8 +185,7 @@ void Pattern::postOrderCheck(Node* n) // actual recursive traversal
     if(!outFS.is_open())
     {
         std::cout << "Error opening " << outputFilename << std::endl;
-        throw std::runtime_error("visualizeTree() : missing file"); 
-        // return;
+        throw std::runtime_error("visualizeTree() : missing file");
     }
 
     outFS << "digraph G {";

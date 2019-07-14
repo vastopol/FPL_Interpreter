@@ -3,13 +3,11 @@ System Design && Layout
 rough outlines
 //------------------------
 
-
 SYSCOM:
 "syscom.h" is a set of functions which are responsible for the basic user interactions with the memory and system.
 The syscoms make up the operations in the outer interpreter which is mainly responsible for managing memory and the buffer.
 The outer interpreter acts as the interface to the inner interpreter, which is not directly accessable.
 It passes an input string and the memory block to the inner interpreter, then collects the result.
-
 
 //-----------------------------------------------------------------
 
@@ -34,7 +32,6 @@ SYSCOM BRANCH STRUCTURE -> happens in call to com()
 
 //-----------------------------------------------------------------
 
-
 CLASSES
 - Pattern == compositional object / mediator
 - Memory == data structure -> hold user defined objects variables/macros
@@ -42,7 +39,6 @@ CLASSES
 - Node == data structure -> form of the abstract syntax tree, hold Object*
 - Interpreter ==  parsing
 - Action ==  execution
-
 
 On construction Pattern is initialized with an input string and a reference to the Memory object.
 The Node pointer will initially be NULL.
@@ -75,7 +71,6 @@ Node
     // constructor, set, get, etc...
 }
 
-
 Interpreter
 {
     Node* parse(std::string);
@@ -83,14 +78,12 @@ Interpreter
     // helper functions
 }
 
-
 Action
 {
     exec(Node*);
 
     // helper functions
 }
-
 
 Object
 {
@@ -104,4 +97,3 @@ Object
 
     // NOTE -> nodes hold object pointer
 }
-

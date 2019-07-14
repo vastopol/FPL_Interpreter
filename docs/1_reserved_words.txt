@@ -44,6 +44,7 @@ RETURN TYPE (ELEMENT)
 - not  == logical not
 - odd  == test is odd
 - even == test is even
+- zero == test is zero
 
 RETURN TYPE (SEQUENCE)
 - genlist == list from 1 to n

@@ -22,6 +22,7 @@
 #define F_NOT  7
 #define F_ODD  8
 #define F_EVEN 9
+#define F_ZERO 10
 
 // int -> list
 #define F_GENLIST 0
@@ -87,6 +88,7 @@ int sqroot(int x); // x = sqrt(x)
 int _not(int x);    // needs underscore in name or will not compile
 int odd(int x);
 int even(int x);
+int zero(int x);
 //-------------------------------------------------------------------------------
 
 // unary functions to operate on ELEMENT

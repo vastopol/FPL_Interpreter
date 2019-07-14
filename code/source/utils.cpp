@@ -24,8 +24,8 @@ std::string trimSpace(std::string s)     // removes any (leading || trailing) wh
     }
     return s;
 }
-//----------------------------------------------------------------------------------------------
 
+//----------------------------------------------------------------------------------------------
 
 std::string trimSharp(std::string s) // remove comments
 {
@@ -36,6 +36,7 @@ std::string trimSharp(std::string s) // remove comments
     }
     return s;
 }
+
 //----------------------------------------------------------------------------------------------
 
 int func_classifier(std::string s) // what type of function
@@ -53,6 +54,7 @@ int func_classifier(std::string s) // what type of function
 
     return ftype;
 }
+
 //----------------------------------------------------------------------------------------------
 
 Sequence* seq_par(std::string val, Memory* m) // based on interpreter code need to parse in concat operator in action
@@ -127,3 +129,4 @@ Sequence* seq_par(std::string val, Memory* m) // based on interpreter code need 
     ob = new Sequence(ilst);    // list with data HERE
     return ob;
 }
+

@@ -69,3 +69,4 @@ FPL Version Descriptions (informal)
         seq = is sequence
     * rename lmin && lmax to min && max
     * Ctrl-D will crash command line in endless loop -- fixed
+    * boolean for detect zero valued element

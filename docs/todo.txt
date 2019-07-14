@@ -7,11 +7,14 @@ ver 1.21
 
 * implement ccf{},ins{},del{},red{} (special cases of existing functionality)
 
+* add a do{n;f} operator to apply a function f for n times
+
+* while{},until{} as loop operators
+
 * have @ for rhs argument reference inside the operators
 
-* func.h/cpp -> add more functions for the vm fn_pointers from the math.h library - pow, ...
-
-* rename sequence to list and element to int for clarity
+* func.h/cpp -> add more functions for the vm fn_pointers from the math.h library
+    * pow, ...
 
 * inconsistencies with throwing exceptions or print error message and return in syscom.cpp
     should go through and convert all error printing returning code to actual exception throwing
@@ -19,6 +22,8 @@ ver 1.21
 * rewrite Makefile so less complex and ugly
 * go through and remove unnecessary include statements, old inaccurate comments, other cruft...
 * restructure the .cpp files so functions are defined in same order as declared in header files
+
+* rename sequence to list and element to int for clarity (might)
 
 * refactor code and update documentation
 

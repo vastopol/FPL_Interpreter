@@ -6,9 +6,7 @@ Action::Action()
 //--------------------------------------------------------------
 
 Action::~Action()
-{
-    //   std::cout << "ACTION DESTRUCTOR" << std::endl;
-}
+{}
 //--------------------------------------------------------------
 
 Object* Action::exec(Node* n, Memory* m) // tree traversal
@@ -51,10 +49,8 @@ Object* Action::exec(Node* n, Memory* m) // tree traversal
 
         // evaluate expression here
         res = apply(fun, arg, m);
-
         return res;
     }
-
     throw std::runtime_error("exec() : ERROR : ERROR"); // return 0;
 }
 //--------------------------------------------------------------
@@ -254,6 +250,7 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
             std::list<int> l1 = ((Sequence*)arg)->getList();
             int ee = 0;
             Object* fu = m->goGet(mop);
+
             if(fu == 0)
             {
                 ee = atoi(mop.c_str());
@@ -262,6 +259,7 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
             {
                 ee = atoi( fu->stringify().c_str() );
             }
+
             l1.push_front(ee);
             return new Sequence(l1);
         }
@@ -474,7 +472,6 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
     //----------------------------------------
 
     // regular functions
-    // type conversion of Object*
     if(arg->type() == "Element")
     {
         if(U_E_R_S.find(tag) != U_E_R_S.end()) // function returning a sequence

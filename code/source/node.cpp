@@ -6,9 +6,7 @@ Node::Node(Object* ob)
 //--------------------------------------------------
 
 Node::~Node()
-{
-    // std::cout << "NODE DESTRUCTOR" << std::endl;
-}
+{}
 //--------------------------------------------------
 
 Object* Node::getKey()

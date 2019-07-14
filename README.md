@@ -1,6 +1,6 @@
 # FPL_Interpreter
 
-## Version 1.2 Update in progress
+## Version 1.2
 
 An interpreter for `fpl` an applicative functional programming language.
 The language is structured on using functions to do integer and sequence manipulation.
@@ -30,9 +30,9 @@ $ git clone https://github.com/vastopol/FPL_Interpreter.git
 
 $ cd FPL_Interpreter
 
-$ ./setup.sh
+$ ./setup.sh  # build
 
-$ bin/fplr
+$ bin/fplr    # run
 ```
 
 ## Syntax
@@ -43,20 +43,33 @@ The function application operator is `:`
 New functions can be created with function composition.
 The function composition operator is `.`
 A variable is either an integer or a sequence of integers.
+Comments are with `#`
 
 ## Code Examples
 Below are some basic examples of `fpl` code.
-Comments are with `#`
 
 ### Hello World
 ```
 print Hello World
+
+Hello World
 ```
 
 ### Factorial
 ```
 def fact = prod.genlist
-fact:5    #120
+fact:5
+
+120
+```
+
+### Sum of Squares
+```
+let l = <1,2,3,4,5,6,7,8,9,10>
+def sum_sqr = sum.map{square}
+sum_sqr:l
+
+385
 ```
 
 ## Purpose and Goals

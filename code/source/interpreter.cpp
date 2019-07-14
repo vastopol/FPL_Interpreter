@@ -1,10 +1,7 @@
 #include "../header/interpreter.h"
 
-
 Interpreter::~Interpreter()
-{
-    //  std::cout << "INTERPRETER DESTRUCTOR" << std::endl;
-}
+{}
 //------------------------------------------------
 
 Node* Interpreter::parse(std::string str, Memory* m) // parsing engine
@@ -45,14 +42,14 @@ Node* Interpreter::parse(std::string str, Memory* m) // parsing engine
 
     // std::cout << std::endl << "PART1\n" << "\"" << s << "\"" << std::endl << std::endl;
 
-    // PARSE '.'
+    // PARSE '.' composition
     ///=======================================================
     s = par_dot(s);
     ///=======================================================
 
     // std::cout << std::endl << "PART2\n" << "\"" << s << "\"" << std::endl << std::endl;
 
-    // PARSE ':'
+    // PARSE ':' application
     ///=======================================================
     par_colon(s,lst);
     ///=======================================================
@@ -67,7 +64,7 @@ Node* Interpreter::parse(std::string str, Memory* m) // parsing engine
 
     // std::cout << "PART3" << std::endl;
 
-    // BUILD TOKEN LIST && DO SUBSTITUTION
+    // BUILD TOKEN LIST && SUBSTITUTE
     // construct a list of token objects && substitute variables from Memory
     ///======================================================================
     oblist = toklist(lst,m);
@@ -440,7 +437,6 @@ std::list<Object*> Interpreter::toklist(std::list<std::string> lst, Memory* m)
   return oblist;
 }
 //-----------------------------------------------------------------
-
 
 std::list<Object*> Interpreter::postfix(std::list<Object*> lst) // convert from infix to postfix
 {

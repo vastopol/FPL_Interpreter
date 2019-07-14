@@ -3,7 +3,6 @@ Scripting
 loading && executing files
 //-------------------------
 
-
 FPL supports scripting of system commands and expression evaluations.
 FPL scripts need to end with file extention ".fpl"
 
@@ -16,9 +15,9 @@ the '#' is comment, it and everything after will be ignored until newline
 files can be included in other files.
 The variable space and the buffer have different dumps SO the variables CAN be dumped by a running script.
 
+//==========================================================================
 
 OPERATIONS:
-//==========================================================================
 
 load file.fpl == load the contents of "file.fpl" into the system buffer
 
@@ -27,7 +26,6 @@ run == execute content of the system buffer. if buffer is empty will not work.
        each command is executed, and removed from the queue. continues until queue is empty.
 
 //==========================================================================
-
 
 FPL script file formating
 

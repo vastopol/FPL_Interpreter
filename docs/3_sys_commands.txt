@@ -132,7 +132,7 @@ will parse expression and print the types of each component
 syntax: "! str"
 
 WARNING:
-this can easily be dangerous cause bad things to happen
+this can easily be dangerous and cause bad things to happen
 it exists mainly for convenience, debugging, etc
 it can be commented out if needed.
 

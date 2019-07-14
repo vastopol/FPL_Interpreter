@@ -22,7 +22,7 @@ class Memory
         std::map<std::string, Sequence > sequences;
         std::map<std::string, Function> macros;             // macros representing functions
         std::list<std::string> buffer;                      // list of arguments to be processed in sequence
-        std::list<std::string> history;                     // list of commands entered write to and print only so far
+        std::list<std::string> history;                     // list of commands entered - append only
 
     public:
         Memory() {};
@@ -33,7 +33,7 @@ class Memory
         void add_sequence(std::string, Sequence);
         void add_macro(std::string, Function);
         void add_str_buf(std::string);                      // queue 1 string to buffer
-        void add_str_hist(std::string);                     // write to history
+        void add_str_hist(std::string);                     // write to history (logs all inputs)
 
         // REMOVE
         void remove_element(std::string);
@@ -47,7 +47,7 @@ class Memory
         std::map<std::string, Sequence >& get_sequences();
         std::map<std::string, Function >& get_macros();
         std::list<std::string>& get_buffer();
-        Object* goGet(std::string);
+        Object* goGet(std::string);                        // fetch the object represented by string name: Elem,Seq,Fun
 
         // PRINT
         void print_elements();

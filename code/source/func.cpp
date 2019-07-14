@@ -15,7 +15,8 @@ std::map<std::string, int> U_E_R_E
     {"sqrt",F_SQRT},
     {"not",F_NOT},
     {"odd",F_ODD},
-    {"even",F_EVEN}
+    {"even",F_EVEN},
+    {"zero",F_ZERO}
 };
 
 std::map<std::string, int> U_E_R_S
@@ -75,10 +76,9 @@ int (*Unary_E_R_E[])(int) // unary element return element
     &sqroot,
     &_not,
     &odd,
-    &even
-    /* ... */
+    &even,
+    &zero
 };
-
 
 std::list<int> (*Unary_E_R_S[])(int) // unary element return sequence
 {
@@ -86,7 +86,6 @@ std::list<int> (*Unary_E_R_S[])(int) // unary element return sequence
     &ones,
     &zeros,
     &list
-    /* ... */
 };
 
 int (*Unary_S_R_E[])(std::list<int>) // unary sequence returns element
@@ -104,7 +103,6 @@ int (*Unary_S_R_E[])(std::list<int>) // unary sequence returns element
     &lt,
     &gte,
     &lte
-    /* ... */
 };
 
 std::list<int> (*Unary_S_R_S[])(std::list<int>) // unary sequence returns sequence
@@ -122,7 +120,6 @@ std::list<int> (*Unary_S_R_S[])(std::list<int>) // unary sequence returns sequen
     &mul,
     &div,
     &mod
-    /* ... */
 };
 
 //===============================================================
@@ -190,7 +187,7 @@ int _not(int x) // needs underscore in name or will not compile
 }
 //---------------------------
 
-int odd(int x) // x = -x
+int odd(int x)
 {
     if(x % 2 != 0)
     {
@@ -200,9 +197,19 @@ int odd(int x) // x = -x
 }
 //---------------------------
 
-int even(int x) // x = -x
+int even(int x)
 {
     if(x % 2 == 0)
+    {
+        return 1;
+    }
+    return 0;
+}
+//---------------------------
+
+int zero(int x)
+{
+    if(x == 0)
     {
         return 1;
     }
