@@ -57,8 +57,8 @@ Hello World
 
 ### Factorial
 ```
-def fact = prod.genlist
-fact:5
+def factorial = prod.intsto
+factorial:5
 
 120
 ```
@@ -66,8 +66,8 @@ fact:5
 ### Sum of Squares
 ```
 let l = <1,2,3,4,5,6,7,8,9,10>
-def sum_sqr = sum.map{square}
-sum_sqr:l
+def sum_squares = sum.map{square}
+sum_squares:l
 
 385
 ```

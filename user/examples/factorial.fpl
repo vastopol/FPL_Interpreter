@@ -1,6 +1,6 @@
 # calculate factorials
 
-def factorial = prod.genlist
+def factorial = prod.intsto
 
 factorial:-1
 factorial:0

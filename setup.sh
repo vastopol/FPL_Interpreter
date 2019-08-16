@@ -3,22 +3,25 @@
 # script to build the FPL interpreter and manual
 # this will create bin/ && manual.pdf in current directory
 
-# doesn't seem to work, copy paste into terminal
-shopt -s expand_aliases
-alias fpl='rlwrap bin/fplr'
-alias build_fpl='./setup.sh -c && ./setup.sh && clear && rlwrap bin/fplr'
+# # doesn't seem to work, copy paste into terminal
+# shopt -s expand_aliases
+# alias fpl='rlwrap bin/fplr'
+# alias build_fpl='./setup.sh -c && ./setup.sh && clear && rlwrap bin/fplr'
+
+#----------------------------------------
 
 function main()
 {
-
     if [ "$1" = "-c" ] ; then
         wiper
         exit 0
     fi
 
-    build_manual
+    # build_manual
     build_interp
     tester
+
+    # clear
 }
 
 #----------------------------------------
@@ -34,10 +37,13 @@ function build_interp()
     cd ..
 }
 
+#----------------------------------------
+
 # build pdf manual from postscript
 function build_manual()
 {
     echo; echo "building manual"; echo
+
     # code to pdf
     a2ps -R -1 code/main.cpp -o main.ps
     a2ps -R -1 code/header/* -o hed.ps
@@ -57,6 +63,7 @@ function build_manual()
     rm *.ps docs.pdf main.pdf hed.pdf src.pdf > /dev/null 2>&1
 }
 
+#----------------------------------------
 
 function wiper()
 {
@@ -73,6 +80,7 @@ function wiper()
     cd ..
 }
 
+#----------------------------------------
 
 function tester()
 {
@@ -82,6 +90,7 @@ function tester()
         echo $file; echo
         if ! bin/fplr "user/tests/$file" ; then # error info for segfaults
             dmesg | tail -1
+            continue
         fi
         echo
     done

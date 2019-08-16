@@ -11,52 +11,52 @@
 // define values for position in jump tables
 
 // int -> int
-#define F_NEG  0
-#define F_ABS  1
-#define F_INC  2
-#define F_DEC  3
+#define F_NEG    0
+#define F_ABS    1
+#define F_INC    2
+#define F_DEC    3
 #define F_SQUARE 4
-#define F_CUBE 5
-#define F_SQRT 6
+#define F_CUBE   5
+#define F_SQRT   6
 // booleans : int -> int
-#define F_NOT  7
-#define F_ODD  8
-#define F_EVEN 9
+#define F_NOT   7
+#define F_ODD   8
+#define F_EVEN  9
 #define F_ZERO 10
 
 // int -> list
-#define F_GENLIST 0
-#define F_ONES    1
-#define F_ZEROS   2
-#define F_LIST    3
+#define F_INTSTO 0
+#define F_ONES   1
+#define F_ZEROS  2
+#define F_LIST   3
 
 // list -> int
-#define F_SIZE 0
-#define F_HEAD 1
-#define F_MAX 2
-#define F_MIN 3
-#define F_SUM  4
-#define F_PROD 5
+#define F_SIZE  0
+#define F_HEAD  1
+#define F_MAX   2
+#define F_MIN   3
+#define F_SUM   4
+#define F_PROD  5
 // booleans : list -> int
-#define F_NIL  6
-#define F_EQ   7
-#define F_NEQ  8
-#define F_GT   9
+#define F_NIL   6
+#define F_EQ    7
+#define F_NEQ   8
+#define F_GT    9
 #define F_LT   10
 #define F_GTE  11
 #define F_LTE  12
 
 // list -> list
-#define F_TAIL  0
-#define F_ROTL  1
-#define F_ROTR  2
-#define F_POPL  3
-#define F_POPR  4
-#define F_REV   5
-#define F_SORT  6
-#define F_RMDUP 7
-#define F_ADD   8   // '+'
-#define F_SUB   9   // '-'
+#define F_TAIL   0
+#define F_ROTL   1
+#define F_ROTR   2
+#define F_POPL   3
+#define F_POPR   4
+#define F_REV    5
+#define F_SORT   6
+#define F_RMDUP  7
+#define F_ADD    8  // '+'
+#define F_SUB    9  // '-'
 #define F_MUL   10  // '*'
 #define F_DIV   11  // '/'
 #define F_MOD   12  // '%'
@@ -93,7 +93,7 @@ int zero(int x);
 
 // unary functions to operate on ELEMENT
 // returns a LIST
-std::list<int> genlist(int x);
+std::list<int> intsto(int x);
 std::list<int> ones(int x);
 std::list<int> zeros(int x);
 std::list<int> list(int x);

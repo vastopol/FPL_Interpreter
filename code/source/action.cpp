@@ -330,7 +330,7 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
                 tmpstr = mop.substr(0, pos);
                 pargs.push_back(tmpstr);
                 mop = mop.substr(pos+1,mop.size()-1);
-                pos = mop.find(';'); // ?
+                pos = mop.find(';');
             }
             if(!mop.empty())
             {
@@ -466,6 +466,93 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
         {
             printer("ERROR: empty argument to if operator");
             throw std::runtime_error("apply() : if{} operator");
+        }
+    }
+
+    if(tag.substr(0,4) == "ccf{")
+    {
+        // printer("IF");
+        std::string mop = trimSpace( tag.substr( 4 , tag.size()-4 ) ) ;
+        mop.pop_back();
+
+        if(!mop.empty())
+        {
+            //split parameters
+            unsigned pos = mop.find(';');
+            std::string tmpstr = "";
+            std::list<std::string> pargs;
+            while( pos != std::string::npos && pos < mop.size() )
+            {
+                tmpstr = mop.substr(0, pos);
+                pargs.push_back(tmpstr);
+                mop = mop.substr(pos+1,mop.size()-1);
+                pos = mop.find(';');
+            }
+            if(!mop.empty())
+            {
+                pargs.push_back(mop);
+            }
+
+            // get parameters
+            std::vector<std::string> vblob;
+            for ( std::string stds : pargs )
+            {
+                Object* fu = m->goGet(stds);
+                if(fu == 0)
+                {
+                    vblob.push_back(stds);
+                }
+                else
+                {
+                    vblob.push_back(fu->stringify());
+                }
+            }
+
+            // get the arg here
+            int iret = 0;
+            std::list<int> lret;
+            for(std::string i : vblob) // apply and construct loop
+            {
+                // branch based on the type of the argument
+                // apply function to arg.
+                // append the result of the function to the return list.
+                if(arg->type() == "Sequence")
+                {
+                    if(U_S_R_E.find(i) != U_S_R_E.end())
+                    {
+                        op = U_S_R_E[i];
+                        iret = (*Unary_S_R_E[op])(((Sequence*)arg)->getList());
+                        // ret = new Element(iret);
+                    }
+                    else
+                    {
+                        printer("ERROR: type mismatch");
+                        throw std::runtime_error("apply() : ccf{} operator");
+                    }
+                }
+                else  // Element
+                {
+                    if(U_E_R_E.find(i) != U_E_R_E.end())
+                    {
+                        op = U_E_R_E[i];
+                        iret = (*Unary_E_R_E[op])(((Element*)arg)->getElement());
+                        // ret = new Element(iret);
+                    }
+                    else
+                    {
+                        printer("ERROR: type mismatch");
+                        throw std::runtime_error("apply() : ccf{} operator");
+                    }
+                }
+                lret.push_back(iret);
+            }
+            ret = new Sequence(lret);
+            return ret;
+        }
+        else
+        {
+            printer("ERROR: empty argument to ccf operator");
+            throw std::runtime_error("apply() : ccf{} operator");
         }
     }
 

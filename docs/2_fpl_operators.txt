@@ -102,7 +102,7 @@ cat{L2}:L1 -> L
 
 //---------------------------------------
 
-// construction combining form
+// construction combining form (DONE)
 // all F are unary but must be of same type as arg
 ccf{F1;...;Fn}:E -> L
 or
@@ -141,7 +141,6 @@ this should just apply f until list.size() == 1
 then return list.head()
 
 CCF
-probably need 2 functions for ccf
 
 ccf(E) -> L
 ccf(L) -> L
@@ -150,8 +149,6 @@ where   ccf{F1,F2,...,Fn}:x  =  <F1:x,...,Fn:x>
 IF
 will be unknown what will happen when run X1 or X2 until it happens
 if it can parse it does not necessarily mean it is correct
-
-probably need 4 functions for if
 
 if(P;E) -> E
 if(P;E) -> L

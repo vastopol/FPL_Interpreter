@@ -44,7 +44,7 @@ RETURN TYPE (ELEMENT)
 - zero == test is zero
 
 RETURN TYPE (SEQUENCE)
-- genlist == list from 1 to n
+- intsto  == list from 1 to n
 - ones    == list of n ones
 - zeros   == list of n zeros
 - list    == create a list around an element
@@ -55,8 +55,8 @@ SEQUENCE OPERATIONS
 RETURN TYPE (ELEMENT)
 - head  == first element of sequence
 - size  == number of elements in list
-- lmax  == maximum value in sequence
-- lmin  == minimum value in sequence
+- max  == maximum value in sequence
+- min  == minimum value in sequence
 - sum   == add the elements of a sequence together
 - prod  == multiply the elements of a sequence together
 - nil   == check for empty list
@@ -86,6 +86,7 @@ HIGHER ORDER FUNCTIONS/OPERATORS
 - apl{e}  == append element at left of list
 - cat{l}  == concatenate 2 lists
 - if{p;f;g}  == if p is true when applied, then f else g
+- ccf{f1;...;fn}  == list of <f1:x,...,fn:x>
 
 //---------------------------------------
 

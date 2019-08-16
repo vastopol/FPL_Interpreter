@@ -214,7 +214,7 @@ void fcts()
     std::cout << "- zero == test is zero" << std::endl;
     std::cout << std::endl;
     std::cout << "RETURN TYPE (SEQUENCE)" << std::endl;
-    std::cout << "- genlist == list from 1 to n" << std::endl;
+    std::cout << "- intsto  == list from 1 to n" << std::endl;
     std::cout << "- ones    == list of n ones" << std::endl;
     std::cout << "- zeros   == list of n zeros" << std::endl;
     std::cout << "- list    == create a list around an element" << std::endl;
@@ -224,8 +224,8 @@ void fcts()
     std::cout << "RETURN TYPE (ELEMENT)" << std::endl;
     std::cout << "- head  == first element of sequence" << std::endl;
     std::cout << "- size  == number of elements in list" << std::endl;
-    std::cout << "- lmax  == maximum value in sequence" << std::endl;
-    std::cout << "- lmin  == minimum value in sequence" << std::endl;
+    std::cout << "- max  == maximum value in sequence" << std::endl;
+    std::cout << "- min  == minimum value in sequence" << std::endl;
     std::cout << "- sum   == add the elements of a sequence together" << std::endl;
     std::cout << "- prod  == multiply the elements of a sequence together" << std::endl;
     std::cout << "- nil   == check for empty list" << std::endl;
@@ -254,6 +254,7 @@ void fcts()
     std::cout << "- apl{e}  == append element at left of list" << std::endl;
     std::cout << "- cat{l}  == concatenate 2 lists" << std::endl;
     std::cout << "- if{p;f;g}  == if p is true when applied, then f else g" << std::endl;
+    std::cout << "- ccf{f1;...;fn}  == list of <f1:x,...,fn:x>" << std::endl;
     std::cout << std::endl;
 }
 //-------------------------------------------------------------------------------------------

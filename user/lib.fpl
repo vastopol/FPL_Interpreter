@@ -13,7 +13,7 @@ let true = 1
 
 # SEQUENCES
 #------------------------------------------
-let nil = <>    # the empty list
+let nilseq = <>    # the empty list (nil)
 #------------------------------------------
 
 #====================================================================
@@ -27,7 +27,7 @@ def ++ = inc                   # c style increment
 def +2 = inc.inc               # increment by two
 def safe_sqrt = sqrt.abs       # prevent passing negative number to sqrt
 def quartic = square.square    # raise to fourth power
-def fact = prod.genlist        # factorial n!
+def factorial = prod.intsto    # factorial n!
 #------------------------------------------
 
 # SEQUENCE FUNCTIONS
@@ -38,8 +38,8 @@ def cadr = head.tail
 def cddr = tail.tail
 def caddr = head.tail.tail
 def cdddr = tail.tail.tail
-def second = head.tail            # return second element, (size >= 2)
-def last = head.rev               # return last element
-def sorted_set = sort.rmdup       # return unique sequence in ascending order
+def second = head.tail             # return second element, (size >= 2)
+def last = head.rev                # return last element
+def sorted_set = sort.rmdup        # return unique sequence in ascending order
 def sum_squares = sum.map{square}
 #------------------------------------------
