@@ -68,10 +68,9 @@ function build_manual()
 function wiper()
 {
     echo; echo "wiping"; echo
+
     rm -rf bin > /dev/null 2>&1
-
     rm -rf output* > /dev/null 2>&1
-
     rm manual.pdf > /dev/null 2>&1
 
     cd code
@@ -90,7 +89,6 @@ function tester()
         echo $file; echo
         if ! bin/fplr "user/tests/$file" ; then # error info for segfaults
             dmesg | tail -1
-            continue
         fi
         echo
     done

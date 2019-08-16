@@ -732,30 +732,44 @@ void type(std::string s, Memory* m) // type signature
         {
             std::cout << "LIST" << std::endl;
         }
-        else // function
+        else // fun/op
         {
             func_type = func_classifier(tmp_tok);
-            if(func_type == -1){ std::cout << "Error: unknown function type" << std::endl; break; }
-            std::cout << "FUN: ";
-            switch(func_type)
+
+            if(func_type == -1 ) // operator
             {
-                case 0:
-                    std::cout << "INT  -> INT";
-                    break;
-                case 1:
-                    std::cout << "INT  -> LIST";
-                    break;
-                case 2:
-                    std::cout << "LIST -> INT";
-                    break;
-                case 3:
-                    std::cout << "LIST -> LIST";
-                    break;
-                default:
-                    std::cout << "Error: unknown function type (in switch)" << std::endl; // should never go here because the if above switch
-                    break;
+                if( (tmp_tok.find('{') != std::string::npos) || tmp_tok == "id" || tmp_tok == "seq" || tmp_tok == "elm" )
+                {
+                    std::cout << "OP:" << std::endl;
+                }
+                else
+                {
+                    std::cout << "Error: unknown function type" << std::endl; /*break;*/
+                }
             }
-            std::cout << std::endl;
+            else // function
+            {
+                std::cout << "FUN: ";
+                switch(func_type)
+                {
+                    case 0:
+                        std::cout << "INT  -> INT";
+                        break;
+                    case 1:
+                        std::cout << "INT  -> LIST";
+                        break;
+                    case 2:
+                        std::cout << "LIST -> INT";
+                        break;
+                    case 3:
+                        std::cout << "LIST -> LIST";
+                        break;
+                    default:
+                        std::cout << "Error: unknown function type (in switch)"; // << std::endl; // should never go here because the if above switch
+                        // break;
+                }
+                std::cout << std::endl;
+            }
         }
     }
 
@@ -763,6 +777,3 @@ void type(std::string s, Memory* m) // type signature
     P = 0;
     return;
 }
-
-
-

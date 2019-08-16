@@ -556,6 +556,8 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
         }
     }
 
+    // reduce **********
+
     //----------------------------------------
 
     // regular functions

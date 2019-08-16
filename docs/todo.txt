@@ -1,11 +1,15 @@
 TODO
 
+DONE:
+    * ccf{}
+    * update type information commands
+
 ver 1.21
 
 * improve parser functionality to overcome limitations
     might have to pass parser to exec to handle more complex operator usage cases
 
-* implement ccf{},ins{},del{},red{} (special cases of existing functionality)
+* implement ins{},del{},red{} (special cases of existing functionality)
 
 * add a do{n;f} operator to apply a function f for n times
 
@@ -29,6 +33,13 @@ ver 1.21
 
 * UPDATE AND CHECK ALL USER PROGRAMS AFTER CHANGES SO THEY STILL WORK
 
+* need better parser
+    nested {} operators and composed expressions in operators
+    probably need to embed/pass in the parser too
+
+* might need to make some overloaded functions for the operators
+    if, ccf, id, elm, seq, ...
+
 ----------------------------------------
 
 etc... maybe???
@@ -41,15 +52,46 @@ etc... maybe???
 
 actual ideas
 
+pointfree form references no arguments
+
+pointful form uses the @ operator like the alpha and omega in APL
+
+fill{@} operator, using the @ as the right hand argument reference
+
+constant operators as ~0 and ~1
+
 def _sum  = red{+}
 def _prod = red{*}
 def alt_sum  = red{-}
 def alt_prod = red{/}
+def _size = sum.map{~1}
+def _size2 = red{+}.map{~1}
 def _sum_squares = red{+}.map{square}
-def abs = if{lt:<@,0>;neg:@;@}
+def _factorial = red{*}.intsto
+def _abs = if{lt.fill{<@,0>};neg.fill{@};fill{@}}
+def _abs2 = if{lt.fill{<@,0>};neg.id;id}
+def _abs3 = if{lt.apr{0}.list;neg.id;id}
+def _square = prod.fill{<@,@>}
+def _square2 = red{*}.fill{<@,@>}
+def _cube = prod.fill{<@,@,@>}
+def _cube2 = red{*}.fill{<@,@,@>}
+def _zero = if{eq.fill{<@,0>};~1;~0}
+def _zero2 = if{eq.apr{0}.list;~1;~0}
+def _even = if{zero.head.%.fill{<@,2>};~1;~0}
+def _even2 = if{zero.head.%.apr{2}.list;~1;~0}
+def _odd = if{not.zero.head.%.fill{<@,2>};~1;~0}
+def _odd2 = if{not.zero.head.%.apr{2}.list;~1;~0}
 
-potential ideas
+potential ideas, (need better parser)
 
 let l = <...>
+let s1 = sum:l
+let s2 = size:l
+let l_avg0 = /:<s1,s2>
 let l_avg1 = /:<sum:l,size:l>
-let l_avg2 = /.app{size:l}.list.sum:l
+let l_avg2 = /.apr{size:l}.list.sum:l
+
+----------------------------------------
+
+
+
