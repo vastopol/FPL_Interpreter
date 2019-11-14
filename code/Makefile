@@ -7,7 +7,7 @@
 CXX = g++ -std=c++11
 FLAGS = -Wall -Werror -ansi -pedantic
 DEBUG = -g
-OFILES = source/syscom.o source/memory.o source/pattern.o source/interpreter.o source/action.o source/node.o source/object.o source/func.o source/utils.o
+OFILES = source/syscom.o source/memory.o source/pattern.o source/interpreter.o source/action.o source/node.o source/object.o source/func.o source/utils.o source/operator.o
 
 # Targets
 main: main.cpp $(OFILES) | bin
@@ -28,7 +28,7 @@ pattern.o: source/pattern.cpp header/pattern.h source/interpreter.cpp header/int
 interpreter.o: source/interpreter.cpp header/interpreter.h source/memory.cpp header/memory.h source/object.cpp header/object.h source/node.cpp header/node.h source/utils.cpp header/utils.h
 	$(CXX) $(FLAGS) -c source/interpreter.cpp
 
-action.o: source/action.cpp header/action.h source/object.cpp header/object.h  source/node.cpp header/node.h source/func.cpp header/func.h
+action.o: source/action.cpp header/action.h source/object.cpp header/object.h  source/node.cpp header/node.h source/func.cpp header/func.h source/operator.cpp header/operator.h
 	$(CXX) $(FLAGS) -c source/action.cpp
 
 node.o: source/node.cpp header/node.h source/object.cpp header/object.h
@@ -42,6 +42,9 @@ func.o: source/func.cpp header/func.h
 
 utils.o: source/utils.cpp header/utils.h
 	$(CXX) $(FLAGS) -c source/utils.cpp
+
+operator.o: source/operator.cpp header/operator.h
+	$(CXX) $(FLAGS) -c source/operator.cpp
 
 bin:
 	mkdir bin
