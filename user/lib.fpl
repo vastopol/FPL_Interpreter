@@ -42,4 +42,6 @@ def second = head.tail             # return second element, (size >= 2)
 def last = head.rev                # return last element
 def sorted_set = sort.rmdup        # return unique sequence in ascending order
 def sum_squares = sum.map{square}
+def alt_sum  = red{-}
+def alt_prod = red{/}
 #------------------------------------------

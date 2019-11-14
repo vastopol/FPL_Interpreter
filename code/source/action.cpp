@@ -557,6 +557,40 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
     }
 
     // reduce **********
+    if(tag.substr(0,4) == "red{")
+    {
+        std::string mop = trimSpace( tag.substr( 4 , tag.size()-4 ) ) ;
+        mop.pop_back();
+        Object* fu = m->goGet(mop); // function
+        if(fu == 0)
+        {
+            tag = mop;
+        }
+        else
+        {
+            tag = fu->stringify();
+        }
+
+        if(!mop.empty() && arg->type() == "Sequence" && arg->stringify() != "<>")
+        {
+            op = U_S_R_S[tag];
+            std::list<int> l1 = ((Sequence*)arg)->getList();
+            std::list<int> l2;
+            while(l1.size() > 1)
+            {
+                l2 = (*Unary_S_R_S[op])(l1);
+                l1 = l2;
+            }
+
+            int x = l2.front();
+            return new Element(x);
+        }
+        else
+        {
+            printer("ERROR: empty argument to reduce operator");
+            throw std::runtime_error("apply() : red{} operator");
+        }
+    }
 
     //----------------------------------------
 

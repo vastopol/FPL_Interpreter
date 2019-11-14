@@ -1,7 +1,11 @@
 TODO
 
 DONE:
+    * func.h/cpp -> add more functions for the vm fn_pointers from the math.h library
+        * pow, log, gcd
     * ccf{}
+    * red{}
+    * constants ~0 and ~1
     * update type information commands
 
 ver 1.21
@@ -9,16 +13,13 @@ ver 1.21
 * improve parser functionality to overcome limitations
     might have to pass parser to exec to handle more complex operator usage cases
 
-* implement ins{},del{},red{} (special cases of existing functionality)
+* implement ins{},del{} (special cases of existing functionality)
 
 * add a do{n;f} operator to apply a function f for n times
 
 * while{},until{} as loop operators
 
 * have @ for rhs argument reference inside the operators
-
-* func.h/cpp -> add more functions for the vm fn_pointers from the math.h library
-    * pow, ...
 
 * inconsistencies with throwing exceptions or print error message and return in syscom.cpp
     should go through and convert all error printing returning code to actual exception throwing
@@ -58,16 +59,8 @@ pointful form uses the @ operator like the alpha and omega in APL
 
 fill{@} operator, using the @ as the right hand argument reference
 
-constant operators as ~0 and ~1
+also allowing operators called in operators
 
-def _sum  = red{+}
-def _prod = red{*}
-def alt_sum  = red{-}
-def alt_prod = red{/}
-def _size = sum.map{~1}
-def _size2 = red{+}.map{~1}
-def _sum_squares = red{+}.map{square}
-def _factorial = red{*}.intsto
 def _abs = if{lt.fill{<@,0>};neg.fill{@};fill{@}}
 def _abs2 = if{lt.fill{<@,0>};neg.id;id}
 def _abs3 = if{lt.apr{0}.list;neg.id;id}

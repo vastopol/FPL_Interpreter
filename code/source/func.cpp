@@ -16,7 +16,10 @@ std::map<std::string, int> U_E_R_E
     {"not",F_NOT},
     {"odd",F_ODD},
     {"even",F_EVEN},
-    {"zero",F_ZERO}
+    {"zero",F_ZERO},
+    {"~1",F_C_ONE},
+    {"~0",F_C_ZERO},
+    {"log",F_LOG}
 };
 
 std::map<std::string, int> U_E_R_S
@@ -41,7 +44,8 @@ std::map<std::string, int> U_S_R_E
     {"gt",F_GT},
     {"lt",F_LT},
     {"gte",F_GTE},
-    {"lte",F_LTE}
+    {"lte",F_LTE},
+    {"gcd",F_GCD}
 };
 
 std::map<std::string, int> U_S_R_S
@@ -58,7 +62,8 @@ std::map<std::string, int> U_S_R_S
     {"-",F_SUB},
     {"*",F_MUL},
     {"/",F_DIV},
-    {"%",F_MOD}
+    {"%",F_MOD},
+    {"^",F_POW}
 };
 
 //===============================================================
@@ -68,7 +73,7 @@ std::map<std::string, int> U_S_R_S
 int (*Unary_E_R_E[])(int) // unary element return element
 {
     &neg,
-    &abs,
+    &_abs,
     &inc,
     &dec,
     &square,
@@ -77,7 +82,10 @@ int (*Unary_E_R_E[])(int) // unary element return element
     &_not,
     &odd,
     &even,
-    &zero
+    &zero,
+    &c_one,
+    &c_zero,
+    &_log
 };
 
 std::list<int> (*Unary_E_R_S[])(int) // unary element return sequence
@@ -102,7 +110,8 @@ int (*Unary_S_R_E[])(std::list<int>) // unary sequence returns element
     &gt,
     &lt,
     &gte,
-    &lte
+    &lte,
+    &gcd
 };
 
 std::list<int> (*Unary_S_R_S[])(std::list<int>) // unary sequence returns sequence
@@ -119,7 +128,8 @@ std::list<int> (*Unary_S_R_S[])(std::list<int>) // unary sequence returns sequen
     &sub,
     &mul,
     &div,
-    &mod
+    &mod,
+    &pow
 };
 
 //===============================================================
@@ -132,7 +142,7 @@ int neg(int x) // x = -x
 }
 //---------------------------
 
-int abs(int x) // x = |x|
+int _abs(int x) // x = |x|
 {
     if(x < 0)
     {
@@ -214,6 +224,24 @@ int zero(int x)
         return 1;
     }
     return 0;
+}
+//---------------------------
+
+int c_one(int x)
+{
+    return 1;
+}
+//---------------------------
+
+int c_zero(int x)
+{
+    return 0;
+}
+//---------------------------
+
+int _log(int x)
+{
+    return (int) log10(x);
 }
 //---------------------------
 
@@ -526,6 +554,31 @@ int lte(std::list<int> l)
 }
 //---------------------------
 
+int gcd(std::list<int> l)
+{
+    if( l.empty() || l.size() < 2 )
+    {
+        return 0;
+    }
+
+    int a = l.front();
+    l.pop_front();
+
+    int b = l.front();
+    l.pop_front();
+
+    int t = 0;
+    while(b != 0)
+    {
+       t = b;
+       b = a % b;
+       a = t;
+   }
+
+    return a;
+}
+//---------------------------
+
 
 //===============================================================
 // Unary Sequence Returns Sequence
@@ -756,6 +809,42 @@ std::list<int> mod(std::list<int> l)
 
     int c = a % b;
     l.push_front(c);
+
+    return l;
+}
+//---------------------------
+
+std::list<int> pow(std::list<int> l)
+{
+    if( l.empty() || l.size() < 2 )
+    {
+        return l;
+    }
+
+    int a = l.front();
+    l.pop_front();
+
+    int b = l.front();
+    l.pop_front();
+
+
+    if(b < 0)
+    {
+        l.push_front(0);
+    }
+    else if(b == 0)
+    {
+        l.push_front(1);
+    }
+    else
+    {
+        int c = 1;
+        for(int i = 0; i < b; i++)
+        {
+            c *= a;
+        }
+        l.push_front(c);
+    }
 
     return l;
 }
