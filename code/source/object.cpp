@@ -6,7 +6,7 @@
 #include <cstring>
 #include <cstdlib>
 
-//------------------------------------
+//----------------------------------------
 
 Element::Element(int i)
     : Object(),  val(i)
@@ -27,7 +27,7 @@ Object* Element::get()
 	return ptr;
 }
 
-//------------------------------------
+//----------------------------------------
 
 Sequence::Sequence(std::list<int> l)
     : Object(),  seq(l)
@@ -61,7 +61,7 @@ Object* Sequence::get()
 	return ptr;
  }
 
-//------------------------------------
+//----------------------------------------
 
 Function::Function(std::string s)
     : Object(),  func(s)
@@ -78,7 +78,7 @@ Object* Function::get()
 	return ptr;
  }
 
-//------------------------------------
+//----------------------------------------
 
 Colon::Colon(std::string s)
     : Object(),  col(s)
@@ -95,7 +95,7 @@ Object* Colon::get()
 	return ptr;
  }
 
-//------------------------------------
+//----------------------------------------
 
 Block::Block(std::string s)
     : Object(),  block(s)
@@ -112,5 +112,5 @@ Object* Block::get()
 	return ptr;
  }
 
- //------------------------------------
+ //----------------------------------------
 

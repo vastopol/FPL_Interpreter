@@ -1,6 +1,7 @@
 # functions that duplicate built-ins
 
-# TYPE: Sequence
+# TYPE: Sequence -> Element
+
 def _min = head.sort          # return minimum element of sequence
 def _max = head.rev.sort      # return maximum element of sequence
 def _head = at{1}             # return head of a list
@@ -11,6 +12,9 @@ def _size = sum.map{~1}
 def _size2 = red{+}.map{~1}
 def _sum_squares = red{+}.map{square}
 def _factorial = red{*}.intsto
+
+# TYPE: Element -> Sequence
+
 def _ones = map{~1}.intsto
 def _zeros = map{~0}.intsto
 

@@ -59,16 +59,12 @@ int func_classifier(std::string s) // what type of function
 
 Sequence* seq_par(std::string val, Memory* m) // based on interpreter code need to parse in concat operator in action
 {
-    // std::cout << "sequence part: " << val << std::endl;
-
     Sequence* ob = 0;
-
     std::list<int> ilst;
 
     // remove <>
     val = val.substr(1, (val.size() - 1)); // gone <
     val = val.substr(0, (val.size() - 1)); // gone >
-
     val = trimSpace(val);
 
     // add empty list HERE
@@ -97,7 +93,7 @@ Sequence* seq_par(std::string val, Memory* m) // based on interpreter code need 
     char* copy = (char*)(val.c_str());  // copy to give strtok for parse
     char* arr = strtok(copy, ",");      // temp array
 
-    // 1st element
+    // get 1st element
     Object* tmpobj = m->goGet(std::string(arr)); // have to see if list has vars: <1,2,x,3>
     if(tmpobj != 0 && tmpobj->type() == "Element")
     {
@@ -108,7 +104,7 @@ Sequence* seq_par(std::string val, Memory* m) // based on interpreter code need 
         ilst.push_back( atoi( arr ) );
     }
 
-    // rest of the elements
+    // get rest of the elements
     for(unsigned i = 1; arr != 0; i++)
     {
         arr = strtok(NULL, ",");
@@ -129,4 +125,4 @@ Sequence* seq_par(std::string val, Memory* m) // based on interpreter code need 
     ob = new Sequence(ilst);    // list with data HERE
     return ob;
 }
-
+//----------------------------------------------------------------------------------------------

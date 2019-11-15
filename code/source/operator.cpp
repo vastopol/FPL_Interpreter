@@ -11,6 +11,7 @@ Object* operate(Object* fun, Object* arg, Memory* m)
     {
         return arg;
     }
+    //----------------------------------------
 
     if(tag == "elm")
     {
@@ -23,6 +24,7 @@ Object* operate(Object* fun, Object* arg, Memory* m)
             return new Element(0);
         }
     }
+    //----------------------------------------
 
     if(tag == "seq")
     {
@@ -35,6 +37,7 @@ Object* operate(Object* fun, Object* arg, Memory* m)
             return new Element(0);
         }
     }
+    //----------------------------------------
 
     if(tag.substr(0,4) == "map{")
     {
@@ -69,7 +72,9 @@ Object* operate(Object* fun, Object* arg, Memory* m)
             throw std::runtime_error("apply() : map{} operator");
         }
     }
+    //----------------------------------------
 
+    // filter
     if(tag.substr(0,5) == "filt{")
     {
         std::string mop = trimSpace( tag.substr( 5 , tag.size()-5 ) ) ;
@@ -106,6 +111,44 @@ Object* operate(Object* fun, Object* arg, Memory* m)
             throw std::runtime_error("apply() : filt{} operator");
         }
     }
+    //----------------------------------------
+
+    // reduce
+    if(tag.substr(0,4) == "red{")
+    {
+        std::string mop = trimSpace( tag.substr( 4 , tag.size()-4 ) ) ;
+        mop.pop_back();
+        Object* fu = m->goGet(mop); // function
+        if(fu == 0)
+        {
+            tag = mop;
+        }
+        else
+        {
+            tag = fu->stringify();
+        }
+
+        if(!mop.empty() && arg->type() == "Sequence" && arg->stringify() != "<>")
+        {
+            op = U_S_R_S[tag];
+            std::list<int> l1 = ((Sequence*)arg)->getList();
+            std::list<int> l2;
+            while(l1.size() > 1)
+            {
+                l2 = (*Unary_S_R_S[op])(l1);
+                l1 = l2;
+            }
+
+            int x = l2.front();
+            return new Element(x);
+        }
+        else
+        {
+            printer("ERROR: empty argument to reduce operator");
+            throw std::runtime_error("apply() : red{} operator");
+        }
+    }
+    //----------------------------------------
 
     if(tag.substr(0,3) == "at{")
     {
@@ -144,6 +187,7 @@ Object* operate(Object* fun, Object* arg, Memory* m)
             throw std::runtime_error("apply() : at{} operator");
         }
     }
+    //----------------------------------------
 
     if(tag.substr(0,4) == "apr{") // append right
     {
@@ -174,6 +218,7 @@ Object* operate(Object* fun, Object* arg, Memory* m)
             throw std::runtime_error("apply() : apr{} operator");
         }
     }
+    //----------------------------------------
 
     if(tag.substr(0,4) == "apl{") // append left
     {
@@ -204,6 +249,7 @@ Object* operate(Object* fun, Object* arg, Memory* m)
             throw std::runtime_error("apply() : apl{} operator");
         }
     }
+    //----------------------------------------
 
     if(tag.substr(0,4) == "cat{")
     {
@@ -247,6 +293,122 @@ Object* operate(Object* fun, Object* arg, Memory* m)
             throw std::runtime_error("apply() : cat{} operator");
         }
     }
+    //----------------------------------------
+
+    // list insert
+    if(tag.substr(0,4) == "ins{")
+    {
+        std::string mop = trimSpace( tag.substr( 4 , tag.size()-4 ) ) ;
+        mop.pop_back();
+
+        if(!mop.empty() && arg->type() == "Sequence")
+        {
+            //split parameters
+            unsigned pos = mop.find(';');
+            std::string tmpstr = "";
+            std::list<std::string> pargs;
+            while( pos != std::string::npos && pos < mop.size() )
+            {
+                tmpstr = mop.substr(0, pos);
+                pargs.push_back(tmpstr);
+                mop = mop.substr(pos+1,mop.size()-1);
+                pos = mop.find(';');
+            }
+            if(!mop.empty())
+            {
+                pargs.push_back(mop);
+            }
+            if(pargs.size() != 2)
+            {
+                printer(pargs.size());
+                printer("ERROR: arity of argument to ins operator");
+                throw std::runtime_error("apply() : ins{} operator");
+            }
+
+            // get parameters
+            std::vector<std::string> vblob;
+            for ( std::string stds : pargs )
+            {
+                Object* fu = m->goGet(stds);
+                if(fu == 0)
+                {
+                    vblob.push_back(stds);
+                }
+                else
+                {
+                    vblob.push_back(fu->stringify());
+                }
+            }
+
+            int index = std::stoi(vblob.at(0));
+            int var = std::stoi(vblob.at(1));
+            std::list<int> l1 = ((Sequence*)arg)->getList();
+
+            if(index < 1 || index > l1.size())
+            {
+                printer("ERROR: index argument to insert operator");
+                throw std::runtime_error("apply() : ins{} operator");
+            }
+            else
+            {
+                int i = 1;
+                std::list<int>::iterator it = l1.begin();
+                while(i < index)
+                {
+                    i++;
+                    it++;
+                }
+                l1.insert(it,var);
+                return new Sequence(l1);
+            }
+        }
+        else
+        {
+            printer("ERROR: argument to insert operator");
+            throw std::runtime_error("apply() : ins{} operator");
+        }
+    }
+    //----------------------------------------
+
+    if(tag.substr(0,4) == "del{")
+    {
+        std::string mop = trimSpace( tag.substr( 4 , tag.size()-4 ) ) ;
+        mop.pop_back();
+
+        if(!mop.empty() && arg->type() == "Sequence" && arg->stringify() != "<>")
+        {
+            Object* fu = m->goGet(mop);
+            if(fu != NULL)
+            {
+                mop = fu->stringify();
+            }
+            int index = std::stoi(mop);
+            std::list<int> l1 = ((Sequence*)arg)->getList();
+            if(index < 1 || index > l1.size())
+            {
+                printer("ERROR: index argument to delete operator");
+                throw std::runtime_error("apply() : del{} operator");
+            }
+            else
+            {
+                int i = 1;
+                std::list<int>::iterator it = l1.begin();
+                while(i < index)
+                {
+                    i++;
+                    it++;
+                }
+                l1.erase(it);
+                return new Sequence(l1);
+            }
+        }
+        else
+        {
+            printer("ERROR: empty argument to delete operator");
+            throw std::runtime_error("apply() : del{} operator");
+        }
+    }
+    //----------------------------------------
 
     if(tag.substr(0,3) == "if{")
     {
@@ -403,10 +565,10 @@ Object* operate(Object* fun, Object* arg, Memory* m)
             throw std::runtime_error("apply() : if{} operator");
         }
     }
+    //----------------------------------------
 
     if(tag.substr(0,4) == "ccf{")
     {
-        // printer("IF");
         std::string mop = trimSpace( tag.substr( 4 , tag.size()-4 ) ) ;
         mop.pop_back();
 
@@ -490,42 +652,7 @@ Object* operate(Object* fun, Object* arg, Memory* m)
             throw std::runtime_error("apply() : ccf{} operator");
         }
     }
-
-    // reduce **********
-    if(tag.substr(0,4) == "red{")
-    {
-        std::string mop = trimSpace( tag.substr( 4 , tag.size()-4 ) ) ;
-        mop.pop_back();
-        Object* fu = m->goGet(mop); // function
-        if(fu == 0)
-        {
-            tag = mop;
-        }
-        else
-        {
-            tag = fu->stringify();
-        }
-
-        if(!mop.empty() && arg->type() == "Sequence" && arg->stringify() != "<>")
-        {
-            op = U_S_R_S[tag];
-            std::list<int> l1 = ((Sequence*)arg)->getList();
-            std::list<int> l2;
-            while(l1.size() > 1)
-            {
-                l2 = (*Unary_S_R_S[op])(l1);
-                l1 = l2;
-            }
-
-            int x = l2.front();
-            return new Element(x);
-        }
-        else
-        {
-            printer("ERROR: empty argument to reduce operator");
-            throw std::runtime_error("apply() : red{} operator");
-        }
-    }
+    //----------------------------------------
 
     // END
     return NULL;

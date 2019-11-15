@@ -2,14 +2,13 @@
 
 Memory::~Memory()
 {
-    // std::cout << "MEMORY DESTRUCTOR" << std::endl;
     clear();
     empty_buf();
 }
-//---------------------------------------------------------
+//----------------------------------------
 
 // ADD
-///*****************************************************************************
+//--------------------------------------------------------------------------------
 void Memory::add_element(std::string s, Element i)
 {
     if(!s.empty())
@@ -17,7 +16,7 @@ void Memory::add_element(std::string s, Element i)
         elements[s] = i;
     }
 }
-//---------------------------------------------------------
+//----------------------------------------
 
 void Memory::add_sequence(std::string s, Sequence l)
 {
@@ -26,7 +25,7 @@ void Memory::add_sequence(std::string s, Sequence l)
         sequences[s] = l;
     }
 }
-//---------------------------------------------------------
+//----------------------------------------
 
 void Memory::add_macro(std::string a, Function b)
 {
@@ -35,7 +34,7 @@ void Memory::add_macro(std::string a, Function b)
         macros[a] = b;
     }
 }
-//----------------------------------------------------------
+//-----------------------------------------
 
 void Memory::add_str_buf(std::string s) // queue 1 string to buffer
 {
@@ -44,7 +43,7 @@ void Memory::add_str_buf(std::string s) // queue 1 string to buffer
         buffer.push_back(s);
     }
 }
-//----------------------------------------------------------
+//-----------------------------------------
 
 void Memory::add_str_hist(std::string s)
 {
@@ -53,10 +52,10 @@ void Memory::add_str_hist(std::string s)
         history.push_back(s);
     }
 }
-///*****************************************************************************
+//--------------------------------------------------------------------------------
 
 // REMOVE
-///*****************************************************************************
+//--------------------------------------------------------------------------------
 void Memory::remove_element(std::string s)
 {
     std::map<std::string, Element>::iterator it = elements.find(s);
@@ -65,7 +64,7 @@ void Memory::remove_element(std::string s)
         elements.erase(it);
     }
 }
-//---------------------------------------------------------
+//----------------------------------------
 
 void Memory::remove_sequence(std::string s)
 {
@@ -75,7 +74,7 @@ void Memory::remove_sequence(std::string s)
         sequences.erase(it);
     }
 }
-//---------------------------------------------------------
+//----------------------------------------
 
 void Memory::remove_macro(std::string s)
 {
@@ -85,13 +84,13 @@ void Memory::remove_macro(std::string s)
         macros.erase(it);
     }
 }
-//----------------------------------------------------------
+//-----------------------------------------
 
 void Memory::empty_buf()
 {
     buffer.clear();
 }
-//----------------------------------------------------------
+//-----------------------------------------
 
 void Memory::clear()
 {
@@ -99,33 +98,33 @@ void Memory::clear()
     this->sequences.clear();
     this->macros.clear();
 }
-///*****************************************************************************
+//--------------------------------------------------------------------------------
 
 // ACCESS
-///*****************************************************************************
+//--------------------------------------------------------------------------------
 std::map<std::string, Element>& Memory::get_elements()
 {
     return elements;
 }
-//--------------------------------------------------------------
+//---------------------------------------------
 
 std::map< std::string, Sequence >& Memory::get_sequences()
 {
     return sequences;
 }
-//--------------------------------------------------------------
+//---------------------------------------------
 
 std::map<std::string, Function >& Memory::get_macros()
 {
     return macros;
 }
-//--------------------------------------------------------------
+//---------------------------------------------
 
 std::list<std::string>& Memory::get_buffer()
 {
     return buffer;
 }
-//--------------------------------------------------------------
+//---------------------------------------------
 
 Object* Memory::goGet(std::string s)
 {
@@ -150,13 +149,13 @@ Object* Memory::goGet(std::string s)
     return op;
 }
 
-///*****************************************************************************
+//--------------------------------------------------------------------------------
 
 // PRINT
-///*****************************************************************************
+//--------------------------------------------------------------------------------
 void Memory::print_elements()
 {
-    std::map<std::string, Element>::iterator it = this->elements.begin(); // iterator
+    std::map<std::string, Element>::iterator it = this->elements.begin();
     for(; it != this->elements.end(); it++)
     {
         std::cout << it->first << " = ";
@@ -164,11 +163,11 @@ void Memory::print_elements()
         std::cout << std::endl;
     }
 }
-//---------------------------------------------------------
+//----------------------------------------
 
 void Memory::print_sequences()
 {
-    std::map< std::string, Sequence>::iterator it = this->sequences.begin(); // external iterator (map)
+    std::map< std::string, Sequence>::iterator it = this->sequences.begin();
     for(; it != this->sequences.end(); it++)
     {
         std::cout << it->first << " = ";
@@ -180,7 +179,7 @@ void Memory::print_sequences()
 
 void Memory::print_macros()
 {
-    std::map<std::string, Function>::iterator it = this->macros.begin(); // iterator
+    std::map<std::string, Function>::iterator it = this->macros.begin();
     for(; it != this->macros.end(); it++)
     {
         std::cout << it->first << " = ";
@@ -188,7 +187,7 @@ void Memory::print_macros()
         std::cout << std::endl;
     }
 }
-//----------------------------------------------------------
+//-----------------------------------------
 
 void Memory::print_buf_status()
 {
@@ -199,7 +198,7 @@ void Memory::print_buf_status()
     }
     std::cout << "LOADED" << std::endl;
 }
-//----------------------------------------------------------
+//-----------------------------------------
 
 void Memory::print_buffer()
 {
@@ -209,13 +208,13 @@ void Memory::print_buffer()
         return;
     }
 
-    std::list<std::string>::iterator it = this->buffer.begin(); // iterator
+    std::list<std::string>::iterator it = this->buffer.begin();
     for(; it != this->buffer.end(); it++)
     {
         std::cout << *it << std::endl;
     }
 }
-//----------------------------------------------------------
+//-----------------------------------------
 
 void Memory::print_history()
 {
@@ -226,12 +225,12 @@ void Memory::print_history()
     }
 
     int i = 1;
-    std::list<std::string>::iterator it = this->history.begin(); // iterator
+    std::list<std::string>::iterator it = this->history.begin();
     for(; it != this->history.end(); it++)
     {
         std::cout << i << ":\t" << *it << std::endl;
         i++;
     }
 }
-///*****************************************************************************
+//--------------------------------------------------------------------------------
 

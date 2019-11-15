@@ -97,4 +97,4 @@ function tester()
 #----------------------------------------
 
 # call script driver
-main $@
+main "$@"

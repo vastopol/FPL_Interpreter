@@ -1,114 +1,60 @@
 #include "../header/interpreter.h"
 
+//--------------------------------------------------------------------------------
+
 Interpreter::~Interpreter()
 {}
-//------------------------------------------------
+//--------------------------------------------------------------------------------
 
-Node* Interpreter::parse(std::string str, Memory* m) // parsing engine
+// parsing engine
+Node* Interpreter::parse(std::string str, Memory* m)
 {
-    // std::cout << std::endl;
-
     std::string s = str;        // temp string
     std::list<std::string> lst; // temp list strings
     std::list<Object*> oblist;  // temp list object pointers
 
-    // PRELIMINARY CHECKS
-    ///=======================================================
+    // preliminary checks
     if(s.empty())
     {
-      std::cout << "ERROR: empty string" << std::endl;
-      throw std::runtime_error("parse() : empty string in prelim"); // return 0;
+        std::cout << "ERROR: empty string" << std::endl;
+        throw std::runtime_error("parse() : empty string in prelim");
     }
     else if(!isBalanced(s))
     {
-      std::cout << "ERROR: incorrect syntax : \"(), {}, [], <>\"" << std::endl;
-      throw std::runtime_error("parse() : unballanced <,(,{,["); // return 0;
+        std::cout << "ERROR: incorrect syntax : \"(), {}, [], <>\"" << std::endl;
+        throw std::runtime_error("parse() : unballanced <,(,{,[");
     }
-    ///=======================================================
 
-    // REMOVE LEAD/TAIL WHITESPACE
-    ///=======================================================
+    // remove whitespace
     s = trimSpace(s);
-    ///=======================================================
 
-    // //START
-    // std::cout << "PARSE\n" << "\"" << s << "\"" << std::endl << std::endl;
-    // std::cout << "PART0\n" << "\"" << s << "\"" << std::endl << std::endl;
-
-    // RESOLVE DEFINITIONS
-    ///=======================================================
+    // resolve definitions
     s = resolve(s,m);
-    ///=======================================================
 
-    // std::cout << std::endl << "PART1\n" << "\"" << s << "\"" << std::endl << std::endl;
-
-    // PARSE '.' composition
-    ///=======================================================
+    // parse '.' composition
     s = par_dot(s);
-    ///=======================================================
 
-    // std::cout << std::endl << "PART2\n" << "\"" << s << "\"" << std::endl << std::endl;
-
-    // PARSE ':' application
-    ///=======================================================
+    // parse ':' application
     par_colon(s,lst);
-    ///=======================================================
 
-    // // print last step through
-    // std::cout << "step through" << std::endl;
-    // for(std::list<std::string>::iterator it = lst.begin(); it != lst.end(); it++)
-    // {
-    //     std::cout << "\"" << *it << "\""  << ", ";
-    // }
-    // std::cout << std::endl << std::endl;
-
-    // std::cout << "PART3" << std::endl;
-
-    // BUILD TOKEN LIST && SUBSTITUTE
-    // construct a list of token objects && substitute variables from Memory
-    ///======================================================================
+    // construct a list of token objects &&
+    // substitute variables from Memory
     oblist = toklist(lst,m);
-    ///======================================================================
 
-    // std::cout << std::endl << "checking:" << std::endl;
-    // for(std::list<Object*>::iterator it = oblist.begin(); it != oblist.end(); it++)
-    // {
-    //     std::cout << (*it)->type() << " ";
-    //     (*it)->print();
-    //     std::cout << std::endl;
-    // }
-
-    // PART 4
     // reorder tokens infix to postfix
-    ///=======================================================
     oblist = postfix(oblist);
-    ///=======================================================
 
-    // std::cout << std::endl << "postfixed:" << std::endl;
-    // for(std::list<Object*>::iterator it = oblist.begin(); it != oblist.end(); it++)
-    // {
-    //     //std::cout << (*it)->type() << " ";
-    //     std::cout << "\""; (*it)->print(); std::cout << "\", ";
-    // }
-    // std::cout << std::endl;
-
-    // PART 5
     // construct the tree
-    ///=======================================================
-    // std::cout << "buildtree: " << std::endl;
-
     Node* n = buildtree(oblist, m);
-    ///=======================================================
 
     return n;
 }
-//-------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
 
-
-bool Interpreter::isBalanced(std::string s) // check for ballanced number of separators (), {}, [], <>
+// check for ballanced number of separators (), {}, [], <>
+bool Interpreter::isBalanced(std::string s)
 {
     std::stack<char> ppp;
-
     for(std::string::iterator it = s.begin(); it != s.end(); it++)
     {
         if( *it == '(' || *it == '[' || *it == '{' || *it == '<')
@@ -146,16 +92,13 @@ bool Interpreter::isBalanced(std::string s) // check for ballanced number of sep
             }
         }
     }
-
     return ppp.empty();
 }
-//-------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
 
-
-std::string Interpreter::resolve(std::string& s, Memory* m)    // resolve all definitions on left to chain of composed primitives
+// resolve all definitions on left to chain of composed primitives
+std::string Interpreter::resolve(std::string& s, Memory* m)
 {
-    // std::cout << "resolver" << std::endl << s << std::endl;
-
     std::string left;
     std::string right;
     std::string temp;
@@ -171,13 +114,11 @@ std::string Interpreter::resolve(std::string& s, Memory* m)    // resolve all de
 
     right = s.substr(pos+1,s.size()-1);
     left = s.substr(0,pos);
-
     temp = left;
     pos = 0;
     while(pos != std::string::npos || pos >= temp.size())
     {
         std::string zap = "";
-
         pos = temp.find('.');
         if(pos == std::string::npos || pos >= temp.size()) // lookup ?
         {
@@ -189,8 +130,6 @@ std::string Interpreter::resolve(std::string& s, Memory* m)    // resolve all de
             }
             else
             {
-                // std::cout << ob->stringify() << std::endl;
-
                 temp = ob->stringify();
             }
         }
@@ -198,7 +137,6 @@ std::string Interpreter::resolve(std::string& s, Memory* m)    // resolve all de
         {
             zap = temp.substr(0,pos);
             temp = temp.substr(pos+1,temp.size()-1);
-
             ob = m->goGet(zap);
             if(ob == 0)
             {
@@ -206,45 +144,29 @@ std::string Interpreter::resolve(std::string& s, Memory* m)    // resolve all de
             }
             else
             {
-                // std::cout << ob->stringify() << std::endl;
-
                 zap = ob->stringify();
                 temp = zap + "." + temp;
-
-                // std::cout << temp << std::endl;
             }
         }
     }
 
     left = "";
-
-    // std::cout << "content:" << std::endl;
     while(!qq.empty())
     {
-        // std::cout << qq.front() << std::endl;
         left = left + qq.front() + ".";
         qq.pop();
     }
-    // std::cout << std::endl;
-
     left.pop_back();
-
-    // std::cout << left << ":" << right << std::endl;
-
     s = left + ":" + right;
 
     return s;
 }
-//----------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
 
-
-std::string Interpreter::par_dot(std::string& s)    // rewrite (f.g):x -> f:(g:x)
+// rewrite (f.g):x -> f:(g:x)
+std::string Interpreter::par_dot(std::string& s)
 {
-    // std::cout << "p_dot" << std::endl;
-    // std::cout << s << std::endl;
-
     std::size_t pos = s.find_last_of('.');
-
     if(pos != std::string::npos && pos < s.size())
     {
         std::string temp = s.substr(0,pos); // all string until '.'
@@ -252,53 +174,39 @@ std::string Interpreter::par_dot(std::string& s)    // rewrite (f.g):x -> f:(g:x
         temp += s.substr(pos+1, s.size()-1);
         temp += ")";
         s = temp;
-
-        // std::cout << s << std::endl;
-
         par_dot(s);
     }
-
     return s;
 }
-//------------------------------------------------------------------
-
+//--------------------------------------------------------------------------------
 
 void Interpreter::par_colon(std::string& s, std::list<std::string>& lst)
 {
-    // std::cout << "p_col" << std::endl;
-
     std::size_t pos = s.find(":"); // position of first :
-
     if( pos != std::string::npos && pos < s.size() )
     {
         std::string left = s.substr(0, pos);
         left = trimSpace(left); // REMOVE LEAD/TAIL WHITESPACE
-
         lst.push_back(left);
         lst.push_back(":");
-
         s = s.substr(pos+1);
-
         lst.push_back(s);
-        return;
     }
     else
     {
         s = trimSpace(s); // REMOVE LEAD/TAIL WHITESPACE
         lst.push_back(s);
-        return;
     }
 }
-//-----------------------------------------------------------------
-
+//--------------------------------------------------------------------------------
 
 std::list<Object*> Interpreter::toklist(std::list<std::string> lst, Memory* m)
 {
-  Object* ob = 0;
-  std::list<Object*> oblist;
+    Object* ob = 0;
+    std::list<Object*> oblist;
 
-  for(std::list<std::string>::iterator it = lst.begin(); it != lst.end(); it++)
-  {
+    for(std::list<std::string>::iterator it = lst.begin(); it != lst.end(); it++)
+    {
         if( (*it).empty() || *it == "" ) // error check
         {
             std::cout << "ERROR: null string for build object" << std::endl;
@@ -307,7 +215,6 @@ std::list<Object*> Interpreter::toklist(std::list<std::string> lst, Memory* m)
 
         if(*it == ":") // make colon object
         {
-            // std::cout << "colon part: " << *it << std::endl;
             ob = new Colon(*it);
             oblist.push_back(ob);
             ob = 0;
@@ -315,9 +222,8 @@ std::list<Object*> Interpreter::toklist(std::list<std::string> lst, Memory* m)
         }
 
         ob = m->goGet(*it); // look for variable||function object in memory hashes
-        if(ob != 0)
+        if(ob != 0) // mem var
         {
-            // std::cout << "mem_variable part: " << *it << std::endl;
             oblist.push_back(ob);
             ob = 0;
             continue;
@@ -325,9 +231,8 @@ std::list<Object*> Interpreter::toklist(std::list<std::string> lst, Memory* m)
         else // make new object
         {
             std::string val = *it;
-            if( val.at(0) == '(' && val.at(val.size()-1) == ')' )
+            if( val.at(0) == '(' && val.at(val.size()-1) == ')' ) // block
             {
-                // std::cout << "block part: " << val << std::endl;
                 // remove ()
                 val = val.substr(1, (val.size() - 1)); // gone (
                 val = val.substr(0, (val.size() - 1)); // gone )
@@ -338,21 +243,17 @@ std::list<Object*> Interpreter::toklist(std::list<std::string> lst, Memory* m)
             }
             else if( isdigit(val.at(0)) || ( (val.size() >= 2)&&( (val.at(0) == '-')&&isdigit(val.at(1)) ) ) ) // element
             {
-                // std::cout << "element part: " << val << std::endl;
                 ob = new Element(atoi(val.c_str()));
                 oblist.push_back(ob);
                 ob = 0;
             }
             else if(val.at(0) == '<' && val.at(val.size() - 1) == '>' ) // sequence
             {
-                // std::cout << "sequence part: " << val << std::endl;
-
                 std::list<int> ilst;
 
                 // remove <>
                 val = val.substr(1, (val.size() - 1)); // gone <
                 val = val.substr(0, (val.size() - 1)); // gone >
-
                 val = trimSpace(val);
 
                 // add empty list HERE
@@ -385,7 +286,7 @@ std::list<Object*> Interpreter::toklist(std::list<std::string> lst, Memory* m)
                 char* copy = (char*)(val.c_str());  // copy to give strtok for parse
                 char* arr = strtok(copy, ",");      // temp array
 
-                // 1st element
+                // get the 1st element
                 Object* tmpobj = m->goGet(std::string(arr)); // have to see if list has vars: <1,2,x,3>
                 if(tmpobj != 0 && tmpobj->type() == "Element")
                 {
@@ -396,7 +297,7 @@ std::list<Object*> Interpreter::toklist(std::list<std::string> lst, Memory* m)
                     ilst.push_back( atoi( arr ) );
                 }
 
-                // rest of the elements
+                // get the rest of the elements
                 for(unsigned i = 1; arr != 0; i++)
                 {
                     arr = strtok(NULL, ",");
@@ -420,7 +321,6 @@ std::list<Object*> Interpreter::toklist(std::list<std::string> lst, Memory* m)
             }
             else // function
             {
-                // std::cout << "Function part: " << val << std::endl;
                 ob = new Function(val);
                 oblist.push_back(ob);
                 ob = 0;
@@ -436,14 +336,15 @@ std::list<Object*> Interpreter::toklist(std::list<std::string> lst, Memory* m)
 
   return oblist;
 }
-//-----------------------------------------------------------------
+//--------------------------------------------------------------------------------
 
-std::list<Object*> Interpreter::postfix(std::list<Object*> lst) // convert from infix to postfix
+// convert from infix to postfix
+std::list<Object*> Interpreter::postfix(std::list<Object*> lst)
 {
     std::stack<Object*> s;
     std::list<Object*> pfix;
-
     std::list<Object*>::iterator it = lst.begin();
+
     while(it != lst.end())
     {
         if((*it)->type() == "Function"|| (*it)->type() == "Sequence" || (*it)->type() == "Element" || (*it)->type() == "Block")
@@ -477,9 +378,10 @@ std::list<Object*> Interpreter::postfix(std::list<Object*> lst) // convert from 
 
     return pfix;
 }
-//------------------------------------------------------------------
+//--------------------------------------------------------------------------------
 
-Node* Interpreter::buildtree(std::list<Object*> lst, Memory* m) // build the AST recursively
+// build the AST recursively
+Node* Interpreter::buildtree(std::list<Object*> lst, Memory* m)
 {
     std::stack<Node*> s;
     Node* n; // center
@@ -490,23 +392,17 @@ Node* Interpreter::buildtree(std::list<Object*> lst, Memory* m) // build the AST
     {
         if((*i)->type() == "Block") // recursive parse***
         {
-            // std::cout << "bt: case1" << std::endl;
-
             std::string xstr = (*i)->get()->stringify();
             n = parse(xstr, m);
             s.push(n);
         }
         else if( (*i)->type() == "Function"|| (*i)->type() == "Sequence" || (*i)->type() == "Element" )
         {
-            // std::cout << "bt: case2 " << (*i)->type() << std::endl;
-
             n = new Node((*i)->get());
             s.push(n);
         }
         else // Colon
         {
-            // std::cout << "bt: case3 " << (*i)->type() << std::endl;
-
             if(!s.empty()) // empty == do nothing
             {
                 n = new Node((*i)->get());
@@ -516,21 +412,20 @@ Node* Interpreter::buildtree(std::list<Object*> lst, Memory* m) // build the AST
                     s.pop();
                     n->setRight(r);
                     r->setParent(n);
-
+                    //
                     l = s.top();
                     s.pop();
                     n->setLeft(l);
                     l->setParent(n);
-
+                    //
                     s.push(n);
                 }
             }
         }
     }
-
     n = s.top();
     s.pop();
 
     return n;
 }
-//------------------------------------------------------------------
+//--------------------------------------------------------------------------------

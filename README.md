@@ -1,6 +1,6 @@
 # FPL_Interpreter
 
-## Version 1.2
+## Version 1.3
 
 An interpreter for `fpl` an applicative functional programming language.
 The language is structured on using functions to do integer and sequence manipulation.
@@ -30,9 +30,9 @@ $ git clone https://github.com/vastopol/FPL_Interpreter.git
 
 $ cd FPL_Interpreter
 
-$ ./setup.sh  # build
+$ ./setup.sh  # build interpreter and documentation
 
-$ bin/fplr    # run
+$ bin/fplr    # run interpreter
 ```
 
 ## Syntax

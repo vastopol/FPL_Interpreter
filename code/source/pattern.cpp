@@ -14,8 +14,6 @@ Pattern::Pattern(std::string s)
 
 Pattern::~Pattern()
 {
-    // std::cout << "PATTERN DESTRUCTOR" << std::endl;
-
     delete root;
     root = 0;
     delete interpreter;
@@ -143,6 +141,7 @@ void Pattern::postOrderCheck(Node* n) // actual recursive traversal
      if(temp_M == "*"){temp_M = "Mul";}
      if(temp_M == "/"){temp_M = "Div";}
      if(temp_M == "%"){temp_M = "Mod";}
+     if(temp_M == "^"){temp_M = "Pow";}
      temp_M = temp_M + "_" + std::to_string(i);
      out << '\n'; out << temp_M << " [label=\"" << temp_M; out << "\"];";
 
@@ -156,6 +155,7 @@ void Pattern::postOrderCheck(Node* n) // actual recursive traversal
         if(temp_L == "*"){temp_L = "Mul";}
         if(temp_L == "/"){temp_L = "Div";}
         if(temp_L == "%"){temp_L = "Mod";}
+        if(temp_L == "^"){temp_L = "Pow";}
         temp_L = temp_L + "_" + std::to_string(i);
         out << "\n" << temp_M << " -> " << temp_L << ";";
         generateTree(out, n->getLeft(), i);
@@ -171,6 +171,7 @@ void Pattern::postOrderCheck(Node* n) // actual recursive traversal
         if(temp_R == "*"){temp_R = "Mul";}
         if(temp_R == "/"){temp_R = "Div";}
         if(temp_R == "%"){temp_R = "Mod";}
+        if(temp_R == "^"){temp_R = "Pow";}
         temp_R = temp_R + "_" + std::to_string(i);
         out << "\n" << temp_M << " -> " << temp_R << ";";
         generateTree(out, n->getRight(), i);

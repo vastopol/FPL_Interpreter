@@ -1,68 +1,62 @@
 TODO
 
+Version 1.3
+
 DONE:
+    * update type information commands
+    * function execution timer
     * func.h/cpp -> add more functions for the vm fn_pointers from the math.h library
         * pow, log, gcd
+    * constant functions ~0 and ~1
     * separate out operators from the action class
-    * ccf{}
-    * red{}
-    * constants ~0 and ~1
-    * update type information commands
+    * implement special cases of functionality
+        * ccf{}, red{}, ins{}, del{}
 
-ver 1.3
+next:
 
+    * improve parser functionality to overcome limitations
+        might have to pass parser to exec to handle more complex operator usage cases
 
+    * loops
+        * add a do{n;f} operator to apply a function f for n times
+        * while{},until{} as loop operators
 
-* improve parser functionality to overcome limitations
-    might have to pass parser to exec to handle more complex operator usage cases
+    * have @ for rhs argument reference inside the operators
 
-* implement ins{},del{} (special cases of existing functionality)
+    * inconsistencies with throwing exceptions or print error message and return in syscom.cpp
+        should go through and convert all error printing returning code to actual exception throwing
 
-* add a do{n;f} operator to apply a function f for n times
+    * rewrite Makefile so less complex and ugly
+    * go through and remove unnecessary include statements, old inaccurate comments, other cruft...
+    * restructure the .cpp files so functions are defined in same order as declared in header files
 
-* while{},until{} as loop operators
+    * rename sequence to list and element to int for clarity (might)
 
-* have @ for rhs argument reference inside the operators
+    * refactor code and update documentation
 
-* inconsistencies with throwing exceptions or print error message and return in syscom.cpp
-    should go through and convert all error printing returning code to actual exception throwing
+    * UPDATE AND CHECK ALL USER PROGRAMS AFTER CHANGES SO THEY STILL WORK
 
-* rewrite Makefile so less complex and ugly
-* go through and remove unnecessary include statements, old inaccurate comments, other cruft...
-* restructure the .cpp files so functions are defined in same order as declared in header files
+    * need better parser
+        nested {} operators and composed expressions in operators
+        probably need to embed/pass in the parser too
 
-* rename sequence to list and element to int for clarity (might)
-
-* refactor code and update documentation
-
-* UPDATE AND CHECK ALL USER PROGRAMS AFTER CHANGES SO THEY STILL WORK
-
-* need better parser
-    nested {} operators and composed expressions in operators
-    probably need to embed/pass in the parser too
-
-* might need to make some overloaded functions for the operators
-    if, ccf, id, elm, seq, ...
-
-----------------------------------------
+    * might need to make some overloaded functions for the operators
+        if, ccf, id, elm, seq, ...
 
 etc... maybe???
 
-* convert all to floating point
-* consider merging the syscom commands into interpreter functions
-* perhaps latex documentation
+    * convert all to floating point
+    * consider merging the syscom commands into interpreter functions
+    * perhaps latex documentation
 
 ----------------------------------------
 
-actual ideas
+potential ideas
 
 pointfree form references no arguments
-
 pointful form uses the @ operator like the alpha and omega in APL
-
-fill{@} operator, using the @ as the right hand argument reference
-
 also allowing operators called in operators
+the fill{@} operator, using the @ as the right hand argument reference
 
 def _abs = if{lt.fill{<@,0>};neg.fill{@};fill{@}}
 def _abs2 = if{lt.fill{<@,0>};neg.id;id}
@@ -78,7 +72,7 @@ def _even2 = if{zero.head.%.apr{2}.list;~1;~0}
 def _odd = if{not.zero.head.%.fill{<@,2>};~1;~0}
 def _odd2 = if{not.zero.head.%.apr{2}.list;~1;~0}
 
-potential ideas, (need better parser)
+other ideas, (need better parser)
 
 let l = <...>
 let s1 = sum:l

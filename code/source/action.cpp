@@ -1,22 +1,22 @@
 #include "../header/action.h"
 #include <vector>
 
+//--------------------------------------------------------------------------------
+
 Action::Action()
 {}
-//--------------------------------------------------------------
 
 Action::~Action()
 {}
-//--------------------------------------------------------------
+
+//--------------------------------------------------------------------------------
 
 Object* Action::exec(Node* n, Memory* m) // tree traversal
 {
-    // std::cout << "\nEXEC\n" << std::endl;
-
     if(n == 0) // null tree
     {
     	std::cout << "ERROR: NULL" << std::endl;
-        throw std::runtime_error("exec() : NULL tree"); // return 0;
+        throw std::runtime_error("exec() : NULL tree");
     }
 
     if(n != 0 && n->getKey()->type() != "Colon") // fetch
@@ -31,34 +31,30 @@ Object* Action::exec(Node* n, Memory* m) // tree traversal
 
     	arg = exec(n->getRight(),m);
 
-        if(arg == 0) // if(arg != 0){ arg->print(); std::cout << std::endl; }
+        if(arg == 0)
         {
             std::cout << "ERROR: NULL ARG" << std::endl;
-            throw std::runtime_error("exec() : NULL arg"); // return 0;
+            throw std::runtime_error("exec() : NULL arg");
         }
-
-        // n->getKey()->print(); // print ':'
 
     	fun = exec(n->getLeft(),m);
 
-        if(fun == 0) // if(fun != 0){ fun->print(); std::cout << std::endl; }
+        if(fun == 0)
         {
             std::cout << "ERROR: NULL FUNCT" << std::endl;
-            throw std::runtime_error("exec() : NULL function"); // return 0;
+            throw std::runtime_error("exec() : NULL function");
         }
 
         // evaluate expression here
         res = apply(fun, arg, m);
         return res;
     }
-    throw std::runtime_error("exec() : ERROR : ERROR"); // return 0;
+    throw std::runtime_error("exec() : ERROR : ERROR");
 }
-//--------------------------------------------------------------
+//--------------------------------------------------------------------------------
 
 Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
 {
-    // std::cout << "doing" << std::endl;
-
     if(fun == 0 || arg == 0) // error checking null pointers
     {
         std::cout << "INPUT ERROR: (FUNCT || ELM) == NULL" << std::endl;
@@ -130,3 +126,5 @@ Object* Action::apply(Object* fun, Object* arg, Memory* m) // function execute
 
     throw std::runtime_error("apply() : ERROR : ERROR"); // return 0;
 }
+//--------------------------------------------------------------------------------
+

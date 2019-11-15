@@ -181,9 +181,7 @@ int cube(int x) // x = x*x*x
 
 int sqroot(int x) // x = sqrt(x)
 {
-    double d = x;
-    d = sqrt(d);
-    return (int)d;
+    return (int) sqrt(x);
 }
 //---------------------------
 
@@ -327,7 +325,6 @@ int head(std::list<int> seq)
     {
         return 0;
     }
-
     return seq.front();
 }
 //---------------------------
@@ -849,11 +846,4 @@ std::list<int> pow(std::list<int> l)
     return l;
 }
 //---------------------------
-
-
-
-
-
-
-
 

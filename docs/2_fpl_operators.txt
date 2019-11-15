@@ -25,7 +25,7 @@ can be used for ifs
 
 //---------------------------------------
 
-// map, apply to all, for each (DONE)
+// map, apply to all, for each
 // F is unary function for elements F:E -> E'
 map{F}:L -> L'
     tmp = <>
@@ -37,7 +37,7 @@ map{F}:L -> L'
 
 //---------------------------------------
 
-// filter (DONE)
+// filter
 // F is unary predicate for elements P:E -> E where 1 == true, 0 == false
 filt{P}:L -> L'
     tmp = <>
@@ -64,19 +64,19 @@ both have special built ins for this purpose
 
 //---------------------------------------
 
-// list access (DONE)
+// list access
 at{i}:L -> E
     return the ith item
 
 //---------------------------------------
 
-// list append right (DONE)
+// list append right
 apr{E}:L -> L'
     append E to the end of L
 
 //---------------------------------------
 
-// list append left (DONE)
+// list append left
 apl{E}:L -> L'
     append E to the front of L
 
@@ -96,13 +96,13 @@ ins{i;E}:L -> L'
 
 //---------------------------------------
 
-// list concatenate (DONE)
+// list concatenate
 cat{L2}:L1 -> L
     append L2 to the end of L1
 
 //---------------------------------------
 
-// construction combining form (DONE)
+// construction combining form
 // all F are unary but must be of same type as arg
 ccf{F1;...;Fn}:E -> L
 or
@@ -117,7 +117,7 @@ ccf{F1;...;Fn}:L -> L
 
 //---------------------------------------
 
-// if else branch (DONE)
+// if else branch
 // P must be a predicate of the same type as arg
 if{P;X1;X2}:E -> ?
 or

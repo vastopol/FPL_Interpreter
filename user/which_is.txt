@@ -2,7 +2,7 @@ FPL Code script examples and tests
 
 USER
     * lib.fpl
-    library of useful/interesting FPL variables and functions
+        library of useful/interesting FPL variables and functions
 
 USER/EXAMPLES
     * duplicate.fpl
@@ -14,10 +14,10 @@ USER/EXAMPLES
     * hello.fpl
         the hello world program
 
-    * print_help.fpl
-        show the help page with print statements
-
 USER/TESTS
+    * driver.fpl
+        wrapper to call other scripts
+
     * test_1.fpl
     basic testing: builtins && primitives
 
@@ -30,8 +30,12 @@ USER/TESTS
     * test_4.fpl
     tests load && run, file nesting
 
+    * test_break.fpl
+    tests cases that should fail
+
     * test_gen_tree.fpl
     tests the parser && gentree function, no execution; uses Graphviz to generate picture of AST
 
-    * test_break.fpl
-    tests cases that should fail
+    * test_logic.fpl
+
+    * test_ops.fpl
