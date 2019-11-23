@@ -127,6 +127,12 @@ will parse expression and print the types of each component
 
 //----------------------------------------
 
+* time == time execution of an expression
+
+syntax: "time expr"
+
+//----------------------------------------
+
 * ! = execute a command by passing a string to the os with system()
 
 syntax: "! str"

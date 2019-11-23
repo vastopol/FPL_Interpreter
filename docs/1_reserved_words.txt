@@ -24,6 +24,7 @@ write   == write line to memory buffer
 print   == print a string, ends on newline, use $ for variables
 gentree == parses an expression, generates the AST using graphviz
 type    == show function or expression type signature
+time    == time the execution of an expression
 !       == execute external shell command with system()
 
 inner interpreter:
@@ -34,57 +35,63 @@ Functions in FPL:
 ELEMENT OPERATIONS
 
 RETURN TYPE (ELEMENT)
-- neg == negate, take opposite sign of number
-- abs == take absolute value of number
-- inc == increment (plus 1)
-- dec == decrement (minus 1)
-- square == second power
-- cube == third power
-- sqrt == square root
-- not  == logical not
-- odd  == test is odd
-- even == test is even
-- zero == test is zero
+neg == negate, take opposite sign of number
+abs == take absolute value of number
+inc == increment (plus 1)
+dec == decrement (minus 1)
+square == second power
+cube == third power
+sqrt == square root
+not  == logical not
+odd  == test is odd
+even == test is even
+zero == test is zero
+~1   == constant zero
+~0   == constant one
+log  == log base 10
 
 RETURN TYPE (SEQUENCE)
-- intsto  == list from 1 to n
-- ones    == list of n ones
-- zeros   == list of n zeros
-- list    == create a list around an element
+intsto  == list from 1 to n
+ones    == list of n ones
+zeros   == list of n zeros
+list    == create a list around an element
 
 SEQUENCE OPERATIONS
 
 RETURN TYPE (ELEMENT)
-- head  == first element of sequence
-- size  == number of elements in list
-- max  == maximum value in sequence
-- min  == minimum value in sequence
-- sum   == add the elements of a sequence together
-- prod  == multiply the elements of a sequence together
-- nil   == check for empty list
+head  == first element of sequence
+size  == number of elements in list
+max   == maximum value in sequence
+min   == minimum value in sequence
+sum   == add the elements of a sequence together
+prod  == multiply the elements of a sequence together
+nil   == check for empty list
+gcd   == greatest common divisor
 (eq,neq,gt,lt,gte,lte) == act on first 2 elements
 
 RETURN TYPE (SEQUENCE)
-- tail  == sequence from second to end
-- popl  == pop element from left of sequence
-- popr  == pop element from right of sequence
-- rotl  == rotate sequence elements to the left
-- rotr  == rotate sequence elements to the right
-- rev   == reverse the order of a sequence
-- sort  == sort sequence into ascending order
-- rmdup == remove duplicates, preserves order
-(+,-,*,/,%) == act on first 2 elements
+tail  == sequence from second to end
+popl  == pop element from left of sequence
+popr  == pop element from right of sequence
+rotl  == rotate sequence elements to the left
+rotr  == rotate sequence elements to the right
+rev   == reverse the order of a sequence
+sort  == sort sequence into ascending order
+rmdup == remove duplicates, preserves order
+(+,-,*,/,%,^) == act on first 2 elements
 
 HIGHER ORDER FUNCTIONS/OPERATORS
 
-- id   == identity
-- elm  == check is type Element
-- seq  == check is type Sequence
-- map{f}  == apply function f to each element of list
-- filt{p} == filter elements that fail predicate p from list
-- at{i}   == get element at index i from list
-- apr{e}  == append element at right of list
-- apl{e}  == append element at left of list
-- cat{l}  == concatenate 2 lists
-- if{p;f;g}  == if p is true when applied, then f else g
-- ccf{f1;...;fn}  == list of <f1:x,...,fn:x>
+id   == identity
+elm  == check is type Element
+seq  == check is type Sequence
+map{f}  == apply function f to each element of list
+filt{p} == filter elements that fail predicate p from list
+at{i}   == get element at index i from list
+apr{e}  == append element at right of list
+apl{e}  == append element at left of list
+cat{l}  == concatenate 2 lists
+if{p;f;g}  == if p is true, then apply f else apply g
+while{p;f} == while p is true, apply f
+do{i;f}    == apply f to argument i times
+ccf{f1;...;fn}  == list of <f1:x,...,fn:x>

@@ -410,6 +410,93 @@ Object* operate(Object* fun, Object* arg, Memory* m)
     }
     //----------------------------------------
 
+    if(tag.substr(0,4) == "ccf{")
+    {
+        std::string mop = trimSpace( tag.substr( 4 , tag.size()-4 ) ) ;
+        mop.pop_back();
+
+        if(!mop.empty())
+        {
+            //split parameters
+            unsigned pos = mop.find(';');
+            std::string tmpstr = "";
+            std::list<std::string> pargs;
+            while( pos != std::string::npos && pos < mop.size() )
+            {
+                tmpstr = mop.substr(0, pos);
+                pargs.push_back(tmpstr);
+                mop = mop.substr(pos+1,mop.size()-1);
+                pos = mop.find(';');
+            }
+            if(!mop.empty())
+            {
+                pargs.push_back(mop);
+            }
+
+            // get parameters
+            std::vector<std::string> vblob;
+            for ( std::string stds : pargs )
+            {
+                Object* fu = m->goGet(stds);
+                if(fu == 0)
+                {
+                    vblob.push_back(stds);
+                }
+                else
+                {
+                    vblob.push_back(fu->stringify());
+                }
+            }
+
+            // get the arg here
+            int iret = 0;
+            std::list<int> lret;
+            for(std::string i : vblob) // apply and construct loop
+            {
+                // branch based on the type of the argument
+                // apply function to arg.
+                // append the result of the function to the return list.
+                if(arg->type() == "Sequence")
+                {
+                    if(U_S_R_E.find(i) != U_S_R_E.end())
+                    {
+                        op = U_S_R_E[i];
+                        iret = (*Unary_S_R_E[op])(((Sequence*)arg)->getList());
+                        // ret = new Element(iret);
+                    }
+                    else
+                    {
+                        printer("ERROR: type mismatch");
+                        throw std::runtime_error("apply() : ccf{} operator");
+                    }
+                }
+                else  // Element
+                {
+                    if(U_E_R_E.find(i) != U_E_R_E.end())
+                    {
+                        op = U_E_R_E[i];
+                        iret = (*Unary_E_R_E[op])(((Element*)arg)->getElement());
+                        // ret = new Element(iret);
+                    }
+                    else
+                    {
+                        printer("ERROR: type mismatch");
+                        throw std::runtime_error("apply() : ccf{} operator");
+                    }
+                }
+                lret.push_back(iret);
+            }
+            ret = new Sequence(lret);
+            return ret;
+        }
+        else
+        {
+            printer("ERROR: empty argument to ccf operator");
+            throw std::runtime_error("apply() : ccf{} operator");
+        }
+    }
+    //----------------------------------------
+
     if(tag.substr(0,3) == "if{")
     {
         // printer("IF");
@@ -555,7 +642,7 @@ Object* operate(Object* fun, Object* arg, Memory* m)
                 else
                 {
                     std::cout << "ERROR: INVALID FUNCT ELM: inside if " << pred << std::endl;
-                    throw std::runtime_error("apply() : INVALID FUNCT ELM"); // return 0;
+                    throw std::runtime_error("apply() : INVALID FUNCT ELM");
                 }
             }
         }
@@ -567,9 +654,10 @@ Object* operate(Object* fun, Object* arg, Memory* m)
     }
     //----------------------------------------
 
-    if(tag.substr(0,4) == "ccf{")
+    // WHILE
+    if(tag.substr(0,6) == "while{")
     {
-        std::string mop = trimSpace( tag.substr( 4 , tag.size()-4 ) ) ;
+        std::string mop = trimSpace( tag.substr( 6 , tag.size()-6 ) ) ;
         mop.pop_back();
 
         if(!mop.empty())
@@ -589,6 +677,12 @@ Object* operate(Object* fun, Object* arg, Memory* m)
             {
                 pargs.push_back(mop);
             }
+            if(pargs.size() != 2)
+            {
+                printer(pargs.size());
+                printer("ERROR: arity of argument to while operator");
+                throw std::runtime_error("apply() : while{} operator");
+            }
 
             // get parameters
             std::vector<std::string> vblob;
@@ -605,51 +699,211 @@ Object* operate(Object* fun, Object* arg, Memory* m)
                 }
             }
 
-            // get the arg here
-            int iret = 0;
+            std::string pred = vblob.at(0);
+            std::string tarm = vblob.at(1);
+            int pres;
+            int pret;
             std::list<int> lret;
-            for(std::string i : vblob) // apply and construct loop
+            Object *aarg = arg;
+
+            while(1)
             {
-                // branch based on the type of the argument
-                // apply function to arg.
-                // append the result of the function to the return list.
-                if(arg->type() == "Sequence")
+                if(aarg->type() == "Sequence")
                 {
-                    if(U_S_R_E.find(i) != U_S_R_E.end())
+                    std::list<int> l1 = ((Sequence*)aarg)->getList();
+
+                    if(U_S_R_E.find(pred) != U_S_R_E.end())// predicate must return int (U_S_R_E)
                     {
-                        op = U_S_R_E[i];
-                        iret = (*Unary_S_R_E[op])(((Sequence*)arg)->getList());
-                        // ret = new Element(iret);
+                        op = U_S_R_E[pred];
+                        pres = (*Unary_S_R_E[op])(l1);
+
+                        // should check here for function types ?
+                        if(pres!=0)
+                        {
+                            if(U_S_R_E.find(tarm) != U_S_R_E.end())
+                            {
+                                op = U_S_R_E[tarm];
+                                pret = (*Unary_S_R_E[op])(l1);
+                                aarg = new Element(pret);
+                            }
+                            else if(U_S_R_S.find(tarm) != U_S_R_S.end())
+                            {
+                                op = U_S_R_S[tarm];
+                                lret = (*Unary_S_R_S[op])(l1);
+                                aarg = new Sequence(lret);
+                            }
+                        }
+                        else
+                        {
+                            ret = aarg;
+                            return ret;
+                        }
                     }
                     else
                     {
-                        printer("ERROR: type mismatch");
-                        throw std::runtime_error("apply() : ccf{} operator");
+                        std::cout << "ERROR: INVALID FUNCT SEQ: inside while " << pred << std::endl;
+                        throw std::runtime_error("apply() : INVALID FUNCT SEQ");
                     }
                 }
-                else  // Element
+                else // Element
                 {
-                    if(U_E_R_E.find(i) != U_E_R_E.end())
+                    int e1 = ((Element*)aarg)->getElement();
+
+                    if(U_E_R_E.find(pred) != U_E_R_E.end()) // predicate must return int (U_E_R_E)
                     {
-                        op = U_E_R_E[i];
-                        iret = (*Unary_E_R_E[op])(((Element*)arg)->getElement());
-                        // ret = new Element(iret);
+                        op = U_E_R_E[pred];
+                        pres = (*Unary_E_R_E[op])(e1);
+
+                        // should check here for function types ?
+                        if(pres!=0)
+                        {
+                            if(U_E_R_E.find(tarm) != U_E_R_E.end())
+                            {
+                                op = U_E_R_E[tarm];
+                                pret = (*Unary_E_R_E[op])(e1);
+                                aarg = new Element(pret);
+                            }
+                            else if(U_E_R_S.find(tarm) != U_E_R_S.end())
+                            {
+                                op = U_E_R_S[tarm];
+                                lret = (*Unary_E_R_S[op])(e1);
+                                aarg = new Sequence(lret);
+                            }
+                        }
+                        else
+                        {
+                            ret = aarg;
+                            return ret;
+                        }
                     }
                     else
                     {
-                        printer("ERROR: type mismatch");
-                        throw std::runtime_error("apply() : ccf{} operator");
+                        std::cout << "ERROR: INVALID FUNCT ELM: inside while" << pred << std::endl;
+                        throw std::runtime_error("apply() : INVALID FUNCT ELM");
                     }
-                }
-                lret.push_back(iret);
-            }
-            ret = new Sequence(lret);
-            return ret;
+                } // elem/seq
+            } // while 1
         }
         else
         {
-            printer("ERROR: empty argument to ccf operator");
-            throw std::runtime_error("apply() : ccf{} operator");
+            printer("ERROR: empty argument to while operator");
+            throw std::runtime_error("apply() : while{} operator");
+        }
+    }
+    //----------------------------------------
+
+    // WHILE
+    if(tag.substr(0,3) == "do{")
+    {
+        std::string mop = trimSpace( tag.substr( 3 , tag.size()-3 ) ) ;
+        mop.pop_back();
+
+        if(!mop.empty())
+        {
+            //split parameters
+            unsigned pos = mop.find(';');
+            std::string tmpstr = "";
+            std::list<std::string> pargs;
+            while( pos != std::string::npos && pos < mop.size() )
+            {
+                tmpstr = mop.substr(0, pos);
+                pargs.push_back(tmpstr);
+                mop = mop.substr(pos+1,mop.size()-1);
+                pos = mop.find(';');
+            }
+            if(!mop.empty())
+            {
+                pargs.push_back(mop);
+            }
+            if(pargs.size() != 2)
+            {
+                printer(pargs.size());
+                printer("ERROR: arity of argument to do operator");
+                throw std::runtime_error("apply() : do{} operator");
+            }
+
+            // get parameters
+            std::vector<std::string> vblob;
+            for ( std::string stds : pargs )
+            {
+                Object* fu = m->goGet(stds);
+                if(fu == 0)
+                {
+                    vblob.push_back(stds);
+                }
+                else
+                {
+                    vblob.push_back(fu->stringify());
+                }
+            }
+
+            std::string cnt = vblob.at(0);
+            std::string tarm = vblob.at(1);
+            int pres;
+            int pret;
+            std::list<int> lret;
+            Object *aarg = arg;
+            int counter = std::stoi(cnt);
+
+            while(counter > 0)
+            {
+                if(aarg->type() == "Sequence")
+                {
+                    std::list<int> l1 = ((Sequence*)aarg)->getList();
+
+                    if(U_S_R_E.find(tarm) != U_S_R_E.end())
+                    {
+                        op = U_S_R_E[tarm];
+                        pret = (*Unary_S_R_E[op])(l1);
+                        aarg = new Element(pret);
+                    }
+                    else if(U_S_R_S.find(tarm) != U_S_R_S.end())
+                    {
+                        op = U_S_R_S[tarm];
+                        lret = (*Unary_S_R_S[op])(l1);
+                        aarg = new Sequence(lret);
+                    }
+                    else
+                    {
+                        std::cout << "ERROR: INVALID FUNCT SEQ: inside do " << tarm << std::endl;
+                        throw std::runtime_error("apply() : INVALID FUNCT SEQ");
+                    }
+                }
+                else // Element
+                {
+                    int e1 = ((Element*)aarg)->getElement();
+
+                    if(U_E_R_E.find(tarm) != U_E_R_E.end())
+                    {
+                        op = U_E_R_E[tarm];
+                        pret = (*Unary_E_R_E[op])(e1);
+                        aarg = new Element(pret);
+                    }
+                    else if(U_E_R_S.find(tarm) != U_E_R_S.end())
+                    {
+                        op = U_E_R_S[tarm];
+                        lret = (*Unary_E_R_S[op])(e1);
+                        aarg = new Sequence(lret);
+                    }
+                    else
+                    {
+                        std::cout << "ERROR: INVALID FUNCT ELM: inside do" << tarm << std::endl;
+                        throw std::runtime_error("apply() : INVALID FUNCT ELM");
+                    }
+                } // elem/seq
+
+                counter--;
+
+            } // while cnt > 0
+
+            ret = aarg;
+            return ret;
+
+        }
+        else
+        {
+            printer("ERROR: empty argument to do operator");
+            throw std::runtime_error("apply() : do{} operator");
         }
     }
     //----------------------------------------

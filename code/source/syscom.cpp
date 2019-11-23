@@ -181,6 +181,7 @@ void help()
     std::cout << "print   == print a string, ends on newline, use $ for variables" << std::endl;
     std::cout << "gentree == parses an expression, generates the AST using graphviz" << std::endl;
     std::cout << "type    == show function or expression type signature" << std::endl;
+    std::cout << "time    == time the execution of an expression" << std::endl;
     std::cout << "!       == execute external shell command with system()" << std::endl;
     std::cout << std::endl;
 }
@@ -194,60 +195,66 @@ void fcts()
     std::cout << "ELEMENT OPERATIONS" << std::endl;
     std::cout << std::endl;
     std::cout << "RETURN TYPE (ELEMENT)" << std::endl;
-    std::cout << "- neg == negate, take opposite sign of number" << std::endl;
-    std::cout << "- abs == take absolute value of number" << std::endl;
-    std::cout << "- inc == increment (plus 1)" << std::endl;
-    std::cout << "- dec == decrement (minus 1)" << std::endl;
-    std::cout << "- square == second power" << std::endl;
-    std::cout << "- cube == third power" << std::endl;
-    std::cout << "- sqrt == square root" << std::endl;
-    std::cout << "- not  == logical not" << std::endl;
-    std::cout << "- odd  == test is odd" << std::endl;
-    std::cout << "- even == test is even" << std::endl;
-    std::cout << "- zero == test is zero" << std::endl;
+    std::cout << "neg == negate, take opposite sign of number" << std::endl;
+    std::cout << "abs == take absolute value of number" << std::endl;
+    std::cout << "inc == increment (plus 1)" << std::endl;
+    std::cout << "dec == decrement (minus 1)" << std::endl;
+    std::cout << "square == second power" << std::endl;
+    std::cout << "cube == third power" << std::endl;
+    std::cout << "sqrt == square root" << std::endl;
+    std::cout << "not  == logical not" << std::endl;
+    std::cout << "odd  == test is odd" << std::endl;
+    std::cout << "even == test is even" << std::endl;
+    std::cout << "zero == test is zero" << std::endl;
+    std::cout << "~1   == constant zero" << std::endl;
+    std::cout << "~0   == constant one" << std::endl;
+    std::cout << "log  == log base 10" << std::endl;
     std::cout << std::endl;
     std::cout << "RETURN TYPE (SEQUENCE)" << std::endl;
-    std::cout << "- intsto  == list from 1 to n" << std::endl;
-    std::cout << "- ones    == list of n ones" << std::endl;
-    std::cout << "- zeros   == list of n zeros" << std::endl;
-    std::cout << "- list    == create a list around an element" << std::endl;
+    std::cout << "intsto  == list from 1 to n" << std::endl;
+    std::cout << "ones    == list of n ones" << std::endl;
+    std::cout << "zeros   == list of n zeros" << std::endl;
+    std::cout << "list    == create a list around an element" << std::endl;
     std::cout << std::endl;
     std::cout << "SEQUENCE OPERATIONS" << std::endl;
     std::cout << std::endl;
     std::cout << "RETURN TYPE (ELEMENT)" << std::endl;
-    std::cout << "- head  == first element of sequence" << std::endl;
-    std::cout << "- size  == number of elements in list" << std::endl;
-    std::cout << "- max  == maximum value in sequence" << std::endl;
-    std::cout << "- min  == minimum value in sequence" << std::endl;
-    std::cout << "- sum   == add the elements of a sequence together" << std::endl;
-    std::cout << "- prod  == multiply the elements of a sequence together" << std::endl;
-    std::cout << "- nil   == check for empty list" << std::endl;
+    std::cout << "head  == first element of sequence" << std::endl;
+    std::cout << "size  == number of elements in list" << std::endl;
+    std::cout << "max   == maximum value in sequence" << std::endl;
+    std::cout << "min   == minimum value in sequence" << std::endl;
+    std::cout << "sum   == add the elements of a sequence together" << std::endl;
+    std::cout << "prod  == multiply the elements of a sequence together" << std::endl;
+    std::cout << "nil   == check for empty list" << std::endl;
+    std::cout << "gcd   == greatest common divisor" << std::endl;
     std::cout << "(eq,neq,gt,lt,gte,lte) == act on first 2 elements" << std::endl;
     std::cout << std::endl;
     std::cout << "RETURN TYPE (SEQUENCE)" << std::endl;
-    std::cout << "- tail  == sequence from second to end" << std::endl;
-    std::cout << "- popl  == pop element from left of sequence" << std::endl;
-    std::cout << "- popr  == pop element from right of sequence" << std::endl;
-    std::cout << "- rotl  == rotate sequence elements to the left" << std::endl;
-    std::cout << "- rotr  == rotate sequence elements to the right" << std::endl;
-    std::cout << "- rev   == reverse the order of a sequence" << std::endl;
-    std::cout << "- sort  == sort sequence into ascending order" << std::endl;
-    std::cout << "- rmdup == remove duplicates, preserves order" << std::endl;
-    std::cout << "(+,-,*,/,%) == act on first 2 elements" << std::endl;
+    std::cout << "tail  == sequence from second to end" << std::endl;
+    std::cout << "popl  == pop element from left of sequence" << std::endl;
+    std::cout << "popr  == pop element from right of sequence" << std::endl;
+    std::cout << "rotl  == rotate sequence elements to the left" << std::endl;
+    std::cout << "rotr  == rotate sequence elements to the right" << std::endl;
+    std::cout << "rev   == reverse the order of a sequence" << std::endl;
+    std::cout << "sort  == sort sequence into ascending order" << std::endl;
+    std::cout << "rmdup == remove duplicates, preserves order" << std::endl;
+    std::cout << "(+,-,*,/,%,^) == act on first 2 elements" << std::endl;
     std::cout << std::endl;
     std::cout << "HIGHER ORDER FUNCTIONS/OPERATORS" << std::endl;
     std::cout << std::endl;
-    std::cout << "- id   == identity" << std::endl;
-    std::cout << "- elm  == check is type Element" << std::endl;
-    std::cout << "- seq  == check is type Sequence" << std::endl;
-    std::cout << "- map{f}  == apply function f to each element of list" << std::endl;
-    std::cout << "- filt{p} == filter elements that fail predicate p from list" << std::endl;
-    std::cout << "- at{i}   == get element at index i from list" << std::endl;
-    std::cout << "- apr{e}  == append element at right of list" << std::endl;
-    std::cout << "- apl{e}  == append element at left of list" << std::endl;
-    std::cout << "- cat{l}  == concatenate 2 lists" << std::endl;
-    std::cout << "- if{p;f;g}  == if p is true when applied, then f else g" << std::endl;
-    std::cout << "- ccf{f1;...;fn}  == list of <f1:x,...,fn:x>" << std::endl;
+    std::cout << "id   == identity" << std::endl;
+    std::cout << "elm  == check is type Element" << std::endl;
+    std::cout << "seq  == check is type Sequence" << std::endl;
+    std::cout << "map{f}  == apply function f to each element of list" << std::endl;
+    std::cout << "filt{p} == filter elements that fail predicate p from list" << std::endl;
+    std::cout << "at{i}   == get element at index i from list" << std::endl;
+    std::cout << "apr{e}  == append element at right of list" << std::endl;
+    std::cout << "apl{e}  == append element at left of list" << std::endl;
+    std::cout << "cat{l}  == concatenate 2 lists" << std::endl;
+    std::cout << "if{p;f;g}  == if p is true, then apply f else apply g" << std::endl;
+    std::cout << "while{p;f} == while p is true, apply f" << std::endl;
+    std::cout << "do{i;f}    == apply f to argument i times" << std::endl;
+    std::cout << "ccf{f1;...;fn}  == list of <f1:x,...,fn:x>" << std::endl;
     std::cout << std::endl;
 }
 //-------------------------------------------------------------------------------------------
@@ -260,7 +267,6 @@ void history(Memory* m)
     m->print_history();
     std::cout << std::endl;
 }
-
 //-------------------------------------------------------------------------------------------
 
 void def(std::string s, Memory* m) //  function macro definition
@@ -353,9 +359,6 @@ void let(std::string s, Memory* m)
 
     delete P; // delete the current pattern on heap
     P = 0;
-
-    // delete obb; // comment out to fix *** Error in `bin/fplr': free(): invalid pointer *** Aborted
-    // obb = 0;
 }
 //-----------------------------------------------------------------------------------------
 
@@ -433,8 +436,6 @@ void print_ln(std::string s, Memory* m) // print
         {
             std::cout << "ERROR: Undefined" << std::endl;
         }
-
-        // delete ob; ob = 0; // ?? ptr management ??
     }
     else // print string
     {
@@ -500,9 +501,6 @@ void eval(std::string s, Memory* m)    // evaluate an expression
         {
             obb->print(); std::cout << std::endl;
         }
-
-        // delete obb; // comment out to fix ERROR #1
-        // obb = 0;
     }
     catch(std::exception &e)
     {
@@ -512,9 +510,6 @@ void eval(std::string s, Memory* m)    // evaluate an expression
 
     delete P; // delete the current pattern on heap
     P = 0;
-
-    // ERROR #1 (fixed)
-    // evaluating an element or sequence by itself crashes
 }
 //------------------------------------------------------------------------------------------
 

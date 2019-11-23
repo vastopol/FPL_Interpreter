@@ -1,6 +1,6 @@
 
 FPL Version Descriptions (informal)
-//---------------------------------------
+----------------------------------------
 
 * 1.0
   * Data Types: Elements && Sequences (Integers)
@@ -9,7 +9,7 @@ FPL Version Descriptions (informal)
   * Virtual Memory: Define Functions && Create Variables
   * Interactive REPL with File Handling
 
-//---------------------------------------
+---------------------------------------
 
 * 1.1
   * all primitive functions && commands lowercase
@@ -17,7 +17,7 @@ FPL Version Descriptions (informal)
   * added more functions
   * refactorization of code structure
 
-//---------------------------------------
+---------------------------------------
 
 * 1.2
     * rename ls -> mem
@@ -70,3 +70,21 @@ FPL Version Descriptions (informal)
     * rename lmin && lmax to min && max
     * Ctrl-D will crash command line in endless loop -- fixed
     * boolean for detect zero valued element
+
+---------------------------------------
+
+* 1.3
+    * update type information commands
+    * function execution timer
+    * func.h/cpp -> add more functions for the vm fn_pointers from the math.h library
+        * pow, log, gcd
+    * constant functions ~0 and ~1
+    * separate out operators from the action class
+    * implement special cases of functionality
+        * ccf{}, red{}, ins{}, del{}
+    * loops
+        * add a do{n;f} operator to apply a function f for n times
+        * while{}
+
+
+        

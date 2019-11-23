@@ -1,53 +1,31 @@
 TODO
 
-Version 1.3
-
-DONE:
-    * update type information commands
-    * function execution timer
-    * func.h/cpp -> add more functions for the vm fn_pointers from the math.h library
-        * pow, log, gcd
-    * constant functions ~0 and ~1
-    * separate out operators from the action class
-    * implement special cases of functionality
-        * ccf{}, red{}, ins{}, del{}
-
 next:
 
-    * improve parser functionality to overcome limitations
-        might have to pass parser to exec to handle more complex operator usage cases
+    * improve parser functionality to overcome limitations (need better parser)
+        * nested {} operators and composed expressions in operators
+        * probably need to embed/pass in the parser too
+        * might have to pass parser to exec to handle more complex operator usage cases
 
-    * loops
-        * add a do{n;f} operator to apply a function f for n times
-        * while{},until{} as loop operators
-
-    * have @ for rhs argument reference inside the operators
-
-    * inconsistencies with throwing exceptions or print error message and return in syscom.cpp
-        should go through and convert all error printing returning code to actual exception throwing
-
-    * rewrite Makefile so less complex and ugly
-    * go through and remove unnecessary include statements, old inaccurate comments, other cruft...
-    * restructure the .cpp files so functions are defined in same order as declared in header files
-
-    * rename sequence to list and element to int for clarity (might)
+    * have @ for rhs argument reference inside some of the operators
 
     * refactor code and update documentation
+        * inconsistencies with throwing exceptions or print error message and return in syscom.cpp
+            should go through and convert all error printing returning code to actual exception throwing
+        * rewrite Makefile so less complex and ugly
+        * go through and remove unnecessary include statements, old inaccurate comments, other cruft...
+        * restructure the .cpp files so functions are defined in same order as declared in header files
+        * rename sequence to list and element to int for clarity (might)
 
     * UPDATE AND CHECK ALL USER PROGRAMS AFTER CHANGES SO THEY STILL WORK
-
-    * need better parser
-        nested {} operators and composed expressions in operators
-        probably need to embed/pass in the parser too
-
-    * might need to make some overloaded functions for the operators
-        if, ccf, id, elm, seq, ...
 
 etc... maybe???
 
     * convert all to floating point
-    * consider merging the syscom commands into interpreter functions
     * perhaps latex documentation
+    * consider merging the syscom commands into interpreter functions
+    * might need to make some overloaded functions for the operators
+        if, ccf, id, elm, seq, ...
 
 ----------------------------------------
 

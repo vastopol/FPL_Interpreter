@@ -129,6 +129,16 @@ if{P;X1;X2}:L -> ?
 
 //---------------------------------------
 
+// while loop
+// P must be a predicate of the same type as arg
+while{P;X1}:E -> ?
+or
+while{P;X1}:L -> ?
+    if P:arg == true
+        arg = X1:arg
+
+//---------------------------------------
+
 notes:
 
 MAP
